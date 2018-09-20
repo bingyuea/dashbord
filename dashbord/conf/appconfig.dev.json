@@ -1,0 +1,6 @@
+{
+    "ENV": "dev",
+    "basepath": "",
+    "restfulapi": "//api.gateway.dev.cn/",
+    "webresourcePDBaseUrl": "//localhost:8088/build/"
+}

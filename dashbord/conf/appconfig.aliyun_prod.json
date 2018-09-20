@@ -1,0 +1,6 @@
+{
+    "ENV": "prd",
+    "basepath": "",
+    "restfulapi": "//api.gateway.mwbyd.cn/",
+    "webresourcePDBaseUrl": "//admin.gateway.mwbyd.cn/wukongwebresource/"
+}
