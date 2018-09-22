@@ -2,22 +2,30 @@
   background: transparent;
 }
 
-.ant-table-thead > tr > th {
-  background: #000;
-  color:#fff;
-}
 .ant-table-tbody > tr, .ant-table-thead > tr{
   border:0;
-  &:hover,&:focus{
-    background: #000;
-  }
 }
 .ant-table-tbody > tr > td, .ant-table-thead > tr > th {
   padding: 5px;
   border:0px;
   background: #000;
+  color:#fff;
+  border-radius: 0;
 }
 .ant-table{
   color:#fff;
   font-size: 12px;
+}
+.ant-table-thead > tr.ant-table-row-hover > td,
+.ant-table-tbody > tr.ant-table-row-hover > td,
+.ant-table-thead > tr:hover > td,
+.ant-table-tbody > tr:hover > td{
+  background: #000;
+}
+
+// 去除table tbody滚动条
+.ant-table-body{
+  ::-webkit-scrollbar{
+    width: 0 !important;
+  }
 }
