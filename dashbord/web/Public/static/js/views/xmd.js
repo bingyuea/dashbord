@@ -52,7 +52,7 @@ class XMD extends BaseView {
 
 
     renderPageOne(){
-      return 'one'
+      return 'as'
     }
 
     renderPageTwo(){
