@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import BaseView from "../core/view.base";
 import $ from "jquery";
+import {Table} from 'antd';
 //图表模型
-import { Labelline, Basicline } from "../ui/ui.charts";
+import {Labelline, Basicline} from "../ui/ui.charts";
 
-import { ProvinceCountModel, YearCountModel } from "../models/business.models";
+import {ProvinceCountModel, YearCountModel} from "../models/business.models";
 
 import Mock from "../mock/mock";
 
@@ -15,6 +16,7 @@ import Slider from "react-slick";
 //定义数据模型
 const provinceCountModel = ProvinceCountModel.getInstance(),
     yearCountModel = YearCountModel.getInstance();
+
 //巡检仪安装情况
 class SecondaryLoopLeft extends BaseView {
     constructor(props) {
@@ -42,7 +44,7 @@ class SecondaryLoopLeft extends BaseView {
     }
 
     renderPageOne() {
-        const { validityEventCountData } = this.state;
+        const {validityEventCountData} = this.state;
 
         // 算出表格高度
 
@@ -68,7 +70,6 @@ class SecondaryLoopLeft extends BaseView {
         };
 
         // 异常事件数量变化趋势
-        //安装时间
         const charts2 = {
             // data:yearCountData,
             data: Mock.charts2,
@@ -93,6 +94,31 @@ class SecondaryLoopLeft extends BaseView {
                 offset: 5
             }
         };
+
+        // 二次回路异常事件
+        const columns = [{
+            title: 'Name',
+            dataIndex: 'name',
+            width: 150,
+        }, {
+            title: 'Age',
+            dataIndex: 'age',
+            width: 150,
+        }, {
+            title: 'Address',
+            dataIndex: 'address',
+        }];
+
+        const data = [];
+        for (let i = 0; i < 100; i++) {
+            data.push({
+                key: i,
+                name: `Edward King ${i}`,
+                age: 32,
+                address: `London, Park Lane no. ${i}`,
+            });
+        }
+
         return (
             <div className="SecondaryLoopLeft content">
                 <div className="SecondaryLoopLeft_left">
@@ -100,17 +126,17 @@ class SecondaryLoopLeft extends BaseView {
                         <div className="loop_top">
                             <div className="loop_top_left">
                                 <div className="content_title">二次回路异常事件统计</div>
-                                <div className="blue_underline" />
+                                <div className="blue_underline"/>
                                 <div
                                     className="loop_content"
-                                    style={{ height: loop_content, lineHeight: loop_content }}
+                                    style={{height: loop_content, lineHeight: loop_content}}
                                 >
                                     1,420件
                                 </div>
                             </div>
                             <div className="loop_top_right">
                                 <div className="content_title no_border_left">区域占比</div>
-                                <div className="blue_underline" />
+                                <div className="blue_underline"/>
                                 <div className="loop_content">
                                     <Labelline {...charts6} />
                                 </div>
@@ -122,7 +148,37 @@ class SecondaryLoopLeft extends BaseView {
                         </div>
                     </div>
                 </div>
-                <div className="SecondaryLoopLeft_right">div.</div>
+                <div className="SecondaryLoopLeft_right">
+                    <div className="event">
+                        <div className="event_top">
+                            <div className="content_box">
+                                <div className="content_title">二次回路异常事件</div>
+                                <div className="content-table">
+                                    <Table columns={columns} dataSource={data} pagination={false} scroll={{ y: 40 }} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="event_bottom">
+                            <div className="event_bottom_left">
+                                <div className="content_box">
+                                    <div className="content_title">异常事件行业分布信息</div>
+                                    <div className="event-table">
+                                        我是图表
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="event_bottom_right">
+                                <div className="content_box">
+                                    <div className="content_title">异常事件类型信息</div>
+                                    <div className="event-table">
+                                        我是图表
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         );
     }
@@ -148,13 +204,13 @@ class SecondaryLoopLeft extends BaseView {
             <div className="page-slick page-SecondaryLoopLeft">
                 <h1 className="page-title">{this.state.pageTitle}</h1>
                 <div className="slick-btn">
-                    <div className="btn active" />
-                    <div className="btn" />
+                    <div className="btn active"/>
+                    <div className="btn"/>
                 </div>
                 {this.renderSearchBar()}
                 <div className="page-main slider_content">
                     <Slider {...settings}>
-                        <div className="slider_sec">{this.renderPageOne()}</div>
+                        <div className="slider_sec ">{this.renderPageOne()}</div>
                         <div className="slider_sec">{this.renderPageTwo()}</div>
                     </Slider>
                 </div>
