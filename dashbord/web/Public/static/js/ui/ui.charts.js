@@ -6,6 +6,7 @@ import Groupedcolumn from './ui.groupedcolumn.js'
 import Basicbar from './ui.basicbar.js'
 import Basicradar from './ui.basicradar.js'
 import ChinaMapChart from './ui.chainamap.js'
+import Doubleaxes from './ui.doubleaxes.js'
 
 module.exports = {
 	Basiccolumn:Basiccolumn,
@@ -15,5 +16,6 @@ module.exports = {
 	Groupedcolumn:Groupedcolumn,
 	Basicbar:Basicbar,
 	Basicradar:Basicradar,
-	ChinaMapChart:ChinaMapChart
+	ChinaMapChart:ChinaMapChart,
+	Doubleaxes:Doubleaxes
 }

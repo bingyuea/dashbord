@@ -373,7 +373,6 @@ class Dashboard extends BaseView {
             <div className='section-content'>
               <h6>安装时间</h6>
               <Basicline {...charts2} />
-              
             </div>
             <div className='section-content has-child'>
               <div className='section-left child'>
