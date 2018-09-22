@@ -6,7 +6,6 @@ import {
   Labelline,
   Basicbar,
 } from '../ui/ui.charts'
-//update something
 import {
   ProvinceCountModel,
   YearCountModel
