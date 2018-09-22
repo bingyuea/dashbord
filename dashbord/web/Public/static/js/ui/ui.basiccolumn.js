@@ -31,7 +31,12 @@ class Basiccolumn extends Component {
               type: "y"
             }}
           />
-          <Geom type="interval" color={'#5fa3ac'} position={`${this.props.xAxis}*${this.props.yAxis}`} />
+          <Geom type="interval" color={'#5fa3ac'} position={`${this.props.xAxis}*${this.props.yAxis}`} animate={{appear:{
+              animation: 'zoomIn', // 动画名称
+              easing: 'easeInQuart', // 动画缓动效果
+              delay: 3000, // 动画延迟执行时间
+              duration: 3000 // 动画执行时间
+            }}}/>
         </Chart>
       </div>
     );

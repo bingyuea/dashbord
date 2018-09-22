@@ -1,5 +1,5 @@
 import '../node_modules/antd/dist/antd.min.css';
-import '../less/private.less';
+import '../less/import.less';
 
 import BaseApp from './core/app.base'
 
@@ -18,7 +18,16 @@ class App extends BaseApp {
                             cb(null, page)
                         }, 'views/dashboard')
                     },
-                }
+                },
+                {
+                    path: __mei_wei__.env.basepath + 'xmd',
+                    getComponents(nextState, cb) {
+                        require.ensure([], (require) => {
+                            var page = require('./views/xmd.js');
+                            cb(null, page)
+                        }, 'views/xmd')
+                    }
+                },
             ],
             
             rooter: 'appview',

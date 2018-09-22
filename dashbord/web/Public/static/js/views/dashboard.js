@@ -255,7 +255,7 @@ class Dashboard extends BaseView {
       //不同省份安装情况
       const charts1 = {
         // data:provinceCountData,
-        data:Mock.charts1,
+        // data:Mock.charts1,
         height:chartHeight,
         xAxis:'name',
         yAxis:'count',

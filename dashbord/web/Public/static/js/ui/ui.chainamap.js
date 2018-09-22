@@ -5,7 +5,7 @@ import DataSet from '@antv/data-set';
 import {
   DEFAULT_COLOR
 } from '../data/color'
-
+//地图
 export default class ChinaMapChart extends Component {
 
   render() {

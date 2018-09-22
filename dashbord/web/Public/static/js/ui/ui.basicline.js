@@ -14,6 +14,7 @@ import {
   Facet,
   Util
 } from "bizcharts";
+
 import {
   DEFAULT_COLOR
 } from '../data/color'
@@ -21,7 +22,7 @@ import {
 //基础折线图
 class BasicLine extends React.Component {
   render() {
-    
+
     return (
       <div>
         <Chart placeholder {...this.props} scale={this.props.cols}>
@@ -43,6 +44,7 @@ class BasicLine extends React.Component {
               stroke: "#fff",
               lineWidth: 1
             }}
+            
           />
         </Chart>
       </div>
