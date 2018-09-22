@@ -3,7 +3,12 @@ import BaseView from "../core/view.base";
 import $ from "jquery";
 import {Table} from 'antd';
 //图表模型
-import {Labelline, Basicline} from "../ui/ui.charts";
+import {
+    Labelline,
+    Basicline,
+    Doubleaxes,
+    Basicbar
+} from "../ui/ui.charts";
 
 import {ProvinceCountModel, YearCountModel} from "../models/business.models";
 
@@ -44,6 +49,7 @@ class SecondaryLoopLeft extends BaseView {
     }
 
     renderPageOne() {
+        const domHeight = $('.page-main').height();
         const {validityEventCountData} = this.state;
 
         // 算出表格高度
@@ -119,8 +125,59 @@ class SecondaryLoopLeft extends BaseView {
             });
         }
 
+        const eventParent = $(".event_bottom").height();
+        const eventTable = eventParent - 20;
+        // 异常事件行业分布信息
+        const charts3 = {
+            data:Mock.charts8,
+            height:eventTable,
+            xAxis:'time',
+            yAxis_line:'people',
+            yAxis_interval:'waiting',
+            forceFit:true,
+            padding:'auto',
+            cols:{
+                call: {
+                    min: 0
+                },
+                people: {
+                    min: 0
+                },
+                waiting: {
+                    min: 0
+                }
+            },
+            style:{
+                overflow:'auto',
+            },
+            xLabel:{
+                offset:15,
+            },
+            yLabel:{
+                offset:5,
+            }
+        }
+        // 异常事件类型信息
+        const charts5 = {
+            // data:tradeCountData,
+            data:Mock.charts5,
+            height:eventTable,
+            xAxis:'trade',
+            yAxis:'count',
+            forceFit:true,
+            padding:'auto',
+            style:{
+                overflow:'auto',
+            },
+            xLabel:{
+                offset:15,
+            },
+            yLabel:{
+                offset:5,
+            }
+        }
         return (
-            <div className="SecondaryLoopLeft content">
+            <div className="SecondaryLoopLeft content" style={{height:domHeight}}>
                 <div className="SecondaryLoopLeft_left">
                     <div className="content_box">
                         <div className="loop_top">
@@ -163,7 +220,7 @@ class SecondaryLoopLeft extends BaseView {
                                 <div className="content_box">
                                     <div className="content_title">异常事件行业分布信息</div>
                                     <div className="event-table">
-                                        我是图表
+                                        <Doubleaxes {...charts3}/>
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +228,7 @@ class SecondaryLoopLeft extends BaseView {
                                 <div className="content_box">
                                     <div className="content_title">异常事件类型信息</div>
                                     <div className="event-table">
-                                        我是图表
+                                        <Basicbar {...charts5}/>
                                     </div>
                                 </div>
                             </div>
