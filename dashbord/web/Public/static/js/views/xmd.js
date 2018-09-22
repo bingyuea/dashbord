@@ -28,12 +28,14 @@ class XMD extends BaseView {
 
         super(props);
         this.state = {
-        	pageTitle:'巡检仪安装情况查询',
+          pageTitle:'巡检仪安装情况查询'
         }
     }
 
     componentDidMount(){
-      
+      this.setState({
+        pageStatus:'init'
+      })
     }
 
     renderSearchBar(){
@@ -110,24 +112,50 @@ class XMD extends BaseView {
       return(
         
           <SearchBar {...barOptions}/>
-        
       )
     }
 
-
     renderPageOne(){
-      return 'as'
+
+      return 'one'
+
+      return (
+        <div className="slider_sec">
+          <div className='side-content'>
+
+          </div>
+          <div className='center-content'>
+
+          </div>
+          <div className='side-content'>
+
+          </div>
+        </div>
+      )
     }
 
     renderPageTwo(){
       return 'two'
+      return (
+        <div className="slider_sec">
+          <div className='side-content'>
+
+          </div>
+          <div className='center-content'>
+
+          </div>
+          <div className='side-content'>
+
+          </div>
+        </div>
+
+      )
     }
     
     renderMain(){
 
       var settings = {
         dots: false,
-        dotsClass:'slick-dots slick-thumb item_box',
         autoplay: false,
         arrows: false,
         infinite: true,
@@ -137,6 +165,7 @@ class XMD extends BaseView {
         slidesToScroll: 1,
         touchMove:true
       };
+
       return (
         <div className='page-xmd page-slick'>
           <h1 className='page-title'>{this.state.pageTitle}</h1>
@@ -145,7 +174,7 @@ class XMD extends BaseView {
             <div className='btn'></div>
           </div>
           {this.renderSearchBar()}
-          <div className='page-main slider_content'>
+          <div className='page-main slider_content' style={{height:'496px'}}>
             <Slider {...settings}>
               <div className="slider_sec">
                 {this.renderPageOne()}

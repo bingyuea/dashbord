@@ -1,0 +1,58 @@
+.page-analy {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: #000;
+    .left,
+    .right {
+        width: 20%;
+        min-width: 183px;
+        margin-top: 20px;
+        padding: 0 1%;
+        flex-shrink: 0;
+        height: 100%;
+        .item {
+            height: 300px;
+            height: 25%;
+            .label {
+                height: 40px;
+                color: #5fa3ac;
+                text-align: left;
+            }
+            .tabel {
+                width: 100%;
+                height: calc(100% - 40px);
+                .row1,.row2,.row3{
+                    height: 33%;
+                    
+                }
+                .row1 {
+                    background:rgb(59,59,59);
+                    .h6 {
+                        display: inline-block;
+                        color:#FFF;
+                    }
+                }
+                .row2 {
+                    background:#777;
+                }
+                .row3 {
+                    background:rgb(59,59,59);
+                }
+                .flex {
+                    flex: 1;
+                    text-align: left;
+                    padding-left: 10px;
+                    align-self: center;
+                }
+            }
+        }
+    }
+    .center {
+        text-align: center;
+    }
+}
