@@ -3,17 +3,52 @@
 		display: flex;
 		flex-direction: row;
 		width: 100%;
-		color:#000;
-		background: #fff;
+	}
+	.page-main{
+		padding-bottom: 10px;
+	}
+	.slick-page{
+		display: flex;
+		flex-direction: row;
+		width: 100%;
 	}
 	.side-content{
-		width: 33%;
+		padding:10px;
+		width: 30%;
 		height: 100%;
-		background: #fff;
 		display: inline-block;
+  		text-align: center;
+	}
+	.section-content span{
+		font-size:20px;
+		color:#dcdcdc;
+		line-height: 35px;
+	}
+	.total-num{
+		text-align: left;
+		color:#fff;
+		font-size: 30px;
+		padding-left: 20px;
+		height: 70px;
+		line-height: 70px;
+		.blue-txt{
+			color:@blue;
+		}
 	}
 	.center-content{
+		padding:10px;
 		flex:1;
+		// border:3px dashed @blue;
+		// border:2px dot-dash @blue;
+  		//border-radius: 10px ;
 		height: 100%;
+		margin:0 5px;
+		display: flex;
+		flex-direction: column;
+
+		.top{
+			flex:1;
+			.content_box;
+		}
 	}
 }

@@ -50,7 +50,20 @@ const Mock = {
 	}, {
 		"eventType": 2, "eventName": "五次侧短路",
 		"count":15
-	}]
+	}],
+	charts8: [{
+        time: "10:20",
+        waiting: 2,
+        people: 5
+    },{
+        time: "11:20",
+        waiting: 3,
+        people: 1
+      },{
+        time: "12:20",
+        waiting: 5,
+        people: 9
+      },]
 
 };
 

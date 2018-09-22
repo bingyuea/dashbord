@@ -139,7 +139,7 @@ class SecondaryLoopLeft extends BaseView {
                 {this.renderSearchBar()}
                 <div className='page-main slider_content'>
                     <Slider {...settings}>
-                        <div className="slider_sec">
+                        <div className="slider_sec" style={{background:'#f00'}}>
                             {this.renderPageOne()}
                         </div>
                         <div className="slider_sec">
