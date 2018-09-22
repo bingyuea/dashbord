@@ -100,7 +100,7 @@ h6{
 
 .page-dashboard{
 	padding-top: 10px;
-	
+
 }
 .page-right{
 	.child{
@@ -148,7 +148,7 @@ h6{
 		height: 100%;
 		float: left;
 	}
-	
+
 }
 .page-center{
 	display: flex;
@@ -185,8 +185,41 @@ h6{
 		text-align: center;
 		line-height:50px;
 		color:@blue;
-		font-size: 20px; 
+		font-size: 20px;
 
 	}
 }
+// 图表的下划线
+.blue_underline{
+  height: 1px;
+  width: 100%;
+  background: @blue;
+}
+// 二次回路单页 content
+.content{
+  padding:10px 15px;
+  box-sizing: border-box;
+}
+// 二次回路单页 box
+.content_box{
+  border:2px dot-dash @blue;
+  border-radius: 10px ;
+}
+// 二次回路单页 title
+.content_title{
+  border-left: 6px solid @blue;
+  padding-left: 10px;
+  font-size: 15px;
+  margin-bottom: 5px;
+  line-height: 15px;
+  height: 20px;
+  text-align: left;
+  color:@blue;
+  // title 没有border-left
+  &.no_border_left{
+    border-left:0px;
+  }
+}
+
+
 
