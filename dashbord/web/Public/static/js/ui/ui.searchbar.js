@@ -43,7 +43,6 @@ class SearchBar extends Component {
   		const key = this.props.dateData.key;
   		let searchValue = this.state.searchValue;
         searchValue[key] = '';
-
         this.setState({
         	searchValue:searchValue
         });
@@ -52,6 +51,10 @@ class SearchBar extends Component {
     searchHandle(){
     	const searchValue = this.state.searchValue;
     	this.props.searchHandle && this.props.searchHandle(searchValue);
+    }
+
+    resetHandle(){
+        
     }
 
     renderSelect(item){
@@ -73,12 +76,12 @@ class SearchBar extends Component {
     			<div className='title'>{locationData.title}</div>
     			<div className='select-box double'>
     				<div className='left'>
-    					<div class='title'>省份</div>
-    					{this.renderSelect(locationData.provinceData)}
+    					<div className='title'>省份</div>
+    					{this.renderSelect(locationData.province)}
     				</div>
     				<div className='right'>
-    					<div class='title'>城市</div>
-    					{this.renderSelect(locationData.cityData)}
+    					<div className='title'>城市</div>
+    					{this.renderSelect(locationData.city)}
     				</div>
     			</div>
     		</div>
@@ -91,7 +94,7 @@ class SearchBar extends Component {
     		<div className='search-item' style={item.style}>
     			<div className='title'>{item.title}</div>
     			<div className='select-box'>
-    				{this.renderSelect(item)}
+    				{this.renderSelect(item,item.key)}
     			</div>
     		</div>
     	)
@@ -130,25 +133,33 @@ class SearchBar extends Component {
     }
 
     renderSearchBtn(){
-    	<div className='search-item search-btn' onClick={this.searchHandle.bind(this)}>
-			<Icon type='search'/>搜索			
-		</div>
+        return (
+            <div className='btn-box'>
+            	<div className=' search-btn' onClick={this.searchHandle.bind(this)}>
+        			<Icon type='search'/>搜索			
+        		</div>
+                <div className='search-btn' onClick={this.resetHandle.bind(this)}>
+                    <Icon type='search'/>重置        
+                </div>
+            </div>
+        )
+
     }
 
     render(){
 
     	const {
-    		locationData,
-    		measureData,
-    		tradeData,
-    		unusualData,
-    		dateData,
-    		themeData,
+    		locationData,//省市
+    		measureData,//计量类型
+    		tradeData,//行业类型
+    		unusualData,//异常类型
+    		dateData,//时间段选择
+    		themeData,//主题类型
     		inputData
     	}  = this.props;
 
     	return (
-    		<div className='search-bar'>
+    		<div className='searchbar-content'>
     			{locationData && this.renderLocationSelect(locationData)}
 	    		{measureData && this.renderSingleSelect(measureData)}
 	    		{tradeData && this.renderSingleSelect(tradeData)}

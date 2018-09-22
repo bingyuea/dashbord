@@ -61,8 +61,67 @@
 .searchbar-content{
 	width: 100%;
 	height: 100px;
+	padding-right: 110px;
+	padding-left: 20px;
 	background: #777;
+	position: relative;
 	margin:10px 0px;
+	display: flex;
+	padding-bottom: 10px;
+	flex-direction: row;
+	justify-content: start;
+	.search-item{
+		max-width: 20%;
+		margin-right: 20px;
+		flex:1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		.title{
+			font-size:15px;
+			color:@blue;
+		}
+		.select-box{
+			&.double{
+				width: 100%;	
+			}
+
+			display: flex;
+			flex-direction: row;
+			.title{
+				color:#fff;
+				margin-bottom: 10px;
+			}
+			.left{
+				margin-right: 10px;
+			}
+		}
+
+
+	}
+
+	.btn-box{
+		width: 70px;
+		height: 100px;
+		position: absolute;
+		padding:20px 0 10px;
+		top:50%;
+		right: 20px;
+		transform: translateY(-50%);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		.search-btn{
+			cursor: pointer;
+			background: @blue;
+			color:#fff;
+			font-size: 15px;
+			line-height: 30px;
+			border-radius: 5px;
+			text-align: center;
+		}
+	}
 }
 
 h1{
