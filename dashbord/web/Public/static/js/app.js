@@ -28,6 +28,26 @@ class App extends BaseApp {
                         }, 'views/xmd')
                     }
                 },
+                //二次回路异常主题分析（6）
+                {
+                    path: __mei_wei__.env.basepath + 'analy',
+                    getComponents(nextState, cb) {
+                        require.ensure([], (require) => {
+                            var page = require('./views/analy.js');
+                            cb(null, page)
+                        }, 'views/analy')
+                    }
+                },
+                //二次回路状态在线监测（8）
+                {
+                    path: __mei_wei__.env.basepath + 'status',
+                    getComponents(nextState, cb) {
+                        require.ensure([], (require) => {
+                            var page = require('./views/status.js');
+                            cb(null, page)
+                        }, 'views/status')
+                    }
+                },
                 // 二次回路单-异常分析 左
                 {
                     path: __mei_wei__.env.basepath + 'secondary_loop_left',
