@@ -154,6 +154,9 @@ class XMD extends BaseView {
     
     renderMain(){
 
+
+
+
       var settings = {
         dots: false,
         autoplay: false,
