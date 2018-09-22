@@ -591,7 +591,7 @@ class Dashboard extends BaseView {
     renderMain(){
 
         return (
-          <div className='page-dashboard page'>
+          <div className='page-dashboard'>
             {this.renderPageLeft()}
             {this.renderPageCenter()}
             {this.renderPageRight()}

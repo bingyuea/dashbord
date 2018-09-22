@@ -2,49 +2,74 @@
 	height: 100%;
 }
 @blue:#5fa3ac;
-.page{
+.page-dashboard{
 	width: 100%;
 	height: 100%;
 	box-sizing: border-box;
 	background: #000;
 	color:#fff;
 	display: flex;
-}
-.page-left,.page-right{
-	padding-top: 20px;
-	width: 25%;
-	box-sizing: border-box;
-	display: flex;
-	overflow:hidden;
-	flex-direction: column;
-	.charts-content{
+	.page-left,.page-right{
+		padding-top: 20px;
+		width: 25%;
+		box-sizing: border-box;
 		display: flex;
+		overflow:hidden;
 		flex-direction: column;
-		flex: 1;
+		.charts-content{
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+		}
+		.section-content{
+			flex:1;
+		}
 	}
-	.section-content{
+
+	.section-content.has-child{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		.child{
+			flex: 1;
+		}
+	}
+}
+
+
+
+.page-slick{
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	background: #000;
+	color:#fff;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	.page-main{
 		flex:1;
 	}
 }
 
-.section-content.has-child{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	.child{
-		flex: 1;
-	}
-}
 .page-center{
 	flex:1;
 }
 .text-blue{
 	color:#5fa3ac;
 }
+.searchbar-content{
+	width: 100%;
+	height: 100px;
+	background: #777;
+	margin:10px 0px;
+}
 
 h1{
 	font-size: 50px;
 	color:#5fa3ac;
+	height: 50px;
+	width: 100%;
 	text-align: center;
 }
 h3{
@@ -92,8 +117,39 @@ h6{
 			}
 		}
 	}
+}
 
+.slick-btn{
+	display: inline-flex;
+	justify-content: space-around;
+	.btn{
+		width: 150px;
+		height: 10px;
+		background: #777;
+		margin-right: 20px;
+		&:last-child{
+			margin-right: 0;
+		}
+		&.active{
+			background: #fff;
+		}
+	}
+}
+//轮播样式
+.slider_content{
+	position: relative;
+	overflow:hidden;
 
+	.slider_btn{
+		position: absolute;
+		width: 100%;
+
+	}
+	.slider_sec{
+		height: 100%;
+		float: left;
+	}
+	
 }
 .page-center{
 	display: flex;
