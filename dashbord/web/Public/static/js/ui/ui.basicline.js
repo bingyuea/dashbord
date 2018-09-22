@@ -34,6 +34,10 @@ class BasicLine extends React.Component {
             }}
           />
           <Geom type="line" color={DEFAULT_COLOR} position={`${this.props.xAxis}*${this.props.yAxis}`} size={2} />
+          {this.props.type === "area" ? 
+            <Geom type="line" color={DEFAULT_COLOR} position={`${this.props.xAxis}*${this.props.yAxis}`} size={2} />
+            : ""
+          }
           <Geom
             type="point"
             color={'#fff'}

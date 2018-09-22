@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import BaseView from '../core/view.base'
 import $ from 'jquery'
 
-//update something
 import {
   ProvinceCountModel,
   YearCountModel
