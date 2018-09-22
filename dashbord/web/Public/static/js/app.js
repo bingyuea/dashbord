@@ -28,6 +28,16 @@ class App extends BaseApp {
                         }, 'views/xmd')
                     }
                 },
+                // 二次回路单-异常分析 左
+                {
+                    path: __mei_wei__.env.basepath + 'secondary_loop_left',
+                    getComponents(nextState, cb) {
+                        require.ensure([], (require) => {
+                            var page = require('./views/secondaryLoopLeft.js');
+                            cb(null, page)
+                        }, 'views/secondaryLoopLeft')
+                    }
+                },
             ],
             
             rooter: 'appview',
