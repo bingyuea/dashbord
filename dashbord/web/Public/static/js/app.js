@@ -68,6 +68,12 @@ class App extends BaseApp {
                         }, 'views/secondaryLoop')
                     }
                 },
+                // 二次回路单异常主题分析 （7）
+                {
+                    path: __mei_wei__.env.basepath + 'secondary_analy',
+                    getComponents(nextState, cb) {
+送                    }
+                },
             ],
             
             rooter: 'appview',

@@ -42,18 +42,13 @@ const queryExceptionByTrade = QueryExceptionByTrade.getInstance();
 const queryExceptionDetail = QueryExceptionDetail.getInstance();
 // 异常信息表查询
 const queryExceptionList = QueryExceptionList.getInstance();
-/*
-*  二次回路单-异常分析2
-*/
-// 电流分析对比查询
-const queryElecCurrentData = QueryElecCurrentData.getInstance();
 
-class SecondaryLoop extends BaseView {
+class SecondaryAnaly extends BaseView {
     constructor(props) {
         super(props);
 
         this.state = {
-            pageTitle: "二次回路单-异常分析"
+            pageTitle: "二次回路异常主题分析"
         };
     }
 
@@ -71,11 +66,6 @@ class SecondaryLoop extends BaseView {
         this.fetchQueryExceptionByTrade();
         this.fetchQueryExceptionDetail();
         this.fetchQueryExceptionList();
-        /*
-        *  二次回路单-异常分析2
-        */
-        // 电流分析对比查询
-        this.fetchQueryElecCurrentData();
 
     }
 
@@ -294,57 +284,6 @@ class SecondaryLoop extends BaseView {
             // }
             self.setState({
                 dataList,
-            });
-        }, (err) => {
-            console.log(err)
-        })
-    }
-
-    /*
-    *  二次回路单-异常分析2
-    */
-
-    // 电流分析对比查询
-    fetchQueryElecCurrentData(token) {
-        const self = this;
-        // 这里是点击当前行的的数据
-        const searchValue = this.state.searchValue;
-        queryElecCurrentData.setParam({
-            token: token,
-            serialNum: searchValue.serialNum,
-            elecSerialNum: searchValue.elecSerialNum,
-            occTime: searchValue.occTime,
-        });
-        queryElecCurrentData.excute((res) => {
-            const resData = res.data || {};
-            const xmdData = resData.xmdData || [];
-            const elecData = resData.elecData || [];
-            // {
-            //     "result":1,
-            //     "xmdData":[
-            //     {
-            //         "phase":"A相",
-            //         "pointList":[0.5,0.6,.....,0.9]
-            // },
-            //     {
-            //         "phase ":" B相",
-            //         "pointList":[0.5,0.6,.....,0.9]
-            //     }
-            // ],
-            //     "elecData":[
-            //     {
-            //         "phase":"A相",
-            //         "pointList":[0.5,0.6,.....,0.9]
-            // },
-            //     {
-            //         "phase ":" B相",
-            //         "pointList":[0.5,0.6,.....,0.9]
-            //     }
-            // ]
-            // }
-            self.setState({
-                xmdData,
-                elecData,
             });
         }, (err) => {
             console.log(err)
@@ -606,15 +545,8 @@ class SecondaryLoop extends BaseView {
         // table 的高度不对
         const tableParent = $(".event_top").height();
         const tableHeight = tableParent - 20;
-        console.log(tableParent)
-        console.log(tableHeight)
-        console.log($(".event").height() + "event")
-        console.log($(".SecondaryLoopLeft_right").height() + "SecondaryLoopLeft_right")
-        console.log($(".SecondaryLoopLeft ").height() + "SecondaryLoopLeft ")
-
-
         return (
-            <div className="SecondaryLoopLeft content" style={{height: domHeight}}>
+            <div className="SecondaryanalyRight content" style={{height: domHeight}}>
                 <div className="SecondaryLoopLeft_left">
                     <div className="content_box">
                         <div className="loop_top">
@@ -679,275 +611,8 @@ class SecondaryLoop extends BaseView {
     }
 
     renderPageTwo() {
-        let [
-            domHeight,// tab页面的高度
-            data, // 表格里面的数据
-            columns, // 二次回路异常事件
-            chartsEleA, // 电流分析对比查询 图表A
-            chartsEleB, // 电流分析对比查询 图表B
-            chartsEleC, // 电流分析对比查询 图表C
-            chartsEleHeight, // 电流分析对比查询 高度
-            chartsEleChange, // 电量变化图表
-            chartsEleChangeHeight, // 电量变化图表 高度
-        ] = [
-            $('.page-main').height(),// tab页面的高度
-            [], // 表格里面的数据
-            [
-                {
-                    title: '所属地区',
-                    dataIndex: 'place',
-                },
-                {
-                    title: '所属县市',
-                    dataIndex: '所属县市',
-                },
-                {
-                    title: '巡检仪资产编号',
-                    dataIndex: 'serialNum',
-                },
-                {
-                    title: '电能表资产编号',
-                    dataIndex: 'elecSerialNum',
-                },
-                {
-                    title: '户名',
-                    dataIndex: 'username',
-                },
-                {
-                    title: '用电类型',
-                    dataIndex: 'trade',
-                },
-                {
-                    title: '异常类型',
-                    dataIndex: 'exception',
-                },
-                {
-                    title: '异常日期',
-                    dataIndex: 'occTime',
-                },
-                {
-                    title: '恢复日期',
-                    dataIndex: 'recoverTime',
-                },
-            ], // 二次回路异常事件
-            {},
-            {},
-            {},
-            ($(".SecondaryLoopLeft_left").height() - 20) / 3,// 电流分析对比查询 高度
-            [],// 电流分析对比查询 数据
-            {},// 电量变化图表
-            $(".event_bottom_center .content_box").height() - 20,// 电量变化图表 高度
-        ];
-        chartsEleA = {
-            // data:yearCountData,
-            data: Mock.charts2,
-            type: "area",
-            height: chartsEleHeight,
-            xAxis: "year",
-            yAxis: "count",
-            forceFit: true,
-            padding: "auto",
-            cols: {
-                year: {
-                    tickInterval: 1
-                }
-            },
-            style: {
-                overflow: "hidden"
-            },
-            xLabel: {
-                offset: 15
-            },
-            yLabel: {
-                offset: 5
-            }
-        };// 电流分析对比查询 图表A
-        chartsEleB = {
-            // data:yearCountData,
-            data: Mock.charts2,
-            type: "area",
-            height: chartsEleHeight,
-            xAxis: "year",
-            yAxis: "count",
-            forceFit: true,
-            padding: "auto",
-            cols: {
-                year: {
-                    tickInterval: 1
-                }
-            },
-            style: {
-                overflow: "hidden"
-            },
-            xLabel: {
-                offset: 15
-            },
-            yLabel: {
-                offset: 5
-            }
-        };// 电流分析对比查询 图表B
-        chartsEleC = {
-            // data:yearCountData,
-            data: Mock.charts2,
-            type: "area",
-            height: chartsEleHeight,
-            xAxis: "year",
-            yAxis: "count",
-            forceFit: true,
-            padding: "auto",
-            cols: {
-                year: {
-                    tickInterval: 1
-                }
-            },
-            style: {
-                overflow: "hidden"
-            },
-            xLabel: {
-                offset: 15
-            },
-            yLabel: {
-                offset: 5
-            }
-        };// 电流分析对比查询 图表C
-        chartsEleChange = {
-            // data:yearCountData,
-            data: Mock.charts2,
-            type: "area",
-            height: chartsEleChangeHeight,
-            xAxis: "year",
-            yAxis: "count",
-            forceFit: true,
-            padding: "auto",
-            cols: {
-                year: {
-                    tickInterval: 1
-                }
-            },
-            style: {
-                overflow: "hidden"
-            },
-            xLabel: {
-                offset: 15
-            },
-            yLabel: {
-                offset: 5
-            }
-        };// 电量变化图表
-        console.log($(".SecondaryLoopLeft_left"))
-        for (let i = 0; i < 100; i++) {
-            data.push(
-                {
-                    key: `${i}`,
-                    username: `李四${i}`,
-                    place: "南京市",
-                    serialNum: "SN1234322",
-                    elecSerialNum: `SN1234325${i}`,
-                    trade: "轻工业用电",
-                    exception: 2,
-                    occTime: "2017-10-10",
-                    recoverTime: "2017-10-11",
-                }
-            );
-        }
         return (
-            <div className="SecondaryLoopRight content" style={{height: domHeight}}>
-                <div className="SecondaryLoopRight_left">
-                    <div className="content_box">
-                        <div className="content_title">电流对比分析</div>
-                        <div className="ele_charts">
-                            <p className="ele_charts_title">A组</p>
-                            <Basicline {...chartsEleA} />
-                        </div>
-                        <div className="ele_charts">
-                            <p className="ele_charts_title">A组</p>
-                            <Basicline {...chartsEleB} />
-                        </div>
-                        <div className="ele_charts">
-                            <p className="ele_charts_title">A组</p>
-                            <Basicline {...chartsEleC} />
-                        </div>
-                    </div>
-                </div>
-                <div className="SecondaryLoopRight_right">
-                    <div className="event">
-                        <div className="event_top">
-                            <div className="content_box">
-                                <div className="content_title">二次回路异常事件</div>
-                                <div className="content-table">
-                                    <Table columns={columns} dataSource={data} pagination={false}
-                                           scroll={{y: 120}}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="event_bottom">
-                            <div className="event_bottom_left">
-                                <div className="content_box">
-                                    <div className="content_title">事件信息</div>
-                                    <div className="event-table">
-                                        <ul>
-                                            <li>
-                                                <p>
-                                                    电能表上报事件
-                                                </p>
-                                                <div className="blue_underline"></div>
-                                                <p className="event_report"></p>
-                                            </li>
-                                            <li>
-                                                <p>
-                                                    巡检仪上报事件
-                                                </p>
-                                                <div className="blue_underline"></div>
-                                                <p className="event_report"></p>
-                                            </li>
-
-                                            <li>
-                                                <p>
-                                                    巡检仪上报事件
-                                                </p>
-                                                <div className="blue_underline"></div>
-                                                <p className="event_report"></p>
-                                            </li>
-
-                                            <li>
-                                                <p>
-                                                    巡检仪上报事件
-                                                </p>
-                                                <div className="blue_underline"></div>
-                                                <p className="event_report"></p>
-                                            </li>
-
-                                            <li>
-                                                <p>
-                                                    巡检仪上报事件
-                                                </p>
-                                                <div className="blue_underline"></div>
-                                                <p className="event_report"></p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="event_bottom_center">
-                                <div className="content_box">
-                                    <div className="content_title">电量变化</div>
-                                    <div className="event-table">
-                                        <Basicline {...chartsEleChange} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="event_bottom_right">
-                                <div className="content_box">
-                                    <div className="content_title">判定条件</div>
-                                    <div className="event-table">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            <div>page2</div>
         )
     }
 
@@ -965,7 +630,7 @@ class SecondaryLoop extends BaseView {
             touchMove: true
         };
         return (
-            <div className="page-slick page-SecondaryLoopLeft">
+            <div className="page-slick page-SecondaryAnaly">
                 <h1 className="page-title">{this.state.pageTitle}</h1>
                 <div className="slick-btn">
                     <div className="btn active"/>
@@ -983,4 +648,4 @@ class SecondaryLoop extends BaseView {
     }
 }
 
-module.exports = SecondaryLoop;
+module.exports = SecondaryAnaly;
