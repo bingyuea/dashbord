@@ -17,6 +17,34 @@ class QueryExceptionByArea extends BaseModel {
         this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryExceptionByArea';
     }
 }
+// 异常事件数量变化趋势
+class QueryExceptionByTime extends BaseModel {
+    constructor(props) {
+        super(props);
+        this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryExceptionByTime';
+    }
+}
+// 行业分布信息查询
+class QueryExceptionByTrade extends BaseModel {
+    constructor(props) {
+        super(props);
+        this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryExceptionByTrade';
+    }
+}
+// 异常类型分布情况查询
+class QueryExceptionDetail extends BaseModel {
+    constructor(props) {
+        super(props);
+        this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryExceptionDetail';
+    }
+}
+// 异常信息表查询
+class QueryExceptionList extends BaseModel {
+    constructor(props) {
+        super(props);
+        this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryExceptionList';
+    }
+}
 module.exports = {
     /*
      *  二次回路单-异常分析1
@@ -25,4 +53,12 @@ module.exports = {
     QueryExceptionCount,
     // 异常区域占比查询
     QueryExceptionByArea,
+    // 异常事件数量变化趋势
+    QueryExceptionByTime,
+    // 行业分布信息查询
+    QueryExceptionByTrade,
+    // 异常类型分布情况查询
+    QueryExceptionDetail,
+    // 异常信息表查询
+    QueryExceptionList
 };

@@ -12,9 +12,15 @@ import {
 
 import {
     QueryExceptionCount,
-    QueryExceptionByArea
+    QueryExceptionByArea,
+    QueryExceptionByTime,
+    // 行业分布信息查询
+    QueryExceptionByTrade,
+    // 异常类型分布情况查询
+    QueryExceptionDetail,
+    // 异常信息表查询
+    QueryExceptionList
 } from "../models/secondaryLoop.models";
-
 import Mock from "../mock/mock";
 
 import SearchBar from "../ui/ui.searchbar.js";
@@ -24,8 +30,14 @@ import Slider from "react-slick";
 //定义数据模型
 const queryExceptionCount = QueryExceptionCount.getInstance();
 const queryExceptionByArea = QueryExceptionByArea.getInstance();
+const queryExceptionByTime = QueryExceptionByTime.getInstance();
+// 行业分布信息查询
+const queryExceptionByTrade = QueryExceptionByTrade.getInstance();
+// 异常类型分布情况查询
+const queryExceptionDetail = QueryExceptionDetail.getInstance();
+// 异常信息表查询
+const queryExceptionList = QueryExceptionList.getInstance();
 
-//巡检仪安装情况
 class SecondaryLoopLeft extends BaseView {
     constructor(props) {
         super(props);
@@ -45,6 +57,10 @@ class SecondaryLoopLeft extends BaseView {
     pageInit() {
         this.fetchQueryExceptionCount();
         this.fetchQueryExceptionByArea();
+        this.fetchQueryExceptionByTime();
+        this.fetchQueryExceptionByTrade();
+        this.fetchQueryExceptionDetail();
+        this.fetchQueryExceptionList();
     }
 
     // 异常事件总数查询
@@ -87,11 +103,176 @@ class SecondaryLoopLeft extends BaseView {
         });
         queryExceptionByArea.excute((res) => {
             const resData = res.data || {};
-            const area = resData.area || 0;
-            const areaCount = resData.areaCount || 0;
+            const areaList = resData.areaList || [];
+            // "areaList":[
+            //         {
+            //             "area":"浦东新区,
+            //             "areaCount": 200
+            //         },
+            //         {
+            //             "area":"黄浦区",
+            //             "areaCount"; 300
+            // }
+            // ]
             self.setState({
-                area,
-                areaCount,
+                areaList,
+            });
+        }, (err) => {
+            console.log(err)
+        })
+    }
+    // 异常事件数量变化趋势
+    fetchQueryExceptionByTime(token) {
+        const self = this;
+        const searchValue = this.state.searchValue;
+        queryExceptionByTime.setParam({
+            token: token,
+            province:searchValue.province,
+            city: searchValue.city,
+            serialNum: searchValue.serialNum,
+            trade: searchValue.trade,
+            exception: searchValue.exception,
+            startTime: searchValue.startTime,
+            endTime: searchValue.endTime,
+        });
+        queryExceptionByTime.excute((res) => {
+            const resData = res.data || {};
+            const periodList = resData.periodList || [];
+            //  "periodList":[
+            // {
+            // 	"period":"2017-03-01",
+            // 	"periodCount":200
+            // },
+            // 	{
+            // 	"period":"2017-03-02",
+            // 	"periodCount":300
+            // }
+            // ]
+            self.setState({
+                periodList,
+            });
+        }, (err) => {
+            console.log(err)
+        })
+    }
+    // 行业分布信息查询
+    fetchQueryExceptionByTrade(token) {
+        const self = this;
+        const searchValue = this.state.searchValue;
+        queryExceptionByTrade.setParam({
+            token: token,
+            province:searchValue.province,
+            city: searchValue.city,
+            serialNum: searchValue.serialNum,
+            trade: searchValue.trade,
+            exception: searchValue.exception,
+            startTime: searchValue.startTime,
+            endTime: searchValue.endTime,
+        });
+        queryExceptionByTrade.excute((res) => {
+            const resData = res.data || {};
+            const tradeList = resData.tradeList || [];
+            // "tradeList":[
+            //     {
+            //         "trade":1,
+            //         "tradeName":"大工业用电",
+            //         "tradeCount":200
+            //     },
+            //     {
+            //         "trade":2,
+            //         "tradeName":"轻工业用电",
+            //         "tradeCount": 100
+            //     }
+            // ]
+            self.setState({
+                tradeList,
+            });
+        }, (err) => {
+            console.log(err)
+        })
+    }
+    // 异常类型分布情况查询
+    fetchQueryExceptionDetail(token) {
+        const self = this;
+        const searchValue = this.state.searchValue;
+        queryExceptionDetail.setParam({
+            token: token,
+            province:searchValue.province,
+            city: searchValue.city,
+            serialNum: searchValue.serialNum,
+            trade: searchValue.trade,
+            exception: searchValue.exception,
+            startTime: searchValue.startTime,
+            endTime: searchValue.endTime,
+        });
+        queryExceptionDetail.excute((res) => {
+            const resData = res.data || {};
+            const exceptionList = resData.exceptionList || [];
+            //     "exceptionList":[
+            //         {
+            //             "exception":1,
+            //             "name":"二次侧短路",
+            //             "exceptionCount":20
+            //         },
+            //         {
+            // “exception":2,
+            // “name":"电能表计量示值错误",
+            // “exceptionCount":30
+            // }
+            // ]
+            self.setState({
+                exceptionList,
+            });
+        }, (err) => {
+            console.log(err)
+        })
+    }
+    // 异常信息表查询
+    fetchQueryExceptionList(token) {
+        const self = this;
+        const searchValue = this.state.searchValue;
+        queryExceptionList.setParam({
+            token: token,
+            province:searchValue.province,
+            city: searchValue.city,
+            serialNum: searchValue.serialNum,
+            trade: searchValue.trade,
+            exception: searchValue.exception,
+            startTime: searchValue.startTime,
+            endTime: searchValue.endTime,
+        });
+        queryExceptionList.excute((res) => {
+            const resData = res.data || {};
+            const dataList = resData.dataList || [];
+            // {
+            //     "result":1,
+            //     "totalPage":3,
+            //     "currentPage":1,
+            //     "dataList":[
+            //     {
+            //         "username":"张三",
+            //         "place":"南京市",
+            //         "serialNum":"SN1234325",
+            //         "elecSerialNum":"SN1234325",
+            //         "trade":"大工业用电",
+            //         "exception":1,
+            //         "occTime":"2017-10-10",
+            //         "recoverTime":"2017-10-11'
+            //     },
+            //     {
+            //         "username":"李四",
+            //         "place":"南京市",
+            //         "serialNum":"SN1234322",
+            //         "elecSerialNum":"SN1234325",
+            //         "trade":"轻工业用电",
+            //         "exception":2,
+            //         "occTime":"2017-10-10",
+            //         "recoverTime":"2017-10-11'
+            //     }
+            // ]
+            // }
+            self.setState({
+                dataList,
             });
         }, (err) => {
             console.log(err)
@@ -354,10 +535,10 @@ class SecondaryLoopLeft extends BaseView {
                                 <div className="blue_underline"/>
                                 <div
                                     className="loop_content loop_number"
-                                    style={{height: loop_content, lineHeight: loop_content}}
+                                    style={{height: loop_content, lineHeight: `${loop_content}px`}}
                                 >
                                     1,420
-                                    <span className="text-white">件</span>
+                                    <span className="text-white">&nbsp;件</span>
                                 </div>
                             </div>
                             <div className="loop_top_right">
@@ -381,7 +562,7 @@ class SecondaryLoopLeft extends BaseView {
                                 <div className="content_title">二次回路异常事件</div>
                                 <div className="content-table">
                                     <Table columns={columns} dataSource={data} pagination={false}
-                                           scroll={{y: 140}}/>
+                                           scroll={{y: 120}}/>
                                 </div>
                             </div>
                         </div>
