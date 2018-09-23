@@ -72,7 +72,11 @@ class App extends BaseApp {
                 {
                     path: __mei_wei__.env.basepath + 'secondary_analy',
                     getComponents(nextState, cb) {
-送                    }
+                        require.ensure([], (require) => {
+                            var page = require('./views/secondaryAnaly.js');
+                            cb(null, page)
+                        }, 'views/secondaryAnaly')
+                    }
                 },
             ],
             

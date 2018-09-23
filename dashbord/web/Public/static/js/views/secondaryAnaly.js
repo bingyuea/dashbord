@@ -7,7 +7,8 @@ import {
     Labelline,
     Basicline,
     Doubleaxes,
-    Basicbar
+    Basicbar,
+    Groupedcolumn
 } from "../ui/ui.charts";
 
 import {
@@ -20,18 +21,13 @@ import {
     QueryExceptionDetail,
     // 异常信息表查询
     QueryExceptionList,
-    /*
-    *  二次回路单-异常分析2
-    */
-    // 电流分析对比查询
-    QueryElecCurrentData,
 } from "../models/secondaryLoop.models";
 import Mock from "../mock/mock";
 
 import SearchBar from "../ui/ui.searchbar.js";
 
 import Slider from "react-slick";
-
+// 异常主题事件评估值 数据没有
 //定义数据模型
 const queryExceptionCount = QueryExceptionCount.getInstance();
 const queryExceptionByArea = QueryExceptionByArea.getInstance();
@@ -366,7 +362,6 @@ class SecondaryAnaly extends BaseView {
             },
             searchHandle: this.search.bind(this),
         }
-
         return (
             <SearchBar {...barOptions} />
         );
@@ -375,63 +370,17 @@ class SecondaryAnaly extends BaseView {
     renderPageOne() {
         let [
             domHeight,
-            loop_content,// 算出表格高度
-            data, // 表格里面的数据
-            eventTable, // 图表高度
+            loop_content,// 二次回路异常事件统计高度
             charts2, // 异常事件数量变化趋势
-            columns, // 二次回路异常事件
-            charts3, // 异常事件行业分布信息
-            charts5, // 异常事件类型信息
-            charts6, // 区域占比
+            theme, // 异常主题评估
+            themeHeight, // 异常主题评估 高度
         ] = [
             $('.page-main').height(),
             $(".loop_top").height() - 20,// 算出表格高度
-            [],
-            $(".event_bottom .content_box").height() - 20,
             {},// 异常事件数量变化趋势
-            [],// 二次回路异常事件
-            {},// 异常事件行业分布信息
-            {},// 异常事件类型信息
-            {}// 区域占比
+            {}, // 异常主题评估
+            $(".SecondaryanalyRight_left .content_box").height() - 20,// 异常主题评估 高度
         ];
-        columns = [
-            {
-                title: '所属地区',
-                dataIndex: 'place',
-            },
-            {
-                title: '所属县市',
-                dataIndex: '所属县市',
-            },
-            {
-                title: '巡检仪资产编号',
-                dataIndex: 'serialNum',
-            },
-            {
-                title: '电能表资产编号',
-                dataIndex: 'elecSerialNum',
-            },
-            {
-                title: '户名',
-                dataIndex: 'username',
-            },
-            {
-                title: '用电类型',
-                dataIndex: 'trade',
-            },
-            {
-                title: '异常类型',
-                dataIndex: 'exception',
-            },
-            {
-                title: '异常日期',
-                dataIndex: 'occTime',
-            },
-            {
-                title: '恢复日期',
-                dataIndex: 'recoverTime',
-            },
-        ]
         charts2 = {
             // data:yearCountData,
             data: Mock.charts2,
@@ -456,116 +405,53 @@ class SecondaryAnaly extends BaseView {
                 offset: 5
             }
         };
-        console.log(eventTable+"eventTable")
-        charts3 = {
-            data: Mock.charts8,
-            height: eventTable,
-            xAxis: 'time',
-            yAxis_line: 'people',
-            yAxis_interval: 'waiting',
-            forceFit: true,
-            padding: 'auto',
-            cols: {
-                call: {
-                    min: 0
-                },
-                people: {
-                    min: 0
-                },
-                waiting: {
-                    min: 0
-                }
+        theme = {
+            data: [{
+                name: "London",
+                "Jan.": 18.9,
+                "Feb.": 28.8,
+                "Mar.": 39.3,
+                "Apr.": 81.4,
+                May: 47,
+                "Jun.": 20.3,
+                "Jul.": 24,
+                "Aug.": 35.6
+            }, {
+                name: "Berlin",
+                "Jan.": 12.4,
+                "Feb.": 23.2,
+                "Mar.": 34.5,
+                "Apr.": 99.7,
+                May: 52.6,
+                "Jun.": 35.5,
+                "Jul.": 37.4,
+                "Aug.": 42.4
+            }],
+            fields:["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug."],
+            keyName:'月份',
+            value:'月均降雨量',
+            fieldsName:'name',
+            style:{
+                overflow:'hidden'
             },
-            style: {
-                overflow: 'hidden',
-            },
-            xLabel: {
-                offset: 15,
-            },
-            yLabel: {
-                offset: 5,
-            }
+            padding:'auto',
+            height:themeHeight
         };
-        charts5 = {
-            // data:tradeCountData,
-            data: Mock.charts5,
-            height: eventTable,
-            xAxis: 'trade',
-            yAxis: 'count',
-            forceFit: true,
-            padding: 'auto',
-            style: {
-                overflow: 'hidden',
-            },
-            xLabel: {
-                offset: 15,
-            },
-            yLabel: {
-                offset: 5,
-            }
-        };
-        // 区域占比
-        charts6 = {
-            // data:validityEventCountData,
-            data: Mock.charts6,
-            height: loop_content,
-            forceFit: true,
-            padding: "auto",
-            field: "count",
-            dimension: "eventName",
-            cols: {
-                percent: {
-                    formatter: val => {
-                        val = (val * 100).toFixed(0) + "%";
-                        return val;
-                    }
-                }
-            }
-        };
-        // const
-        //     {
-        //         validityEventCountData
-        //     }
-        //         = this.state;
-        for (let i = 0; i < 100; i++) {
-            data.push(
-                {
-                    key: `${i}`,
-                    username: `李四${i}`,
-                    place: "南京市",
-                    serialNum: "SN1234322",
-                    elecSerialNum: `SN1234325${i}`,
-                    trade: "轻工业用电",
-                    exception: 2,
-                    occTime: "2017-10-10",
-                    recoverTime: "2017-10-11",
-                }
-            );
-        }
-        // table 的高度不对
-        const tableParent = $(".event_top").height();
-        const tableHeight = tableParent - 20;
         return (
             <div className="SecondaryanalyRight content" style={{height: domHeight}}>
-                <div className="SecondaryLoopLeft_left">
+                <div className="SecondaryanalyRight_left">
                     <div className="content_box">
                         <div className="loop_top">
-                            <div className="loop_top_left">
-                                <div className="content_title">二次回路异常事件统计</div>
-                                <div className="blue_underline"/>
-                                <div className="loop_content loop_number"
-                                     style={{height: loop_content, lineHeight: `${loop_content}px`}}
-                                >
-                                    1,420
-                                    <span className="text-white">&nbsp;件</span>
+                            <div className="loop_top_box">
+                                <div className="content_title">二次回路异常事件统计
+                                <span className="blue_underline"></span>
                                 </div>
                             </div>
-                            <div className="loop_top_right">
-                                <div className="content_title no_border_left">区域占比</div>
-                                <div className="blue_underline"/>
-                                <div className="loop_content">
-                                    <Labelline {...charts6} />
-                                </div>
+                            <div className="loop_content loop_number"
+                                 style={{height: loop_content, lineHeight: `${loop_content}px`}}
+                            >
+                                1,420
+                                <span className="text-white">&nbsp;件</span>
                             </div>
                         </div>
                         <div className="loop_bottom">
@@ -574,33 +460,12 @@ class SecondaryAnaly extends BaseView {
                         </div>
                     </div>
                 </div>
-                <div className="SecondaryLoopLeft_right">
+                <div className="SecondaryanalyRight_right">
                     <div className="event">
-                        <div className="event_top">
-                            <div className="content_box">
-                                <div className="content_title">二次回路异常事件</div>
-                                <div className="content-table">
-                                    <Table columns={columns} dataSource={data} pagination={false}
-                                           scroll={{y: 120}}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="event_bottom">
-                            <div className="event_bottom_left">
-                                <div className="content_box">
-                                    <div className="content_title">异常事件行业分布信息</div>
-                                    <div className="event-table">
-                                        <Doubleaxes {...charts3}/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="event_bottom_right">
-                                <div className="content_box">
-                                    <div className="content_title">异常事件类型信息</div>
-                                    <div className="event-table">
-                                        <Basicbar {...charts5}/>
-                                    </div>
-                                </div>
+                        <div className="content_box">
+                            <div className="content_title">异常主题评估</div>
+                            <div className="event-table">
+                                <Groupedcolumn {...theme}/>
                             </div>
                         </div>
                     </div>
