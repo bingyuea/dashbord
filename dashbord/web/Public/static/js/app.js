@@ -48,14 +48,34 @@ class App extends BaseApp {
                         }, 'views/status')
                     }
                 },
-                // 二次回路单-异常分析 左
+                //二次回路状态在线监测详情（9）
                 {
-                    path: __mei_wei__.env.basepath + 'secondary_loop_left',
+                    path: __mei_wei__.env.basepath + 'statusDt',
                     getComponents(nextState, cb) {
                         require.ensure([], (require) => {
-                            var page = require('./views/secondaryLoopLeft.js');
+                            var page = require('./views/statusDt.js');
                             cb(null, page)
-                        }, 'views/secondaryLoopLeft')
+                        }, 'views/statusDt')
+                    }
+                },
+                // 二次回路单-异常分析 （4，5）
+                {
+                    path: __mei_wei__.env.basepath + 'secondary_loop',
+                    getComponents(nextState, cb) {
+                        require.ensure([], (require) => {
+                            var page = require('./views/secondaryLoop.js');
+                            cb(null, page)
+                        }, 'views/secondaryLoop')
+                    }
+                },
+                // 二次回路单异常主题分析 （7）
+                {
+                    path: __mei_wei__.env.basepath + 'secondary_analy',
+                    getComponents(nextState, cb) {
+                        require.ensure([], (require) => {
+                            var page = require('./views/secondaryAnaly.js');
+                            cb(null, page)
+                        }, 'views/secondaryAnaly')
                     }
                 },
             ],

@@ -1,6 +1,9 @@
 #appview,#g_body{
 	height: 100%;
 }
+li{
+  list-style: none;
+}
 @blue:#5fa3ac;
 .page-dashboard{
 	width: 100%;
@@ -9,6 +12,10 @@
 	background: #000;
 	color:#fff;
 	display: flex;
+	&.page{
+		padding: 10px 20px;
+		justify-content: space-between;
+	}
 	.page-left,.page-right{
 		padding-top: 20px;
 		width: 25%;
@@ -35,7 +42,13 @@
 		}
 	}
 }
-
+.ellipsis{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	-webkit-box-orient: vertical;
+	word-break: break-all;
+  }
 .flex-layout{
 	display: flex;
 }
@@ -65,6 +78,9 @@
 }
 .text-blue{
 	color:#5fa3ac;
+}
+.text-white{
+  color:#fff !important;
 }
 .searchbar-content{
 	width: 100%;
