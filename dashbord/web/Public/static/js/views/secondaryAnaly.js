@@ -379,8 +379,11 @@ class SecondaryAnaly extends BaseView {
             $(".loop_top").height() - 20,// 算出表格高度
             {},// 异常事件数量变化趋势
             {}, // 异常主题评估
-            $(".SecondaryanalyRight_left .content_box").height() - 20,// 异常主题评估 高度
+            $(".themeHeight").height(),// 异常主题评估 高度
         ];
+        console.log(loop_content)
+        console.log($(".loop_top"))
+        console.log(themeHeight)
         charts2 = {
             // data:yearCountData,
             data: Mock.charts2,
@@ -464,7 +467,7 @@ class SecondaryAnaly extends BaseView {
                     <div className="event">
                         <div className="content_box">
                             <div className="content_title">异常主题评估</div>
-                            <div className="event-table">
+                            <div className="event-table themeHeight">
                                 <Groupedcolumn {...theme}/>
                             </div>
                         </div>

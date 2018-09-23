@@ -736,7 +736,7 @@ class SecondaryLoop extends BaseView {
             ($(".SecondaryLoopLeft_left").height() - 20) / 3,// 电流分析对比查询 高度
             [],// 电流分析对比查询 数据
             {},// 电量变化图表
-            $(".event_bottom_center .content_box").height() - 20,// 电量变化图表 高度
+            $(".chartsEleChangeHeight").height(),// 电量变化图表 高度
         ];
         chartsEleA = {
             // data:yearCountData,
@@ -931,7 +931,7 @@ class SecondaryLoop extends BaseView {
                             <div className="event_bottom_center">
                                 <div className="content_box">
                                     <div className="content_title">电量变化</div>
-                                    <div className="event-table">
+                                    <div className="event-table chartsEleChangeHeight">
                                         <Basicline {...chartsEleChange} />
                                     </div>
                                 </div>
