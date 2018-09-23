@@ -12,6 +12,10 @@ li{
 	background: #000;
 	color:#fff;
 	display: flex;
+	&.page{
+		padding: 10px 20px;
+		justify-content: space-between;
+	}
 	.page-left,.page-right{
 		padding-top: 20px;
 		width: 25%;
@@ -38,7 +42,13 @@ li{
 		}
 	}
 }
-
+.ellipsis{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	-webkit-box-orient: vertical;
+	word-break: break-all;
+  }
 .flex-layout{
 	display: flex;
 }
