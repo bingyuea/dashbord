@@ -45,6 +45,14 @@ class QueryExceptionList extends BaseModel {
         this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryExceptionList';
     }
 }
+// 二次回路单-异常分析2
+// 电流分析对比查询
+class QueryElecCurrentData extends BaseModel {
+    constructor(props) {
+        super(props);
+        this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryElecCurrentData';
+    }
+}
 module.exports = {
     /*
      *  二次回路单-异常分析1
@@ -60,5 +68,10 @@ module.exports = {
     // 异常类型分布情况查询
     QueryExceptionDetail,
     // 异常信息表查询
-    QueryExceptionList
+    QueryExceptionList,
+    /*
+    *  二次回路单-异常分析2
+    */
+    // 电流分析对比查询
+    QueryElecCurrentData,
 };
