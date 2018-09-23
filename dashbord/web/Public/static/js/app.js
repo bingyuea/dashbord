@@ -48,14 +48,14 @@ class App extends BaseApp {
                         }, 'views/status')
                     }
                 },
-                // 二次回路单-异常分析 左
+                // 二次回路单-异常分析 （4，5）
                 {
-                    path: __mei_wei__.env.basepath + 'secondary_loop_left',
+                    path: __mei_wei__.env.basepath + 'secondary_loop',
                     getComponents(nextState, cb) {
                         require.ensure([], (require) => {
-                            var page = require('./views/secondaryLoopLeft.js');
+                            var page = require('./views/secondaryLoop.js');
                             cb(null, page)
-                        }, 'views/secondaryLoopLeft')
+                        }, 'views/secondaryLoop')
                     }
                 },
             ],
