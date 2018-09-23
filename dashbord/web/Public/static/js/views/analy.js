@@ -76,7 +76,7 @@ class Analy extends BaseView {
   renderMain() {
 
     return (
-      <div className='page-analy page'>
+      <div className='page-analy page-dashboard page'>
         <div className='left'>
           <div className='item'>
             <h4 className='label '>疑似窃电风险排行榜</h4>

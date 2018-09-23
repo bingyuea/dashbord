@@ -76,7 +76,7 @@ class Status extends BaseView {
     renderMain() {
 
         return (
-            <div className='page-status page'>
+            <div className='page-status page-dashboard page'>
                 <div className='left '>
                         <h4 className='label '>二次回路状态排行榜</h4>
                         <div className='tabel'>

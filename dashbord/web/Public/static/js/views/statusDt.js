@@ -1,0 +1,163 @@
+import React, { Component } from 'react'
+import BaseView from '../core/view.base'
+import $ from 'jquery';
+import Mock from '../mock/mock';
+//图表模型
+import { ChinaMapChart } from '../ui/ui.charts';
+
+class StatusDt extends BaseView {
+
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+
+        }
+    }
+
+    componentDidMount() {
+        this.setState({
+            pageStatus: 'init'
+        });
+    }
+
+    pageInit() {
+        this.fetchProvinceCount();
+        this.fetchYearCount();
+        this.fetchMeasureCount();
+        this.fetchRateCount();
+        this.fetchTradeCount();
+        this.fetchEventCount();
+        this.fetchValidityEventCount();
+        this.fetchProvinceEventCount();
+        this.fetchTradeEventCount();
+
+    }
+
+
+    renderPageCenter() {
+        const {
+            provinceCountData
+        } = this.state;
+
+
+        const height = $('.section-content.map').height();
+        const mapHeight = height - 50;
+
+        const mapData = {
+            height: mapHeight,
+            // userData:provinceCountData,
+            userData: Mock.charts1,
+            padding: 'auto',
+            xAxis: 'name',
+            yAxis: 'count',
+            scale: {
+                'count': {
+                    alias: '安装数量'
+                }
+            },
+            forceFit: true
+        }
+
+        return (
+            <div className='page-center'>
+                <h1>二次回路状态在线监测</h1>
+                <div className='slick-btn center'>
+                    <div className='btn active'></div>
+                    <div className='btn'></div>
+                </div>
+                <div className='section-content map '>
+                    <ChinaMapChart {...mapData} />
+                </div>
+            </div>
+        )
+    }
+    renderMain() {
+
+        return (
+            <div className='page-statusDt page-dashboard page'>
+                <div className='left '>
+                    <h4 className='label '>二次回路信息</h4>
+                    <div className='dtItem '>
+                        <div className=' flex-layout'>
+                            <h6 className='h6 flex'>省份</h6>
+                            <h6 className='h6 flex'>城市</h6>
+                        </div>
+                        <div className=' flex-layout'>
+                            <div className=' font flex'> 湖北</div>
+                            <div className='font flex'>湖北</div>
+                        </div>
+                    </div>
+                    <div className='dtItem '>
+                        <div className=' flex-layout'>
+                            <h6 className='h6 flex'>户名</h6>
+                            <h6 className='h6 flex ellipsis'>巡检仪资产编号</h6>
+                        </div>
+                        <div className=' flex-layout'>
+                            <div className=' font flex'> </div>
+                            <div className='font flex'></div>
+                        </div>
+                    </div>
+                    <div className='dtItem '>
+                        <div className=' flex-layout'>  
+                            <h6 className='h6 flex'>用电类别</h6>
+                            <h6 className='h6 flex ellipsis'>行业类别</h6>
+                        </div>
+                        <div className=' flex-layout'>
+                            <div className=' font flex'> </div>
+                            <div className='font flex'></div>
+                        </div>
+                    </div>
+                    <div className='dtItem '>
+                        <div className=' flex-layout'>
+                            <h6 className='h6 flex'>综合倍率</h6>
+                            <h6 className='h6 flex ellipsis'>接线方式</h6>
+                        </div>
+                        <div className=' flex-layout'>
+                            <div className=' font flex'> </div>
+                            <div className='font flex'></div>
+                        </div>
+                    </div>
+
+                    <h4 className='label2 '>影响二次回路事件</h4>
+                    <div className='tabel'>
+                        <div className='row1 flex-layout'>
+                            <h6 className='h6 flex '>电流失流</h6>
+                            <h6 className='h6 flex'>2018-01-02</h6>
+                        </div>
+                        <div className='row2 flex-layout'>
+                            <div className='flex'> </div>
+                            <div className='flex'></div>
+                        </div>
+                        <div className='row1 flex-layout'>
+                            <div className='flex'> </div>
+                            <div className='flex'></div>
+                        </div>
+                        <div className='row2 flex-layout'>
+                            <div className='flex'> </div>
+                            <div className='flex'></div>
+                        </div>
+                        <div className='row1 flex-layout'>
+                            <div className='flex'> </div>
+                            <div className='flex'></div>
+                        </div>
+                        <div className='row2 flex-layout'>
+                            <div className='flex'> </div>
+                            <div className='flex'></div>
+                        </div>
+                    </div>
+                </div>
+                {this.renderPageCenter()}
+                <div className='right'>
+                <div >当前状态</div>
+                <div >状态变化</div>
+                </div>
+            </div>
+        )
+
+    }
+
+}
+
+module.exports = StatusDt;

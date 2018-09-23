@@ -1,19 +1,9 @@
 .page-status {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    background: #000;
-    
     .left,.right{
         width: 20%;
         min-width: 183px;
         margin-top: 60px;
-        padding: 0 1%;
-        height: 100%;
+        height: calc(~"100% - 60px");
        
             .label {
                 height: 40px;
@@ -32,6 +22,7 @@
                     .h6 {
                         display: inline-block;
                         color:#5fa3ac;
+                        font-size: 17px;
                     }
                 }
                 .row2 {
