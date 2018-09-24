@@ -372,23 +372,22 @@ class SecondaryAnaly extends BaseView {
             domHeight,
             loop_content,// 二次回路异常事件统计高度
             charts2, // 异常事件数量变化趋势
+            loop_bottom, // 异常事件数量变化趋势 高度
             theme, // 异常主题评估
             themeHeight, // 异常主题评估 高度
         ] = [
             $('.page-main').height(),
             $(".loop_top").height() - 20,// 算出表格高度
             {},// 异常事件数量变化趋势
+            $(".loop_bottom").height() - 20,// 异常事件数量变化趋势 高度
             {}, // 异常主题评估
-            $(".themeHeight").height(),// 异常主题评估 高度
+            $(".themeHeight").height() - 20,// 异常主题评估 高度
         ];
-        console.log(loop_content)
-        console.log($(".loop_top"))
-        console.log(themeHeight)
         charts2 = {
             // data:yearCountData,
             data: Mock.charts2,
             type: "area",
-            height: loop_content,
+            height: loop_bottom,
             xAxis: "year",
             yAxis: "count",
             forceFit: true,
