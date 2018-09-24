@@ -25,6 +25,12 @@ import {
     */
     // 电流分析对比查询
     QueryElecCurrentData,
+    // 巡检仪上报事件查询
+    QueryXMDEvent,
+    // 电能表上报事件查询
+    QueryElecEvent,
+    // 电量数据查询
+    QueryElecData,
 } from "../models/secondaryLoop.models";
 import Mock from "../mock/mock";
 
@@ -47,6 +53,13 @@ const queryExceptionList = QueryExceptionList.getInstance();
 */
 // 电流分析对比查询
 const queryElecCurrentData = QueryElecCurrentData.getInstance();
+// 巡检仪上报事件查询
+const queryXMDEvent = QueryXMDEvent.getInstance();
+// 电能表上报事件查询
+const queryElecEvent = QueryElecEvent.getInstance();
+// 电量数据查询
+const queryElecData = QueryElecData.getInstance();
+
 
 class SecondaryLoop extends BaseView {
     constructor(props) {
@@ -76,7 +89,12 @@ class SecondaryLoop extends BaseView {
         */
         // 电流分析对比查询
         this.fetchQueryElecCurrentData();
-
+        // 巡检仪上报事件查询
+        this.fetchQueryXMDEvent();
+        // 电能表上报事件查询
+        this.fetchQueryElecEvent();
+        // 电量数据查询
+        this.fetchQueryElecData();
     }
 
     // 异常事件总数查询
@@ -350,6 +368,144 @@ class SecondaryLoop extends BaseView {
             console.log(err)
         })
     }
+    // 巡检仪上报事件查询
+    fetchQueryXMDEvent(token) {
+        const self = this;
+        // 这里是点击当前行的的数据
+        const searchValue = this.state.searchValue;
+        queryXMDEvent.setParam({
+            token: token,
+            serialNum: searchValue.serialNum,
+            elecSerialNum: searchValue.elecSerialNum,
+        });
+        queryXMDEvent.excute((res) => {
+            const resData = res.data || {};
+            const xmdEventData = resData.xmdData || [];
+            // {
+            //     "result":1,
+            //     "xmdData":[
+            //     {
+            //         "exception":"表示值不平",
+            //         "event":"发生",
+            //         "eventTime":"　2018-06-01 0:33:55",
+            //         "phaseA":0,
+            //         "phaseB":0,
+            //         "phaseC":1
+            //     },
+            //     {
+            //         "exception":"电能表飞走",
+            //         "event":"发生",
+            //         "eventTime":"　2018-06-01 0:33:55",
+            //         "phaseA":0,
+            //         "phaseB":0,
+            //         "phaseC":1
+            //     }
+            // ]
+            // }
+            self.setState({
+                xmdEventData,
+            });
+        }, (err) => {
+            console.log(err)
+        })
+    }
+    // 电能表上报事件查询
+    fetchQueryElecEvent(token) {
+        const self = this;
+        // 这里是点击当前行的的数据
+        const searchValue = this.state.searchValue;
+        queryElecEvent.setParam({
+            token: token,
+            serialNum: searchValue.serialNum,
+            elecSerialNum: searchValue.elecSerialNum,
+        });
+        queryElecEvent.excute((res) => {
+            const resData = res.data || {};
+            const eleEventData = resData.elecData || [];
+            // {
+            //     "result":1,
+            //     "elecData":[
+            //     {
+            //         "exception":"表示值不平",
+            //         "event":"发生",
+            //         "eventTime":"　2018-06-01 0:33:55",
+            //         "phaseA":0,
+            //         "phaseB":0,
+            //         "phaseC":1
+            //     },
+            //       {
+            //         "exception":"电能表飞走",
+            //         "event":"发生",
+            //         "eventTime":"　2018-06-01 0:33:55",
+            //         "phaseA":0,
+            //         "phaseB":0,
+            //         "phaseC":1
+            //     }
+            //      ]
+            // }
+            self.setState({
+                eleEventData,
+            });
+        }, (err) => {
+            console.log(err)
+        })
+    };
+    // 电量数据查询
+    fetchQueryElecData(token) {
+        const self = this;
+        // 这里是点击当前行的的数据
+        const searchValue = this.state.searchValue;
+        // 参数	参数名称	类型	必填	描述	范例
+        // token	校验字符串	String	是	用于校验	123sdf234
+        // serialNum	巡检仪资产编号	string	是		
+        // elecSerialNum	电能表资产编号	string	是		1
+        // occTime	异常发生时间	string	是		
+        queryElecData.setParam({
+            token: token,
+            serialNum: searchValue.serialNum,
+            elecSerialNum: searchValue.elecSerialNum,
+            occTime: searchValue.occTime,
+        });
+        queryElecData.excute((res) => {
+            const resData = res.data || {};
+            const elecDayData = resData.elecData || [];
+            // {
+            //     "result":1,
+            //     "elecData":[
+            //     {
+            //         "time ":"　2018-06-01",
+            //         "activePower":100,
+            //         "reactivePower":100
+            //     },
+            //       {
+            //         "time ":"　2018-06-02",
+            //         "activePower":100,
+            //         "reactivePower":100
+            //     },
+            //     {
+            //         "time ":"　2018-06-03",
+            //         "activePower":100,
+            //         "reactivePower":100
+            //     },
+            //       {
+            //         "time ":"　2018-06-04",
+            //         "activePower":100,
+            //         "reactivePower":100
+            //     },
+            //     {
+            //         "time ":"　2018-06-05",
+            //         "activePower":100,
+            //         "reactivePower":100
+            //     }
+            //      ]
+            // }
+            self.setState({
+                elecDayData,
+            });
+        }, (err) => {
+            console.log(err)
+        })
+    };
 
     search(value) {
         console.log(value);
@@ -437,33 +593,51 @@ class SecondaryLoop extends BaseView {
         let [
             domHeight,
             loop_content,// 算出表格高度
-            data, // 表格里面的数据
-            eventTable, // 图表高度
-            charts2, // 异常事件数量变化趋势
-            columns, // 二次回路异常事件
-            charts3, // 异常事件行业分布信息
-            charts5, // 异常事件类型信息
-            charts6, // 区域占比
+            tradeListChartsHeight, // 图表高度
+            periodListCharts, // 异常事件数量变化趋势
+            columns, // 二次回路异常事件 列
+            tradeListCharts, // 异常事件行业分布信息
+            exceptionListCharts, // 异常事件类型信息
+            areaListCharts, // 区域占比
         ] = [
             $('.page-main').height(),
             $(".loop_top").height() - 20,// 算出表格高度
-            [],
-            $(".event_bottom .content_box").height() - 20 - 30,// - title -上下padding
+            $(".event_bottom").height() - 20 - 30,// - title -上下padding
             {},// 异常事件数量变化趋势
-            [],// 二次回路异常事件
+            [],// 二次回路异常事件 列
             {},// 异常事件行业分布信息
             {},// 异常事件类型信息
             {}// 区域占比
         ];
+        // 正式数据
+        // let {
+        //     totalCount,// 二次回路异常事件统计
+        //     areaList, // 异常区域占比查询
+        //     periodList, //异常事件数量变化趋势
+        //     tradeList, // 行业分布信息查询
+        //     exceptionList, // 异常类型分布情况查询
+        //     dataList, // 异常信息表查询
+        //     elecCurrentData,// 电流分析对比查询
+        // } = this.state;
+        let {
+            totalCount,// 二次回路异常事件统计
+            areaList, // 异常区域占比查询
+            periodList, //异常事件数量变化趋势
+            tradeList, // 行业分布信息查询
+            exceptionList, // 异常类型分布情况查询
+            dataList, // 异常信息表查询
+            elecCurrentData,// 电流分析对比查询
+        } = Mock;
+        let  tableData = dataList.dataList;
         columns = [
             {
                 title: '所属地区',
                 dataIndex: 'place',
             },
-            {
-                title: '所属县市',
-                dataIndex: '所属县市',
-            },
+            // {
+            //     title: '所属县市',
+            //     dataIndex: 'kong',
+            // },
             {
                 title: '巡检仪资产编号',
                 dataIndex: 'serialNum',
@@ -493,8 +667,8 @@ class SecondaryLoop extends BaseView {
                 dataIndex: 'recoverTime',
             },
         ]
-        charts2 = {
-            // data:yearCountData,
+        periodListCharts = {
+            // data: periodList,
             data: Mock.charts2,
             type: "area",
             height: loop_content,
@@ -517,10 +691,10 @@ class SecondaryLoop extends BaseView {
                 offset: 5
             }
         };
-        console.log(eventTable+"eventTable")
-        charts3 = {
+        tradeListCharts = {
+            // data: tradeList,
             data: Mock.charts8,
-            height: eventTable,
+            height: tradeListChartsHeight,
             xAxis: 'time',
             yAxis_line: 'people',
             yAxis_interval: 'waiting',
@@ -547,10 +721,10 @@ class SecondaryLoop extends BaseView {
                 offset: 5,
             }
         };
-        charts5 = {
-            // data:tradeCountData,
+        exceptionListCharts = {
+            // data: exceptionList,
             data: Mock.charts5,
-            height: eventTable,
+            height: tradeListChartsHeight,
             xAxis: 'trade',
             yAxis: 'count',
             forceFit: true,
@@ -566,12 +740,13 @@ class SecondaryLoop extends BaseView {
             }
         };
         // 区域占比
-        charts6 = {
-            // data:validityEventCountData,
+        areaListCharts = {
+            // data: areaList,
             data: Mock.charts6,
             height: loop_content,
             forceFit: true,
             padding: "auto",
+            innerRadius:0.6,
             field: "count",
             dimension: "eventName",
             cols: {
@@ -583,26 +758,6 @@ class SecondaryLoop extends BaseView {
                 }
             }
         };
-        // const
-        //     {
-        //         validityEventCountData
-        //     }
-        //         = this.state;
-        for (let i = 0; i < 100; i++) {
-            data.push(
-                {
-                    key: `${i}`,
-                    username: `李四${i}`,
-                    place: "南京市",
-                    serialNum: "SN1234322",
-                    elecSerialNum: `SN1234325${i}`,
-                    trade: "轻工业用电",
-                    exception: 2,
-                    occTime: "2017-10-10",
-                    recoverTime: "2017-10-11",
-                }
-            );
-        }
         // table 的高度不对
         const tableParent = $(".event_top").height();
         const tableHeight = tableParent - 20;
@@ -624,7 +779,7 @@ class SecondaryLoop extends BaseView {
                                 <div className="loop_content loop_number"
                                      style={{height: loop_content, lineHeight: `${loop_content}px`}}
                                 >
-                                    1,420
+                                    {totalCount}
                                     <span className="text-white">&nbsp;件</span>
                                 </div>
                             </div>
@@ -632,13 +787,13 @@ class SecondaryLoop extends BaseView {
                                 <div className="content_title no_border_left">区域占比</div>
                                 <div className="blue_underline"/>
                                 <div className="loop_content">
-                                    <Labelline {...charts6} />
+                                    <Labelline {...areaListCharts} />
                                 </div>
                             </div>
                         </div>
                         <div className="loop_bottom">
                             <div className="content_title">异常事件数量变化趋势</div>
-                            <Basicline {...charts2} />
+                            <Basicline {...periodListCharts} />
                         </div>
                     </div>
                 </div>
@@ -648,7 +803,7 @@ class SecondaryLoop extends BaseView {
                             <div className="content_box">
                                 <div className="content_title">二次回路异常事件</div>
                                 <div className="content-table">
-                                    <Table columns={columns} dataSource={data} pagination={false}
+                                    <Table columns={columns} dataSource={tableData} pagination={false}
                                            scroll={{y: 120}}/>
                                 </div>
                             </div>
@@ -658,7 +813,7 @@ class SecondaryLoop extends BaseView {
                                 <div className="content_box">
                                     <div className="content_title">异常事件行业分布信息</div>
                                     <div className="event-table">
-                                        <Doubleaxes {...charts3}/>
+                                        <Doubleaxes {...tradeListCharts}/>
                                     </div>
                                 </div>
                             </div>
@@ -666,7 +821,7 @@ class SecondaryLoop extends BaseView {
                                 <div className="content_box">
                                     <div className="content_title">异常事件类型信息</div>
                                     <div className="event-table">
-                                        <Basicbar {...charts5}/>
+                                        <Basicbar {...exceptionListCharts}/>
                                     </div>
                                 </div>
                             </div>
@@ -697,10 +852,10 @@ class SecondaryLoop extends BaseView {
                     title: '所属地区',
                     dataIndex: 'place',
                 },
-                {
-                    title: '所属县市',
-                    dataIndex: '所属县市',
-                },
+                // {
+                //     title: '所属县市',
+                //     dataIndex: '所属县市',
+                // },
                 {
                     title: '巡检仪资产编号',
                     dataIndex: 'serialNum',
@@ -736,8 +891,18 @@ class SecondaryLoop extends BaseView {
             ($(".SecondaryLoopLeft_left").height() - 20 -  45) / 3,// 电流分析对比查询 高度
             [],// 电流分析对比查询 数据
             {},// 电量变化图表
-            $(".chartsEleChangeHeight").height(),// 电量变化图表 高度
+            $(".chartsEleChangeHeight").height() - 20,// 电量变化图表 高度
         ];
+
+        let {
+            totalCount,// 二次回路异常事件统计
+            areaList, // 异常区域占比查询
+            periodList, //异常事件数量变化趋势
+            tradeList, // 行业分布信息查询
+            exceptionList, // 异常类型分布情况查询
+            dataList, // 异常信息表查询
+            elecCurrentData,// 电流分析对比查询
+        } = Mock;
         chartsEleA = {
             // data:yearCountData,
             data: Mock.charts2,
@@ -928,10 +1093,10 @@ class SecondaryLoop extends BaseView {
                                     </div>
                                 </div>
                             </div>
-                            <div className="event_bottom_center">
-                                <div className="content_box">
+                            <div className="event_bottom_center ">
+                                <div className="content_box chartsEleChangeHeight">
                                     <div className="content_title">电量变化</div>
-                                    <div className="event-table chartsEleChangeHeight">
+                                    <div className="event-table">
                                         <Basicline {...chartsEleChange} />
                                     </div>
                                 </div>

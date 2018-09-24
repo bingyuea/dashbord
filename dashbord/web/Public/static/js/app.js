@@ -28,36 +28,6 @@ class App extends BaseApp {
                         }, 'views/xmd')
                     }
                 },
-                //二次回路异常主题分析（6）
-                {
-                    path: __mei_wei__.env.basepath + 'analy',
-                    getComponents(nextState, cb) {
-                        require.ensure([], (require) => {
-                            var page = require('./views/analy.js');
-                            cb(null, page)
-                        }, 'views/analy')
-                    }
-                },
-                //二次回路状态在线监测（8）
-                {
-                    path: __mei_wei__.env.basepath + 'status',
-                    getComponents(nextState, cb) {
-                        require.ensure([], (require) => {
-                            var page = require('./views/status.js');
-                            cb(null, page)
-                        }, 'views/status')
-                    }
-                },
-                //二次回路状态在线监测详情（9）
-                {
-                    path: __mei_wei__.env.basepath + 'statusDt',
-                    getComponents(nextState, cb) {
-                        require.ensure([], (require) => {
-                            var page = require('./views/statusDt.js');
-                            cb(null, page)
-                        }, 'views/statusDt')
-                    }
-                },
                 // 二次回路单-异常分析 （4，5）
                 {
                     path: __mei_wei__.env.basepath + 'secondary_loop',
@@ -68,14 +38,24 @@ class App extends BaseApp {
                         }, 'views/secondaryLoop')
                     }
                 },
-                // 二次回路单异常主题分析 （7）
+                // 二次回路单异常主题分析 (6,7)
                 {
-                    path: __mei_wei__.env.basepath + 'secondary_analy',
+                    path: __mei_wei__.env.basepath + 'mergeAnaly',
                     getComponents(nextState, cb) {
                         require.ensure([], (require) => {
-                            var page = require('./views/secondaryAnaly.js');
+                            var page = require('./views/mergeAnaly.js');
                             cb(null, page)
-                        }, 'views/secondaryAnaly')
+                        }, 'views/mergeAnaly')
+                    }
+                },
+                //二次回路状态在线监测（8，9）
+                {
+                    path: __mei_wei__.env.basepath + 'status',
+                    getComponents(nextState, cb) {
+                        require.ensure([], (require) => {
+                            var page = require('./views/status.js');
+                            cb(null, page)
+                        }, 'views/status')
                     }
                 },
             ],

@@ -12,13 +12,12 @@ class Analy extends BaseView {
     super(props);
 
     this.state = {
-
     }
   }
 
   componentDidMount() {
     this.setState({
-      pageStatus: 'init'
+      pageStatus: 'init',
     });
   }
 
@@ -74,9 +73,10 @@ class Analy extends BaseView {
     )
   }
   renderMain() {
-
+    let appview = $("#appview").height();
+   
     return (
-      <div className='page-analy page-dashboard page'>
+      <div className='page-analy page-dashboard page' style = {{height:appview}}>
         <div className='left'>
           <div className='item'>
             <h4 className='label '>疑似窃电风险排行榜</h4>
