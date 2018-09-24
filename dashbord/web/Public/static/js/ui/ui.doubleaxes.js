@@ -92,7 +92,7 @@ class Doubleaxes extends React.Component {
             allowAllCanceled={true}
             items={[
               {
-                value: "waiting",
+                value: this.props.yAxis_interval_name,
                 marker: {
                   symbol: "square",
                   fill: DEFAULT_COLOR,
@@ -100,7 +100,7 @@ class Doubleaxes extends React.Component {
                 }
               },
               {
-                value: "people",
+                value: this.props.yAxis_line_name,
                 marker: {
                   symbol: "hyphen",
                   stroke: "#fff",

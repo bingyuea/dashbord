@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import BaseView from "../core/view.base";
 import $ from "jquery";
-import {Table} from 'antd';
+import { Table } from 'antd';
 //图表模型
 import {
     Labelline,
@@ -595,20 +595,24 @@ class SecondaryLoop extends BaseView {
             loop_content,// 算出表格高度
             tradeListChartsHeight, // 图表高度
             periodListCharts, // 异常事件数量变化趋势
-            columns, // 二次回路异常事件 列
             tradeListCharts, // 异常事件行业分布信息
             exceptionListCharts, // 异常事件类型信息
             areaListCharts, // 区域占比
         ] = [
-            $('.page-main').height(),
-            $(".loop_top").height() - 20,// 算出表格高度
-            $(".event_bottom").height() - 20 - 30,// - title -上下padding
-            {},// 异常事件数量变化趋势
-            [],// 二次回路异常事件 列
-            {},// 异常事件行业分布信息
-            {},// 异常事件类型信息
-            {}// 区域占比
-        ];
+                $('.page-main').height(),
+                $("#eventAccount").height() - 20,// 算出表格高度
+                $("#tradeListChartsHeight").height() - 20 - 30,// 图表高度
+                {},// 异常事件数量变化趋势
+                {},// 异常事件行业分布信息
+                {},// 异常事件类型信息
+                {}// 区域占比
+            ];
+        let _this = this;
+        if (!tradeListChartsHeight) {
+            let time = setTimeout(function () {
+                _this.forceUpdate();
+            }, 0)
+        }
         // 正式数据
         // let {
         //     totalCount,// 二次回路异常事件统计
@@ -616,7 +620,6 @@ class SecondaryLoop extends BaseView {
         //     periodList, //异常事件数量变化趋势
         //     tradeList, // 行业分布信息查询
         //     exceptionList, // 异常类型分布情况查询
-        //     dataList, // 异常信息表查询
         //     elecCurrentData,// 电流分析对比查询
         // } = this.state;
         let {
@@ -625,62 +628,16 @@ class SecondaryLoop extends BaseView {
             periodList, //异常事件数量变化趋势
             tradeList, // 行业分布信息查询
             exceptionList, // 异常类型分布情况查询
-            dataList, // 异常信息表查询
             elecCurrentData,// 电流分析对比查询
         } = Mock;
-        let  tableData = dataList.dataList;
-        columns = [
-            {
-                title: '所属地区',
-                dataIndex: 'place',
-            },
-            // {
-            //     title: '所属县市',
-            //     dataIndex: 'kong',
-            // },
-            {
-                title: '巡检仪资产编号',
-                dataIndex: 'serialNum',
-            },
-            {
-                title: '电能表资产编号',
-                dataIndex: 'elecSerialNum',
-            },
-            {
-                title: '户名',
-                dataIndex: 'username',
-            },
-            {
-                title: '用电类型',
-                dataIndex: 'trade',
-            },
-            {
-                title: '异常类型',
-                dataIndex: 'exception',
-            },
-            {
-                title: '异常日期',
-                dataIndex: 'occTime',
-            },
-            {
-                title: '恢复日期',
-                dataIndex: 'recoverTime',
-            },
-        ]
         periodListCharts = {
-            // data: periodList,
-            data: Mock.charts2,
+            data: periodList,
             type: "area",
             height: loop_content,
-            xAxis: "year",
-            yAxis: "count",
+            xAxis: "period",
+            yAxis: "periodCount",
             forceFit: true,
             padding: "auto",
-            cols: {
-                year: {
-                    tickInterval: 1
-                }
-            },
             style: {
                 overflow: "hidden"
             },
@@ -692,22 +649,23 @@ class SecondaryLoop extends BaseView {
             }
         };
         tradeListCharts = {
-            // data: tradeList,
-            data: Mock.charts8,
+            data: tradeList,
             height: tradeListChartsHeight,
-            xAxis: 'time',
-            yAxis_line: 'people',
-            yAxis_interval: 'waiting',
+            xAxis: 'tradeName',
+            yAxis_line: 'tradeCount',
+            yAxis_line_name: '占比',
+            yAxis_interval: 'trade',
+            yAxis_interval_name: '行业',
             forceFit: true,
             padding: 'auto',
             cols: {
-                call: {
+                tradeName: {
                     min: 0
                 },
-                people: {
+                tradeCount: {
                     min: 0
                 },
-                waiting: {
+                trade: {
                     min: 0
                 }
             },
@@ -722,11 +680,11 @@ class SecondaryLoop extends BaseView {
             }
         };
         exceptionListCharts = {
-            // data: exceptionList,
-            data: Mock.charts5,
+            data: exceptionList,
+            // data: Mock.charts5,
             height: tradeListChartsHeight,
-            xAxis: 'trade',
-            yAxis: 'count',
+            xAxis: 'name',
+            yAxis: 'exceptionCount',
             forceFit: true,
             padding: 'auto',
             style: {
@@ -741,14 +699,14 @@ class SecondaryLoop extends BaseView {
         };
         // 区域占比
         areaListCharts = {
-            // data: areaList,
-            data: Mock.charts6,
+            data: areaList,
             height: loop_content,
             forceFit: true,
             padding: "auto",
-            innerRadius:0.6,
-            field: "count",
-            dimension: "eventName",
+            radius: 1,
+            innerRadius: 0.7,
+            field: "areaCount",
+            dimension: "area",
             cols: {
                 percent: {
                     formatter: val => {
@@ -758,26 +716,18 @@ class SecondaryLoop extends BaseView {
                 }
             }
         };
-        // table 的高度不对
-        const tableParent = $(".event_top").height();
-        const tableHeight = tableParent - 20;
-        console.log(tableParent)
-        console.log(tableHeight)
-        console.log($(".event").height() + "event")
-        console.log($(".SecondaryLoopLeft_right").height() + "SecondaryLoopLeft_right")
-        console.log($(".SecondaryLoopLeft ").height() + "SecondaryLoopLeft ")
-
-
+        loop_content = loop_content ? loop_content : 0;
+        domHeight = domHeight ? domHeight : 0;
         return (
-            <div className="SecondaryLoopLeft content" style={{height: domHeight}}>
+            <div className="SecondaryLoopLeft content" style={{ height: domHeight }}>
                 <div className="SecondaryLoopLeft_left">
                     <div className="content_box">
-                        <div className="loop_top">
+                        <div className="loop_top" id="eventAccount">
                             <div className="loop_top_left">
                                 <div className="content_title">二次回路异常事件统计</div>
-                                <div className="blue_underline"/>
+                                <div className="blue_underline" />
                                 <div className="loop_content loop_number"
-                                     style={{height: loop_content, lineHeight: `${loop_content}px`}}
+                                    style={{ height: loop_content, lineHeight: `${loop_content}px` }}
                                 >
                                     {totalCount}
                                     <span className="text-white">&nbsp;件</span>
@@ -785,7 +735,7 @@ class SecondaryLoop extends BaseView {
                             </div>
                             <div className="loop_top_right">
                                 <div className="content_title no_border_left">区域占比</div>
-                                <div className="blue_underline"/>
+                                <div className="blue_underline" />
                                 <div className="loop_content">
                                     <Labelline {...areaListCharts} />
                                 </div>
@@ -800,20 +750,18 @@ class SecondaryLoop extends BaseView {
                 <div className="SecondaryLoopLeft_right">
                     <div className="event">
                         <div className="event_top">
-                            <div className="content_box">
-                                <div className="content_title">二次回路异常事件</div>
-                                <div className="content-table">
-                                    <Table columns={columns} dataSource={tableData} pagination={false}
-                                           scroll={{y: 120}}/>
-                                </div>
+                            <div className="content_box" id="tableHeight">
+                                {this.renderTable()}
                             </div>
+
+
                         </div>
-                        <div className="event_bottom">
+                        <div className="event_bottom" id="tradeListChartsHeight">
                             <div className="event_bottom_left">
                                 <div className="content_box">
                                     <div className="content_title">异常事件行业分布信息</div>
                                     <div className="event-table">
-                                        <Doubleaxes {...tradeListCharts}/>
+                                        <Doubleaxes {...tradeListCharts} />
                                     </div>
                                 </div>
                             </div>
@@ -821,7 +769,7 @@ class SecondaryLoop extends BaseView {
                                 <div className="content_box">
                                     <div className="content_title">异常事件类型信息</div>
                                     <div className="event-table">
-                                        <Basicbar {...exceptionListCharts}/>
+                                        <Basicbar {...exceptionListCharts} />
                                     </div>
                                 </div>
                             </div>
@@ -836,8 +784,6 @@ class SecondaryLoop extends BaseView {
     renderPageTwo() {
         let [
             domHeight,// tab页面的高度
-            data, // 表格里面的数据
-            columns, // 二次回路异常事件
             chartsEleA, // 电流分析对比查询 图表A
             chartsEleB, // 电流分析对比查询 图表B
             chartsEleC, // 电流分析对比查询 图表C
@@ -845,63 +791,26 @@ class SecondaryLoop extends BaseView {
             chartsEleChange, // 电量变化图表
             chartsEleChangeHeight, // 电量变化图表 高度
         ] = [
-            $('.page-main').height(),// tab页面的高度
-            [], // 表格里面的数据
-            [
-                {
-                    title: '所属地区',
-                    dataIndex: 'place',
-                },
-                // {
-                //     title: '所属县市',
-                //     dataIndex: '所属县市',
-                // },
-                {
-                    title: '巡检仪资产编号',
-                    dataIndex: 'serialNum',
-                },
-                {
-                    title: '电能表资产编号',
-                    dataIndex: 'elecSerialNum',
-                },
-                {
-                    title: '户名',
-                    dataIndex: 'username',
-                },
-                {
-                    title: '用电类型',
-                    dataIndex: 'trade',
-                },
-                {
-                    title: '异常类型',
-                    dataIndex: 'exception',
-                },
-                {
-                    title: '异常日期',
-                    dataIndex: 'occTime',
-                },
-                {
-                    title: '恢复日期',
-                    dataIndex: 'recoverTime',
-                },
-            ], // 二次回路异常事件
-            {},
-            {},
-            {},
-            ($(".SecondaryLoopLeft_left").height() - 20 -  45) / 3,// 电流分析对比查询 高度
-            [],// 电流分析对比查询 数据
-            {},// 电量变化图表
-            $(".chartsEleChangeHeight").height() - 20,// 电量变化图表 高度
-        ];
-
+                $('.page-main').height(),// tab页面的高度
+                {},
+                {},
+                {},
+                ($(".SecondaryLoopRight_left").height() - 60 - 45 - 30) / 3,// 电流分析对比查询 高度
+                {},// 电量变化图表
+                $(".chartsEleChangeHeight").height() - 40,// 电量变化图表 高度
+            ];
+        let _this = this;
+        if (!chartsEleChangeHeight) {
+            let time = setTimeout(function () {
+                _this.forceUpdate();
+            }, 0)
+        }
         let {
-            totalCount,// 二次回路异常事件统计
-            areaList, // 异常区域占比查询
             periodList, //异常事件数量变化趋势
             tradeList, // 行业分布信息查询
             exceptionList, // 异常类型分布情况查询
-            dataList, // 异常信息表查询
             elecCurrentData,// 电流分析对比查询
+            elecDayData, // 电量数据查询
         } = Mock;
         chartsEleA = {
             // data:yearCountData,
@@ -976,19 +885,12 @@ class SecondaryLoop extends BaseView {
             }
         };// 电流分析对比查询 图表C
         chartsEleChange = {
-            // data:yearCountData,
-            data: Mock.charts2,
-            type: "area",
+            data:elecDayData,
             height: chartsEleChangeHeight,
-            xAxis: "year",
-            yAxis: "count",
+            xAxis: "time",
+            yAxis: "activePower",
             forceFit: true,
             padding: "auto",
-            cols: {
-                year: {
-                    tickInterval: 1
-                }
-            },
             style: {
                 overflow: "hidden"
             },
@@ -999,24 +901,8 @@ class SecondaryLoop extends BaseView {
                 offset: 5
             }
         };// 电量变化图表
-        console.log($(".SecondaryLoopLeft_left"))
-        for (let i = 0; i < 100; i++) {
-            data.push(
-                {
-                    key: `${i}`,
-                    username: `李四${i}`,
-                    place: "南京市",
-                    serialNum: "SN1234322",
-                    elecSerialNum: `SN1234325${i}`,
-                    trade: "轻工业用电",
-                    exception: 2,
-                    occTime: "2017-10-10",
-                    recoverTime: "2017-10-11",
-                }
-            );
-        }
         return (
-            <div className="SecondaryLoopRight content" style={{height: domHeight}}>
+            <div className="SecondaryLoopRight content" style={{ height: domHeight }}>
                 <div className="SecondaryLoopRight_left">
                     <div className="content_box">
                         <div className="content_title">电流对比分析</div>
@@ -1038,11 +924,7 @@ class SecondaryLoop extends BaseView {
                     <div className="event">
                         <div className="event_top">
                             <div className="content_box">
-                                <div className="content_title">二次回路异常事件</div>
-                                <div className="content-table">
-                                    <Table columns={columns} dataSource={data} pagination={false}
-                                           scroll={{y: 120}}/>
-                                </div>
+                                {this.renderTable()}
                             </div>
                         </div>
                         <div className="event_bottom">
@@ -1116,6 +998,102 @@ class SecondaryLoop extends BaseView {
         )
     }
 
+    renderTable() {
+        let columns = [
+            {
+                title: '所属地区',
+                dataIndex: 'place',
+                width: 60,
+                align: "center",
+                key: "place",
+            },
+            // {
+            //     title: '所属县市',
+            //     dataIndex: 'kong',
+            // },
+            {
+                title: '巡检仪资产编号',
+                dataIndex: 'serialNum',
+                width: 60,
+                align: "center",
+                key: "serialNum",
+            },
+            {
+                title: '电能表资产编号',
+                dataIndex: 'elecSerialNum',
+                width: 60,
+                align: "center",
+                key: "elecSerialNum",
+            },
+            {
+                title: '户名',
+                dataIndex: 'username',
+                width: 60,
+                align: "center",
+                key: "username",
+            },
+            {
+                title: '用电类型',
+                dataIndex: 'trade',
+                width: 60,
+                align: "center",
+                key: "trade",
+            },
+            {
+                title: '异常类型',
+                dataIndex: 'exception',
+                width: 60,
+                key: "exception",
+                align: "center",
+            },
+            {
+                title: '异常日期',
+                dataIndex: 'occTime',
+                width: 60,
+                align: "center",
+                key: "occTime",
+            },
+            {
+                title: '恢复日期',
+                dataIndex: 'recoverTime',
+                width: 60,
+                align: "center",
+                key: "recoverTime",
+            },
+        ];
+        // 正式数据
+        // let {
+        //     dataList, // 异常信息表查询
+        // } = this.state;
+        let {
+            dataList, // 异常信息表查询
+        } = Mock;
+        let tableData = dataList.dataList;
+        tableData.map((item, index) => {
+            return item.key = index;
+        });
+        let tableHeight = $("#tableHeight").height() - 60; // table表格的高度
+        return (
+            <div>
+                <div className="content_title">二次回路异常事件</div>
+                <div className="content-table">
+                    <Table
+                        columns={columns}
+                        dataSource={tableData}
+                        pagination={false}
+                        scroll={{ y: tableHeight }}
+                        onRow={(record) => {
+                            return {
+                                onClick: () => {
+                                    console.log(record)
+                                },
+                            };
+                        }}
+                    ></Table>
+                </div>
+            </div >
+        )
+    }
     renderMain() {
         var settings = {
             dots: false,
@@ -1133,8 +1111,8 @@ class SecondaryLoop extends BaseView {
             <div className="page-slick page-SecondaryLoopLeft">
                 <h1 className="page-title">{this.state.pageTitle}</h1>
                 <div className="slick-btn">
-                    <div className="btn active"/>
-                    <div className="btn"/>
+                    <div className="btn active" />
+                    <div className="btn" />
                 </div>
                 {this.renderSearchBar()}
                 <div className="page-main slider_content">

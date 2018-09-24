@@ -142,6 +142,85 @@ const Mock = {
                 "exception": 2,
                 "occTime": "2017-10-10",
                 "recoverTime": "2017-10-11"
+            },
+            {
+                "username": "李四",
+                "place": "南京市",
+                "serialNum": "SN1234322",
+                "elecSerialNum": "SN1234325",
+                "trade": "轻工业用电",
+                "exception": 2,
+                "occTime": "2017-10-10",
+                "recoverTime": "2017-10-11"
+            },
+            {
+                "username": "李四",
+                "place": "南京市",
+                "serialNum": "SN1234322",
+                "elecSerialNum": "SN1234325",
+                "trade": "轻工业用电",
+                "exception": 2,
+                "occTime": "2017-10-10",
+                "recoverTime": "2017-10-11"
+            },
+            {
+                "username": "李四",
+                "place": "南京市",
+                "serialNum": "SN1234322",
+                "elecSerialNum": "SN1234325",
+                "trade": "轻工业用电",
+                "exception": 2,
+                "occTime": "2017-10-10",
+                "recoverTime": "2017-10-11"
+            },
+            {
+                "username": "李四",
+                "place": "南京市",
+                "serialNum": "SN1234322",
+                "elecSerialNum": "SN1234325",
+                "trade": "轻工业用电",
+                "exception": 2,
+                "occTime": "2017-10-10",
+                "recoverTime": "2017-10-11"
+            },
+            {
+                "username": "李四",
+                "place": "南京市",
+                "serialNum": "SN1234322",
+                "elecSerialNum": "SN1234325",
+                "trade": "轻工业用电",
+                "exception": 2,
+                "occTime": "2017-10-10",
+                "recoverTime": "2017-10-11"
+            }, {
+                "username": "李四",
+                "place": "南京市",
+                "serialNum": "SN1234322",
+                "elecSerialNum": "SN1234325",
+                "trade": "轻工业用电",
+                "exception": 2,
+                "occTime": "2017-10-10",
+                "recoverTime": "2017-10-11"
+            },
+            {
+                "username": "李四",
+                "place": "南京市",
+                "serialNum": "SN1234322",
+                "elecSerialNum": "SN1234325",
+                "trade": "轻工业用电",
+                "exception": 2,
+                "occTime": "2017-10-10",
+                "recoverTime": "2017-10-11"
+            },
+            {
+                "username": "李四",
+                "place": "南京市",
+                "serialNum": "SN1234322",
+                "elecSerialNum": "SN1234325",
+                "trade": "轻工业用电",
+                "exception": 2,
+                "occTime": "2017-10-10",
+                "recoverTime": "2017-10-11"
             }
         ]
     },
@@ -169,6 +248,35 @@ const Mock = {
             }
         ]
     },
+    // 电量数据查询
+    elecDayData: [
+        {
+            "time": "　2018-06-01",
+            "activePower": 100,
+            "reactivePower": 100
+        },
+        {
+            "time": "　2018-06-02",
+            "activePower": 100,
+            "reactivePower": 100
+        },
+        {
+            "time": "　2018-06-03",
+            "activePower": 100,
+            "reactivePower": 100
+        },
+        {
+            "time": "　2018-06-04",
+            "activePower": 100,
+            "reactivePower": 100
+        },
+        {
+            "time": "　2018-06-05",
+            "activePower": 100,
+            "reactivePower": 100
+        }
+    ]
+
 };
 
 
