@@ -437,24 +437,41 @@ class SecondaryLoop extends BaseView {
         let [
             domHeight,
             loop_content,// 算出表格高度
-            data, // 表格里面的数据
             eventTable, // 图表高度
-            charts2, // 异常事件数量变化趋势
-            columns, // 二次回路异常事件
-            charts3, // 异常事件行业分布信息
-            charts5, // 异常事件类型信息
-            charts6, // 区域占比
+            periodListCharts, // 异常事件数量变化趋势
+            columns, // 二次回路异常事件 列
+            tradeListCharts, // 异常事件行业分布信息
+            exceptionListCharts, // 异常事件类型信息
+            areaListCharts, // 区域占比
         ] = [
             $('.page-main').height(),
             $(".loop_top").height() - 20,// 算出表格高度
-            [],
             $(".event_bottom .content_box").height() - 20 - 30,// - title -上下padding
             {},// 异常事件数量变化趋势
-            [],// 二次回路异常事件
+            [],// 二次回路异常事件 列
             {},// 异常事件行业分布信息
             {},// 异常事件类型信息
             {}// 区域占比
         ];
+        // 正式数据
+        // let {
+        //     totalCount,// 二次回路异常事件统计
+        //     areaList, // 异常区域占比查询
+        //     periodList, //异常事件数量变化趋势
+        //     tradeList, // 行业分布信息查询
+        //     exceptionList, // 异常类型分布情况查询
+        //     dataList, // 异常信息表查询
+        //     elecCurrentData,// 电流分析对比查询
+        // } = this.state;
+        let {
+            totalCount,// 二次回路异常事件统计
+            areaList, // 异常区域占比查询
+            periodList, //异常事件数量变化趋势
+            tradeList, // 行业分布信息查询
+            exceptionList, // 异常类型分布情况查询
+            dataList, // 异常信息表查询
+            elecCurrentData,// 电流分析对比查询
+        } = Mock;
         columns = [
             {
                 title: '所属地区',
@@ -493,9 +510,8 @@ class SecondaryLoop extends BaseView {
                 dataIndex: 'recoverTime',
             },
         ]
-        charts2 = {
-            // data:yearCountData,
-            data: Mock.charts2,
+        periodListCharts = {
+            data: periodList,
             type: "area",
             height: loop_content,
             xAxis: "year",
@@ -517,9 +533,8 @@ class SecondaryLoop extends BaseView {
                 offset: 5
             }
         };
-        console.log(eventTable+"eventTable")
-        charts3 = {
-            data: Mock.charts8,
+        tradeListCharts = {
+            data: tradeList,
             height: eventTable,
             xAxis: 'time',
             yAxis_line: 'people',
@@ -547,9 +562,8 @@ class SecondaryLoop extends BaseView {
                 offset: 5,
             }
         };
-        charts5 = {
-            // data:tradeCountData,
-            data: Mock.charts5,
+        exceptionListCharts = {
+            data: exceptionList,
             height: eventTable,
             xAxis: 'trade',
             yAxis: 'count',
@@ -566,9 +580,8 @@ class SecondaryLoop extends BaseView {
             }
         };
         // 区域占比
-        charts6 = {
-            // data:validityEventCountData,
-            data: Mock.charts6,
+        areaListCharts = {
+            data: areaList,
             height: loop_content,
             forceFit: true,
             padding: "auto",
@@ -583,26 +596,6 @@ class SecondaryLoop extends BaseView {
                 }
             }
         };
-        // const
-        //     {
-        //         validityEventCountData
-        //     }
-        //         = this.state;
-        for (let i = 0; i < 100; i++) {
-            data.push(
-                {
-                    key: `${i}`,
-                    username: `李四${i}`,
-                    place: "南京市",
-                    serialNum: "SN1234322",
-                    elecSerialNum: `SN1234325${i}`,
-                    trade: "轻工业用电",
-                    exception: 2,
-                    occTime: "2017-10-10",
-                    recoverTime: "2017-10-11",
-                }
-            );
-        }
         // table 的高度不对
         const tableParent = $(".event_top").height();
         const tableHeight = tableParent - 20;
@@ -624,7 +617,7 @@ class SecondaryLoop extends BaseView {
                                 <div className="loop_content loop_number"
                                      style={{height: loop_content, lineHeight: `${loop_content}px`}}
                                 >
-                                    1,420
+                                    {totalCount}
                                     <span className="text-white">&nbsp;件</span>
                                 </div>
                             </div>
@@ -632,13 +625,13 @@ class SecondaryLoop extends BaseView {
                                 <div className="content_title no_border_left">区域占比</div>
                                 <div className="blue_underline"/>
                                 <div className="loop_content">
-                                    <Labelline {...charts6} />
+                                    <Labelline {...areaListCharts} />
                                 </div>
                             </div>
                         </div>
                         <div className="loop_bottom">
                             <div className="content_title">异常事件数量变化趋势</div>
-                            <Basicline {...charts2} />
+                            <Basicline {...periodListCharts} />
                         </div>
                     </div>
                 </div>
@@ -648,7 +641,7 @@ class SecondaryLoop extends BaseView {
                             <div className="content_box">
                                 <div className="content_title">二次回路异常事件</div>
                                 <div className="content-table">
-                                    <Table columns={columns} dataSource={data} pagination={false}
+                                    <Table columns={columns} dataSource={dataList} pagination={false}
                                            scroll={{y: 120}}/>
                                 </div>
                             </div>
@@ -658,7 +651,7 @@ class SecondaryLoop extends BaseView {
                                 <div className="content_box">
                                     <div className="content_title">异常事件行业分布信息</div>
                                     <div className="event-table">
-                                        <Doubleaxes {...charts3}/>
+                                        <Doubleaxes {...tradeListCharts}/>
                                     </div>
                                 </div>
                             </div>
@@ -666,7 +659,7 @@ class SecondaryLoop extends BaseView {
                                 <div className="content_box">
                                     <div className="content_title">异常事件类型信息</div>
                                     <div className="event-table">
-                                        <Basicbar {...charts5}/>
+                                        <Basicbar {...exceptionListCharts}/>
                                     </div>
                                 </div>
                             </div>
@@ -697,10 +690,10 @@ class SecondaryLoop extends BaseView {
                     title: '所属地区',
                     dataIndex: 'place',
                 },
-                {
-                    title: '所属县市',
-                    dataIndex: '所属县市',
-                },
+                // {
+                //     title: '所属县市',
+                //     dataIndex: '所属县市',
+                // },
                 {
                     title: '巡检仪资产编号',
                     dataIndex: 'serialNum',
@@ -736,7 +729,7 @@ class SecondaryLoop extends BaseView {
             ($(".SecondaryLoopLeft_left").height() - 20 -  45) / 3,// 电流分析对比查询 高度
             [],// 电流分析对比查询 数据
             {},// 电量变化图表
-            $(".chartsEleChangeHeight").height(),// 电量变化图表 高度
+            $(".chartsEleChangeHeight").height() - 20,// 电量变化图表 高度
         ];
         chartsEleA = {
             // data:yearCountData,
@@ -928,10 +921,10 @@ class SecondaryLoop extends BaseView {
                                     </div>
                                 </div>
                             </div>
-                            <div className="event_bottom_center">
-                                <div className="content_box">
+                            <div className="event_bottom_center ">
+                                <div className="content_box chartsEleChangeHeight">
                                     <div className="content_title">电量变化</div>
-                                    <div className="event-table chartsEleChangeHeight">
+                                    <div className="event-table">
                                         <Basicline {...chartsEleChange} />
                                     </div>
                                 </div>
