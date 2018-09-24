@@ -369,14 +369,12 @@ class SecondaryAnaly extends BaseView {
 
     renderPageOne() {
         let [
-            domHeight,
             loop_content,// 二次回路异常事件统计高度
             charts2, // 异常事件数量变化趋势
             loop_bottom, // 异常事件数量变化趋势 高度
             theme, // 异常主题评估
             themeHeight, // 异常主题评估 高度
         ] = [
-            $('.page-main').height(),
             $(".loop_top").height() - 20,// 算出表格高度
             {},// 异常事件数量变化趋势
             $(".loop_bottom").height() - 20,// 异常事件数量变化趋势 高度
@@ -440,7 +438,7 @@ class SecondaryAnaly extends BaseView {
             height:themeHeight
         };
         return (
-            <div className="SecondaryanalyRight content" style={{height: domHeight}}>
+            <div className="SecondaryanalyRight content">
                 <div className="SecondaryanalyRight_left">
                     <div className="content_box">
                         <div className="loop_top">
@@ -477,13 +475,8 @@ class SecondaryAnaly extends BaseView {
         );
     }
 
-    renderPageTwo() {
-        return (
-            <div>page2</div>
-        )
-    }
-
     renderMain() {
+        let appview = $("#appview").height();
         var settings = {
             dots: false,
             dotsClass: "slick-dots slick-thumb item_box",
@@ -497,19 +490,14 @@ class SecondaryAnaly extends BaseView {
             touchMove: true
         };
         return (
-            <div className="page-slick page-SecondaryAnaly">
+            <div className="page-slick page-SecondaryAnaly" style = {{height:appview}}>
                 <h1 className="page-title">{this.state.pageTitle}</h1>
                 <div className="slick-btn">
                     <div className="btn active"/>
                     <div className="btn"/>
                 </div>
                 {this.renderSearchBar()}
-                <div className="page-main slider_content">
-                    <Slider {...settings}>
-                        <div className="slider_sec ">{this.renderPageOne()}</div>
-                        <div className="slider_sec">{this.renderPageTwo()}</div>
-                    </Slider>
-                </div>
+                {this.renderPageOne()}
             </div>
         );
     }
