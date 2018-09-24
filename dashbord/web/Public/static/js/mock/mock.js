@@ -8,9 +8,9 @@ const Mock = {
 		"count": 120
 	}],
 	charts2: [{
-		"year": 2017, "count": 100
+		"year": '2018-09-12', "count": 100
 	}, {
-		"year": 2018, "count": 120
+		"year": '2018-09-13', "count": 120
 	}],
 	charts3: [{
 		"measure": 1, "name": "三相三线",
