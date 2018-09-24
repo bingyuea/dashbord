@@ -1,4 +1,4 @@
-import BaseModel  from '../core/model.base'
+import BaseModel from '../core/model.base'
 
 /*
  *  二次回路异常主题分析
@@ -7,7 +7,7 @@ import BaseModel  from '../core/model.base'
 class QueryElecCurrentData extends BaseModel {
     constructor(props) {
         super(props);
-        this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/ queryElecCurrentData';
+        this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryElecCurrentData';
     }
 };
 //二次回路异常事件查询
@@ -21,9 +21,9 @@ module.exports = {
     /*
      *  二次回路异常主题分析
      */
-//异常数据统计
+    //异常数据统计
     QueryElecCurrentData,
-//二次回路异常事件查询
+    //二次回路异常事件查询
     QuerySecondLoopExceptionCount,
 
 };
