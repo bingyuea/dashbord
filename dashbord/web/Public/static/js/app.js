@@ -28,16 +28,7 @@ class App extends BaseApp {
                         }, 'views/xmd')
                     }
                 },
-                //二次回路异常主题分析（6）
-                {
-                    path: __mei_wei__.env.basepath + 'analy',
-                    getComponents(nextState, cb) {
-                        require.ensure([], (require) => {
-                            var page = require('./views/analy.js');
-                            cb(null, page)
-                        }, 'views/analy')
-                    }
-                },
+               
                 //二次回路状态在线监测（8）
                 {
                     path: __mei_wei__.env.basepath + 'status',
@@ -68,6 +59,16 @@ class App extends BaseApp {
                         }, 'views/secondaryLoop')
                     }
                 },
+                 //二次回路异常主题分析（6）
+                 {
+                    path: __mei_wei__.env.basepath + 'analy',
+                    getComponents(nextState, cb) {
+                        require.ensure([], (require) => {
+                            var page = require('./views/analy.js');
+                            cb(null, page)
+                        }, 'views/analy')
+                    }
+                },
                 // 二次回路单异常主题分析 （7）
                 {
                     path: __mei_wei__.env.basepath + 'secondary_analy',
@@ -78,6 +79,17 @@ class App extends BaseApp {
                         }, 'views/secondaryAnaly')
                     }
                 },
+                // 二次回路单异常主题分析 (6,7)
+                {
+                    path: __mei_wei__.env.basepath + 'mergeAnaly',
+                    getComponents(nextState, cb) {
+                        require.ensure([], (require) => {
+                            var page = require('./views/mergeAnaly.js');
+                            cb(null, page)
+                        }, 'views/mergeAnaly')
+                    }
+                },
+                
             ],
             
             rooter: 'appview',
