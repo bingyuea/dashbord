@@ -31,13 +31,16 @@
     width: 0 !important;
   }
 }
-.content-table{
-  padding-left: 15px;
-}
 
-// 给每个tr 添加小圆点
+
+// 给每个tr 添加小圆点(不起作用)
+.content-table{
+  // padding-left: 15px;
+}
 .ant-table-tbody > tr{
   position: relative;
+  background: red !important;
+  z-index: 999999;
   &:after{
     position: absolute;
     width: 5px;
@@ -47,4 +50,9 @@
     top:50%;
     left: -8px;
   }
+}
+
+.ant-table-thead>tr:first-child>th:first-child,.ant-table-thead>tr:first-child>th:last-child{
+  border-top-right-radius: 0  ;
+  border-top-left-radius: 0  ;
 }

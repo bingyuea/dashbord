@@ -38,7 +38,7 @@ class Labelline extends React.Component {
           data={dv}
           scale={this.props.cols}
         >
-          <Coord type="theta" radius={0.75} innerRadius={this.props.innerRadius || 0}/>
+          <Coord type="theta" radius={this.props.radius || 1} innerRadius={this.props.innerRadius || 0}/>
           <Axis name="percent" />
           <Tooltip
             showTitle={false}
