@@ -23,7 +23,7 @@
             width: 70%;
             .loop_content {
               width: 100%;
-              &.loop_number{
+              &.loop_number {
                 color: @blue;
                 font-size: 25px;
                 text-align: left;
@@ -47,7 +47,8 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        &_top, &_bottom {
+        &_top,
+        &_bottom {
           display: flex;
           justify-content: space-between;
           height: 50%;
@@ -68,14 +69,14 @@
             padding-right: 15px;
             box-sizing: border-box;
             .content_box {
-              padding:15px 20px;
+              padding: 15px 20px;
               height: 100%;
             }
           }
           &_right {
             width: 50%;
             .content_box {
-              padding:15px 20px;
+              padding: 15px 20px;
               height: 100%;
             }
           }
@@ -98,10 +99,10 @@
         padding: 15px 20px;
         height: 100%;
         border-radius: 40px;
-        .ele_charts{
+        .ele_charts {
           padding-top: 15px;
-          &_title{
-            color:#777;
+          &_title {
+            color: #777;
             line-height: 15px;
             font-size: 14px;
             text-align: center;
@@ -117,7 +118,8 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        &_top, &_bottom {
+        &_top,
+        &_bottom {
           display: flex;
           justify-content: space-between;
           height: 50%;
@@ -133,59 +135,68 @@
         &_bottom {
           display: flex;
           justify-content: space-between;
-          &_left,&_right,&_center {
+          &_left,
+          &_right,
+          &_center {
             box-sizing: border-box;
             .content_box {
-              padding:15px 20px;
+              padding: 15px 20px;
               height: 100%;
-              .event-table{
-                height: calc(~"100% - 20px");
+              .event-table {
+                height: calc(~'100% - 20px');
               }
             }
           }
-          &_left{
+          &_left {
             width: 25%;
-            .event-table{
+            .event-table {
               overflow: auto;
-              &::-webkit-scrollbar{
+              &::-webkit-scrollbar {
                 width: 0;
               }
-              ul {
+              > ul {
                 width: 100%;
                 padding: 0;
-                li{
+                > li {
                   margin-bottom: 20px;
-                  &:last-child{
+                  &:last-child {
                     margin-bottom: 0;
                   }
-                  p{
+                  .title,
+                  .event_report {
                     font-size: 15px;
-                    color:@blue;
+                    color: @blue;
                     text-align: left;
                     height: 25px;
                     line-height: 25px;
                     margin-bottom: 0;
                     display: block;
-                    &.event_report{
-                      margin-top:10px;
-                      background: #777;
-                      height: 35px;
-                      line-height: 35px;
-                      color:#fff;
+                  }
+                  .event_report {
+                    margin-top: 10px;
+                    background: #777;
+                    line-height: 16px;
+                    color: #fff;
+                    width: 100%;
+                    padding: 0;
+                    height: auto;
+                    padding: 5px 0 5px 5px;
+                    > li {
+                      text-align: left;
                     }
-                  };
+                  }
                 }
               }
             }
           }
-          &_right{
+          &_right {
             width: 25%;
-            .event-table{
+            .event-table {
               width: 100%;
               background: #777;
             }
           }
-          &_center{
+          &_center {
             width: 50%;
             padding: 0 15px;
           }
