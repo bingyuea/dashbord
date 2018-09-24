@@ -45,7 +45,6 @@ class XMD extends BaseView {
     }
 
     search(value){
-      console.log(value)
       this.setState({
         searchValue:value
       })
@@ -125,11 +124,14 @@ class XMD extends BaseView {
         searchHandle:this.search.bind(this)
 
       }
-
       return(
         
           <SearchBar {...barOptions}/>
       )
+    }
+    //切换轮播的回调,idx:当前轮播的页面idx
+    afterSlickChange(idx){
+      
     }
 
     renderPageOne(){
@@ -348,7 +350,8 @@ class XMD extends BaseView {
         autoplaySpeed:5000,
         slidesToShow: 1,
         slidesToScroll: 1,
-        touchMove:true
+        touchMove:true,
+        afterChange:this.afterSlickChange.bind(this)
       };
 
       return (
