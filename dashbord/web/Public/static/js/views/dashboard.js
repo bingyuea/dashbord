@@ -23,7 +23,7 @@ import {
   ValidityEventCountModel,
   ProvinceEventCountModel,
   TradeEventCountModel,
-} from '../models/business.models';
+} from '../models/dashboard.models';
 
 import Mock from '../mock/mock';
 
@@ -287,8 +287,8 @@ class Dashboard extends BaseView {
         forceFit:true,
         padding:'auto',
         cols:{
-          year: {
-            tickInterval: 1,
+          sales: {
+            alias:'year'
           }
         },
         style:{
@@ -543,7 +543,6 @@ class Dashboard extends BaseView {
         yAxis:'count'
 
       }
-
 
       return (
         <div className='page-right'>

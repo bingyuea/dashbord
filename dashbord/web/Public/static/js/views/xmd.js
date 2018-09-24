@@ -2,11 +2,6 @@ import React, {Component} from 'react'
 import BaseView from '../core/view.base'
 import $ from 'jquery'
 
-import {
-  ProvinceCountModel,
-  YearCountModel
-} from '../models/business.models';
-
 import Mock from '../mock/mock';
 //图表模型
 import {
@@ -22,11 +17,44 @@ import {
 } from '../ui/ui.charts'
 import SearchBar from '../ui/ui.searchbar.js';
 
+import moment from 'moment';
+
+import DataServince from '../services/searchbar.services';
+
 import Slider from "react-slick";
 
-//定义数据模型
-const provinceCountModel = ProvinceCountModel.getInstance(),
-      yearCountModel = YearCountModel.getInstance();
+import {
+  translateCountToPercent
+} from '../util/util'
+
+import {
+  XmdInstallModel,
+  CustomerInfoModel,
+  RateModel,
+  MeasureModel,
+  XmdTableListModel,
+
+  XmdEventModel,
+  CustomerXmdEventModel,
+  RateEventModel,
+  MeasureEventModel,
+  XmdEventTableListModel
+
+} from '../models/xmd.models';
+
+
+const xmdInstallModel = XmdInstallModel.getInstance(),
+      customerInfoModel = CustomerInfoModel.getInstance(),
+      xmdTableListModel = XmdTableListModel.getInstance(),
+      xmdEventModel = XmdEventModel.getInstance(),
+      measureModel = MeasureModel.getInstance(),
+      customerXmdEventModel = CustomerXmdEventModel.getInstance(),
+      rateEventModel = RateEventModel.getInstance(),
+      measureEventModel = MeasureEventModel.getInstance(),
+      xmdEventTableListModel = XmdEventTableListModel.getInstance(),
+      rateModel = RateModel.getInstance();
+
+
 //巡检仪安装情况
 class XMD extends BaseView {
 
@@ -34,93 +62,253 @@ class XMD extends BaseView {
 
         super(props);
         this.state = {
-          pageTitle:'巡检仪安装情况查询'
+          pageTitle:'巡检仪安装情况查询',
+        }
+
+        const dateFormat = 'YYYY-MM-DD HH:mm';
+        const today = moment().format(dateFormat);
+        const lastday = moment().add(-1, 'days').format(dateFormat);
+
+        this.indata = {
+          defaultTime:[lastday,today]
         }
     }
 
     componentDidMount(){
-      this.setState({
-        pageStatus:'init'
-      })
+      const self = this;
+      DataServince.fetch(function(searchOptions){
+          self.setState({
+              searchOptions:searchOptions
+          },()=>{
+            self.search();
+          });
+      });
     }
 
     search(value){
-      this.setState({
-        searchValue:value
-      })
+      console.log(this.state.searchOptions)
+      //拿到搜索需要参数
+      let _value = value || {};
+      if(!_value.province){
+        _value.province = this.state.searchOptions.provinceOpts[0].value;
+      }
+
+      if(!_value.startTime){
+        _value.startTime = this.indata.defaultTime[0];
+        _value.endTime = this.indata.defaultTime[1];
+      }
+
+      this.fetchPageOne(_value);
+      this.fetchPageTwo(_value);
+    }
+
+    fetchPageOne(value){
+      const self = this;
+      this.fetchXmdInstall(value);
+      this.fetchCustomerInfo(value);
+      this.fetchRate(value);
+      this.fetchXmdTableLis(value);
+    }
+    //巡检仪安装情况
+    fetchXmdInstall(value){
+      xmdInstallModel.setParam({...value});
+      xmdInstallModel.excute((res)=>{
+        const resData = res.data || {};
+        let pageOne = this.state.pageOne || {};
+        pageOne.xmdInstall = resData;
+        self.setData({
+          pageOne:pageOne
+        });
+      },(err)=>{
+
+      });
+    }
+
+    //客户分布情况
+    fetchCustomerInfo(value){
+      customerInfoModel.setParam({...value});
+      customerInfoModel.excute((res)=>{
+        const resData = res.data || {};
+        let pageOne = this.state.pageOne || {};
+        pageOne.customer = resData;
+        self.setData({
+          pageOne:pageOne
+        });
+      },(err)=>{
+
+      });
+    }
+    //综合倍率
+    fetchRate(value){
+      rateModel.setParam({...value});
+      rateModel.excute((res)=>{
+        const resData = res.data || {};
+        let pageOne = this.state.pageOne || {};
+        pageOne.rate = resData;
+        self.setData({
+          pageOne:pageOne
+        });
+      },(err)=>{
+
+      });
+    }
+
+    //计量类型
+    fetchMeasure(value){
+      measureModel.setParam({...value});
+      measureModel.excute((res)=>{
+        const resData = res.data || {};
+        let pageOne = this.state.pageOne || {};
+        pageOne.measure = resData;
+        self.setData({
+          pageOne:pageOne
+        });
+      },(err)=>{
+
+      });
+    }
+
+    //巡检仪档案table
+    fetchXmdTableLis(value){
+      xmdTableListModel.setParam({...value});
+      xmdTableListModel.excute((res)=>{
+        const resData = res.data || {};
+        let pageOne = this.state.pageOne || {};
+        pageOne.table = resData;
+        self.setData({
+          pageOne:pageOne
+        });
+      },(err)=>{
+
+      });
+    }
+
+    fetchPageTwo(value){
+      this.fetchXmdEvent();
+      this.fetchCustomerXmdEvent();
+      this.fetchRateXmdEvent();
+      this.fetchMeasureXmdEvent();
+      this.fetcXmdEventTableListEvent();
+    }
+
+    //巡检仪上报事件
+    fetchXmdEvent(value){
+      xmdEventModel.setParam({...value});
+      xmdEventModel.excute((res)=>{
+        const resData = res.data || {};
+        let pageTwo = this.state.pageTwo || {};
+        pageTwo.xmdEvent = resData;
+        self.setData({
+          pageTwo:pageTwo
+        });
+      },(err)=>{
+
+      });
+    }
+    //事件分布信息
+    fetchCustomerXmdEvent(value){
+      customerXmdEventModel.setParam({...value});
+      customerXmdEventModel.excute((res)=>{
+        const resData = res.data || {};
+        let pageTwo = this.state.pageTwo || {};
+        pageTwo.customerXmdEvent = resData;
+        self.setData({
+          pageTwo:pageTwo
+        });
+      },(err)=>{
+
+      });
+    }
+
+    //two综合倍率
+    fetchRateXmdEvent(value){
+      rateEventModel.setParam({...value});
+      rateEventModel.excute((res)=>{
+        const resData = res.data || {};
+        let pageTwo = this.state.pageTwo || {};
+        pageTwo.rateEvent = resData;
+        self.setData({
+          pageTwo:pageTwo
+        });
+      },(err)=>{
+
+      });
+    }
+
+    //two计量类型
+    fetchMeasureXmdEvent(value){
+      measureEventModel.setParam({...value});
+      measureEventModel.excute((res)=>{
+        const resData = res.data || {};
+        let pageTwo = this.state.pageTwo || {};
+        pageTwo.measureEvent = resData;
+        self.setData({
+          pageTwo:pageTwo
+        });
+      },(err)=>{
+
+      });
+    }
+    //two计量类型
+    fetcXmdEventTableListEvent(value){
+      xmdEventTableListModel.setParam({...value});
+      xmdEventTableListModel.excute((res)=>{
+        const resData = res.data || {};
+        let pageTwo = this.state.pageTwo || {};
+        pageTwo.xmdEventTable = resData;
+        self.setData({
+          pageTwo:pageTwo
+        });
+      },(err)=>{
+
+      });
     }
 
     renderSearchBar(){
+
+      const {
+        provinceOpts,
+        cityOpts,
+        measureOpts,
+        unusalOpts,
+        tradeOpts,
+        themeOpts
+      } = this.state.searchOptions || {};
+
+      if(!this.state.searchOptions){return false}
 
       const barOptions = {
         locationData:{
           title:'安装地点',
           province:{
-            options:[{
-              value:'上海',
-              desc:'上海'
-            },{
-              value:'江苏',
-              desc:'江苏'
-            }],
+            options:provinceOpts,
             key:'province'
           },
           city:{
-            options:[{
-              value:'南京',
-              desc:'南京'
-            },{
-              value:'苏州',
-              desc:'苏州'
-            }],
+            options:cityOpts,
             key:'city'
           },
         },
         measureData:{
           title:'计量类型',
           key:'measure',
-          options:[{
-            value:3,
-            desc:''
-          },{
-            value:1,
-            desc:'三相三线'
-          },{
-            value:2,
-            desc:'三相四线'
-          }]
+          options:measureOpts,
         },
         tradeData:{
           title:'行业类型',
           key:'trade',
-          options:[{
-            value:1,
-            desc:'三相三线'
-          },{
-            value:2,
-            desc:'三相四线'
-          },]
+          options:tradeOpts,
         },
         unusualData:{
           title:'异常类型',
           key:'unusual',
-          options:[{
-            value:1,
-            desc:'三相三线'
-          },{
-            value:2,
-            desc:'三相四线'
-          }]
+          options:unusalOpts,
         },
         dateData:{
-          title:'上报时间'
-
+          title:'上报时间',
+          defaultTime:this.indata.defaultTime
         },
-        inputData:{
-          title:'巡检仪资产编号',
-          key:'xmdId',
-          placeholder:'请输入资产编号'
-        },
+        
         searchHandle:this.search.bind(this)
 
       }
@@ -131,18 +319,17 @@ class XMD extends BaseView {
     }
     //切换轮播的回调,idx:当前轮播的页面idx
     afterSlickChange(idx){
-      
+
     }
 
     renderPageOne(){
-
       const {
-        provinceCountData,
-        yearCountData,
-        measureCountData,
-        rateCountData,
-        tradeCountData
-      } = this.state; 
+        xmdInstall,
+        customer,
+        rate,
+        measure,
+        table
+      } = this.state.pageOne || {}; 
 
       const domHeight = $('.page-main').height();
       // if(!domHeight){return}
@@ -153,13 +340,12 @@ class XMD extends BaseView {
         centerTopHeight = $('#centerSectionContent').height() - 35;  
       },0);
       
-       //地区分布信息
-      const charts5 = {
-        // data:tradeCountData,
-        data:Mock.charts5,
+      //巡检仪上线数
+      const charts2 = {
+        data:xmdInstall.periodList,
         height:leftChartHeight,
-        xAxis:'trade',
-        yAxis:'count',
+        xAxis:'period',
+        yAxis:'periodCount',
         forceFit:true,
         padding:'auto',
         style:{
@@ -172,21 +358,14 @@ class XMD extends BaseView {
           offset:5,
         }
       }
-
-      //巡检仪上线数
-      const charts2 = {
-        // data:yearCountData,
-        data:Mock.charts2,
+       //地区分布信息
+      const charts5 = {
+        data:xmdInstall.areaList,
         height:leftChartHeight,
-        xAxis:'year',
-        yAxis:'count',
+        xAxis:'area',
+        yAxis:'areaCount',
         forceFit:true,
         padding:'auto',
-        cols:{
-          year: {
-            tickInterval: 1,
-          }
-        },
         style:{
           overflow:'auto',
         },
@@ -200,27 +379,23 @@ class XMD extends BaseView {
 
       //客户分布情况
       const charts8 = {
-        data:Mock.charts8,
+        data:translateCountToPercent(customer.tradeList),
         height:centerTopHeight,
-        xAxis:'time',
-        yAxis_line:'people',
-        yAxis_interval:'waiting',
+        xAxis:'tradeName',
+        yAxis_line:'percent',
+        yAxis_interval:'tradeCount',
         forceFit:true,
         padding:'auto',
         cols:{
-          call: {
+          tradeName: {
             min: 0
           },
-          people: {
-            min: 0
-          },
-          waiting: {
+          percent: {
             min: 0
           }
         },
         style:{
-          overflow:'auto',
-          flex:1
+          overflow:'auto'
         },
         xLabel:{
           offset:15,
@@ -230,14 +405,14 @@ class XMD extends BaseView {
         }
       }
 
+      //综合倍率
       const charts3 = {
-        // data:measureCountData,
-        data:Mock.charts3,
+        data:rate.rateList,
         height:centerChartHeight,
         forceFit:true,
         padding:'auto',
-        field:'count',
-        dimension:'name',
+        field:'rateCount',
+        dimension:'rate',
         cols:{
           percent: {
             formatter: val => {
@@ -247,15 +422,14 @@ class XMD extends BaseView {
           }
         }
       }
-
+      //计量类型
       const charts4 = {
-        // data:measureCountData,
-        data:Mock.charts3,
+        data:measure.rateList,
         height:centerChartHeight,
         forceFit:true,
         padding:'auto',
-        field:'count',
-        dimension:'name',
+        field:'measureCount',
+        dimension:'measureName',
         cols:{
           percent: {
             formatter: val => {
@@ -274,7 +448,7 @@ class XMD extends BaseView {
             </div>
             <div className="blue_underline"></div>
             <div className='total-num'>
-              <span className='blue-txt'>23,232</span>
+              <span className='blue-txt'>{xmdInstall.totalCount.replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</span>
               台
             </div>
             <div className='charts-content'>
@@ -315,7 +489,7 @@ class XMD extends BaseView {
             </div>
           </div>
           <div className='side-content content_box'>
-
+            
           </div>
         </div>
       )

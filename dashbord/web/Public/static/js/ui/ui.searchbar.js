@@ -7,6 +7,11 @@ import {
 	Icon
 } from 'antd';
 
+import moment from 'moment';
+
+import DataServince from '../services/searchbar.services';
+
+
 const Option = Select.Option;
 
 const { RangePicker, MonthPicker } = DatePicker;
@@ -14,13 +19,17 @@ const { RangePicker, MonthPicker } = DatePicker;
 class SearchBar extends Component {
 
 	constructor(props) {
-
         super(props);
-
         this.state = {
-        	searchValue:{}
+        	searchValue:{
+                
+            }
         }
-        
+    }
+
+    componentDidMount(){
+        const self = this;
+
     }
 
     inputChangeHandle(key,e){
@@ -38,11 +47,11 @@ class SearchBar extends Component {
 
     }
 
-    dataChangeHandle(date, dateString){
-  		console.log(date, dateString);
-  		const key = this.props.dateData.key;
-  		let searchValue = this.state.searchValue;
-        searchValue[key] = '';
+    rangeOkHandle(date){
+        let searchValue = this.state.searchValue;
+        
+        searchValue.startTime = date[0]._i + ':00';
+        searchValue.endTime = date[1]._i + ':00';
         this.setState({
         	searchValue:searchValue
         });
@@ -102,11 +111,19 @@ class SearchBar extends Component {
 
     //时间范围选择器
     renderDatePicker(item){
+        const dateFormat = 'YYYY-MM-DD HH:mm';
+
     	return (
     		<div className='search-item' style={item.style}>
     			<div className='title'>{item.title}</div>
     			<div className='select-box'>
-    				<RangePicker onChange={this.dataChangeHandle.bind(this)} />
+    				<RangePicker 
+                        showTime={{ format: 'HH:mm' }}
+                        format="YYYY-MM-DD HH:mm"
+                        defaultValue={[moment(item.defaultTime[0], dateFormat), moment(item.defaultTime[1], dateFormat)]}
+                        placeholder={['开始时间', '结束时间']}
+                        onOk={this.rangeOkHandle.bind(this)}
+                    />
     			</div>
     		</div>
     	)
