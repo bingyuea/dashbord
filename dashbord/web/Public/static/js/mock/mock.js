@@ -64,29 +64,29 @@ const Mock = {
         waiting: 5,
         people: 9
     },],
-    totalCount: 1350,// 二次回路异常事件统计
+    totalCount: 1420,// 二次回路异常事件统计
     // 异常区域占比查询
     areaList:
         [
             {
-                area: "浦东新区",
-                areaCount: 200
+                "area": "浦东新区",
+                "areaCount": 200
             },
             {
-                area: "黄浦区",
-                areaCount: 300
+                "area": "黄浦区",
+                "areaCount": 300
             }
         ],
     // 异常事件数量变化趋势
     periodList:
         [
             {
-                period: "2017-03-01",
-                periodCount: 200
+                "period": "2017-03-01",
+                "periodCount": 200
             },
             {
-                period: "2017-03-02",
-                periodCount: 300
+                "period": "2017-03-02",
+                "periodCount": 300
             }
         ],
     // 行业分布信息查询

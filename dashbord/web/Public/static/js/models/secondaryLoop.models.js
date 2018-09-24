@@ -53,6 +53,14 @@ class QueryElecCurrentData extends BaseModel {
         this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryElecCurrentData';
     }
 }
+// 巡检仪上报事件查询
+class QueryXMDEvent extends BaseModel {
+    constructor(props) {
+        super(props);
+        this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryXMDEvent';
+    }
+}
+
 module.exports = {
     /*
      *  二次回路单-异常分析1
@@ -74,4 +82,6 @@ module.exports = {
     */
     // 电流分析对比查询
     QueryElecCurrentData,
+    // 巡检仪上报事件查询
+    QueryXMDEvent,
 };
