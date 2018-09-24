@@ -25,6 +25,12 @@ import {
     */
     // 电流分析对比查询
     QueryElecCurrentData,
+    // 巡检仪上报事件查询
+    QueryXMDEvent,
+    // 电能表上报事件查询
+    QueryElecEvent,
+    // 电量数据查询
+    QueryElecData,
 } from "../models/secondaryLoop.models";
 import Mock from "../mock/mock";
 
@@ -49,6 +55,10 @@ const queryExceptionList = QueryExceptionList.getInstance();
 const queryElecCurrentData = QueryElecCurrentData.getInstance();
 // 巡检仪上报事件查询
 const queryXMDEvent = QueryXMDEvent.getInstance();
+// 电能表上报事件查询
+const queryElecEvent = QueryElecEvent.getInstance();
+// 电量数据查询
+const queryElecData = QueryElecData.getInstance();
 
 
 class SecondaryLoop extends BaseView {
@@ -81,7 +91,10 @@ class SecondaryLoop extends BaseView {
         this.fetchQueryElecCurrentData();
         // 巡检仪上报事件查询
         this.fetchQueryXMDEvent();
-
+        // 电能表上报事件查询
+        this.fetchQueryElecEvent();
+        // 电量数据查询
+        this.fetchQueryElecData();
     }
 
     // 异常事件总数查询
@@ -396,6 +409,103 @@ class SecondaryLoop extends BaseView {
             console.log(err)
         })
     }
+    // 电能表上报事件查询
+    fetchQueryElecEvent(token) {
+        const self = this;
+        // 这里是点击当前行的的数据
+        const searchValue = this.state.searchValue;
+        queryElecEvent.setParam({
+            token: token,
+            serialNum: searchValue.serialNum,
+            elecSerialNum: searchValue.elecSerialNum,
+        });
+        queryElecEvent.excute((res) => {
+            const resData = res.data || {};
+            const eleEventData = resData.elecData || [];
+            // {
+            //     "result":1,
+            //     "elecData":[
+            //     {
+            //         "exception":"表示值不平",
+            //         "event":"发生",
+            //         "eventTime":"　2018-06-01 0:33:55",
+            //         "phaseA":0,
+            //         "phaseB":0,
+            //         "phaseC":1
+            //     },
+            //       {
+            //         "exception":"电能表飞走",
+            //         "event":"发生",
+            //         "eventTime":"　2018-06-01 0:33:55",
+            //         "phaseA":0,
+            //         "phaseB":0,
+            //         "phaseC":1
+            //     }
+            //      ]
+            // }
+            self.setState({
+                eleEventData,
+            });
+        }, (err) => {
+            console.log(err)
+        })
+    };
+    // 电量数据查询
+    fetchQueryElecData(token) {
+        const self = this;
+        // 这里是点击当前行的的数据
+        const searchValue = this.state.searchValue;
+        // 参数	参数名称	类型	必填	描述	范例
+        // token	校验字符串	String	是	用于校验	123sdf234
+        // serialNum	巡检仪资产编号	string	是		
+        // elecSerialNum	电能表资产编号	string	是		1
+        // occTime	异常发生时间	string	是		
+        queryElecData.setParam({
+            token: token,
+            serialNum: searchValue.serialNum,
+            elecSerialNum: searchValue.elecSerialNum,
+            occTime: searchValue.occTime,
+        });
+        queryElecData.excute((res) => {
+            const resData = res.data || {};
+            const elecDayData = resData.elecData || [];
+            // {
+            //     "result":1,
+            //     "elecData":[
+            //     {
+            //         "time ":"　2018-06-01",
+            //         "activePower":100,
+            //         "reactivePower":100
+            //     },
+            //       {
+            //         "time ":"　2018-06-02",
+            //         "activePower":100,
+            //         "reactivePower":100
+            //     },
+            //     {
+            //         "time ":"　2018-06-03",
+            //         "activePower":100,
+            //         "reactivePower":100
+            //     },
+            //       {
+            //         "time ":"　2018-06-04",
+            //         "activePower":100,
+            //         "reactivePower":100
+            //     },
+            //     {
+            //         "time ":"　2018-06-05",
+            //         "activePower":100,
+            //         "reactivePower":100
+            //     }
+            //      ]
+            // }
+            self.setState({
+                elecDayData,
+            });
+        }, (err) => {
+            console.log(err)
+        })
+    };
 
     search(value) {
         console.log(value);

@@ -60,7 +60,20 @@ class QueryXMDEvent extends BaseModel {
         this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryXMDEvent';
     }
 }
-
+// 电能表上报事件查询
+class QueryElecEvent extends BaseModel {
+    constructor(props) {
+        super(props);
+        this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryElecEvent';
+    }
+}
+// 电量数据查询
+class QueryElecData extends BaseModel {
+    constructor(props) {
+        super(props);
+        this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryElecData';
+    }
+}
 module.exports = {
     /*
      *  二次回路单-异常分析1
@@ -84,4 +97,8 @@ module.exports = {
     QueryElecCurrentData,
     // 巡检仪上报事件查询
     QueryXMDEvent,
+    // 电能表上报事件查询
+    QueryElecEvent,
+    // 电量数据查询
+    QueryElecData,
 };
