@@ -23,15 +23,7 @@ class Status extends BaseView {
     }
 
     pageInit() {
-        this.fetchProvinceCount();
-        this.fetchYearCount();
-        this.fetchMeasureCount();
-        this.fetchRateCount();
-        this.fetchTradeCount();
-        this.fetchEventCount();
-        this.fetchValidityEventCount();
-        this.fetchProvinceEventCount();
-        this.fetchTradeEventCount();
+       
 
     }
     renderPageOne() {
