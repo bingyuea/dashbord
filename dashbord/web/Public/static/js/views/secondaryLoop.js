@@ -448,7 +448,7 @@ class SecondaryLoop extends BaseView {
             $('.page-main').height(),
             $(".loop_top").height() - 20,// 算出表格高度
             [],
-            $(".event_bottom").height() - 20,
+            $(".event_bottom .content_box").height() - 20 - 30,// - title -上下padding
             {},// 异常事件数量变化趋势
             [],// 二次回路异常事件
             {},// 异常事件行业分布信息
@@ -517,6 +517,7 @@ class SecondaryLoop extends BaseView {
                 offset: 5
             }
         };
+        console.log(eventTable+"eventTable")
         charts3 = {
             data: Mock.charts8,
             height: eventTable,
@@ -582,11 +583,11 @@ class SecondaryLoop extends BaseView {
                 }
             }
         };
-        const
-            {
-                validityEventCountData
-            }
-                = this.state;
+        // const
+        //     {
+        //         validityEventCountData
+        //     }
+        //         = this.state;
         for (let i = 0; i < 100; i++) {
             data.push(
                 {
@@ -678,7 +679,7 @@ class SecondaryLoop extends BaseView {
     }
 
     renderPageTwo() {
-        const [
+        let [
             domHeight,// tab页面的高度
             data, // 表格里面的数据
             columns, // 二次回路异常事件
@@ -686,10 +687,8 @@ class SecondaryLoop extends BaseView {
             chartsEleB, // 电流分析对比查询 图表B
             chartsEleC, // 电流分析对比查询 图表C
             chartsEleHeight, // 电流分析对比查询 高度
-            chartsEleData, // 电流分析对比查询 数据
             chartsEleChange, // 电量变化图表
             chartsEleChangeHeight, // 电量变化图表 高度
-
         ] = [
             $('.page-main').height(),// tab页面的高度
             [], // 表格里面的数据
@@ -731,106 +730,110 @@ class SecondaryLoop extends BaseView {
                     dataIndex: 'recoverTime',
                 },
             ], // 二次回路异常事件
-            {
-                // data:yearCountData,
-                data: Mock.charts2,
-                type: "area",
-                height: chartsEleHeight,
-                xAxis: "year",
-                yAxis: "count",
-                forceFit: true,
-                padding: "auto",
-                cols: {
-                    year: {
-                        tickInterval: 1
-                    }
-                },
-                style: {
-                    overflow: "hidden"
-                },
-                xLabel: {
-                    offset: 15
-                },
-                yLabel: {
-                    offset: 5
-                }
-            },// 电流分析对比查询 图表A
-            {
-                // data:yearCountData,
-                data: Mock.charts2,
-                type: "area",
-                height: chartsEleHeight,
-                xAxis: "year",
-                yAxis: "count",
-                forceFit: true,
-                padding: "auto",
-                cols: {
-                    year: {
-                        tickInterval: 1
-                    }
-                },
-                style: {
-                    overflow: "hidden"
-                },
-                xLabel: {
-                    offset: 15
-                },
-                yLabel: {
-                    offset: 5
-                }
-            },// 电流分析对比查询 图表B
-            {
-                // data:yearCountData,
-                data: Mock.charts2,
-                type: "area",
-                height: chartsEleHeight,
-                xAxis: "year",
-                yAxis: "count",
-                forceFit: true,
-                padding: "auto",
-                cols: {
-                    year: {
-                        tickInterval: 1
-                    }
-                },
-                style: {
-                    overflow: "hidden"
-                },
-                xLabel: {
-                    offset: 15
-                },
-                yLabel: {
-                    offset: 5
-                }
-            },// 电流分析对比查询 图表C
-            ($(".SecondaryLoopLeft_left").height() - 20) / 3,// 电流分析对比查询 高度
+            {},
+            {},
+            {},
+            ($(".SecondaryLoopLeft_left").height() - 20 -  45) / 3,// 电流分析对比查询 高度
             [],// 电流分析对比查询 数据
-            {
-                // data:yearCountData,
-                data: Mock.charts2,
-                type: "area",
-                height: chartsEleChangeHeight,
-                xAxis: "year",
-                yAxis: "count",
-                forceFit: true,
-                padding: "auto",
-                cols: {
-                    year: {
-                        tickInterval: 1
-                    }
-                },
-                style: {
-                    overflow: "hidden"
-                },
-                xLabel: {
-                    offset: 15
-                },
-                yLabel: {
-                    offset: 5
-                }
-            },// 电量变化图表
-            0,// 电量变化图表 高度
+            {},// 电量变化图表
+            $(".chartsEleChangeHeight").height(),// 电量变化图表 高度
         ];
+        chartsEleA = {
+            // data:yearCountData,
+            data: Mock.charts2,
+            type: "area",
+            height: chartsEleHeight,
+            xAxis: "year",
+            yAxis: "count",
+            forceFit: true,
+            padding: "auto",
+            cols: {
+                year: {
+                    tickInterval: 1
+                }
+            },
+            style: {
+                overflow: "hidden"
+            },
+            xLabel: {
+                offset: 15
+            },
+            yLabel: {
+                offset: 5
+            }
+        };// 电流分析对比查询 图表A
+        chartsEleB = {
+            // data:yearCountData,
+            data: Mock.charts2,
+            type: "area",
+            height: chartsEleHeight,
+            xAxis: "year",
+            yAxis: "count",
+            forceFit: true,
+            padding: "auto",
+            cols: {
+                year: {
+                    tickInterval: 1
+                }
+            },
+            style: {
+                overflow: "hidden"
+            },
+            xLabel: {
+                offset: 15
+            },
+            yLabel: {
+                offset: 5
+            }
+        };// 电流分析对比查询 图表B
+        chartsEleC = {
+            // data:yearCountData,
+            data: Mock.charts2,
+            type: "area",
+            height: chartsEleHeight,
+            xAxis: "year",
+            yAxis: "count",
+            forceFit: true,
+            padding: "auto",
+            cols: {
+                year: {
+                    tickInterval: 1
+                }
+            },
+            style: {
+                overflow: "hidden"
+            },
+            xLabel: {
+                offset: 15
+            },
+            yLabel: {
+                offset: 5
+            }
+        };// 电流分析对比查询 图表C
+        chartsEleChange = {
+            // data:yearCountData,
+            data: Mock.charts2,
+            type: "area",
+            height: chartsEleChangeHeight,
+            xAxis: "year",
+            yAxis: "count",
+            forceFit: true,
+            padding: "auto",
+            cols: {
+                year: {
+                    tickInterval: 1
+                }
+            },
+            style: {
+                overflow: "hidden"
+            },
+            xLabel: {
+                offset: 15
+            },
+            yLabel: {
+                offset: 5
+            }
+        };// 电量变化图表
         console.log($(".SecondaryLoopLeft_left"))
         for (let i = 0; i < 100; i++) {
             data.push(
@@ -928,7 +931,8 @@ class SecondaryLoop extends BaseView {
                             <div className="event_bottom_center">
                                 <div className="content_box">
                                     <div className="content_title">电量变化</div>
-                                    <div className="event-table">
+                                    <div className="event-table chartsEleChangeHeight">
+                                        <Basicline {...chartsEleChange} />
                                     </div>
                                 </div>
                             </div>

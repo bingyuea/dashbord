@@ -3,6 +3,7 @@
 		display: flex;
 		flex-direction: row;
 		width: 100%;
+		padding:0 15px;
 	}
 	.page-main{
 		padding-bottom: 10px;
@@ -36,19 +37,36 @@
 		}
 	}
 	.center-content{
-		padding:10px;
+		
 		flex:1;
-		// border:3px dashed @blue;
-		// border:2px dot-dash @blue;
-  		//border-radius: 10px ;
 		height: 100%;
-		margin:0 5px;
+		margin:0 15px;
 		display: flex;
 		flex-direction: column;
-
 		.top{
 			flex:1;
-			.content_box;
+			padding:10px;
+			margin-bottom: 15px;
+			display: flex;
+			flex-direction: column;
+			
+			.section-content{
+				flex:1;
+			}
 		}
+		.bottom{
+			flex:1;
+			display: flex;
+			flex-direction: row;
+			.section-content{
+				flex:1;
+				.content_box;
+				padding:10px;
+				&:first-child{
+					margin-right: 15px;
+				}
+			}
+		};
+
 	}
 }

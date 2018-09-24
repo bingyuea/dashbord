@@ -44,7 +44,12 @@ class XMD extends BaseView {
       })
     }
 
-
+    search(value){
+      console.log(value)
+      this.setState({
+        searchValue:value
+      })
+    }
 
     renderSearchBar(){
 
@@ -76,12 +81,15 @@ class XMD extends BaseView {
           title:'计量类型',
           key:'measure',
           options:[{
+            value:3,
+            desc:''
+          },{
             value:1,
             desc:'三相三线'
           },{
             value:2,
             desc:'三相四线'
-          },]
+          }]
         },
         tradeData:{
           title:'行业类型',
@@ -113,7 +121,8 @@ class XMD extends BaseView {
           title:'巡检仪资产编号',
           key:'xmdId',
           placeholder:'请输入资产编号'
-        }
+        },
+        searchHandle:this.search.bind(this)
 
       }
 
@@ -134,10 +143,14 @@ class XMD extends BaseView {
       } = this.state; 
 
       const domHeight = $('.page-main').height();
-      if(!domHeight){return}
-      const leftChartHeight = (domHeight - 25 - 2 - 70 - 70) / 2;
-      const centerChartHeight = (domHeight - 25 - 2 - 70 - 70) / 2;
-
+      // if(!domHeight){return}
+      const leftChartHeight = (domHeight - 25 - 2 - 70 - 70 - 20) / 2;
+      const centerChartHeight = (domHeight / 2) - 20 - 27;
+      let centerTopHeight = leftChartHeight;
+      setTimeout(function(){
+        centerTopHeight = $('#centerSectionContent').height() - 35;  
+      },0);
+      
        //地区分布信息
       const charts5 = {
         // data:tradeCountData,
@@ -184,9 +197,9 @@ class XMD extends BaseView {
       }
 
       //客户分布情况
-      const charts3 = {
+      const charts8 = {
         data:Mock.charts8,
-        height:centerChartHeight,
+        height:centerTopHeight,
         xAxis:'time',
         yAxis_line:'people',
         yAxis_interval:'waiting',
@@ -205,12 +218,49 @@ class XMD extends BaseView {
         },
         style:{
           overflow:'auto',
+          flex:1
         },
         xLabel:{
           offset:15,
         },
         yLabel:{
           offset:5,
+        }
+      }
+
+      const charts3 = {
+        // data:measureCountData,
+        data:Mock.charts3,
+        height:centerChartHeight,
+        forceFit:true,
+        padding:'auto',
+        field:'count',
+        dimension:'name',
+        cols:{
+          percent: {
+            formatter: val => {
+              val = (val * 100).toFixed(0) + "%";
+              return val;
+            }
+          }
+        }
+      }
+
+      const charts4 = {
+        // data:measureCountData,
+        data:Mock.charts3,
+        height:centerChartHeight,
+        forceFit:true,
+        padding:'auto',
+        field:'count',
+        dimension:'name',
+        cols:{
+          percent: {
+            formatter: val => {
+              val = (val * 100).toFixed(0) + "%";
+              return val;
+            }
+          }
         }
       }
 
@@ -242,20 +292,24 @@ class XMD extends BaseView {
                   客户分布情况
               </div>
               <div className="blue_underline"></div>
-              <div className='section-content'>
+              <div className='section-content' id='centerSectionContent'>
                   <span>行业信息</span>
-                  <Doubleaxes {...charts3}/>
+                  <Doubleaxes {...charts8}/>
                 </div>
             </div>
             <div className='bottom'>
-              <div className="content_title">
-                  客户分布情况
-              </div>
-              <div className="blue_underline"></div>
-              <div className='section-content'>
-                  <span>行业信息</span>
-                  <Doubleaxes {...charts3}/>
+              <div className='section-content' id='bottomSectionContent'>
+                <div className="content_title">
+                  综合倍率
                 </div>
+                <Labelline {...charts3}/>
+              </div>
+              <div className='section-content' >
+                <div className="content_title">
+                  计量类型
+                </div>
+                <Labelline {...charts4}/>
+              </div>
             </div>
           </div>
           <div className='side-content content_box'>
@@ -305,7 +359,7 @@ class XMD extends BaseView {
             <div className='btn'></div>
           </div>
           {this.renderSearchBar()}
-          <div className='page-main slider_content' style={{height:'496px'}}>
+          <div className='page-main slider_content'>
             <Slider {...settings}>
               <div className="slider_sec">
                 {this.renderPageOne()}
