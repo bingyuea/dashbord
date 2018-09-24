@@ -448,7 +448,7 @@ class SecondaryLoop extends BaseView {
             $('.page-main').height(),
             $(".loop_top").height() - 20,// 算出表格高度
             [],
-            $(".event_bottom .content_box").height() - 20,
+            $(".event_bottom .content_box").height() - 20 - 30,// - title -上下padding
             {},// 异常事件数量变化趋势
             [],// 二次回路异常事件
             {},// 异常事件行业分布信息
@@ -733,7 +733,7 @@ class SecondaryLoop extends BaseView {
             {},
             {},
             {},
-            ($(".SecondaryLoopLeft_left").height() - 20) / 3,// 电流分析对比查询 高度
+            ($(".SecondaryLoopLeft_left").height() - 20 -  45) / 3,// 电流分析对比查询 高度
             [],// 电流分析对比查询 数据
             {},// 电量变化图表
             $(".chartsEleChangeHeight").height(),// 电量变化图表 高度
