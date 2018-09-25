@@ -24,6 +24,7 @@ class MergeAnaly extends BaseView {
   }
 
   componentDidMount() {
+    // this.pageInit();
     this.setState({
       pageStatus: 'init'
     })

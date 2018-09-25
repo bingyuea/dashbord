@@ -1,55 +1,66 @@
 .page-analy {
-    .left,
-    .right {
-        width: 20%;
-        min-width: 183px;
-        margin-top: 50px;
-        padding: 0 2%;
-        flex-shrink: 0;
-        height: calc(~"100% - 50px");
-        .item {
-            height: 25%;
-            padding-bottom: 15px;
-            .label {
-                border-left: 6px solid #5fa3ac;
-                padding-left: 10px;
-                margin-bottom: 5px;
-                line-height: 15px;
-                height: 20px;
-                text-align: left;
-                color: #5fa3ac;
+  .left,
+  .right {
+    width: 20%;
+    min-width: 183px;
+    margin-top: 50px;
+    padding: 0 2%;
+    flex-shrink: 0;
+    height: calc(~'100% - 50px');
+    .item {
+      height: 25%;
+      padding-bottom: 15px;
+      .label {
+        border-left: 6px solid #5fa3ac;
+        padding-left: 10px;
+        margin-bottom: 5px;
+        line-height: 15px;
+        height: 20px;
+        text-align: left;
+        color: #5fa3ac;
+      }
+      .tabel {
+        width: 100%;
+        height: calc(~'100% - 25px');
+        .list {
+          height: auto;
+          width: 100%;
+          position: relative;
+          .scrollList {
+            overflow: auto;
+            &::-webkit-scrollbar {
+              width: 0;
             }
-            .tabel {
-                width: 100%;
-                height:calc(~"100% - 25px");
-                .row1,
-                .row2,
-                .row3 {
-                    height: 33%;
-                }
-                .row1 {
-                    background: rgb(59, 59, 59);
-                    .h6 {
-                        display: inline-block;
-                        color: #FFF;
-                    }
-                }
-                .row2 {
-                    background: #777;
-                }
-                .row3 {
-                    background: rgb(59, 59, 59);
-                }
-                .flex {
-                    flex: 1;
-                    text-align: left;
-                    padding-left: 10px;
-                    align-self: center;
-                }
-            }
+          }
         }
+        .row1,
+        .row2,
+        .row3 {
+          height: 33%;
+        }
+        .row1 {
+          background: rgb(59, 59, 59);
+          .h6 {
+            display: inline-block;
+            color: #fff;
+          }
+        }
+        .row2 {
+          background: #777;
+        }
+        .row3 {
+          background: rgb(59, 59, 59);
+        }
+        .flex {
+          flex: 1;
+          text-align: left;
+          padding-left: 10px;
+          align-self: center;
+        }
+      }
     }
-    .center {
-        text-align: center;
-    }
+  }
+  .center {
+    text-align: center;
+  }
 }

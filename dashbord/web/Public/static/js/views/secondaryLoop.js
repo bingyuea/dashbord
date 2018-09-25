@@ -853,7 +853,8 @@ class SecondaryLoop extends BaseView {
         elecCurrentData.elecData.filter(item => {
           return item.phase === 'A相'
         })
-      )
+    )
+    console.log(dataA)
     chartsEleA = {
       data: Mock.charts2,
       height: chartsEleHeight,
