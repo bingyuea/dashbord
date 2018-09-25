@@ -357,7 +357,183 @@ const Mock = {
       activePower: 100,
       reactivePower: 100
     }
-  ]
+  ],
+  //异常数据统计(排行榜数据)
+  exceptionDataObj : {
+    result: 1,
+    exceptionData: [
+      {
+        rangeName: "江苏省",
+        exceptionIndex: 155.68,
+        stealingPowerRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        troubleRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        wiringFaultRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        expansionRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        maintainRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        failureRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        loopExceRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        elecExecRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ]
+      },
+      {
+        rangeName: "浙江省",
+        exceptionIndex: 155.68,
+        stealingPowerRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        troubleRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        wiringFaultRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        expansionRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        maintainRanking: [
+          {
+            user: "食品公司A",
+            index: 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        failureRanking: [
+          {
+            user: "食品公司A",
+            "index": 1.8
+          },
+          {
+            user: "食品公司B",
+            index: 1.7
+          }
+        ],
+        loopExceRanking: [
+          {
+            "user": "食品公司A",
+            "index": 1.8
+          },
+          {
+            "user": "食品公司B",
+            "index": 1.7
+          }
+        ],
+        elecExecRanking: [
+          {
+            "user": "食品公司A",
+            "index": 1.8
+          },
+          {
+            "user": "食品公司B",
+            "index": 1.7
+          }
+        ]
+      }
+    ]
+  }
+
 }
+
 
 module.exports = Mock

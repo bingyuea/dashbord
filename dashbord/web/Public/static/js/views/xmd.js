@@ -319,7 +319,7 @@ class XMD extends BaseView {
     }
     //切换轮播的回调,idx:当前轮播的页面idx
     afterSlickChange(idx){
-
+        
     }
 
     renderPageOne(){
