@@ -319,7 +319,11 @@ class XMD extends BaseView {
     }
     //切换轮播的回调,idx:当前轮播的页面idx
     afterSlickChange(idx){
-        
+      const pageTitle = idx == 0 ?'巡检仪安装情况查询':'巡检仪上报事件查询';
+      this.setState({
+        pageTitle:pageTitle,
+        pageIdx:idx
+      });
     }
 
     renderPageOne(){
@@ -330,14 +334,14 @@ class XMD extends BaseView {
         measure,
         table
       } = this.state.pageOne || {}; 
-
+      const self = this;
       const domHeight = $('.page-main').height();
-      // if(!domHeight){return}
       const leftChartHeight = (domHeight - 25 - 2 - 70 - 70 - 20) / 2;
       const centerChartHeight = (domHeight / 2) - 20 - 27;
       let centerTopHeight = leftChartHeight;
       setTimeout(function(){
-        centerTopHeight = $('#centerSectionContent').height() - 35;  
+        centerTopHeight = $('#centerSectionContent').height() - 35; 
+        self.foreUpdata(); 
       },0);
       
       //巡检仪上线数
@@ -379,7 +383,7 @@ class XMD extends BaseView {
 
       //客户分布情况
       const charts8 = {
-        data:translateCountToPercent(customer.tradeList),
+        data:translateCountToPercent(customer.tradeList,'tradeCount'),
         height:centerTopHeight,
         xAxis:'tradeName',
         yAxis_line:'percent',
@@ -413,6 +417,7 @@ class XMD extends BaseView {
         padding:'auto',
         field:'rateCount',
         dimension:'rate',
+        innerRadius:.6,
         cols:{
           percent: {
             formatter: val => {
@@ -427,6 +432,7 @@ class XMD extends BaseView {
         data:measure.rateList,
         height:centerChartHeight,
         forceFit:true,
+        innerRadius:.6,
         padding:'auto',
         field:'measureCount',
         dimension:'measureName',
@@ -489,27 +495,201 @@ class XMD extends BaseView {
             </div>
           </div>
           <div className='side-content content_box'>
-            
+            <Table 
+              columns={columns} 
+              dataSource={data} 
+              pagination={false}
+              scroll={{y: 120}}
+            />
           </div>
         </div>
       )
     }
 
     renderPageTwo(){
+      const {
+        xmdEvent,
+        customerXmdEvent,
+        measureEvent,
+        rateEvent,
+        xmdEventTable,
+      } = this.state.pageTwo || {}; 
+
       const domHeight = $('.page-main').height();
+      const leftChartHeight = (domHeight - 25 - 2 - 70 - 70 - 20) / 2;
+      const centerChartHeight = (domHeight / 2) - 20 - 27;
+      let centerTopHeight = leftChartHeight;
+      setTimeout(function(){
+        centerTopHeight = $('#centerSectionContent').height() - 35;  
+      },0);
+
+      const charts1 = {
+        data:xmdEvent,
+        height:leftChartHeight,
+
+      }
+      
+      //巡检仪事件趋势
+      const charts2 = {
+        data:xmdEvent.periodList,
+        height:leftChartHeight,
+        xAxis:'period',
+        yAxis:'periodCount',
+        forceFit:true,
+        padding:'auto',
+        style:{
+          overflow:'auto',
+        },
+        xLabel:{
+          offset:15,
+        },
+        yLabel:{
+          offset:5,
+        }
+      }
+       //事件类型信息
+      const charts5 = {
+        data:xmdEvent.exceptionList,
+        height:leftChartHeight,
+        xAxis:'name',
+        yAxis:'exceptionCount',
+        forceFit:true,
+        padding:'auto',
+        style:{
+          overflow:'auto',
+        },
+        xLabel:{
+          offset:15,
+        },
+        yLabel:{
+          offset:5,
+        }
+      }
+
+      //事件分布信息
+      const charts8 = {
+        data:translateCountToPercent(customerXmdEvent.tradeList,'tradeCount'),
+        height:centerTopHeight,
+        xAxis:'tradeName',
+        yAxis_line:'percent',
+        yAxis_interval:'tradeCount',
+        forceFit:true,
+        padding:'auto',
+        cols:{
+          tradeName: {
+            min: 0
+          },
+          percent: {
+            min: 0
+          }
+        },
+        style:{
+          overflow:'auto'
+        },
+        xLabel:{
+          offset:15,
+        },
+        yLabel:{
+          offset:5,
+        }
+      }
+
+      //综合倍率
+      const charts3 = {
+        data:rateEvent.rateList,
+        height:centerChartHeight,
+        forceFit:true,
+        padding:'auto',
+        field:'rateCount',
+        innerRadius:.6,
+        dimension:'rate',
+        cols:{
+          percent: {
+            formatter: val => {
+              val = (val * 100).toFixed(0) + "%";
+              return val;
+            }
+          }
+        }
+      }
+      //计量类型
+      const charts4 = {
+        data:measureEvent.rateList,
+        height:centerChartHeight,
+        forceFit:true,
+        innerRadius:.6,
+        padding:'auto',
+        field:'measureCount',
+        dimension:'measureName',
+        cols:{
+          percent: {
+            formatter: val => {
+              val = (val * 100).toFixed(0) + "%";
+              return val;
+            }
+          }
+        }
+      }
+
       return (
-        <div className="slick-page" style={{height:domHeight}}>
-          <div className='side-content'>
-
-          </div>  
-          <div className='center-content'>
-
+        <div className="slick-page"  style={{height:domHeight}}>
+          <div className='side-content content_box'>
+            <div className="content_title">
+                <span>巡检仪事件统计</span>
+                <span>事件有效性</span>
+            </div>
+            <div className="blue_underline"></div>
+            <div className='bottom-section'>
+              <div className='total-num'>
+                <span className='blue-txt'>{xmdEvent.totalCount.replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</span>
+                件
+              </div>
+              <div className='right-content'>
+                <Labelline {...charts1}/>
+              </div>
+            </div>
+            
+            <div className='charts-content'>
+              <div className='section-content'>
+                <span>巡检仪事件趋势</span>
+                <Basicline {...charts2} />
+              </div>
+              <div className='section-content'>
+                <span>事件类型信息</span>
+                <Basicbar {...charts5}/>
+              </div>
+            </div>
           </div>
-          <div className='side-content'>
-
+          <div className='center-content'>
+            <div className='top content_box'>
+              <div className="content_title">
+                  客户分布情况
+              </div>
+              <div className="blue_underline"></div>
+              <div className='section-content' id='centerSectionContent'>
+                  <span>行业信息</span>
+                  <Doubleaxes {...charts8}/>
+                </div>
+            </div>
+            <div className='bottom'>
+              <div className='section-content' id='bottomSectionContent'>
+                <div className="content_title">
+                  综合倍率
+                </div>
+                <Labelline {...charts3}/>
+              </div>
+              <div className='section-content' >
+                <div className="content_title">
+                  计量类型
+                </div>
+                <Labelline {...charts4}/>
+              </div>
+            </div>
+          </div>
+          <div className='side-content content_box'>
+            
           </div>
         </div>
-
       )
     }
     

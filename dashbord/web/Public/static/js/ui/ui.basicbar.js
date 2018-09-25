@@ -55,6 +55,8 @@ class Basicbar extends React.Component {
         // return a.population - b.population > 0;
       }
     });
+
+    if(!this.props.height){return false}
     return (
       <div>
         <Chart {...this.props} data={dv}>
