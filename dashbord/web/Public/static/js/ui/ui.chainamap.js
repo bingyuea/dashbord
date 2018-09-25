@@ -9,6 +9,7 @@ import {
 export default class ChinaMapChart extends Component {
 
   render() {
+    if(!this.props.height){return false}
     const cols = {
       x: { sync: true, nice: false },
       y: { sync: true, nice: false }

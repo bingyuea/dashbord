@@ -20,6 +20,8 @@ import { DEFAULT_COLOR, DARK_DEFAULT_COLOR } from '../data/color'
 //基础折线图
 class BasicLine extends React.Component {
   render() {
+    if(!this.props.height){return false}
+
     return (
       <div>
         <Chart placeholder {...this.props} scale={this.props.cols}>

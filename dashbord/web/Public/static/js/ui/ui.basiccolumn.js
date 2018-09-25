@@ -20,6 +20,7 @@ import {
 class Basiccolumn extends Component {
 
   render() {
+    if(!this.props.height){return false}
     return (
       <div>
       	

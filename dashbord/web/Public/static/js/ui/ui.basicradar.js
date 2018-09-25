@@ -23,6 +23,7 @@ import {
 //雷达图
 class Basicradar extends React.Component {
   render() {
+    if(!this.props.height){return false}
     const { DataView } = DataSet;
     const data = [
       {
