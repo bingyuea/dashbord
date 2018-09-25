@@ -405,17 +405,23 @@ class SecondaryLoop extends BaseView {
   // 电流分析对比查询
   fetchQueryElecCurrentData(token) {
     const self = this
-    // 这里是点击当前行的的数据
-    const searchValue = this.state.searchValue
+    // pageOne.exceptionList = resData 列表第一条数据
+    let { serialNum, elecSerialNum, occTime } =
+      this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
     queryElecCurrentData.setParam({
       token: token,
-      serialNum: searchValue.serialNum,
-      elecSerialNum: searchValue.elecSerialNum,
-      occTime: searchValue.occTime
+      serialNum,
+      elecSerialNum,
+      occTime
     })
     queryElecCurrentData.excute(
       res => {
         const elecCurrentData = res.data || {}
+        let pageTwo = this.state.pageTwo || {}
+        pageTwo.xmdData = resData
+        self.setData({
+          pageTwo
+        })
         // {
         //     "result":1,
         //     "xmdData":[
@@ -439,9 +445,6 @@ class SecondaryLoop extends BaseView {
         //     }
         // ]
         // }
-        self.setState({
-          elecCurrentData
-        })
       },
       err => {
         console.log(err)
@@ -451,17 +454,22 @@ class SecondaryLoop extends BaseView {
   // 巡检仪上报事件查询
   fetchQueryXMDEvent(token) {
     const self = this
-    // 这里是点击当前行的的数据
-    const searchValue = this.state.searchValue
+    // pageOne.exceptionList = resData 列表第一条数据
+    let { serialNum, elecSerialNum, occTime } =
+      this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
     queryXMDEvent.setParam({
       token: token,
-      serialNum: searchValue.serialNum,
-      elecSerialNum: searchValue.elecSerialNum
+      serialNum,
+      elecSerialNum
     })
     queryXMDEvent.excute(
       res => {
         const resData = res.data || {}
-        const xmdEventData = resData.xmdData || []
+        let pageTwo = this.state.pageTwo || {}
+        pageTwo.xmdEventData = resData
+        self.setData({
+          pageTwo
+        })
         // {
         //     "result":1,
         //     "xmdData":[
@@ -483,9 +491,6 @@ class SecondaryLoop extends BaseView {
         //     }
         // ]
         // }
-        self.setState({
-          xmdEventData
-        })
       },
       err => {
         console.log(err)
@@ -495,17 +500,22 @@ class SecondaryLoop extends BaseView {
   // 电能表上报事件查询
   fetchQueryElecEvent(token) {
     const self = this
-    // 这里是点击当前行的的数据
-    const searchValue = this.state.searchValue
+    // pageOne.exceptionList = resData 列表第一条数据
+    let { serialNum, elecSerialNum, occTime } =
+      this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
     queryElecEvent.setParam({
       token: token,
-      serialNum: searchValue.serialNum,
-      elecSerialNum: searchValue.elecSerialNum
+      serialNum,
+      elecSerialNum
     })
     queryElecEvent.excute(
       res => {
         const resData = res.data || {}
-        const eleEventData = resData.elecData || []
+        let pageTwo = this.state.pageTwo || {}
+        pageTwo.eleEventData = resData
+        self.setData({
+          pageTwo
+        })
         // {
         //     "result":1,
         //     "elecData":[
@@ -527,9 +537,6 @@ class SecondaryLoop extends BaseView {
         //     }
         //      ]
         // }
-        self.setState({
-          eleEventData
-        })
       },
       err => {
         console.log(err)
@@ -540,22 +547,28 @@ class SecondaryLoop extends BaseView {
   fetchQueryElecData(token) {
     const self = this
     // 这里是点击当前行的的数据
-    const searchValue = this.state.searchValue
     // 参数	参数名称	类型	必填	描述	范例
     // token	校验字符串	String	是	用于校验	123sdf234
     // serialNum	巡检仪资产编号	string	是
     // elecSerialNum	电能表资产编号	string	是		1
     // occTime	异常发生时间	string	是
+    // pageOne.exceptionList = resData 列表第一条数据
+    let { serialNum, elecSerialNum, occTime } =
+      this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
     queryElecData.setParam({
       token: token,
-      serialNum: searchValue.serialNum,
-      elecSerialNum: searchValue.elecSerialNum,
-      occTime: searchValue.occTime
+      serialNum,
+      elecSerialNum,
+      occTime
     })
     queryElecData.excute(
       res => {
         const resData = res.data || {}
-        const elecDayData = resData.elecData || []
+        let pageTwo = this.state.pageTwo || {}
+        pageTwo.elecDayData = resData
+        self.setData({
+          pageTwo
+        })
         // {
         //     "result":1,
         //     "elecData":[
@@ -586,9 +599,6 @@ class SecondaryLoop extends BaseView {
         //     }
         //      ]
         // }
-        self.setState({
-          elecDayData
-        })
       },
       err => {
         console.log(err)
@@ -823,6 +833,14 @@ class SecondaryLoop extends BaseView {
   }
 
   renderPageTwo() {
+    // 正式数据
+    // let {
+    // elecCurrentData, // 电流分析对比查询
+    // xmdEventData, // 巡检仪上报事件查询
+    // eleEventData, // 电能表上报事件查询
+    // elecDayData, // 电量数据查询
+    // exceptionList, // 异常类型分布情况查询
+    // } = this.state.pageTwo || {};
     let domHeight = $('.page-main').height() // tab页面的高度
     let chartsEleA = {} // 电流分析对比查询 图表A
     let chartsEleB = {} // 电流分析对比查询 图表B
@@ -844,7 +862,7 @@ class SecondaryLoop extends BaseView {
       eleEventData, // 电能表上报事件查询
       elecDayData // 电量数据查询
     } = Mock
-    
+
     let dataA = elecCurrentData.xmdData
       .filter(item => {
         return item.phase === 'A相'
@@ -1112,6 +1130,7 @@ class SecondaryLoop extends BaseView {
       return (item.key = index)
     })
     let tableHeight = $('#tableHeight').height() - 60 // table表格的高度
+    let self = this
     return (
       <div>
         <div className="content_title">二次回路异常事件</div>
@@ -1125,6 +1144,11 @@ class SecondaryLoop extends BaseView {
               return {
                 onClick: () => {
                   console.log(record)
+                  let pageTwo = self.state.pageTwo || {}
+                  pageTwo.record = record
+                  self.setState({
+                    pageTwo
+                  })
                 }
               }
             }}
