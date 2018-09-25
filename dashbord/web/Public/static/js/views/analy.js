@@ -3,15 +3,19 @@ import BaseView from '../core/view.base'
 import $ from 'jquery'
 import Mock from '../mock/mock'
 //图表模型
-import { ChinaMapChart } from '../ui/ui.charts'
-
+import { ChinaMapChart } from '../ui/ui.charts';
+//异常数据统计
+import { QueryElecCurrentData } from '../models/mergeAnaly.models';
+//定义数据模型
+const queryElecCurrentData = QueryElecCurrentData.getInstance();
+let { exceptionDataObj } = Mock;
+console.log('eleEventData',exceptionDataObj)
 class Analy extends BaseView {
   constructor(props) {
     super(props)
-
-    this.state = {}
+    this.state = {
+    }
   }
-
   componentDidMount() {
     this.setState({
       pageStatus: 'init'
@@ -19,20 +23,33 @@ class Analy extends BaseView {
   }
 
   pageInit() {
-    this.fetchProvinceCount()
-    this.fetchYearCount()
-    this.fetchMeasureCount()
-    this.fetchRateCount()
-    this.fetchTradeCount()
-    this.fetchEventCount()
-    this.fetchValidityEventCount()
-    this.fetchProvinceEventCount()
-    this.fetchTradeEventCount()
+    this.fetchQueryElecCurrentData()
+
+  }
+  fetchQueryElecCurrentData(token) {
+    const self = this
+    const searchValue = this.state.searchValue
+    queryElecCurrentData.setParam({
+      token: token,
+      range: searchValue.range
+    })
+    queryElecCurrentData.excute(
+      res => {
+        const exceptionDataObj = res.data || {};
+        const exceptionData = exceptionDataObj.exceptionData[0] || 0;
+        
+        self.setState({
+          exceptionData
+        })
+      },
+      err => {
+        console.log(err)
+      }
+    )
   }
 
   renderPageCenter() {
     const { provinceCountData } = this.state
-
     const height = $('.section-content.map').height()
     const mapHeight = height - 50
 
@@ -65,42 +82,181 @@ class Analy extends BaseView {
     )
   }
   renderMain() {
-    let appview = $('#appview').height()
-    let listHeight = $('#listHeight').height()
-    let _this = this
-    if (!listHeight) {
-      let time = setTimeout(function() {
-        _this.forceUpdate()
-      }, 0)
-    }
-    // 每个row的高度
-    let rowHeight = listHeight / 3
-    console.log(rowHeight)
-    $('.rowList').each(function(item, index) {
-      $(this).css({
-        height: rowHeight
-      })
-    })
-    // 定稿 scrollList
-    $('.scrollList').each(function(item, index) {
-      $(this).css({
-        height: listHeight - rowHeight
-      })
-    })
-    let stealingPowerRanking = [
-      {
-        user: '食品公司A',
-        index: 1.8
-      },
-      {
-        user: '食品公司B',
-        index: 1.7
-      },
-      {
-        user: '食品公司v',
-        index: 1.9
-      }
-    ]
+    let appview = $('#appview').height();
+    // let { exceptionData }=this.state;
+    let exceptionDataAyy=
+        [
+          {
+            rangeName: "江苏省",
+            exceptionIndex: 155.68,
+            stealingPowerRanking: [
+              {
+                user: "食品公司A",
+                index: 1.8
+              },
+              {
+                user: "食品公司B",
+                index: 1.7
+              }
+            ],
+            troubleRanking: [
+              {
+                user: "食品公司A",
+                index: 1.8
+              },
+              {
+                user: "食品公司B",
+                index: 1.7
+              }
+            ],
+            wiringFaultRanking: [
+              {
+                user: "食品公司A",
+                index: 1.8
+              },
+              {
+                user: "食品公司B",
+                index: 1.7
+              }
+            ],
+            expansionRanking: [
+              {
+                user: "食品公司A",
+                index: 1.8
+              },
+              {
+                user: "食品公司B",
+                index: 1.7
+              }
+            ],
+            maintainRanking: [
+              {
+                user: "食品公司A",
+                index: 1.8
+              },
+              {
+                user: "食品公司B",
+                index: 1.7
+              }
+            ],
+            failureRanking: [
+              {
+                user: "食品公司A",
+                index: 1.8
+              },
+              {
+                user: "食品公司B",
+                index: 1.7
+              }
+            ],
+            loopExceRanking: [
+              {
+                user: "食品公司A",
+                index: 1.8
+              },
+              {
+                user: "食品公司B",
+                index: 1.7
+              }
+            ],
+            elecExecRanking: [
+              {
+                user: "食品公司A",
+                index: 1.8
+              },
+              {
+                user: "食品公司B",
+                index: 1.7
+              }
+            ]
+          },
+          // {
+          //   rangeName: "浙江省",
+          //   exceptionIndex: 155.68,
+          //   stealingPowerRanking: [
+          //     {
+          //       user: "食品公司A",
+          //       index: 1.8
+          //     },
+          //     {
+          //       user: "食品公司B",
+          //       index: 1.7
+          //     }
+          //   ],
+          //   troubleRanking: [
+          //     {
+          //       user: "食品公司A",
+          //       index: 1.8
+          //     },
+          //     {
+          //       user: "食品公司B",
+          //       index: 1.7
+          //     }
+          //   ],
+          //   wiringFaultRanking: [
+          //     {
+          //       user: "食品公司A",
+          //       index: 1.8
+          //     },
+          //     {
+          //       user: "食品公司B",
+          //       index: 1.7
+          //     }
+          //   ],
+          //   expansionRanking: [
+          //     {
+          //       user: "食品公司A",
+          //       index: 1.8
+          //     },
+          //     {
+          //       user: "食品公司B",
+          //       index: 1.7
+          //     }
+          //   ],
+          //   maintainRanking: [
+          //     {
+          //       user: "食品公司A",
+          //       index: 1.8
+          //     },
+          //     {
+          //       user: "食品公司B",
+          //       index: 1.7
+          //     }
+          //   ],
+          //   failureRanking: [
+          //     {
+          //       user: "食品公司A",
+          //       "index": 1.8
+          //     },
+          //     {
+          //       user: "食品公司B",
+          //       index: 1.7
+          //     }
+          //   ],
+          //   loopExceRanking: [
+          //     {
+          //       "user": "食品公司A",
+          //       "index": 1.8
+          //     },
+          //     {
+          //       "user": "食品公司B",
+          //       "index": 1.7
+          //     }
+          //   ],
+          //   elecExecRanking: [
+          //     {
+          //       "user": "食品公司A",
+          //       "index": 1.8
+          //     },
+          //     {
+          //       "user": "食品公司B",
+          //       "index": 1.7
+          //     }
+          //   ]
+          // }
+        ];
+        const exceptionData=exceptionDataAyy[0];
+       console.log('exceptionData',exceptionData)
     return (
       <div
         className="page-analy page-dashboard page"
@@ -109,47 +265,56 @@ class Analy extends BaseView {
         <div className="left">
           <div className="item">
             <h4 className="label ">疑似窃电风险排行榜</h4>
-            <div className="tabel" id="listHeight">
-              <div className="list">
-                <div className="row1 flex-layout rowList">
-                  <h6 className="h6 flex">用户</h6>
-                  <h6 className="h6 flex">评估值</h6>
-                </div>
-                <div className="scrollList">
-                  {stealingPowerRanking.map((item, index) => {
-                    return (
-                      <div
-                        className={
-                          index % 2 === 0
-                            ? ['row3 flex-layout rowList']
-                            : ['row2 flex-layout rowList']
-                        }
-                        key={item.user}
-                      >
-                        <div className="flex">{item.user}</div>
-                        <div className="flex">{item.index}</div>
-                      </div>
-                    )
-                  })}
-                </div>
+            <div className="tabel" >
+              <div className="row1 flex-layout ">
+                <h6 className="h6 flex">用户</h6>
+                <h6 className="h6 flex">评估值</h6>
+              </div>
+              <div className="scrollList">
+                { Array.isArray(exceptionData.stealingPowerRanking) && 
+                 exceptionData.stealingPowerRanking.map((item, index) => {
+                  return (
+                    <div
+                      className={
+                        (index + 1) % 2 === 0
+                          ? ['row3 flex-layout ']
+                          : ['row2 flex-layout ']
+                      }
+                      key={item.user}
+                    >
+                      <div className="flex">{item.user}</div>
+                      <div className="flex">{item.index}</div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
 
-          {/* <div className="item">
+          <div className="item">
             <h4 className="label ">设备故障风险排行榜</h4>
             <div className="tabel">
               <div className="row1 flex-layout">
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="row2 flex-layout">
-                <div className="flex"> </div>
-                <div className="flex" />
-              </div>
-              <div className="row3 flex-layout">
-                <div className="flex" />
-                <div className="flex"> </div>
+              <div className="scrollList">
+                { Array.isArray(exceptionData.troubleRanking) && 
+                 exceptionData.troubleRanking.map((item, index) => {
+                  return (
+                    <div
+                      className={
+                        (index + 1) % 2 === 0
+                          ? ['row3 flex-layout ']
+                          : ['row2 flex-layout ']
+                      }
+                      key={item.user}
+                    >
+                      <div className="flex">{item.user}</div>
+                      <div className="flex">{item.index}</div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -161,13 +326,23 @@ class Analy extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="row2 flex-layout">
-                <div className="flex"> </div>
-                <div className="flex" />
-              </div>
-              <div className="row3 flex-layout">
-                <div className="flex" />
-                <div className="flex"> </div>
+              <div className="scrollList">
+                { Array.isArray(exceptionData.wiringFaultRanking) && 
+                 exceptionData.wiringFaultRanking.map((item, index) => {
+                  return (
+                    <div
+                      className={
+                        (index + 1) % 2 === 0
+                          ? ['row3 flex-layout ']
+                          : ['row2 flex-layout ']
+                      }
+                      key={item.user}
+                    >
+                      <div className="flex">{item.user}</div>
+                      <div className="flex">{item.index}</div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -179,19 +354,29 @@ class Analy extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="row2 flex-layout">
-                <div className="flex"> </div>
-                <div className="flex" />
-              </div>
-              <div className="row3 flex-layout">
-                <div className="flex" />
-                <div className="flex"> </div>
+              <div className="scrollList">
+                { Array.isArray(exceptionData.expansionRanking) && 
+                 exceptionData.expansionRanking.map((item, index) => {
+                  return (
+                    <div
+                      className={
+                        (index + 1) % 2 === 0
+                          ? ['row3 flex-layout ']
+                          : ['row2 flex-layout ']
+                      }
+                      key={item.user}
+                    >
+                      <div className="flex">{item.user}</div>
+                      <div className="flex">{item.index}</div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
         {this.renderPageCenter()}
-        {/* <div className="right">
+        <div className="right">
           <div className="item">
             <h4 className="label ">现场许维护排行榜</h4>
             <div className="tabel">
@@ -199,13 +384,23 @@ class Analy extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="row2 flex-layout">
-                <div className="flex"> </div>
-                <div className="flex" />
-              </div>
-              <div className="row3 flex-layout">
-                <div className="flex" />
-                <div className="flex" />
+              <div className="scrollList">
+                { Array.isArray(exceptionData.maintainRanking) && 
+                 exceptionData.maintainRanking.map((item, index) => {
+                  return (
+                    <div
+                      className={
+                        (index + 1) % 2 === 0
+                          ? ['row3 flex-layout ']
+                          : ['row2 flex-layout ']
+                      }
+                      key={item.user}
+                    >
+                      <div className="flex">{item.user}</div>
+                      <div className="flex">{item.index}</div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -216,13 +411,23 @@ class Analy extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="row2 flex-layout">
-                <div className="flex" />
-                <div className="flex" />
-              </div>
-              <div className="row3 flex-layout">
-                <div className="flex" />
-                <div className="flex" />
+              <div className="scrollList">
+                { Array.isArray(exceptionData.failureRanking) && 
+                 exceptionData.failureRanking.map((item, index) => {
+                  return (
+                    <div
+                      className={
+                        (index + 1) % 2 === 0
+                          ? ['row3 flex-layout ']
+                          : ['row2 flex-layout ']
+                      }
+                      key={item.user}
+                    >
+                      <div className="flex">{item.user}</div>
+                      <div className="flex">{item.index}</div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -234,13 +439,23 @@ class Analy extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="row2 flex-layout">
-                <div className="flex"> </div>
-                <div className="flex" />
-              </div>
-              <div className="row3 flex-layout">
-                <div className="flex" />
-                <div className="flex" />
+              <div className="scrollList">
+                { Array.isArray(exceptionData.loopExceRanking) && 
+                 exceptionData.loopExceRanking.map((item, index) => {
+                  return (
+                    <div
+                      className={
+                        (index + 1) % 2 === 0
+                          ? ['row3 flex-layout ']
+                          : ['row2 flex-layout ']
+                      }
+                      key={item.user}
+                    >
+                      <div className="flex">{item.user}</div>
+                      <div className="flex">{item.index}</div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -251,17 +466,27 @@ class Analy extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="row2 flex-layout">
-                <div className="flex"> </div>
-                <div className="flex" />
-              </div>
-              <div className="row3 flex-layout">
-                <div className="flex" />
-                <div className="flex" />
+              <div className="scrollList">
+                { Array.isArray(exceptionData.elecExecRanking) && 
+                 exceptionData.elecExecRanking.map((item, index) => {
+                  return (
+                    <div
+                      className={
+                        (index + 1) % 2 === 0
+                          ? ['row3 flex-layout ']
+                          : ['row2 flex-layout ']
+                      }
+                      key={item.user}
+                    >
+                      <div className="flex">{item.user}</div>
+                      <div className="flex">{item.index}</div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     )
   }
