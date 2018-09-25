@@ -23,7 +23,6 @@ class Status extends BaseView {
     }
 
     pageInit() {
-       
 
     }
     renderPageOne() {

@@ -19,33 +19,8 @@ import DataSet from "@antv/data-set";
 //分组柱状图  横向
 class Grouped extends React.Component {
   render() {
-    const data = [
-      {
-        label: "Monday",
-        series1: 2800,
-        series2: 2260
-      },
-      {
-        label: "Tuesday",
-        series1: 1800,
-        series2: 1300
-      },
-      {
-        label: "Wednesday",
-        series1: 950,
-        series2: 900
-      },
-      {
-        label: "Thursday",
-        series1: 500,
-        series2: 390
-      },
-      {
-        label: "Friday",
-        series1: 170,
-        series2: 100
-      }
-    ];
+    if(!this.props.height){return false}
+    
     const ds = new DataSet();
     const dv = ds.createView().source(this.props.data);
     dv.transform({

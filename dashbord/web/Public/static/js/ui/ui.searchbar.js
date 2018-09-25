@@ -11,12 +11,15 @@ const Option = Select.Option
 const { RangePicker, MonthPicker } = DatePicker
 
 class SearchBar extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      searchValue: {}
+
+	constructor(props) {
+        super(props);
+        this.state = {
+        	searchValue:{
+                
+            }
+        }
     }
-  }
 
   componentDidMount() {
     const self = this

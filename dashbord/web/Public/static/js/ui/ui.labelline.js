@@ -31,6 +31,7 @@ class Labelline extends React.Component {
       dimension: this.props.dimension,
       as: "percent"
     });
+    if(!this.props.height){return false}
     return (
       <div>
         <Chart
