@@ -10,7 +10,8 @@ import {
   Groupedcolumn,
   Basicbar,
   Basicradar,
-  ChinaMapChart
+  ChinaMapChart,
+  ChinaMapEcharts
 } from '../ui/ui.charts'
 
 import {
@@ -432,7 +433,7 @@ class Dashboard extends BaseView {
             </div>
           </div>
           <div className='section-content map'>
-            <ChinaMapChart {...mapData}/>
+            <ChinaMapEcharts {...mapData}/>
             <div className='bottom-txt'>中国电力科学研究院</div>
           </div>
         </div>

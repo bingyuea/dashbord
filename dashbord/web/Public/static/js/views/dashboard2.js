@@ -10,10 +10,9 @@ import {
   Groupedcolumn,
   Basicbar,
   Basicradar,
-  ChinaMapChart
+  ChinaMapChart,
+  ChinaMapEcharts
 } from '../ui/ui.charts'
-
-import ChianMap2 from '../ui/ui.chinamap2'
 
 import {
   ProvinceCountModel,
@@ -446,7 +445,7 @@ class Dashboard extends BaseView {
             </div>
           </div>
           <div className='section-content map'>
-            <ChianMap2 />
+            <ChinaMapEcharts />
             <div className='bottom-txt'>中国电力科学研究院</div>
           </div>
         </div>
