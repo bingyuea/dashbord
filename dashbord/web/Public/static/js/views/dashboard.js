@@ -61,24 +61,21 @@ class Dashboard extends BaseView {
     }
 
     pageInit(){
-      this.fetchProvinceCount('234sdf234');
-      this.fetchYearCount('234sdf234');
-      this.fetchMeasureCount('234sdf234');
-      this.fetchRateCount('234sdf234');
-      this.fetchTradeCount('234sdf234');
-      this.fetchEventCount('234sdf234');
-      this.fetchValidityEventCount('234sdf234');
-      this.fetchProvinceEventCount('234sdf234');
-      this.fetchTradeEventCount('234sdf234');
+      this.fetchProvinceCount();
+      this.fetchYearCount();
+      this.fetchMeasureCount();
+      this.fetchRateCount();
+      this.fetchTradeCount();
+      this.fetchEventCount();
+      this.fetchValidityEventCount();
+      this.fetchProvinceEventCount();
+      this.fetchTradeEventCount();
 
     }
 
     //不同省份安装情况
-    fetchProvinceCount(token){
+    fetchProvinceCount(){
       const self = this;
-      provinceCountModel.setParam({
-        token:token
-      });
       provinceCountModel.excute((res)=>{
         const resData = res || {};
         const listData = resData.countList || [];
@@ -92,11 +89,8 @@ class Dashboard extends BaseView {
     }
 
     //安装时间安装情况
-    fetchYearCount(token){
+    fetchYearCount(){
       const self = this;
-      yearCountModel.setParam({
-        token:token
-      });
       yearCountModel.excute((res)=>{
         const resData = res || {};
         const listData = resData.countList || [];
@@ -110,11 +104,8 @@ class Dashboard extends BaseView {
     }
 
     //计量类型统计
-    fetchMeasureCount(token){
+    fetchMeasureCount(){
       const self = this;
-      measureCountModel.setParam({
-        token:token
-      });
       measureCountModel.excute((res)=>{
         const resData = res || {};
         const listData = resData.countList || [];
@@ -127,11 +118,8 @@ class Dashboard extends BaseView {
     }
 
     //综合倍率统计
-    fetchRateCount(token){
+    fetchRateCount(){
       const self = this;
-      rateCountModel.setParam({
-        token:token
-      });
       rateCountModel.excute((res)=>{
         const resData = res || {};
         const listData = resData.countList || [];
@@ -145,12 +133,9 @@ class Dashboard extends BaseView {
     }
 
     //行业类型统计
-    fetchTradeCount(token){
+    fetchTradeCount(){
       const self = this;
 
-      tradeCountModel.setParam({
-        token:token
-      });
       tradeCountModel.excute((res)=>{
         const resData = res || {};
         const listData = resData.countList || [];
@@ -163,11 +148,8 @@ class Dashboard extends BaseView {
     }
 
     //事件类型情况
-    fetchEventCount(token){
+    fetchEventCount(){
       const self = this;
-      eventCountModel.setParam({
-        token:token
-      });
       eventCountModel.excute((res)=>{
         const resData = res || {};
         const listData = resData.eventList || [];
@@ -180,11 +162,9 @@ class Dashboard extends BaseView {
     }
 
     //有效性事件统计  未完
-    fetchValidityEventCount(token){
+    fetchValidityEventCount(){
       const self = this;
       validityEventCountModel.setParam({
-        token:token,
-        eventType:1,
         eventStatus:1
       });
       validityEventCountModel.excute((res)=>{
@@ -199,11 +179,8 @@ class Dashboard extends BaseView {
     }
 
     //不同省份事件上报情况
-    fetchProvinceEventCount(token){
+    fetchProvinceEventCount(){
       const self = this;
-      provinceEventCountModel.setParam({
-        token:token
-      });
       provinceEventCountModel.excute((res)=>{
         const resData = res || {};
         const listData = resData.eventList || [];
@@ -245,11 +222,8 @@ class Dashboard extends BaseView {
 
 
     //行业类型
-    fetchTradeEventCount(token){
+    fetchTradeEventCount(){
       const self = this;
-      tradeEventCountModel.setParam({
-        token:token
-      });
       tradeEventCountModel.excute((res)=>{
         const resData = res || {};
         const listData = resData.eventList || [];
@@ -416,8 +390,6 @@ class Dashboard extends BaseView {
 
       const height = $('.page-center').height();
       const mapHeight = height - 80 - 80 - 20 - 50;
-      console.log(provinceCountData)
-      console.log(mapHeight)
       const mapData = {
         height:mapHeight,
         userData:provinceCountData,

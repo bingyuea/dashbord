@@ -69,7 +69,11 @@ class BaseModel {
     }
 
     buildParam() {
-        return this.params;
+        //公共参数默认传值
+        const commonParam = {
+            token:'234sdf234'
+        }
+        return $.extend(this.params,commonParam);
     }
 
     excute(onComplete, onError, timeout) {
