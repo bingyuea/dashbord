@@ -112,7 +112,6 @@ class SecondaryLoop extends BaseView {
   }
 
   fetchPageOne(value) {
-    const self = this
     this.fetchQueryExceptionCount(value)
     this.fetchQueryExceptionByArea(value)
     this.fetchQueryExceptionByTime(value)
@@ -120,6 +119,29 @@ class SecondaryLoop extends BaseView {
     this.fetchQueryExceptionDetail(value)
     this.fetchQueryExceptionListvalue(value)
   }
+
+  fetchPageTwo(value) {
+    this.fetchQueryExceptionListvalue(value)
+  }
+
+  fetchrowCLick(value) {
+    // pageOne.exceptionList = resData 列表第一条数据
+    let { serialNum, elecSerialNum, occTime } =
+      this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
+    let params = { serialNum, elecSerialNum, occTime }
+    /*
+    *  二次回路单-异常分析2
+    */
+    // 电流分析对比查询
+    this.fetchQueryElecCurrentData(params)
+    // 巡检仪上报事件查询
+    this.fetchQueryXMDEvent(params)
+    // 电能表上报事件查询
+    this.fetchQueryElecEvent(params)
+    // 电量数据查询
+    this.fetchQueryElecData(params)
+  }
+
   // 异常事件总数查询
   fetchQueryExceptionCount(value) {
     // token	校验字符串	String	是	用于校验	123sdf234
@@ -274,20 +296,6 @@ class SecondaryLoop extends BaseView {
     )
   }
 
-  // pageInit() {
-  //   /*
-  //       *  二次回路单-异常分析2
-  //       */
-  //   // 电流分析对比查询
-  //   this.fetchQueryElecCurrentData()
-  //   // 巡检仪上报事件查询
-  //   this.fetchQueryXMDEvent()
-  //   // 电能表上报事件查询
-  //   this.fetchQueryElecEvent()
-  //   // 电量数据查询
-  //   this.fetchQueryElecData()
-  // }
-
   // 异常类型分布情况查询
   fetchQueryExceptionDetail(value) {
     // token	校验字符串	String	是	用于校验	123sdf234
@@ -403,16 +411,10 @@ class SecondaryLoop extends BaseView {
     */
 
   // 电流分析对比查询
-  fetchQueryElecCurrentData(token) {
+  fetchQueryElecCurrentData(params) {
     const self = this
-    // pageOne.exceptionList = resData 列表第一条数据
-    let { serialNum, elecSerialNum, occTime } =
-      this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
     queryElecCurrentData.setParam({
-      token: token,
-      serialNum,
-      elecSerialNum,
-      occTime
+      ...params
     })
     queryElecCurrentData.excute(
       res => {
@@ -452,15 +454,12 @@ class SecondaryLoop extends BaseView {
     )
   }
   // 巡检仪上报事件查询
-  fetchQueryXMDEvent(token) {
+  fetchQueryXMDEvent(params) {
     const self = this
-    // pageOne.exceptionList = resData 列表第一条数据
-    let { serialNum, elecSerialNum, occTime } =
-      this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
+    let data = JSON.parse(JSON.stringify(params))
+    data.occTime = ''
     queryXMDEvent.setParam({
-      token: token,
-      serialNum,
-      elecSerialNum
+      ...data
     })
     queryXMDEvent.excute(
       res => {
@@ -498,15 +497,12 @@ class SecondaryLoop extends BaseView {
     )
   }
   // 电能表上报事件查询
-  fetchQueryElecEvent(token) {
+  fetchQueryElecEvent(params) {
     const self = this
-    // pageOne.exceptionList = resData 列表第一条数据
-    let { serialNum, elecSerialNum, occTime } =
-      this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
+    let data = JSON.parse(JSON.stringify(params))
+    data.occTime = ''
     queryElecEvent.setParam({
-      token: token,
-      serialNum,
-      elecSerialNum
+      ...data
     })
     queryElecEvent.excute(
       res => {
@@ -544,7 +540,7 @@ class SecondaryLoop extends BaseView {
     )
   }
   // 电量数据查询
-  fetchQueryElecData(token) {
+  fetchQueryElecData(params) {
     const self = this
     // 这里是点击当前行的的数据
     // 参数	参数名称	类型	必填	描述	范例
@@ -553,13 +549,8 @@ class SecondaryLoop extends BaseView {
     // elecSerialNum	电能表资产编号	string	是		1
     // occTime	异常发生时间	string	是
     // pageOne.exceptionList = resData 列表第一条数据
-    let { serialNum, elecSerialNum, occTime } =
-      this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
     queryElecData.setParam({
-      token: token,
-      serialNum,
-      elecSerialNum,
-      occTime
+      ...params
     })
     queryElecData.excute(
       res => {
@@ -1149,6 +1140,7 @@ class SecondaryLoop extends BaseView {
                   self.setState({
                     pageTwo
                   })
+                  fetchrowCLick(record)
                 }
               }
             }}
