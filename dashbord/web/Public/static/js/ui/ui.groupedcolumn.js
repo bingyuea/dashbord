@@ -22,7 +22,16 @@ import {
 class Groupedcolumn extends React.Component {
   render() {
     if(!this.props.height){return false}
-    
+    if(!this.props.data){
+      return (
+        <div>
+        <Chart
+           placeholder={<div className='loading'><span></span></div>}
+           height={this.props.height}
+        ></Chart>
+        </div>
+      )
+    }
     const ds = new DataSet();
     const dv = ds.createView().source(this.props.data);
     dv.transform({
@@ -34,7 +43,7 @@ class Groupedcolumn extends React.Component {
 
     return (
       <div>
-        <Chart {...this.props} data={dv} >
+        <Chart {...this.props} data={dv}  placeholder={<div className='loading'><span></span></div>}>
           <Axis name={this.props.keyName} />
           <Axis name={this.props.value} />
           <Legend />
@@ -46,7 +55,7 @@ class Groupedcolumn extends React.Component {
           <Geom
             type="interval"
             position={`${this.props.keyName}*${this.props.value}`}
-            color={[this.props.fieldsName,COLOR_PLATE_8]}//name
+            color={COLOR_PLATE_8}//name
             adjust={[
               {
                 type: "dodge",

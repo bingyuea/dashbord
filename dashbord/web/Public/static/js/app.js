@@ -19,6 +19,15 @@ class App extends BaseApp {
                         }, 'views/dashboard')
                     },
                 },
+                // {
+                //     path: __mei_wei__.env.basepath + '/dashboard2',
+                //     getComponents(nextState, cb) {
+                //         require.ensure([], (require) => {
+                //             var page = require('./views/dashboard2.js');
+                //             cb(null, page)
+                //         }, 'views/dashboard2')
+                //     },
+                // },
                 {
                     path: __mei_wei__.env.basepath + 'xmd',
                     getComponents(nextState, cb) {

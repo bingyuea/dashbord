@@ -13,7 +13,6 @@ var __exports___ = {
 function _init() {
 
     var $meta = $("meta[conf]");
-
     $meta.each(function(idx, item) {
         var $item = $(item);
 

@@ -21,10 +21,10 @@ import { DEFAULT_COLOR, DARK_DEFAULT_COLOR } from '../data/color'
 class BasicLine extends React.Component {
   render() {
     if(!this.props.height){return false}
-
+    
     return (
       <div>
-        <Chart placeholder {...this.props} scale={this.props.cols}>
+        <Chart  placeholder={<div className='loading'><span></span></div>} {...this.props} scale={this.props.cols}>
           <Axis name={this.props.xAxis} label={this.props.xLabel} />
           <Axis name={this.props.yAxis} label={this.props.yLabel} />
           <Tooltip

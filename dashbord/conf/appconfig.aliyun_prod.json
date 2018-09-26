@@ -1,6 +1,6 @@
 {
     "ENV": "prd",
     "basepath": "",
-    "restfulapi": "//api.gateway.mwbyd.cn/",
+    "restfulapi": "//api.c2py.com",
     "webresourcePDBaseUrl": "//admin.gateway.mwbyd.cn/wukongwebresource/"
 }

@@ -13,6 +13,8 @@ import {
   ChinaMapChart
 } from '../ui/ui.charts'
 
+import ChianMap2 from '../ui/ui.chinamap2'
+
 import {
   ProvinceCountModel,
   YearCountModel,
@@ -26,10 +28,6 @@ import {
 } from '../models/dashboard.models';
 
 import Mock from '../mock/mock';
-
-import {
-  uniqueArr
-} from '../util/util'
 
 //定义数据模型
 const provinceCountModel = ProvinceCountModel.getInstance(),
@@ -54,22 +52,22 @@ class Dashboard extends BaseView {
     }
 
     componentDidMount(){
-      this.pageInit();
+      // this.pageInit();
       this.setState({
         pageStatus:'init'
       });
     }
 
     pageInit(){
-      this.fetchProvinceCount('234sdf234');
-      this.fetchYearCount('234sdf234');
-      this.fetchMeasureCount('234sdf234');
-      this.fetchRateCount('234sdf234');
-      this.fetchTradeCount('234sdf234');
-      this.fetchEventCount('234sdf234');
-      this.fetchValidityEventCount('234sdf234');
-      this.fetchProvinceEventCount('234sdf234');
-      this.fetchTradeEventCount('234sdf234');
+      this.fetchProvinceCount();
+      this.fetchYearCount();
+      this.fetchMeasureCount();
+      this.fetchRateCount();
+      this.fetchTradeCount();
+      this.fetchEventCount();
+      this.fetchValidityEventCount();
+      this.fetchProvinceEventCount();
+      this.fetchTradeEventCount();
 
     }
 
@@ -80,14 +78,14 @@ class Dashboard extends BaseView {
         token:token
       });
       provinceCountModel.excute((res)=>{
-        const resData = res || {};
+        const resData = res.data || {};
         const listData = resData.countList || [];
 
         self.setState({
           provinceCountData:listData
         });
       },(err)=>{
-        
+        console.log(err)
       })
     }
 
@@ -98,14 +96,14 @@ class Dashboard extends BaseView {
         token:token
       });
       yearCountModel.excute((res)=>{
-        const resData = res || {};
+        const resData = res.data || {};
         const listData = resData.countList || [];
 
         self.setState({
           yearCountData:listData
         });
       },(err)=>{
-        
+        console.log(err)
       })
     }
 
@@ -116,13 +114,14 @@ class Dashboard extends BaseView {
         token:token
       });
       measureCountModel.excute((res)=>{
-        const resData = res || {};
+        const resData = res.data || {};
         const listData = resData.countList || [];
+
         self.setState({
           measureCountData:listData
         });
       },(err)=>{
-        
+        console.log(err)
       })
     }
 
@@ -133,32 +132,31 @@ class Dashboard extends BaseView {
         token:token
       });
       rateCountModel.excute((res)=>{
-        const resData = res || {};
+        const resData = res.data || {};
         const listData = resData.countList || [];
 
         self.setState({
           rateCountData:listData
         });
       },(err)=>{
-        
+        console.log(err)
       })
     }
 
     //行业类型统计
     fetchTradeCount(token){
       const self = this;
-
-      tradeCountModel.setParam({
+      measureCountModel.setParam({
         token:token
       });
-      tradeCountModel.excute((res)=>{
-        const resData = res || {};
+      measureCountModel.excute((res)=>{
+        const resData = res.data || {};
         const listData = resData.countList || [];
         self.setState({
           tradeCountData:listData
         });
       },(err)=>{
-        
+        console.log(err)
       })
     }
 
@@ -169,13 +167,13 @@ class Dashboard extends BaseView {
         token:token
       });
       eventCountModel.excute((res)=>{
-        const resData = res || {};
-        const listData = resData.eventList || [];
+        const resData = res.data || {};
+        const listData = resData.countList || [];
         self.setState({
           eventCountData:listData
         });
       },(err)=>{
-        
+        console.log(err)
       })
     }
 
@@ -183,18 +181,27 @@ class Dashboard extends BaseView {
     fetchValidityEventCount(token){
       const self = this;
       validityEventCountModel.setParam({
-        token:token,
-        eventType:1,
-        eventStatus:1
+        token:token
       });
       validityEventCountModel.excute((res)=>{
-        const resData = res || {};
-        const listData = resData.eventList || [];
+        const resData = res.data || {};
+        const listData = resData.countList || [];
+        const data = {
+          title:'事件有效性',
+          data:listData,
+          dimension:'eventName',
+          field:'count',
+          height:400,
+          padding:[80, 100, 80, 80],
+          radius:0.75,
+          innerRadius:0.6
+        };
+
         self.setState({
           validityEventCountData:listData
         });
       },(err)=>{
-        
+        console.log(err)
       })
     }
 
@@ -205,44 +212,15 @@ class Dashboard extends BaseView {
         token:token
       });
       provinceEventCountModel.excute((res)=>{
-        const resData = res || {};
+        const resData = res.data || {};
         const listData = resData.eventList || [];
         self.setState({
-          provinceEventCountData:self.formatProvinceEventCount(listData)
+          provinceEventCountData:listData
         });
       },(err)=>{
-        
+        console.log(err)
       })
     }
-
-    formatProvinceEventCount(list) {
-      if(!list){return []}
-      let newList = [],target = {};
-      list.forEach(item => {
-        target.name = item.trade;
-        (item.detail || []).forEach(detailItem=>{
-          target[detailItem.province] = detailItem.count
-        })
-        newList.push(target);
-      })
-
-      return newList
-
-    }
-
-    getFields(list){
-      if(!list){return []}
-      let target = [];
-      list.forEach(item=>{
-        delete item.name;
-        target = target.concat(Object.keys(item));
-      })
-
-      return uniqueArr(target);
-
-    }
-
-
 
     //行业类型
     fetchTradeEventCount(token){
@@ -251,14 +229,14 @@ class Dashboard extends BaseView {
         token:token
       });
       tradeEventCountModel.excute((res)=>{
-        const resData = res || {};
+        const resData = res.data || {};
         const listData = resData.eventList || [];
 
         self.setState({
           tradeEventCountMData:listData
         });
       },(err)=>{
-        
+        console.log(err)
       })
     }
 
@@ -271,21 +249,24 @@ class Dashboard extends BaseView {
         measureCountData,
         rateCountData,
         tradeCountData
-      } = this.state; 
+      } = this.state;  
 
       const height = $('.page-left .charts-content').height();
       const chartHeight = (height - 160) / 4;
 
       //不同省份安装情况
       const charts1 = {
-        data:provinceCountData,
+        // data:provinceCountData,
+        data:Mock.charts1,
         height:chartHeight,
         xAxis:'name',
         yAxis:'count',
         forceFit:true,
         padding:'auto',
         cols:{
-          
+          count: {
+            tickCount: 2
+          }
         },
         style:{
           overflow:'auto',
@@ -300,7 +281,8 @@ class Dashboard extends BaseView {
 
       //安装时间
       const charts2 = {
-        data:yearCountData,
+        // data:yearCountData,
+        data:Mock.charts2,
         height:chartHeight,
         xAxis:'year',
         yAxis:'count',
@@ -324,7 +306,8 @@ class Dashboard extends BaseView {
 
       //计量类型
       const charts3 = {
-        data:measureCountData,
+        // data:measureCountData,
+        data:Mock.charts3,
         height:chartHeight,
         forceFit:true,
         padding:'auto',
@@ -342,7 +325,8 @@ class Dashboard extends BaseView {
 
       //综合倍率
       const charts4 = {
-        data:rateCountData,
+        // data:rateCountData,
+        data:Mock.charts4,
         height:chartHeight,
         forceFit:true,
         padding:'auto',
@@ -360,7 +344,8 @@ class Dashboard extends BaseView {
 
       //行业类型
       const charts5 = {
-        data:tradeCountData,
+        // data:tradeCountData,
+        data:Mock.charts5,
         height:chartHeight,
         xAxis:'trade',
         yAxis:'count',
@@ -414,13 +399,14 @@ class Dashboard extends BaseView {
         provinceCountData
       } = this.state; 
 
-      const height = $('.page-center').height();
-      const mapHeight = height - 80 - 80 - 20 - 50;
-      console.log(provinceCountData)
-      console.log(mapHeight)
+
+      const height = $('.section-content.map').height();
+      const mapHeight = height - 50;
+
       const mapData = {
         height:mapHeight,
-        userData:provinceCountData,
+        // userData:provinceCountData,
+        userData:Mock.charts1,
         padding:'auto',
         xAxis:'name',
         yAxis:'count',
@@ -460,7 +446,7 @@ class Dashboard extends BaseView {
             </div>
           </div>
           <div className='section-content map'>
-            <ChinaMapChart {...mapData}/>
+            <ChianMap2 />
             <div className='bottom-txt'>中国电力科学研究院</div>
           </div>
         </div>
@@ -498,7 +484,8 @@ class Dashboard extends BaseView {
       }
       //事件类型
       const charts7 = {
-        data:eventCountData,
+        // data:eventCountData,
+        data:Mock.charts7,
         height:chartHeight,
         innerRadius:0.6,
         forceFit:true,
@@ -515,14 +502,32 @@ class Dashboard extends BaseView {
         }
       }
 
-      //不同省份上报事件情况
       const charts8 = {
-        data:provinceEventCountData,
-        fields:this.getFields(provinceEventCountData),
-        keyName:'地区',
-        value:'上报数量',
+        data: [{
+          name: "London",
+          "Jan.": 18.9,
+          "Feb.": 28.8,
+          "Mar.": 39.3,
+          "Apr.": 81.4,
+          May: 47,
+          "Jun.": 20.3,
+          "Jul.": 24,
+          "Aug.": 35.6
+        }, {
+          name: "Berlin",
+          "Jan.": 12.4,
+          "Feb.": 23.2,
+          "Mar.": 34.5,
+          "Apr.": 99.7,
+          May: 52.6,
+          "Jun.": 35.5,
+          "Jul.": 37.4,
+          "Aug.": 42.4
+        }],
+        fields:["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug."],
+        keyName:'月份',
+        value:'月均降雨量',
         fieldsName:'name',
-        forceFit:true,
         style:{
           overflow:'auto'
         },
@@ -531,7 +536,8 @@ class Dashboard extends BaseView {
       };
 
       const charts9 = {
-        data:tradeEventCountMData,
+        // data:tradeEventCountMData,
+        data:Mock.charts7,
         height:chartHeight,
         padding:'auto',
         fields:['count'],

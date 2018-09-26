@@ -9,7 +9,7 @@ import {
 export default class ChinaMapChart extends Component {
 
   render() {
-    if(!this.props.height){return false}
+    if(!this.props.height || !this.props.userData){return false}
     const cols = {
       x: { sync: true, nice: false },
       y: { sync: true, nice: false }
@@ -21,6 +21,7 @@ export default class ChinaMapChart extends Component {
     const ds = new DataSet();
 
     // geo data
+
     const dvGeo = ds.createView().source(data, {
       type: 'GeoJSON'
     });

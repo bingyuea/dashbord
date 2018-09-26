@@ -23,50 +23,19 @@ import {
 //雷达图
 class Basicradar extends React.Component {
   render() {
+    
     if(!this.props.height){return false}
+    if(!this.props.data){
+      return (
+        <div>
+        <Chart
+           placeholder={<div className='loading'><span></span></div>}
+           height={this.props.height}
+        ></Chart>
+        </div>
+      )
+    }
     const { DataView } = DataSet;
-    const data = [
-      {
-        item: "Design",
-        a: 70
-      },
-      {
-        item: "Development",
-        a: 60
-      },
-      {
-        item: "Marketing",
-        a: 50
-      },
-      {
-        item: "Users",
-        a: 40
-      },
-      {
-        item: "Test",
-        a: 60
-      },
-      {
-        item: "Language",
-        a: 70
-      },
-      {
-        item: "Technology",
-        a: 50
-      },
-      {
-        item: "Support",
-        a: 30
-      },
-      {
-        item: "Sales",
-        a: 60
-      },
-      {
-        item: "UX",
-        a: 50
-      }
-    ];
     const dv = new DataView().source(this.props.data);
     dv.transform({
       type: "fold",
@@ -87,6 +56,7 @@ class Basicradar extends React.Component {
         <Chart
           data={dv}
           {...this.props}
+           placeholder={<div className='loading'><span></span></div>}
         >
           <Coord type="polar" radius={0.8}/>
           <Axis

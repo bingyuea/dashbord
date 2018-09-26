@@ -49,7 +49,7 @@ const appconfig = JSON.parse(content);
 
 console.log('------------------appconfig------------------------'.gray);
 
-console.log(appconfig);
+
 
 function getBuildTime() {
     function formatTimeString(time) {

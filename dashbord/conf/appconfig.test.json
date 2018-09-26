@@ -1,6 +1,6 @@
 {
     "ENV": "test",
     "basepath": "",
-    "restfulapi": "http://api.gateway.test.cn/",
+    "restfulapi": "//api.c2py.com",
     "webresourcePDBaseUrl": "//admin.gateway.test.cn/wukongwebresource/"
 }

@@ -21,30 +21,21 @@ import {
 //基础条形图
 class Basicbar extends React.Component {
   render() {
-    const data = [
-      {
-        country: "中国",
-        population: 131744
-      },
-      {
-        country: "印度",
-        population: 104970
-      },
-      {
-        country: "美国",
-        population: 29034
-      },
-      {
-        country: "印尼",
-        population: 23489
-      },
-      {
-        country: "巴西",
-        population: 18203
-      }
-    ];
+    
     const self = this;
     const ds = new DataSet();
+    if(!this.props.height){return false}
+    if(!this.props.data){
+      return (
+        <div>
+        <Chart
+           placeholder={<div className='loading'><span></span></div>}
+           height={this.props.height}
+        ></Chart>
+        </div>
+      )
+    }
+    
     const dv = ds.createView().source(this.props.data);
     dv.source(this.props.data).transform({
       type: "sort",
@@ -59,7 +50,7 @@ class Basicbar extends React.Component {
     if(!this.props.height){return false}
     return (
       <div>
-        <Chart {...this.props} data={dv}>
+        <Chart {...this.props} data={dv} placeholder={<div className='loading'><span></span></div>}>
           <Coord transpose />
           <Axis
             name={this.props.xAxis}
