@@ -159,112 +159,284 @@ const Mock = {
     dataList: [
       {
         username: '张三',
-        place: '南京市',
+        city: '南京市',
+        region: '松江区',
         serialNum: 'SN1234325',
         elecSerialNum: 'SN1234325',
         trade: '大工业用电',
-        exception: 1,
+        name: '二次侧短路',
         occTime: '2017-10-10',
         recoverTime: '2017-10-11'
       },
       {
-        username: '李四',
-        place: '南京市',
-        serialNum: 'SN1234322',
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
         elecSerialNum: 'SN1234325',
-        trade: '轻工业用电',
-        exception: 2,
+        trade: '大工业用电',
+        name: '二次侧短路',
         occTime: '2017-10-10',
         recoverTime: '2017-10-11'
       },
       {
-        username: '李四',
-        place: '南京市',
-        serialNum: 'SN1234322',
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
         elecSerialNum: 'SN1234325',
-        trade: '轻工业用电',
-        exception: 2,
+        trade: '大工业用电',
+        name: '二次侧短路',
         occTime: '2017-10-10',
         recoverTime: '2017-10-11'
       },
       {
-        username: '李四',
-        place: '南京市',
-        serialNum: 'SN1234322',
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
         elecSerialNum: 'SN1234325',
-        trade: '轻工业用电',
-        exception: 2,
+        trade: '大工业用电',
+        name: '二次侧短路',
         occTime: '2017-10-10',
         recoverTime: '2017-10-11'
       },
       {
-        username: '李四',
-        place: '南京市',
-        serialNum: 'SN1234322',
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
         elecSerialNum: 'SN1234325',
-        trade: '轻工业用电',
-        exception: 2,
+        trade: '大工业用电',
+        name: '二次侧短路',
         occTime: '2017-10-10',
         recoverTime: '2017-10-11'
       },
       {
-        username: '李四',
-        place: '南京市',
-        serialNum: 'SN1234322',
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
         elecSerialNum: 'SN1234325',
-        trade: '轻工业用电',
-        exception: 2,
+        trade: '大工业用电',
+        name: '二次侧短路',
         occTime: '2017-10-10',
         recoverTime: '2017-10-11'
       },
       {
-        username: '李四',
-        place: '南京市',
-        serialNum: 'SN1234322',
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
         elecSerialNum: 'SN1234325',
-        trade: '轻工业用电',
-        exception: 2,
+        trade: '大工业用电',
+        name: '二次侧短路',
         occTime: '2017-10-10',
         recoverTime: '2017-10-11'
       },
       {
-        username: '李四',
-        place: '南京市',
-        serialNum: 'SN1234322',
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
         elecSerialNum: 'SN1234325',
-        trade: '轻工业用电',
-        exception: 2,
+        trade: '大工业用电',
+        name: '二次侧短路',
         occTime: '2017-10-10',
         recoverTime: '2017-10-11'
       },
       {
-        username: '李四',
-        place: '南京市',
-        serialNum: 'SN1234322',
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
         elecSerialNum: 'SN1234325',
-        trade: '轻工业用电',
-        exception: 2,
+        trade: '大工业用电',
+        name: '二次侧短路',
         occTime: '2017-10-10',
         recoverTime: '2017-10-11'
       },
       {
-        username: '李四',
-        place: '南京市',
-        serialNum: 'SN1234322',
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
         elecSerialNum: 'SN1234325',
-        trade: '轻工业用电',
-        exception: 2,
+        trade: '大工业用电',
+        name: '二次侧短路',
+        occTime: '2017-10-10',
+        recoverTime: '2017-10-11'
+      },
+      {
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
+        elecSerialNum: 'SN1234325',
+        trade: '大工业用电',
+        name: '二次侧短路',
+        occTime: '2017-10-10',
+        recoverTime: '2017-10-11'
+      },
+      {
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
+        elecSerialNum: 'SN1234325',
+        trade: '大工业用电',
+        name: '二次侧短路',
+        occTime: '2017-10-10',
+        recoverTime: '2017-10-11'
+      },
+      {
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
+        elecSerialNum: 'SN1234325',
+        trade: '大工业用电',
+        name: '二次侧短路',
+        occTime: '2017-10-10',
+        recoverTime: '2017-10-11'
+      },
+      {
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
+        elecSerialNum: 'SN1234325',
+        trade: '大工业用电',
+        name: '二次侧短路',
+        occTime: '2017-10-10',
+        recoverTime: '2017-10-11'
+      },
+      {
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
+        elecSerialNum: 'SN1234325',
+        trade: '大工业用电',
+        name: '二次侧短路',
+        occTime: '2017-10-10',
+        recoverTime: '2017-10-11'
+      },
+      {
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
+        elecSerialNum: 'SN1234325',
+        trade: '大工业用电',
+        name: '二次侧短路',
+        occTime: '2017-10-10',
+        recoverTime: '2017-10-11'
+      },
+      {
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
+        elecSerialNum: 'SN1234325',
+        trade: '大工业用电',
+        name: '二次侧短路',
+        occTime: '2017-10-10',
+        recoverTime: '2017-10-11'
+      },
+      {
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
+        elecSerialNum: 'SN1234325',
+        trade: '大工业用电',
+        name: '二次侧短路',
+        occTime: '2017-10-10',
+        recoverTime: '2017-10-11'
+      },
+      {
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
+        elecSerialNum: 'SN1234325',
+        trade: '大工业用电',
+        name: '二次侧短路',
+        occTime: '2017-10-10',
+        recoverTime: '2017-10-11'
+      },
+      {
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
+        elecSerialNum: 'SN1234325',
+        trade: '大工业用电',
+        name: '二次侧短路',
+        occTime: '2017-10-10',
+        recoverTime: '2017-10-11'
+      },
+      {
+        username: '张三',
+        city: '南京市',
+        region: '松江区',
+        serialNum: 'SN1234325',
+        elecSerialNum: 'SN1234325',
+        trade: '大工业用电',
+        name: '二次侧短路',
         occTime: '2017-10-10',
         recoverTime: '2017-10-11'
       }
     ]
   },
   // 电流分析对比查询
+  testData: [
+    { month: 'Jan', city: 'Tokyo', temperature: 7 },
+    { month: 'Jan', city: 'London', temperature: 3.9 },
+    { month: '2', city: 'Tokyo', temperature: 7 },
+    { month: '2', city: 'London', temperature: 3.9 }
+  ],
   elecCurrentData: {
     xmdData: [
+      // {
+      //   phase: 'A相',
+      //   pointList: [0.5, 0.6, 0.9]
+      // },
       {
         phase: 'A相',
-        pointList: [0.5, 0.6, 0.9]
+        pointList: [
+          {
+            data: 0.5,
+            type: 'xmdData',
+            x: '2016-01-01'
+          },
+          {
+            data: 0.6,
+            type: 'elecData',
+            x: '2016-01-01'
+          },
+          {
+            data: 0.5,
+            type: 'xmdData',
+            x: '2016-01-02'
+          },
+          {
+            data: 0.6,
+            type: 'elecData',
+            x: '2016-01-02'
+          },
+          {
+            data: 0.5,
+            type: 'xmdData',
+            x: '2016-01-03'
+          },
+          {
+            data: 0.6,
+            type: 'elecData',
+            x: '2016-01-03'
+          }
+        ]
       },
       {
         phase: ' B相',
@@ -278,7 +450,28 @@ const Mock = {
     elecData: [
       {
         phase: 'A相',
-        pointList: [0.1, 0.2, 0.3]
+        pointList: [
+          {
+            y: 0.5,
+            x: '2016-01-01'
+          },
+          {
+            y: 0.6,
+            x: '2016-01-02'
+          },
+          {
+            y: 0.9,
+            x: '2016-01-03'
+          },
+          {
+            y: 0.9,
+            x: '2016-01-04'
+          },
+          {
+            y: 0.1,
+            x: '2016-01-05'
+          }
+        ]
       },
       {
         phase: ' B相',
@@ -357,7 +550,181 @@ const Mock = {
       activePower: 100,
       reactivePower: 100
     }
-  ]
+  ],
+  //异常数据统计(排行榜数据)
+  exceptionDataObj: {
+    result: 1,
+    exceptionData: [
+      {
+        rangeName: '江苏省',
+        exceptionIndex: 155.68,
+        stealingPowerRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        troubleRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        wiringFaultRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        expansionRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        maintainRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        failureRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        loopExceRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        elecExecRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ]
+      },
+      {
+        rangeName: '浙江省',
+        exceptionIndex: 155.68,
+        stealingPowerRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        troubleRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        wiringFaultRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        expansionRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        maintainRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        failureRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        loopExceRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ],
+        elecExecRanking: [
+          {
+            user: '食品公司A',
+            index: 1.8
+          },
+          {
+            user: '食品公司B',
+            index: 1.7
+          }
+        ]
+      }
+    ]
+  }
 }
 
 module.exports = Mock

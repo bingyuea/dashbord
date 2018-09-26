@@ -112,7 +112,6 @@ class SecondaryLoop extends BaseView {
   }
 
   fetchPageOne(value) {
-    const self = this
     this.fetchQueryExceptionCount(value)
     this.fetchQueryExceptionByArea(value)
     this.fetchQueryExceptionByTime(value)
@@ -120,6 +119,29 @@ class SecondaryLoop extends BaseView {
     this.fetchQueryExceptionDetail(value)
     this.fetchQueryExceptionListvalue(value)
   }
+
+  fetchPageTwo(value) {
+    this.fetchQueryExceptionListvalue(value)
+  }
+
+  fetchrowCLick(value) {
+    // pageOne.exceptionList = resData 列表第一条数据
+    let { serialNum, elecSerialNum, occTime } =
+      this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
+    let params = { serialNum, elecSerialNum, occTime }
+    /*
+    *  二次回路单-异常分析2
+    */
+    // 电流分析对比查询
+    this.fetchQueryElecCurrentData(params)
+    // 巡检仪上报事件查询
+    this.fetchQueryXMDEvent(params)
+    // 电能表上报事件查询
+    this.fetchQueryElecEvent(params)
+    // 电量数据查询
+    this.fetchQueryElecData(params)
+  }
+
   // 异常事件总数查询
   fetchQueryExceptionCount(value) {
     // token	校验字符串	String	是	用于校验	123sdf234
@@ -274,20 +296,6 @@ class SecondaryLoop extends BaseView {
     )
   }
 
-  // pageInit() {
-  //   /*
-  //       *  二次回路单-异常分析2
-  //       */
-  //   // 电流分析对比查询
-  //   this.fetchQueryElecCurrentData()
-  //   // 巡检仪上报事件查询
-  //   this.fetchQueryXMDEvent()
-  //   // 电能表上报事件查询
-  //   this.fetchQueryElecEvent()
-  //   // 电量数据查询
-  //   this.fetchQueryElecData()
-  // }
-
   // 异常类型分布情况查询
   fetchQueryExceptionDetail(value) {
     // token	校验字符串	String	是	用于校验	123sdf234
@@ -403,19 +411,19 @@ class SecondaryLoop extends BaseView {
     */
 
   // 电流分析对比查询
-  fetchQueryElecCurrentData(token) {
+  fetchQueryElecCurrentData(params) {
     const self = this
-    // 这里是点击当前行的的数据
-    const searchValue = this.state.searchValue
     queryElecCurrentData.setParam({
-      token: token,
-      serialNum: searchValue.serialNum,
-      elecSerialNum: searchValue.elecSerialNum,
-      occTime: searchValue.occTime
+      ...params
     })
     queryElecCurrentData.excute(
       res => {
         const elecCurrentData = res.data || {}
+        let pageTwo = this.state.pageTwo || {}
+        pageTwo.xmdData = resData
+        self.setData({
+          pageTwo
+        })
         // {
         //     "result":1,
         //     "xmdData":[
@@ -439,9 +447,6 @@ class SecondaryLoop extends BaseView {
         //     }
         // ]
         // }
-        self.setState({
-          elecCurrentData
-        })
       },
       err => {
         console.log(err)
@@ -449,19 +454,21 @@ class SecondaryLoop extends BaseView {
     )
   }
   // 巡检仪上报事件查询
-  fetchQueryXMDEvent(token) {
+  fetchQueryXMDEvent(params) {
     const self = this
-    // 这里是点击当前行的的数据
-    const searchValue = this.state.searchValue
+    let data = JSON.parse(JSON.stringify(params))
+    data.occTime = ''
     queryXMDEvent.setParam({
-      token: token,
-      serialNum: searchValue.serialNum,
-      elecSerialNum: searchValue.elecSerialNum
+      ...data
     })
     queryXMDEvent.excute(
       res => {
         const resData = res.data || {}
-        const xmdEventData = resData.xmdData || []
+        let pageTwo = this.state.pageTwo || {}
+        pageTwo.xmdEventData = resData
+        self.setData({
+          pageTwo
+        })
         // {
         //     "result":1,
         //     "xmdData":[
@@ -483,9 +490,6 @@ class SecondaryLoop extends BaseView {
         //     }
         // ]
         // }
-        self.setState({
-          xmdEventData
-        })
       },
       err => {
         console.log(err)
@@ -493,19 +497,21 @@ class SecondaryLoop extends BaseView {
     )
   }
   // 电能表上报事件查询
-  fetchQueryElecEvent(token) {
+  fetchQueryElecEvent(params) {
     const self = this
-    // 这里是点击当前行的的数据
-    const searchValue = this.state.searchValue
+    let data = JSON.parse(JSON.stringify(params))
+    data.occTime = ''
     queryElecEvent.setParam({
-      token: token,
-      serialNum: searchValue.serialNum,
-      elecSerialNum: searchValue.elecSerialNum
+      ...data
     })
     queryElecEvent.excute(
       res => {
         const resData = res.data || {}
-        const eleEventData = resData.elecData || []
+        let pageTwo = this.state.pageTwo || {}
+        pageTwo.eleEventData = resData
+        self.setData({
+          pageTwo
+        })
         // {
         //     "result":1,
         //     "elecData":[
@@ -527,9 +533,6 @@ class SecondaryLoop extends BaseView {
         //     }
         //      ]
         // }
-        self.setState({
-          eleEventData
-        })
       },
       err => {
         console.log(err)
@@ -537,25 +540,26 @@ class SecondaryLoop extends BaseView {
     )
   }
   // 电量数据查询
-  fetchQueryElecData(token) {
+  fetchQueryElecData(params) {
     const self = this
     // 这里是点击当前行的的数据
-    const searchValue = this.state.searchValue
     // 参数	参数名称	类型	必填	描述	范例
     // token	校验字符串	String	是	用于校验	123sdf234
     // serialNum	巡检仪资产编号	string	是
     // elecSerialNum	电能表资产编号	string	是		1
     // occTime	异常发生时间	string	是
+    // pageOne.exceptionList = resData 列表第一条数据
     queryElecData.setParam({
-      token: token,
-      serialNum: searchValue.serialNum,
-      elecSerialNum: searchValue.elecSerialNum,
-      occTime: searchValue.occTime
+      ...params
     })
     queryElecData.excute(
       res => {
         const resData = res.data || {}
-        const elecDayData = resData.elecData || []
+        let pageTwo = this.state.pageTwo || {}
+        pageTwo.elecDayData = resData
+        self.setData({
+          pageTwo
+        })
         // {
         //     "result":1,
         //     "elecData":[
@@ -586,9 +590,6 @@ class SecondaryLoop extends BaseView {
         //     }
         //      ]
         // }
-        self.setState({
-          elecDayData
-        })
       },
       err => {
         console.log(err)
@@ -704,13 +705,7 @@ class SecondaryLoop extends BaseView {
       forceFit: true,
       padding: 'auto',
       cols: {
-        tradeName: {
-          min: 0
-        },
         tradeCount: {
-          min: 0
-        },
-        trade: {
           min: 0
         }
       },
@@ -829,243 +824,247 @@ class SecondaryLoop extends BaseView {
   }
 
   renderPageTwo() {
-    return ''
+    // 正式数据
+    // let {
+    // elecCurrentData, // 电流分析对比查询
+    // xmdEventData, // 巡检仪上报事件查询
+    // eleEventData, // 电能表上报事件查询
+    // elecDayData, // 电量数据查询
+    // exceptionList, // 异常类型分布情况查询
+    // } = this.state.pageTwo || {};
+    let domHeight = $('.page-main').height() // tab页面的高度
+    let chartsEleA = {} // 电流分析对比查询 图表A
+    let chartsEleB = {} // 电流分析对比查询 图表B
+    let chartsEleC = {} // 电流分析对比查询 图表C
+    let chartsEleHeight =
+      ($('.SecondaryLoopRight_left').height() - 60 - 45 - 30) / 3 // 电流分析对比查询 高度
+    let chartsEleChange = {} // 电量变化图表
+    let chartsEleChangeHeight = $('.chartsEleChangeHeight').height() - 40 // 电量变化图表 高度
+
+    let _this = this
+    if (!chartsEleChangeHeight) {
+      let time = setTimeout(function() {
+        _this.forceUpdate()
+      }, 0)
+    }
+    let {
+      elecCurrentData, // 电流分析对比查询
+      xmdEventData, // 巡检仪上报事件查询
+      eleEventData, // 电能表上报事件查询
+      elecDayData // 电量数据查询
+    } = Mock
+
+    // let dataA = elecCurrentData.xmdData
+    //   .filter(item => {
+    //     return item.phase === 'A相'
+    //   })
+    //   .concat(
+    //     elecCurrentData.elecData.filter(item => {
+    //       return item.phase === 'A相'
+    //     })
+    //   )
+    // console.log(dataA)
+    // 电流分析对比查询 图表A
+    chartsEleA = {
+      data: Mock.testData,
+      height: chartsEleHeight,
+      xAxis: 'month',
+      yAxis: 'temperature',
+      // doubletype: 'type',
+      doubletype: ['type', ['#ff0000', '#00ff00']],
+      doubleLine: true,
+      forceFit: true,
+      padding: 'auto',
+      style: {
+        overflow: 'hidden'
+      },
+      xLabel: {
+        offset: 15
+      },
+      yLabel: {
+        offset: 5
+      }
+    }
+    // 电流分析对比查询 图表B
+    chartsEleB = {
+      // data:yearCountData,
+      data: Mock.charts2,
+      type: 'area',
+      height: chartsEleHeight,
+      xAxis: 'year',
+      yAxis: 'count',
+      forceFit: true,
+      padding: 'auto',
+      cols: {
+        year: {
+          tickInterval: 1
+        }
+      },
+      style: {
+        overflow: 'hidden'
+      },
+      xLabel: {
+        offset: 15
+      },
+      yLabel: {
+        offset: 5
+      }
+    }
+    // 电流分析对比查询 图表C
+    chartsEleC = {
+      // data:yearCountData,
+      data: Mock.charts2,
+      type: 'area',
+      height: chartsEleHeight,
+      xAxis: 'year',
+      yAxis: 'count',
+      doubleLine: true,
+      forceFit: true,
+      padding: 'auto',
+      style: {
+        overflow: 'hidden'
+      },
+      xLabel: {
+        offset: 15
+      },
+      yLabel: {
+        offset: 5
+      }
+    }
+    chartsEleChange = {
+      data: elecDayData,
+      height: chartsEleChangeHeight,
+      xAxis: 'time',
+      yAxis: 'activePower',
+      forceFit: true,
+      padding: 'auto',
+      style: {
+        overflow: 'hidden'
+      },
+      xLabel: {
+        offset: 15
+      },
+      yLabel: {
+        offset: 5
+      }
+    } // 电量变化图表
+    return (
+      <div className="SecondaryLoopRight content" style={{ height: domHeight }}>
+        <div className="SecondaryLoopRight_left">
+          <div className="content_box">
+            <div className="content_title">电流对比分析</div>
+            <div className="ele_charts">
+              <p className="ele_charts_title">A组</p>
+              <Basicline {...chartsEleA} />
+            </div>
+            <div className="ele_charts">
+              <p className="ele_charts_title">A组</p>
+              <Basicline {...chartsEleB} />
+            </div>
+            <div className="ele_charts">
+              <p className="ele_charts_title">A组</p>
+              <Basicline {...chartsEleC} />
+            </div>
+          </div>
+        </div>
+        <div className="SecondaryLoopRight_right">
+          <div className="event">
+            <div className="event_top">
+              <div className="content_box">{this.renderTable()}</div>
+            </div>
+            <div className="event_bottom">
+              <div className="event_bottom_left">
+                <div className="content_box">
+                  <div className="content_title">事件信息</div>
+                  <div className="event-table">
+                    <ul>
+                      {xmdEventData.map((item, index) => {
+                        return (
+                          <li key={index}>
+                            <div className="title">巡检仪上报事件</div>
+                            <div className="blue_underline" />
+                            <ul className="event_report">
+                              <li>异常类型 : {item.exception}</li>
+                              <li>事件状态 : {item.event}</li>
+                              <li>事件发生时间 : {item.eventTime}</li>
+                              <li>
+                                A相异常 : {item.phaseA ? '发生' : '未发生'}
+                              </li>
+                              <li>
+                                B相异常 : {item.phaseB ? '发生' : '未发生'}
+                              </li>
+                              <li>
+                                C相异常 : {item.phaseC ? '发生' : '未发生'}
+                              </li>
+                            </ul>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                    <ul>
+                      {eleEventData.map((item, index) => {
+                        return (
+                          <li key={index}>
+                            <div className="title">电能表上报事件</div>
+                            <div className="blue_underline" />
+                            <ul className="event_report">
+                              <li>异常类型 : {item.exception}</li>
+                              <li>事件状态 : {item.event}</li>
+                              <li>事件发生时间 : {item.eventTime}</li>
+                              <li>
+                                A相异常 : {item.phaseA ? '发生' : '未发生'}
+                              </li>
+                              <li>
+                                B相异常 : {item.phaseB ? '发生' : '未发生'}
+                              </li>
+                              <li>
+                                C相异常 : {item.phaseC ? '发生' : '未发生'}
+                              </li>
+                            </ul>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="event_bottom_center ">
+                <div className="content_box chartsEleChangeHeight">
+                  <div className="content_title">电量变化</div>
+                  <div className="event-table">
+                    <Basicline {...chartsEleChange} />
+                  </div>
+                </div>
+              </div>
+              <div className="event_bottom_right">
+                <div className="content_box">
+                  <div className="content_title">判定条件</div>
+                  <div className="event-table" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
-  // renderPageTwo() {
-  //   let [
-  //     domHeight, // tab页面的高度
-  //     chartsEleA, // 电流分析对比查询 图表A
-  //     chartsEleB, // 电流分析对比查询 图表B
-  //     chartsEleC, // 电流分析对比查询 图表C
-  //     chartsEleHeight, // 电流分析对比查询 高度
-  //     chartsEleChange, // 电量变化图表
-  //     chartsEleChangeHeight // 电量变化图表 高度
-  //   ] = [
-  //     $('.page-main').height(), // tab页面的高度
-  //     {},
-  //     {},
-  //     {},
-  //     ($('.SecondaryLoopRight_left').height() - 60 - 45 - 30) / 3, // 电流分析对比查询 高度
-  //     {}, // 电量变化图表
-  //     $('.chartsEleChangeHeight').height() - 40 // 电量变化图表 高度
-  //   ]
-  //   let _this = this
-  //   if (!chartsEleChangeHeight) {
-  //     let time = setTimeout(function() {
-  //       _this.forceUpdate()
-  //     }, 0)
-  //   }
-  //   let {
-  //     elecCurrentData, // 电流分析对比查询
-  //     xmdEventData, // 巡检仪上报事件查询
-  //     eleEventData, // 电能表上报事件查询
-  //     elecDayData // 电量数据查询
-  //   } = Mock
-  //   let dataA = elecCurrentData.xmdData
-  //     .filter(item => {
-  //       return item.phase === 'A相'
-  //     })
-  //     .concat(
-  //       elecCurrentData.elecData.filter(item => {
-  //         return item.phase === 'A相'
-  //       })
-  //     )
-  //   console.log(dataA)
-  //   chartsEleA = {
-  //     data: Mock.charts2,
-  //     height: chartsEleHeight,
-  //     xAxis: 'phase',
-  //     xAxisDouble: 'phase',
-  //     yAxis: 'pointList',
-  //     yAxisDouble: 'pointList',
-  //     forceFit: true,
-  //     padding: 'auto',
-  //     style: {
-  //       overflow: 'hidden'
-  //     },
-  //     xLabel: {
-  //       offset: 15
-  //     },
-  //     yLabel: {
-  //       offset: 5
-  //     }
-  //   }
-  //   // 电流分析对比查询 图表A
-  //   chartsEleB = {
-  //     // data:yearCountData,
-  //     data: Mock.charts2,
-  //     type: 'area',
-  //     height: chartsEleHeight,
-  //     xAxis: 'year',
-  //     yAxis: 'count',
-  //     forceFit: true,
-  //     padding: 'auto',
-  //     cols: {
-  //       year: {
-  //         tickInterval: 1
-  //       }
-  //     },
-  //     style: {
-  //       overflow: 'hidden'
-  //     },
-  //     xLabel: {
-  //       offset: 15
-  //     },
-  //     yLabel: {
-  //       offset: 5
-  //     }
-  //   } // 电流分析对比查询 图表B
-  //   chartsEleC = {
-  //     // data:yearCountData,
-  //     data: Mock.charts2,
-  //     type: 'area',
-  //     height: chartsEleHeight,
-  //     xAxis: 'year',
-  //     yAxis: 'count',
-  //     doubleLine: true,
-  //     forceFit: true,
-  //     padding: 'auto',
-  //     style: {
-  //       overflow: 'hidden'
-  //     },
-  //     xLabel: {
-  //       offset: 15
-  //     },
-  //     yLabel: {
-  //       offset: 5
-  //     }
-  //   } // 电流分析对比查询 图表C
-  //   chartsEleChange = {
-  //     data: elecDayData,
-  //     height: chartsEleChangeHeight,
-  //     xAxis: 'time',
-  //     yAxis: 'activePower',
-  //     forceFit: true,
-  //     padding: 'auto',
-  //     style: {
-  //       overflow: 'hidden'
-  //     },
-  //     xLabel: {
-  //       offset: 15
-  //     },
-  //     yLabel: {
-  //       offset: 5
-  //     }
-  //   } // 电量变化图表
-  //   return (
-  //     <div className="SecondaryLoopRight content" style={{ height: domHeight }}>
-  //       <div className="SecondaryLoopRight_left">
-  //         <div className="content_box">
-  //           <div className="content_title">电流对比分析</div>
-  //           <div className="ele_charts">
-  //             <p className="ele_charts_title">A组</p>
-  //             <Basicline {...chartsEleA} />
-  //           </div>
-  //           <div className="ele_charts">
-  //             <p className="ele_charts_title">A组</p>
-  //             <Basicline {...chartsEleB} />
-  //           </div>
-  //           <div className="ele_charts">
-  //             <p className="ele_charts_title">A组</p>
-  //             <Basicline {...chartsEleC} />
-  //           </div>
-  //         </div>
-  //       </div>
-  //       <div className="SecondaryLoopRight_right">
-  //         <div className="event">
-  //           <div className="event_top">
-  //             <div className="content_box">{this.renderTable()}</div>
-  //           </div>
-  //           <div className="event_bottom">
-  //             <div className="event_bottom_left">
-  //               <div className="content_box">
-  //                 <div className="content_title">事件信息</div>
-  //                 <div className="event-table">
-  //                   <ul>
-  //                     {xmdEventData.map((item, index) => {
-  //                       return (
-  //                         <li key={index}>
-  //                           <div className="title">巡检仪上报事件</div>
-  //                           <div className="blue_underline" />
-  //                           <ul className="event_report">
-  //                             <li>异常类型 : {item.exception}</li>
-  //                             <li>事件状态 : {item.event}</li>
-  //                             <li>事件发生时间 : {item.eventTime}</li>
-  //                             <li>
-  //                               A相异常 : {item.phaseA ? '发生' : '未发生'}
-  //                             </li>
-  //                             <li>
-  //                               B相异常 : {item.phaseB ? '发生' : '未发生'}
-  //                             </li>
-  //                             <li>
-  //                               C相异常 : {item.phaseC ? '发生' : '未发生'}
-  //                             </li>
-  //                           </ul>
-  //                         </li>
-  //                       )
-  //                     })}
-  //                   </ul>
-  //                   <ul>
-  //                     {eleEventData.map((item, index) => {
-  //                       return (
-  //                         <li key={index}>
-  //                           <div className="title">电能表上报事件</div>
-  //                           <div className="blue_underline" />
-  //                           <ul className="event_report">
-  //                             <li>异常类型 : {item.exception}</li>
-  //                             <li>事件状态 : {item.event}</li>
-  //                             <li>事件发生时间 : {item.eventTime}</li>
-  //                             <li>
-  //                               A相异常 : {item.phaseA ? '发生' : '未发生'}
-  //                             </li>
-  //                             <li>
-  //                               B相异常 : {item.phaseB ? '发生' : '未发生'}
-  //                             </li>
-  //                             <li>
-  //                               C相异常 : {item.phaseC ? '发生' : '未发生'}
-  //                             </li>
-  //                           </ul>
-  //                         </li>
-  //                       )
-  //                     })}
-  //                   </ul>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //             <div className="event_bottom_center ">
-  //               <div className="content_box chartsEleChangeHeight">
-  //                 <div className="content_title">电量变化</div>
-  //                 <div className="event-table">
-  //                   <Basicline {...chartsEleChange} />
-  //                 </div>
-  //               </div>
-  //             </div>
-  //             <div className="event_bottom_right">
-  //               <div className="content_box">
-  //                 <div className="content_title">判定条件</div>
-  //                 <div className="event-table" />
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
 
   renderTable() {
     let columns = [
       {
-        title: '所属地区',
-        dataIndex: 'place',
+        title: '所属城市',
+        dataIndex: 'city',
         width: 60,
         align: 'center',
-        key: 'place'
+        key: 'city'
       },
-      // {
-      //     title: '所属县市',
-      //     dataIndex: 'kong',
-      // },
+      {
+        title: '所属区县',
+        dataIndex: 'region',
+        width: 60,
+        align: 'center',
+        key: 'region'
+      },
       {
         title: '巡检仪资产编号',
         dataIndex: 'serialNum',
@@ -1096,9 +1095,9 @@ class SecondaryLoop extends BaseView {
       },
       {
         title: '异常类型',
-        dataIndex: 'exception',
+        dataIndex: 'name',
         width: 60,
-        key: 'exception',
+        key: 'name',
         align: 'center'
       },
       {
@@ -1128,6 +1127,7 @@ class SecondaryLoop extends BaseView {
       return (item.key = index)
     })
     let tableHeight = $('#tableHeight').height() - 60 // table表格的高度
+    let self = this
     return (
       <div>
         <div className="content_title">二次回路异常事件</div>
@@ -1141,6 +1141,12 @@ class SecondaryLoop extends BaseView {
               return {
                 onClick: () => {
                   console.log(record)
+                  let pageTwo = self.state.pageTwo || {}
+                  pageTwo.record = record
+                  self.setState({
+                    pageTwo
+                  })
+                  fetchrowCLick(record)
                 }
               }
             }}
