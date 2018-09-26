@@ -854,23 +854,25 @@ class SecondaryLoop extends BaseView {
       elecDayData // 电量数据查询
     } = Mock
 
-    let dataA = elecCurrentData.xmdData
-      .filter(item => {
-        return item.phase === 'A相'
-      })
-      .concat(
-        elecCurrentData.elecData.filter(item => {
-          return item.phase === 'A相'
-        })
-      )
-    console.log(dataA)
+    // let dataA = elecCurrentData.xmdData
+    //   .filter(item => {
+    //     return item.phase === 'A相'
+    //   })
+    //   .concat(
+    //     elecCurrentData.elecData.filter(item => {
+    //       return item.phase === 'A相'
+    //     })
+    //   )
+    // console.log(dataA)
+    // 电流分析对比查询 图表A
     chartsEleA = {
-      data: Mock.charts2,
+      data: Mock.testData,
       height: chartsEleHeight,
-      xAxis: 'phase',
-      xAxisDouble: 'phase',
-      yAxis: 'pointList',
-      yAxisDouble: 'pointList',
+      xAxis: 'month',
+      yAxis: 'temperature',
+      // doubletype: 'type',
+      doubletype: ['type', ['#ff0000', '#00ff00']],
+      doubleLine: true,
       forceFit: true,
       padding: 'auto',
       style: {
@@ -883,7 +885,7 @@ class SecondaryLoop extends BaseView {
         offset: 5
       }
     }
-    // 电流分析对比查询 图表A
+    // 电流分析对比查询 图表B
     chartsEleB = {
       // data:yearCountData,
       data: Mock.charts2,
@@ -907,7 +909,8 @@ class SecondaryLoop extends BaseView {
       yLabel: {
         offset: 5
       }
-    } // 电流分析对比查询 图表B
+    }
+    // 电流分析对比查询 图表C
     chartsEleC = {
       // data:yearCountData,
       data: Mock.charts2,
@@ -927,7 +930,7 @@ class SecondaryLoop extends BaseView {
       yLabel: {
         offset: 5
       }
-    } // 电流分析对比查询 图表C
+    }
     chartsEleChange = {
       data: elecDayData,
       height: chartsEleChangeHeight,
@@ -1049,16 +1052,19 @@ class SecondaryLoop extends BaseView {
   renderTable() {
     let columns = [
       {
-        title: '所属地区',
-        dataIndex: 'place',
+        title: '所属城市',
+        dataIndex: 'city',
         width: 60,
         align: 'center',
-        key: 'place'
+        key: 'city'
       },
-      // {
-      //     title: '所属县市',
-      //     dataIndex: 'kong',
-      // },
+      {
+        title: '所属区县',
+        dataIndex: 'region',
+        width: 60,
+        align: 'center',
+        key: 'region'
+      },
       {
         title: '巡检仪资产编号',
         dataIndex: 'serialNum',
@@ -1089,9 +1095,9 @@ class SecondaryLoop extends BaseView {
       },
       {
         title: '异常类型',
-        dataIndex: 'exception',
+        dataIndex: 'name',
         width: 60,
-        key: 'exception',
+        key: 'name',
         align: 'center'
       },
       {

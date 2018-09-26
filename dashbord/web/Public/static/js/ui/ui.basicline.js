@@ -20,7 +20,9 @@ import { DEFAULT_COLOR, DARK_DEFAULT_COLOR } from '../data/color'
 //基础折线图
 class BasicLine extends React.Component {
   render() {
-    if(!this.props.height){return false}
+    if (!this.props.height) {
+      return false
+    }
 
     return (
       <div>
@@ -34,20 +36,14 @@ class BasicLine extends React.Component {
           />
           <Geom
             type="line"
-            color={DEFAULT_COLOR}
+            color={
+              this.props.doubleLine === true
+                ? this.props.doubletype
+                : DEFAULT_COLOR
+            }
             position={`${this.props.xAxis}*${this.props.yAxis}`}
             size={2}
           />
-          {this.props.doubleLine === true ? (
-            <Geom
-              type="line"
-              color={DARK_DEFAULT_COLOR}
-              position={`${this.props.xAxisDouble}*${this.props.yAxisDouble}`}
-              size={2}
-            />
-          ) : (
-            ''
-          )}
           {this.props.type === 'area' ? (
             <Geom
               type="area"
