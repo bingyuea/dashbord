@@ -77,6 +77,7 @@ class XMD extends BaseView {
     componentDidMount(){
       const self = this;
       DataServince.fetch(function(searchOptions){
+          console.log(searchOptions)
           self.setState({
               searchOptions:searchOptions
           },()=>{
@@ -99,7 +100,7 @@ class XMD extends BaseView {
       }
 
       this.fetchPageOne(_value);
-      this.fetchPageTwo(_value);
+      // this.fetchPageTwo(_value);
     }
 
     fetchPageOne(value){
@@ -184,11 +185,11 @@ class XMD extends BaseView {
     }
 
     fetchPageTwo(value){
-      this.fetchXmdEvent();
-      this.fetchCustomerXmdEvent();
-      this.fetchRateXmdEvent();
-      this.fetchMeasureXmdEvent();
-      this.fetcXmdEventTableListEvent();
+      this.fetchXmdEvent(value);
+      this.fetchCustomerXmdEvent(value);
+      this.fetchRateXmdEvent(value);
+      this.fetchMeasureXmdEvent(value);
+      this.fetcXmdEventTableListEvent(value);
     }
 
     //巡检仪上报事件
@@ -334,6 +335,9 @@ class XMD extends BaseView {
         measure,
         table
       } = this.state.pageOne || {}; 
+
+      return ''
+
       const self = this;
       const domHeight = $('.page-main').height();
       const leftChartHeight = (domHeight - 25 - 2 - 70 - 70 - 20) / 2;
@@ -507,6 +511,7 @@ class XMD extends BaseView {
     }
 
     renderPageTwo(){
+      return ''
       const {
         xmdEvent,
         customerXmdEvent,

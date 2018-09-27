@@ -25,13 +25,23 @@ class Labelline extends React.Component {
   render() {
     const { DataView } = DataSet;
     const dv = new DataView();
+    if(!this.props.height){return false}
+    if(!this.props.data){
+      return (
+        <div>
+        <Chart
+           placeholder={<div className='loading'><span></span></div>}
+           height={this.props.height}
+        ></Chart>
+        </div>
+      )
+    }
     dv.source(this.props.data).transform({
       type: "percent",
       field: this.props.field,
       dimension: this.props.dimension,
       as: "percent"
     });
-    if(!this.props.height){return false}
     return (
       <div>
         <Chart

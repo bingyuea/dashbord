@@ -5,7 +5,8 @@ import BaseModel  from '../core/model.base'
 class ProvinceCountModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getInstallCountOfProvince';
+		
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getInstallCountOfProvince';
 	}
 }
 
@@ -15,7 +16,7 @@ class ProvinceCountModel extends BaseModel {
 class YearCountModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getInstallCountOfYear';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getInstallCountOfYear';
 	}
 }
 /*
@@ -24,7 +25,7 @@ class YearCountModel extends BaseModel {
 class MeasureCountModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getInstallCountOfMeasure';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getInstallCountOfMeasure';
 	}
 }
 
@@ -34,7 +35,7 @@ class MeasureCountModel extends BaseModel {
 class RateCountModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getInstallCountOfRate';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getInstallCountOfRate';
 	}
 }
 
@@ -44,7 +45,7 @@ class RateCountModel extends BaseModel {
 class TradeCountModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getInstallCountOfTrade';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getInstallCountOfTrade';
 	}
 }
 
@@ -54,7 +55,7 @@ class TradeCountModel extends BaseModel {
 class EventCountModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getCountOfEvent';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getCountOfEvent';
 	}
 }
 
@@ -64,7 +65,7 @@ class EventCountModel extends BaseModel {
 class ValidityEventCountModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getCountOfValidityEvent';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getCountOfValidityEvent';
 	}
 }
 
@@ -74,7 +75,7 @@ class ValidityEventCountModel extends BaseModel {
 class ProvinceEventCountModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getEventCountOfProvince';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getEventCountOfProvince';
 	}
 }
 /*
@@ -83,7 +84,7 @@ class ProvinceEventCountModel extends BaseModel {
 class TradeEventCountModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getEventCountOfTrade';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getEventCountOfTrade';
 	}
 }
 

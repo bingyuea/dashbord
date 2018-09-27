@@ -29,6 +29,7 @@ class Doubleaxes extends React.Component {
       <div>
         <Chart
           scale={this.props.cols}
+           placeholder={<div className='loading'><span></span></div>}
           {...this.props}
           onGetG2Instance={chart => {
             chartIns = chart;

@@ -17,6 +17,7 @@
     "babel-plugin-import": "^1.8.0",
     "bizcharts": "^3.2.2",
     "classnames": "^2.2.6",
+    "echarts": "^4.2.0-rc.1",
     "history": "^4.2.0",
     "jquery": "^3.2.1",
     "moment": "^2.22.2",

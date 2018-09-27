@@ -20,8 +20,18 @@ import DataSet from "@antv/data-set";
 class Grouped extends React.Component {
   render() {
     if(!this.props.height){return false}
-    
+    if(!this.props.data){
+      return (
+        <div>
+        <Chart
+           placeholder={<div className='loading'><span></span></div>}
+           height={this.props.height}
+        ></Chart>
+        </div>
+      )
+    }
     const ds = new DataSet();
+    
     const dv = ds.createView().source(this.props.data);
     dv.transform({
       type: "fold",
@@ -31,7 +41,7 @@ class Grouped extends React.Component {
     });
     return (
       <div>
-        <Chart height={this.props.height} data={dv} forceFit>
+        <Chart height={this.props.height} data={dv} forceFit  placeholder={<div className='loading'><span></span></div>}>
           <Legend position="right"/>
           <Coord transpose scale={[1, -1]} />
           <Axis

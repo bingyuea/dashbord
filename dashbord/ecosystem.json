@@ -1,10 +1,10 @@
 {
     "apps": [
         {
-            "name":"WukongAdmin_test",
+            "name":"Dashboard_test",
             "script": "./bin/www",
-            "error_file": "/var/log/node/pm2/web_wukongadmin_test.err.log",
-            "out_file": "/var/log/node/pm2/web_wukongadmin_test.out.log",
+            "error_file": "/var/log/node/pm2/web_dashboard_test.err.log",
+            "out_file": "/var/log/node/pm2/web_dashboard_test.out.log",
             "instances": 0,
             "max_memory_restart": "512M",
             "exec_mode": "cluster",
@@ -14,10 +14,10 @@
             }
         },
         {
-            "name":"WukongAdmin_dev",
+            "name":"Dashboard_dev",
             "script": "./bin/www",
-            "error_file": "/var/log/node/pm2/web_wukongadmin_test.err.log",
-            "out_file": "/var/log/node/pm2/web_wukongadmin_test.out.log",
+            "error_file": "/var/log/node/pm2/web_dashboard_test.err.log",
+            "out_file": "/var/log/node/pm2/web_dashboard_test.out.log",
             "instances": 0,
             "max_memory_restart": "512M",
             "exec_mode": "cluster",
@@ -28,10 +28,10 @@
         },
         
         {
-            "name":"WukongAdmin_aliyun_prod",
+            "name":"Dashboard_aliyun_prod",
             "script": "./bin/www",
-            "error_file": "/var/log/node/pm2/web_wukongadmin.err.log",
-            "out_file": "/var/log/node/pm2/web_wukongadmin.out.log",
+            "error_file": "/var/log/node/pm2/web_dashboard.err.log",
+            "out_file": "/var/log/node/pm2/web_dashboard.out.log",
             "instances": 0,
             "max_memory_restart": "512M",
             "exec_mode" : "cluster",

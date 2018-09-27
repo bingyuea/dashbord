@@ -1,6 +1,6 @@
 {
     "ENV": "dev",
     "basepath": "",
-    "restfulapi": "//api.gateway.dev.cn/",
+    "restfulapi": "https://api.c2py.com",
     "webresourcePDBaseUrl": "//localhost:8088/build/"
 }

@@ -69,7 +69,7 @@ class SearchBar extends Component {
     return (
       <Select
         disabled={item.disabled || false}
-        value={searchValue[item.key] || 'defaultValue'}
+        value={searchValue[item.key] || '请选择'}
         onChange={this.inputChangeHandle.bind(this, item.key)}
       >
         {optionContent}

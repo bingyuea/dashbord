@@ -21,9 +21,7 @@ class BaseModel {
         this.async = true;
 
         this.headers = {
-
-            // Authorization:'Basic' + Base64.encode('admin:wukong_admin')
-
+            "Content-Type": 'application/json'
         };
 
         this.notParallelism = true;
@@ -40,7 +38,6 @@ class BaseModel {
         if(url.indexOf('http') === 0 || url.indexOf('//') === 0) {
             return url;
         }
-
         return this.getPrefix() + url;
     }
 
@@ -72,7 +69,11 @@ class BaseModel {
     }
 
     buildParam() {
-        return this.params;
+        //公共参数默认传值
+        const commonParam = {
+            token:'234sdf234'
+        }
+        return $.extend(this.params,commonParam);
     }
 
     excute(onComplete, onError, timeout) {
@@ -82,19 +83,18 @@ class BaseModel {
 
         onComplete = onComplete || function() {};
         onError = onError || function() {};
-
         var opt = {
             url: this.buildUrl(this.url),
             type: this.method,
             dataType: 'json',
             headers: this.headers,
             async:this.async,
-            data: this.buildParam(),
+            data: JSON.stringify(this.buildParam()),
             timeout: this.timeout,
             crossDomain: false,
             success: function (res, status, xhr) {
 
-                if(!!res && res.success == true) {
+                if(!!res) {
                     onComplete(res, status, xhr);
                 } else {
                     onError(res);
