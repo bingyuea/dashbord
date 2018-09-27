@@ -117,11 +117,11 @@ class SecondaryLoop extends BaseView {
     this.fetchQueryExceptionByTime(value)
     this.fetchQueryExceptionByTrade(value)
     this.fetchQueryExceptionDetail(value)
-    this.fetchQueryExceptionListvalue(value)
+    this.fetchQueryExceptionList(value)
   }
 
   fetchPageTwo(value) {
-    this.fetchQueryExceptionListvalue(value)
+    this.fetchQueryExceptionList(value)
   }
 
   fetchrowCLick(value) {
