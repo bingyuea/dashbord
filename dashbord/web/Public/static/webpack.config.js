@@ -42,6 +42,8 @@ console.log('staticPath: '.green + staticPath);
 
 // 打包环境
 const __enviroment__ = program.env || 'aliyun_prod';
+console.log(__enviroment__)
+console.log(buildConfigPath + 'appconfig.' + __enviroment__ + '.json')
 
 // 读取web发布配置文件
 const content = fs.readFileSync(buildConfigPath + 'appconfig.' + __enviroment__ + '.json', 'utf-8');

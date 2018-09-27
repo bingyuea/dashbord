@@ -2,5 +2,5 @@
     "ENV": "dev",
     "basepath": "",
     "restfulapi": "https://api.c2py.com",
-    "webresourcePDBaseUrl": "//localhost:8088/build/"
+    "webresourcePDBaseUrl": "//api.jokco.com/static/build/"
 }
