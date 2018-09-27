@@ -88,7 +88,7 @@ class SecondaryLoop extends BaseView {
     //       searchOptions: searchOptions
     //     },
     //     () => {
-    //       self.search()
+    //        self.search()
     //     }
     //   )
     // })
@@ -126,7 +126,6 @@ class SecondaryLoop extends BaseView {
 
   fetchrowCLick(value) {
     console.log(value)
-    alert('22222222222222')
     console.log(this.state)
     // pageOne.exceptionList = resData 列表第一条数据
     let { serialNum, elecSerialNum, occTime } =
