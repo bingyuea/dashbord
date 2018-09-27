@@ -82,16 +82,16 @@ class SecondaryLoop extends BaseView {
       pageStatus: 'init'
     })
     const self = this
-    DataServince.fetch(function(searchOptions) {
-      self.setState(
-        {
-          searchOptions: searchOptions
-        },
-        () => {
-          self.search()
-        }
-      )
-    })
+    // DataServince.fetch(function(searchOptions) {
+    //   self.setState(
+    //     {
+    //       searchOptions: searchOptions
+    //     },
+    //     () => {
+    //       self.search()
+    //     }
+    //   )
+    // })
   }
 
   search(value) {
@@ -125,6 +125,9 @@ class SecondaryLoop extends BaseView {
   }
 
   fetchrowCLick(value) {
+    console.log(value)
+    alert('22222222222222')
+    console.log(this.state)
     // pageOne.exceptionList = resData 列表第一条数据
     let { serialNum, elecSerialNum, occTime } =
       this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
@@ -1140,13 +1143,12 @@ class SecondaryLoop extends BaseView {
             onRow={record => {
               return {
                 onClick: () => {
-                  console.log(record)
                   let pageTwo = self.state.pageTwo || {}
                   pageTwo.record = record
                   self.setState({
                     pageTwo
                   })
-                  fetchrowCLick(record)
+                  self.fetchrowCLick(record)
                 }
               }
             }}
