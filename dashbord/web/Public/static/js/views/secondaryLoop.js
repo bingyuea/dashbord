@@ -82,16 +82,16 @@ class SecondaryLoop extends BaseView {
       pageStatus: 'init'
     })
     const self = this
-    // DataServince.fetch(function(searchOptions) {
-    //   self.setState(
-    //     {
-    //       searchOptions: searchOptions
-    //     },
-    //     () => {
-    //       self.search()
-    //     }
-    //   )
-    // })
+    DataServince.fetch(function(searchOptions) {
+      self.setState(
+        {
+          searchOptions: searchOptions
+        },
+        () => {
+          self.search()
+        }
+      )
+    })
   }
 
   search(value) {
@@ -117,11 +117,11 @@ class SecondaryLoop extends BaseView {
     this.fetchQueryExceptionByTime(value)
     this.fetchQueryExceptionByTrade(value)
     this.fetchQueryExceptionDetail(value)
-    this.fetchQueryExceptionListvalue(value)
+    this.fetchQueryExceptionList(value)
   }
 
   fetchPageTwo(value) {
-    this.fetchQueryExceptionListvalue(value)
+    this.fetchQueryExceptionList(value)
   }
 
   fetchrowCLick(value) {
