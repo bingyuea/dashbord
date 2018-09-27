@@ -82,16 +82,16 @@ class SecondaryLoop extends BaseView {
       pageStatus: 'init'
     })
     const self = this
-    // DataServince.fetch(function(searchOptions) {
-    //   self.setState(
-    //     {
-    //       searchOptions: searchOptions
-    //     },
-    //     () => {
-    //       self.search()
-    //     }
-    //   )
-    // })
+    DataServince.fetch(function(searchOptions) {
+      self.setState(
+        {
+          searchOptions: searchOptions
+        },
+        () => {
+          self.search()
+        }
+      )
+    })
   }
 
   search(value) {
