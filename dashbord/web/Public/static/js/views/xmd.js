@@ -86,7 +86,7 @@ class XMD extends BaseView {
       });
     }
 
-    search(value){
+    search(){
       console.log(this.state.searchOptions)
       //拿到搜索需要参数
       let _value = value || {};

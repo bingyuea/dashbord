@@ -62,7 +62,8 @@ class SecondaryLoop extends BaseView {
     super(props)
 
     this.state = {
-      pageTitle: '二次回路单-异常分析'
+      pageTitle: '二次回路单-异常分析',
+      pageIdx:0
     }
 
     const dateFormat = 'YYYY-MM-DD HH:mm'
@@ -78,20 +79,21 @@ class SecondaryLoop extends BaseView {
 
   componentDidMount() {
     // this.pageInit();
+    console.log(2)
     this.setState({
       pageStatus: 'init'
     })
     const self = this
-    DataServince.fetch(function(searchOptions) {
-      self.setState(
-        {
-          searchOptions: searchOptions
-        },
-        () => {
-          self.search()
-        }
-      )
-    })
+    // DataServince.fetch(function(searchOptions) {
+    //   self.setState(
+    //     {
+    //       searchOptions: searchOptions
+    //     },
+    //     () => {
+    //       self.search()
+    //     }
+    //   )
+    // })
   }
 
   search(value) {
@@ -109,6 +111,14 @@ class SecondaryLoop extends BaseView {
 
     this.fetchPageOne(_value)
     this.fetchPageTwo(_value)
+  }
+
+  //切换轮播的回调,idx:当前轮播的页面idx
+  afterSlickChange(idx){
+    console.log(idx)
+    this.setState({
+      pageIdx:idx
+    });
   }
 
   fetchPageOne(value) {
@@ -1157,23 +1167,23 @@ class SecondaryLoop extends BaseView {
   }
   renderMain() {
     var settings = {
-      dots: false,
-      dotsClass: 'slick-dots slick-thumb item_box',
-      autoplay: false,
-      arrows: false,
-      infinite: true,
-      speed: 500,
-      autoplaySpeed: 5000,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      touchMove: true
-    }
+        dots: false,
+        autoplay: false,
+        arrows: false,
+        infinite: true,
+        speed: 500,
+        autoplaySpeed:5000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        touchMove:true,
+        afterChange:this.afterSlickChange.bind(this)
+      };
     return (
       <div className="page-slick page-SecondaryLoopLeft">
         <h1 className="page-title">{this.state.pageTitle}</h1>
         <div className="slick-btn">
-          <div className="btn active" />
-          <div className="btn" />
+          <div className={this.state.pageIdx == 0?'btn ':'btn'}/>
+          <div className={this.state.pageIdx == 0?'btn':' btn'}/>
         </div>
         {this.renderSearchBar()}
         <div className="page-main slider_content">

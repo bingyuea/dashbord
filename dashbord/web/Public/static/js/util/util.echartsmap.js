@@ -1,5 +1,8 @@
 var echarts = require('echarts');
-import cityMap from '../data/map-data';
+import{
+  cityMap,
+  geoCoordMapofProvince
+} from '../data/map-data';
 import $ from 'jquery'
 echarts.extendsMap = function(id, opt) {
   // 实例
@@ -8,42 +11,7 @@ echarts.extendsMap = function(id, opt) {
   var chart = this.init(dom);
   var curGeoJson = {};
   
-  var geoCoordMap = {
-      
-      "磴口": [107.012225,40.337792],
-      "沈海": [123.476404,41.811854],
-      "盘锦": [122.150954,41.146597],
-      "温州苍南": [120.434446,27.523467],
-      "沧州": [116.845318,38.310486],
-      "曹妃甸": [118.504805,39.004067],
-      "唐山丰润": [118.088961,39.599362],
-      "渤海新区": [117.639472,38.365606],
-      "菏泽": [115.182225,35.326397],
-      "海丰": [115.050769,22.762251],
-      "贺州": [111.371802,24.741613],
-      "鲤鱼江A": [113.233978,25.942699],
-      "鲤鱼江B": [113.205002,25.440064],
-      "广州热电": [113.535842,22.863521],
-      "湖北一期": [113.888854,29.667558],
-      "湖北二期": [114.119833,29.669091],
-      "涟源": [111.906695,27.767901],
-      "宜昌": [111.456005,30.50378],
-      "徐州一、二期": [117.091077,34.378713],
-      "南京热电": [118.828047,32.273218],
-      "宜兴": [119.801641,31.36496],
-      "镇江": [119.383774,32.188708],
-      "华鑫": [113.888833,29.669091],
-      "常熟": [119.283774,32.188708],
-      "化工园一、二期": [118.927993,32.27431],
-      "南京板桥": [118.64423,31.953574],
-      "徐州三期": [117.291077,34.378713],
-      "六枝": [105.403904,26.387848],
-      "首阳山": [112.695363,34.744379],
-      "焦作": [113.113088,35.222327],
-      "登封一、二期": [113.215689,34.396153],
-      "洛阳": [111.984763,34.746303],
-      "古城": [114.061156,32.878627],
-  };
+  var geoCoordMap = geoCoordMapofProvince;
   
   var levelColorMap = {
       '1': 'rgba(241, 109, 115, .8)',
@@ -104,7 +72,7 @@ echarts.extendsMap = function(id, opt) {
                   for (var x = 0; x < opt.data.length; x++) {
                       if(n === opt.data[x].city){
                           $([opt.data[x]]).each(function(index,data){
-                              cityJson = {city:data.city,name:data.name,value:data.value,crew:data.crew,company:data.company,position:data.position,region:data.region};
+                              cityJson = {city:data.city,name:data.name,value:data.value}
                               cityData.push(cityJson)
                           }) 
                       }
@@ -115,8 +83,6 @@ echarts.extendsMap = function(id, opt) {
                   }else{
                       o.series[0].data = [];
                   }
-                  
-                  
               }
               name.push(n);
               idx++;
@@ -246,13 +212,11 @@ echarts.extendsMap = function(id, opt) {
           for (var i = 0; i < data.length; i++) {
               var geoCoord = geoCoordMap[data[i].name];
               if (geoCoord) {
+
                   temp.push({
                       name: data[i].name,
                       value: geoCoord.concat(data[i].value),
-                      crew:data[i].crew,
-                      company:data[i].company,
-                      position:data[i].position,
-                      region:data[i].region
+                      userValue: data[i].userValue,
                   });
               }
           };
@@ -281,18 +245,18 @@ echarts.extendsMap = function(id, opt) {
 
   var option = {
       backgroundColor: opt.bgColor,
-       tooltip: {
-          show: true,
-          trigger:'item',
-          alwaysShowContent:false,
-          backgroundColor:'rgba(50,50,50,0.7)',
-          hideDelay:100,
-          triggerOn:'mousemove',
-          enterable:true,
-          position:['60%','70%'],
-          formatter:function(params, ticket, callback){
-              return '简称：'+params.data.name+'<br/>'+'机组：'+params.data.crew+'万千瓦'+'<br/>'+'公司名称：'+params.data.company+'<br/>'+'所属大区：'+params.data.region+'<br/>'+'所在位置：'+params.data.position
-          }
+      tooltip: {
+        show: true,
+        trigger:'item',
+        alwaysShowContent:false,
+        backgroundColor:'rgba(50,50,50,0.7)',
+        hideDelay:100,
+        triggerOn:'mousemove',
+        enterable:true,
+        position:['60%','70%'],
+        formatter:function(params, ticket, callback){
+            return '省份：'+params.data.name+'<br/>'+'安装数量：'+params.data.userValue
+        }
       },
       graphic: [{
           type: 'group',
@@ -456,7 +420,7 @@ echarts.extendsMap = function(id, opt) {
           coordinateSystem: 'geo',
           showEffectOn: 'render',
           rippleEffect: {
-              period:15,
+              period:8,
               scale: 4,
               brushType: 'fill'
           },

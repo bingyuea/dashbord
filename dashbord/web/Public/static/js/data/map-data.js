@@ -32,6 +32,10 @@ import tianjin from './map/data-tianjin.json';
 import chongqing from './map/data-chongqing.json';
 import xianggang from './map/data-xianggang.json';
 import aomen from './map/data-aomen.json';
+var geoCoordMapofProvince = {};
+zhongguo.features.forEach(item=>{
+	geoCoordMapofProvince[item.properties.name] = item.properties.cp;
+})
 
 var cityMap = {
 	'中国': zhongguo,
@@ -70,4 +74,7 @@ var cityMap = {
 	'澳门': aomen
 }
 
-module.exports = cityMap;
+module.exports = {
+	cityMap,
+	geoCoordMapofProvince
+};

@@ -187,23 +187,24 @@ class Dashboard extends BaseView {
         const resData = res || {}
         const listData = resData.eventList || []
         self.setState({
-          provinceEventCountData: self.formatProvinceEventCount(listData)
+          provinceEventCountData: self.formatProvinceEventCount(listData,'eventName','province','count')
         })
       },
       err => {}
     )
   }
 
-  formatProvinceEventCount(list) {
+  formatProvinceEventCount(list,filedsName,key,value) {
     if (!list) {
       return []
     }
     let newList = [],
-      target = {}
+      target = {};
     list.forEach(item => {
-      target.name = item.trade
-      ;(item.detail || []).forEach(detailItem => {
-        target[detailItem.province] = detailItem.count
+      target = {}
+      target.name = item[filedsName];
+      (item.detail || []).forEach(detailItem => {
+        target[detailItem[key]] = detailItem[value]
       })
       newList.push(target)
     })
@@ -215,10 +216,13 @@ class Dashboard extends BaseView {
     if (!list) {
       return []
     }
-    let target = []
-    list.forEach(item => {
+    var temp = JSON.stringify(list);
+    temp = JSON.parse(temp);
+    let target = [];
+    temp.forEach(item => {
       delete item.name
       target = target.concat(Object.keys(item))
+
     })
 
     return uniqueArr(target)
@@ -233,11 +237,25 @@ class Dashboard extends BaseView {
         const listData = resData.eventList || []
 
         self.setState({
-          tradeEventCountMData: listData
+          tradeEventCountMData: self.formatProvinceEventCount(listData,'trade','eventName','count')
         })
       },
       err => {}
     )
+  }
+
+  //地图数据
+  formatMapData(list){
+    if(!list || list.length == 0){return}
+    let mapData = [];
+    list.map(item=>{
+      mapData.push({
+        city:item.name,
+        name:item.name,
+        userValue:item.count
+      });
+    })
+    return mapData
   }
 
   renderPageLeft() {
@@ -384,24 +402,15 @@ class Dashboard extends BaseView {
     )
   }
   renderPageCenter() {
-    const { provinceCountData } = this.state
+    const { provinceCountData } = this.state || {};
 
     const height = $('.page-center').height()
     const mapHeight = height - 80 - 80 - 20 - 50
-    const mapData = {
-      height: mapHeight,
-      userData: provinceCountData,
-      padding: 'auto',
-      xAxis: 'name',
-      yAxis: 'count',
-      scale: {
-        count: {
-          alias: '安装数量'
-        }
-      },
-      forceFit: true
-    }
+    
 
+    const mapData = this.formatMapData(provinceCountData);
+    // const mapData = this.formatMapData(Mock.charts1);
+    // console.log(mapData)
     return (
       <div className="page-center">
         <h1>巡检仪大数据分析平台</h1>
@@ -430,7 +439,7 @@ class Dashboard extends BaseView {
           </div>
         </div>
         <div className="section-content map">
-          <ChinaMapEcharts {...mapData} />
+          <ChinaMapEcharts mapData={mapData} />
           <div className="bottom-txt">中国电力科学研究院</div>
         </div>
       </div>
@@ -449,7 +458,7 @@ class Dashboard extends BaseView {
     //事件有效性
     const charts6 = {
       // data:validityEventCountData,
-      data: Mock.charts6,
+      data:eventCountData? Mock.charts6:'',
       height: chartHeight,
       innerRadius: 0.6,
       forceFit: true,
@@ -483,7 +492,6 @@ class Dashboard extends BaseView {
         }
       }
     }
-
     //不同省份上报事件情况
     const charts8 = {
       data: provinceEventCountData,
@@ -498,14 +506,18 @@ class Dashboard extends BaseView {
       padding: 'auto',
       height: chartHeight
     }
-
     const charts9 = {
       data: tradeEventCountMData,
       height: chartHeight,
       padding: 'auto',
-      fields: ['count'],
-      xAxis: 'eventName',
-      yAxis: 'count'
+      fields: this.getFields(tradeEventCountMData),
+      keyName: '行业',
+      value: '上报数量',
+      fieldsName: 'name',
+      forceFit: false,
+      style: {
+        overflow: 'auto'
+      },
     }
 
     return (
@@ -548,7 +560,7 @@ class Dashboard extends BaseView {
           </div>
           <div className="section-content flex-column">
             <h6>行业类型</h6>
-            <Basicradar {...charts9} />
+            <Groupedcolumn {...charts9} />
           </div>
         </div>
       </div>

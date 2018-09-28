@@ -61,7 +61,7 @@ function fetchAddressList(cb){
 		DataService.successCb(cb);
 	}
 
-	cityListModel.setParam();
+	// cityListModel.setParam();
 	cityListModel.excute(success,fail);
 }
 //计量类型
@@ -195,10 +195,10 @@ var DataService = {
 	fetch:function(cb){
 		DataService.cb = cb;
 		fetchAddressList(DataService.successCb);
-		fetchMeasureList(DataService.successCb);
-		fetchTradeList(DataService.successCb);
-		fetchUnusalList(DataService.successCb);
-		fetchThemeList(DataService.successCb);
+		// fetchMeasureList(DataService.successCb);
+		// fetchTradeList(DataService.successCb);
+		// fetchUnusalList(DataService.successCb);
+		// fetchThemeList(DataService.successCb);
 	},
 	successCb:function(){
 		

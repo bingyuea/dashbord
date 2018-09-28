@@ -19,24 +19,15 @@ class App extends BaseApp {
                         }, 'views/dashboard')
                     },
                 },
-                {
-                    path: __mei_wei__.env.basepath + '/dashboard2',
-                    getComponents(nextState, cb) {
-                        require.ensure([], (require) => {
-                            var page = require('./views/dashboard2.js');
-                            cb(null, page)
-                        }, 'views/dashboard2')
-                    },
-                },
-                {
-                    path: __mei_wei__.env.basepath + 'xmd',
-                    getComponents(nextState, cb) {
-                        require.ensure([], (require) => {
-                            var page = require('./views/xmd.js');
-                            cb(null, page)
-                        }, 'views/xmd')
-                    }
-                },
+                // {
+                //     path: __mei_wei__.env.basepath + 'xmd',
+                //     getComponents(nextState, cb) {
+                //         require.ensure([], (require) => {
+                //             var page = require('./views/xmd.js');
+                //             cb(null, page)
+                //         }, 'views/xmd')
+                //     }
+                // },
                 // 二次回路单-异常分析 （4，5）
                 {
                     path: __mei_wei__.env.basepath + 'secondary_loop',
@@ -47,26 +38,26 @@ class App extends BaseApp {
                         }, 'views/secondaryLoop')
                     }
                 },
-                // 二次回路单异常主题分析 (6,7)
-                {
-                    path: __mei_wei__.env.basepath + 'mergeAnaly',
-                    getComponents(nextState, cb) {
-                        require.ensure([], (require) => {
-                            var page = require('./views/mergeAnaly.js');
-                            cb(null, page)
-                        }, 'views/mergeAnaly')
-                    }
-                },
-                //二次回路状态在线监测（8，9）
-                {
-                    path: __mei_wei__.env.basepath + 'status',
-                    getComponents(nextState, cb) {
-                        require.ensure([], (require) => {
-                            var page = require('./views/status.js');
-                            cb(null, page)
-                        }, 'views/status')
-                    }
-                },
+                // // 二次回路单异常主题分析 (6,7)
+                // {
+                //     path: __mei_wei__.env.basepath + 'mergeAnaly',
+                //     getComponents(nextState, cb) {
+                //         require.ensure([], (require) => {
+                //             var page = require('./views/mergeAnaly.js');
+                //             cb(null, page)
+                //         }, 'views/mergeAnaly')
+                //     }
+                // },
+                // //二次回路状态在线监测（8，9）
+                // {
+                //     path: __mei_wei__.env.basepath + 'status',
+                //     getComponents(nextState, cb) {
+                //         require.ensure([], (require) => {
+                //             var page = require('./views/status.js');
+                //             cb(null, page)
+                //         }, 'views/status')
+                //     }
+                // },
             ],
             
             rooter: 'appview',
