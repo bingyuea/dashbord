@@ -82,31 +82,36 @@ class SecondaryLoop extends BaseView {
       pageStatus: 'init'
     })
     const self = this
-    // DataServince.fetch(function(searchOptions) {
-    //   self.setState(
-    //     {
-    //       searchOptions: searchOptions
-    //     },
-    //     () => {
-    //        self.search()
-    //     }
-    //   )
-    // })
+    DataServince.fetch(function(searchOptions) {
+      self.setState(
+        {
+          searchOptions: searchOptions
+        },
+        () => {
+          self.search()
+        }
+      )
+    })
   }
 
   search(value) {
     console.log(this.state.searchOptions)
     //拿到搜索需要参数
     let _value = value || {}
-    if (!_value.province) {
-      _value.province = this.state.searchOptions.provinceOpts[0].value
-    }
+    // if (!_value.province) {
+    //   _value.province = this.state.searchOptions.provinceOpts[0].value
+    // }
 
-    if (!_value.startTime) {
-      _value.startTime = this.indata.defaultTime[0]
-      _value.endTime = this.indata.defaultTime[1]
+    // if (!_value.startTime) {
+    //   _value.startTime = this.indata.defaultTime[0]
+    //   _value.endTime = this.indata.defaultTime[1]
+    // }
+    _value = {
+      endTime: '2018-09-29 18:53:00',
+      province: '江苏',
+      startTime: '2010-09-28 18:53:00',
+      token: '234sdf234'
     }
-
     this.fetchPageOne(_value)
     this.fetchPageTwo(_value)
   }
