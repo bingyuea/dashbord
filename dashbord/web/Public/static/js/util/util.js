@@ -48,24 +48,26 @@ function formatGroupedColumnData(list){
 */
 
 function formatCity(list,province){
-	let cityList = [{
+	let cityOpt = [{
 		value:0,
 		desc:'请选择城市信息'
 	}]
-	const _citylist = list.find(item=>{
+	let _citylist = [];
+
+	list.find(item=>{
 		if(item.province == province){
-			return item.city
+			_citylist =  item.city;
 		}
 	})
 
 	_citylist.forEach(item=>{
-		cityList.push({
+		cityOpt.push({
 			desc:item.name,
 			value:item.name
 		})
 	})
 
-	return cityList
+	return cityOpt
 
 }
 

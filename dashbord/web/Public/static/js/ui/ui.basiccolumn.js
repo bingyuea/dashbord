@@ -33,7 +33,7 @@ class Basiccolumn extends Component {
       <div>
       	
         <Chart 
-          placeholder={<div className='loading'><span></span></div>} {...this.props} forceFit scale={this.props.cols}>
+          placeholder={<div className='loading'><span></span></div>} {...this.props} scale={this.props.cols}>
           <Axis name={this.props.xAxis} label={this.props.xLabel}/>
           <Axis name={this.props.yAxis} label={this.props.yLabel}/>
           <Tooltip
@@ -41,7 +41,7 @@ class Basiccolumn extends Component {
               type: "y"
             }}
           />
-          <Geom type="interval" color={'#5fa3ac'} position={`${this.props.xAxis}*${this.props.yAxis}`}/>
+          <Geom type="interval" size={this.props.yAxis,[10]} color={'#5fa3ac'} position={`${this.props.xAxis}*${this.props.yAxis}`}/>
         </Chart>
       </div>
     );

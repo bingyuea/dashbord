@@ -51,12 +51,12 @@ class Basicradar extends React.Component {
         max: 80
       }
     };
+    console.log(this.props.data)
     return (
       <div>
         <Chart
           data={dv}
           {...this.props}
-           placeholder={<div className='loading'><span></span></div>}
         >
           <Coord type="polar" radius={0.8}/>
           <Axis

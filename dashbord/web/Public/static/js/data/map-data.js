@@ -1,37 +1,42 @@
-import zhongguo from './map/data-china.json';
-import jiangsu from './map/data-jiangsu.json';
-import shanghai from './map/data-shanghai.json';
-import hebei from './map/data-hebei.json';
-import shangxi from './map/data-shangxi.json';
-import neimenggu from './map/data-neimenggu.json';
-import liaoning from './map/data-liaoning.json';
-import jilin from './map/data-jilin.json';
-import heilongjiang from './map/data-heilongjiang.json';
-import zhejiang from './map/data-zhejiang.json';
-import anhui from './map/data-anhui.json';
-import fujian from './map/data-fujian.json';
-import jiangxi from './map/data-jiangxi.json';
-import shangdong from './map/data-shangdong.json';
-import henan from './map/data-henan.json';
-import hubei from './map/data-hubei.json';
-import hunan from './map/data-hunan.json';
-import guangdong from './map/data-guangdong.json';
-import guangxi from './map/data-guangxi.json';
-import hainan from './map/data-hainan.json';
-import sichuan from './map/data-sichuan.json';
-import guizhou from './map/data-guizhou.json';
-import yunnan from './map/data-yunnan.json';
-import xizang from './map/data-xizang.json';
-import shanxi from './map/data-shanxi.json';
-import gansu from './map/data-gansu.json';
-import qinghai from './map/data-qinghai.json';
-import ningxia from './map/data-ningxia.json';
-import xinjiang from './map/data-xinjiang.json';
-import beijing from './map/data-beijing.json';
-import tianjin from './map/data-tianjin.json';
-import chongqing from './map/data-chongqing.json';
-import xianggang from './map/data-xianggang.json';
-import aomen from './map/data-aomen.json';
+var zhongguo = require('./map/data-china.json');
+var jiangsu = require('./map/data-jiangsu.json');
+var shanghai = require('./map/data-shanghai.json');
+var hebei = require('./map/data-hebei.json');
+var shangxi = require('./map/data-shangxi.json');
+var neimenggu = require('./map/data-neimenggu.json');
+var liaoning = require('./map/data-liaoning.json');
+var jilin = require('./map/data-jilin.json');
+var heilongjiang = require('./map/data-heilongjiang.json');
+var zhejiang = require('./map/data-zhejiang.json');
+var anhui = require('./map/data-anhui.json');
+var fujian = require('./map/data-fujian.json');
+var jiangxi = require('./map/data-jiangxi.json');
+var shangdong = require('./map/data-shangdong.json');
+var henan = require('./map/data-henan.json');
+var hubei = require('./map/data-hubei.json');
+var hunan = require('./map/data-hunan.json');
+var guangdong = require('./map/data-guangdong.json');
+var guangxi = require('./map/data-guangxi.json');
+var hainan = require('./map/data-hainan.json');
+var sichuan = require('./map/data-sichuan.json');
+var guizhou = require('./map/data-guizhou.json');
+var yunnan = require('./map/data-yunnan.json');
+var xizang = require('./map/data-xizang.json');
+var shanxi = require('./map/data-shanxi.json');
+var gansu = require('./map/data-gansu.json');
+var qinghai = require('./map/data-qinghai.json');
+var ningxia = require('./map/data-ningxia.json');
+var xinjiang = require('./map/data-xinjiang.json');
+var beijing = require('./map/data-beijing.json');
+var tianjin = require('./map/data-tianjin.json');
+var chongqing = require('./map/data-chongqing.json');
+var xianggang = require('./map/data-xianggang.json');
+var aomen = require('./map/data-aomen.json');
+
+var geoCoordMapofProvince = {};
+zhongguo.features.forEach(item=>{
+	geoCoordMapofProvince[item.properties.name] = item.properties.cp;
+})
 
 var cityMap = {
 	'中国': zhongguo,
@@ -70,4 +75,7 @@ var cityMap = {
 	'澳门': aomen
 }
 
-module.exports = cityMap;
+module.exports = {
+	cityMap,
+	geoCoordMapofProvince
+};

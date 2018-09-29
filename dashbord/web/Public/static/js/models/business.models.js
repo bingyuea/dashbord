@@ -5,7 +5,7 @@ import BaseModel  from '../core/model.base'
 class CityListModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getListOfCity';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getListOfCity';
 	}
 }
 
@@ -15,7 +15,7 @@ class CityListModel extends BaseModel {
 class MeasureListModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getListOfMeasure';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getListOfMeasure';
 	}
 }
 
@@ -25,7 +25,7 @@ class MeasureListModel extends BaseModel {
 class TradeListModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getListOfTrade';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getListOfTrade';
 	}
 }
 /*
@@ -34,7 +34,7 @@ class TradeListModel extends BaseModel {
 class UnusalListModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getExceptionType';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getExceptionType';
 	}
 }
 /*
@@ -43,7 +43,7 @@ class UnusalListModel extends BaseModel {
 class ThemeListModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/getSubjectType';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getSubjectType';
 	}
 }
 

@@ -46,7 +46,6 @@ class Groupedcolumn extends React.Component {
         <Chart {...this.props} data={dv}  placeholder={<div className='loading'><span></span></div>}>
           <Axis name={this.props.keyName} />
           <Axis name={this.props.value} />
-          <Legend />
           <Tooltip
             crosshairs={{
               type: "y"
@@ -55,7 +54,7 @@ class Groupedcolumn extends React.Component {
           <Geom
             type="interval"
             position={`${this.props.keyName}*${this.props.value}`}
-            color={COLOR_PLATE_8}//name
+            color={'name'}//name
             adjust={[
               {
                 type: "dodge",

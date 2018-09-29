@@ -39,11 +39,10 @@ class SearchBar extends Component {
     })
   }
 
-  rangeOkHandle(date) {
+  rangeOkHandle(date,dateString) {
     let searchValue = this.state.searchValue
-
-    searchValue.startTime = date[0]._i + ':00'
-    searchValue.endTime = date[1]._i + ':00'
+    searchValue.startTime = date[0] + '00:00:00'
+    searchValue.endTime = date[1] + '00:00:00'
     this.setState({
       searchValue: searchValue
     })
@@ -66,10 +65,11 @@ class SearchBar extends Component {
         </Option>
       )
     })
+    const defaultValue = item.key == 'province' ? item.options[0].value : '请选择';
     return (
       <Select
         disabled={item.disabled || false}
-        value={searchValue[item.key] || '请选择'}
+        value={searchValue[item.key] || defaultValue}
         onChange={this.inputChangeHandle.bind(this, item.key)}
       >
         {optionContent}
@@ -117,14 +117,13 @@ class SearchBar extends Component {
         <div className="title">{item.title}</div>
         <div className="select-box">
           <RangePicker
-            showTime={{ format: 'HH:mm' }}
-            format="YYYY-MM-DD HH:mm"
+            format="YYYY-MM-DD"
             defaultValue={[
               moment(item.defaultTime[0], dateFormat),
               moment(item.defaultTime[1], dateFormat)
             ]}
             placeholder={['开始时间', '结束时间']}
-            onOk={this.rangeOkHandle.bind(this)}
+            onChange={this.rangeOkHandle.bind(this)}
           />
         </div>
       </div>
