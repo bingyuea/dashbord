@@ -70,14 +70,13 @@ class XMD extends BaseView {
         const lastday = moment().add(-1, 'days').format(dateFormat);
 
         this.indata = {
-          defaultTime:[lastday,today]
+          defaultTime:['2001-01-01 00:00',today]
         }
     }
 
     componentDidMount(){
       const self = this;
       DataServince.fetch(function(searchOptions){
-          console.log(searchOptions)
           self.setState({
               searchOptions:searchOptions
           },()=>{
@@ -86,7 +85,7 @@ class XMD extends BaseView {
       });
     }
 
-    search(){
+    search(value){
       console.log(this.state.searchOptions)
       //拿到搜索需要参数
       let _value = value || {};
@@ -104,7 +103,6 @@ class XMD extends BaseView {
     }
 
     fetchPageOne(value){
-      const self = this;
       this.fetchXmdInstall(value);
       this.fetchCustomerInfo(value);
       this.fetchRate(value);
@@ -112,12 +110,13 @@ class XMD extends BaseView {
     }
     //巡检仪安装情况
     fetchXmdInstall(value){
+      const self = this;
       xmdInstallModel.setParam({...value});
       xmdInstallModel.excute((res)=>{
         const resData = res.data || {};
         let pageOne = this.state.pageOne || {};
         pageOne.xmdInstall = resData;
-        self.setData({
+        self.setState({
           pageOne:pageOne
         });
       },(err)=>{
@@ -127,12 +126,13 @@ class XMD extends BaseView {
 
     //客户分布情况
     fetchCustomerInfo(value){
+      const self = this;
       customerInfoModel.setParam({...value});
       customerInfoModel.excute((res)=>{
         const resData = res.data || {};
         let pageOne = this.state.pageOne || {};
         pageOne.customer = resData;
-        self.setData({
+        self.setState({
           pageOne:pageOne
         });
       },(err)=>{
@@ -141,12 +141,13 @@ class XMD extends BaseView {
     }
     //综合倍率
     fetchRate(value){
+      const self = this;
       rateModel.setParam({...value});
       rateModel.excute((res)=>{
         const resData = res.data || {};
         let pageOne = this.state.pageOne || {};
         pageOne.rate = resData;
-        self.setData({
+        self.setState({
           pageOne:pageOne
         });
       },(err)=>{
@@ -156,12 +157,13 @@ class XMD extends BaseView {
 
     //计量类型
     fetchMeasure(value){
+      const self = this;
       measureModel.setParam({...value});
       measureModel.excute((res)=>{
         const resData = res.data || {};
         let pageOne = this.state.pageOne || {};
         pageOne.measure = resData;
-        self.setData({
+        self.setState({
           pageOne:pageOne
         });
       },(err)=>{
@@ -171,12 +173,13 @@ class XMD extends BaseView {
 
     //巡检仪档案table
     fetchXmdTableLis(value){
+      const self = this;
       xmdTableListModel.setParam({...value});
       xmdTableListModel.excute((res)=>{
         const resData = res.data || {};
         let pageOne = this.state.pageOne || {};
         pageOne.table = resData;
-        self.setData({
+        self.setState({
           pageOne:pageOne
         });
       },(err)=>{
@@ -194,12 +197,13 @@ class XMD extends BaseView {
 
     //巡检仪上报事件
     fetchXmdEvent(value){
+      const self = this;
       xmdEventModel.setParam({...value});
       xmdEventModel.excute((res)=>{
         const resData = res.data || {};
         let pageTwo = this.state.pageTwo || {};
         pageTwo.xmdEvent = resData;
-        self.setData({
+        self.setState({
           pageTwo:pageTwo
         });
       },(err)=>{
@@ -208,12 +212,13 @@ class XMD extends BaseView {
     }
     //事件分布信息
     fetchCustomerXmdEvent(value){
+      const self = this;
       customerXmdEventModel.setParam({...value});
       customerXmdEventModel.excute((res)=>{
         const resData = res.data || {};
         let pageTwo = this.state.pageTwo || {};
         pageTwo.customerXmdEvent = resData;
-        self.setData({
+        self.setState({
           pageTwo:pageTwo
         });
       },(err)=>{
@@ -223,12 +228,13 @@ class XMD extends BaseView {
 
     //two综合倍率
     fetchRateXmdEvent(value){
+      const self = this;
       rateEventModel.setParam({...value});
       rateEventModel.excute((res)=>{
         const resData = res.data || {};
         let pageTwo = this.state.pageTwo || {};
         pageTwo.rateEvent = resData;
-        self.setData({
+        self.setState({
           pageTwo:pageTwo
         });
       },(err)=>{
@@ -238,12 +244,13 @@ class XMD extends BaseView {
 
     //two计量类型
     fetchMeasureXmdEvent(value){
+      const self = this;
       measureEventModel.setParam({...value});
       measureEventModel.excute((res)=>{
         const resData = res.data || {};
         let pageTwo = this.state.pageTwo || {};
         pageTwo.measureEvent = resData;
-        self.setData({
+        self.setState({
           pageTwo:pageTwo
         });
       },(err)=>{
@@ -252,12 +259,13 @@ class XMD extends BaseView {
     }
     //two计量类型
     fetcXmdEventTableListEvent(value){
+      const self = this;
       xmdEventTableListModel.setParam({...value});
       xmdEventTableListModel.excute((res)=>{
         const resData = res.data || {};
         let pageTwo = this.state.pageTwo || {};
         pageTwo.xmdEventTable = resData;
-        self.setData({
+        self.setState({
           pageTwo:pageTwo
         });
       },(err)=>{

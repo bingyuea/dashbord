@@ -129,6 +129,7 @@ console.log(npmpkgs.join('\n'));
 
 // webpack配置项
 const __webpackConfig__ = {
+    mode: 'production',
     entry: {
         libs: npmpkgs,
         app: staticPath + 'js/app.js'

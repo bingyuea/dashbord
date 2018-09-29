@@ -19,15 +19,15 @@ class App extends BaseApp {
                         }, 'views/dashboard')
                     },
                 },
-                // {
-                //     path: __mei_wei__.env.basepath + 'xmd',
-                //     getComponents(nextState, cb) {
-                //         require.ensure([], (require) => {
-                //             var page = require('./views/xmd.js');
-                //             cb(null, page)
-                //         }, 'views/xmd')
-                //     }
-                // },
+                {
+                    path: __mei_wei__.env.basepath + 'xmd',
+                    getComponents(nextState, cb) {
+                        require.ensure([], (require) => {
+                            var page = require('./views/xmd.js');
+                            cb(null, page)
+                        }, 'views/xmd')
+                    }
+                },
                 // 二次回路单-异常分析 （4，5）
                 {
                     path: __mei_wei__.env.basepath + 'secondary_loop',

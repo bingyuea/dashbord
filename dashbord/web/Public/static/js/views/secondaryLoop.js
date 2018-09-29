@@ -34,7 +34,6 @@ import SearchBar from '../ui/ui.searchbar.js'
 import Slider from 'react-slick'
 import DataServince from '../services/searchbar.services'
 import moment from 'moment'
-
 //定义数据模型
 const queryExceptionCount = QueryExceptionCount.getInstance()
 const queryExceptionByArea = QueryExceptionByArea.getInstance()
@@ -100,15 +99,20 @@ class SecondaryLoop extends BaseView {
     console.log(this.state.searchOptions)
     //拿到搜索需要参数
     let _value = value || {}
-    if (!_value.province) {
-      _value.province = this.state.searchOptions.provinceOpts[0].value
-    }
+    // if (!_value.province) {
+    //   _value.province = this.state.searchOptions.provinceOpts[0].value
+    // }
 
-    if (!_value.startTime) {
-      _value.startTime = this.indata.defaultTime[0]
-      _value.endTime = this.indata.defaultTime[1]
+    // if (!_value.startTime) {
+    //   _value.startTime = this.indata.defaultTime[0]
+    //   _value.endTime = this.indata.defaultTime[1]
+    // }
+    _value = {
+      endTime: '2018-09-29 18:53:00',
+      province: '江苏',
+      startTime: '2010-09-28 18:53:00',
+      token: '234sdf234'
     }
-
     this.fetchPageOne(_value)
     this.fetchPageTwo(_value)
   }
@@ -135,6 +139,8 @@ class SecondaryLoop extends BaseView {
   }
 
   fetchrowCLick(value) {
+    console.log(value)
+    console.log(this.state)
     // pageOne.exceptionList = resData 列表第一条数据
     let { serialNum, elecSerialNum, occTime } =
       this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
@@ -1138,11 +1144,34 @@ class SecondaryLoop extends BaseView {
     })
     let tableHeight = $('#tableHeight').height() - 60 // table表格的高度
     let self = this
+
+    $('.scrollTable .ant-table-body').on('scroll', function() {
+      let viewH = $(this).height(),
+        contentH = $(this)
+          .children()
+          .height(),
+        scrollTop = $(this).scrollTop(),
+        distance = 100
+
+      console.log('viewH' + viewH)
+      console.log('contentH' + contentH)
+      console.log('scrollTop' + scrollTop)
+
+      if (contentH - viewH - scrollTop <= distance) {
+        //到达底部100px时,加载新内容
+        // 这里加载数据..
+        console.log('加载数据')
+        console.log(dataList)
+        self.fetchPageTwo(value)
+      }
+    })
+
     return (
       <div>
         <div className="content_title">二次回路异常事件</div>
         <div className="content-table">
           <Table
+            className={'scrollTable'}
             columns={columns}
             dataSource={tableData}
             pagination={false}
@@ -1150,13 +1179,12 @@ class SecondaryLoop extends BaseView {
             onRow={record => {
               return {
                 onClick: () => {
-                  console.log(record)
                   let pageTwo = self.state.pageTwo || {}
                   pageTwo.record = record
                   self.setState({
                     pageTwo
                   })
-                  fetchrowCLick(record)
+                  self.fetchrowCLick(record)
                 }
               }
             }}
