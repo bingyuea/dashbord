@@ -5,7 +5,7 @@ import BaseModel  from '../core/model.base'
 class XmdInstallModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryInstallDetail';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryInstallDetail';
 	}
 }
 /*
@@ -14,7 +14,7 @@ class XmdInstallModel extends BaseModel {
 class CustomerInfoModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryInfoByCustomer';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryInfoByCustomer';
 	}
 }
 /*
@@ -23,7 +23,7 @@ class CustomerInfoModel extends BaseModel {
 class RateModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryInfoByRate';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryInfoByRate';
 	}
 }
 /*
@@ -32,7 +32,7 @@ class RateModel extends BaseModel {
 class MeasureModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryInfoByMeasure';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryInfoByMeasure';
 	}
 }
 /*
@@ -41,7 +41,7 @@ class MeasureModel extends BaseModel {
 class XmdTableListModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryDataList';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryDataList';
 	}
 }
 
@@ -52,7 +52,7 @@ class XmdTableListModel extends BaseModel {
 class XmdEventModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryXMDEvent';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryXMDEvent';
 	}
 }
 /*
@@ -61,7 +61,7 @@ class XmdEventModel extends BaseModel {
 class CustomerXmdEventModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryXMDEventByCustomer';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryXMDEventByCustomer';
 	}
 }
 /*
@@ -70,7 +70,7 @@ class CustomerXmdEventModel extends BaseModel {
 class RateEventModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryXMDEventByRate';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryXMDEventByRate';
 	}
 }
 /*
@@ -79,7 +79,7 @@ class RateEventModel extends BaseModel {
 class MeasureEventModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryXMDEventByMeasure';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryXMDEventByMeasure';
 	}
 }
 
@@ -89,7 +89,7 @@ class MeasureEventModel extends BaseModel {
 class XmdEventTableListModel extends BaseModel {
 	constructor(props) {
 		super(props);
-		this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryXMDEventList';
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryXMDEventList';
 	}
 }
 

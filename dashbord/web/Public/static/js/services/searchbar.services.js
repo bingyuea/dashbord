@@ -23,9 +23,8 @@ var searchData = {};
 
 //城市信息
 function fetchAddressList(cb){
-
 	function success(res){
-		const resData = res.data || {};
+		const resData = res || {};
 		const list = resData.cityList || [];
 		const provinceParam = {
 			list:list,	//原数据
@@ -39,7 +38,6 @@ function fetchAddressList(cb){
 			valueKey:'province'
 		}
 		searchData.cityOpts = formatCity(list,list[0].province);
-		
 		DataService.successCb(cb);
 	}
 
@@ -68,7 +66,7 @@ function fetchAddressList(cb){
 function fetchMeasureList(cb){
 
 	function success(res){
-		const resData = res.data || {};
+		const resData = res || {};
 		const list = resData.cityList || null;
 		const param = {
 			defaultDesc:'请选择计量类型',
@@ -91,7 +89,7 @@ function fetchMeasureList(cb){
 		DataService.successCb(cb);
 	}
 
-	measureListModel.setParam();
+	// measureListModel.setParam();
 	measureListModel.excute(success,fail);
 }
 
@@ -99,8 +97,8 @@ function fetchMeasureList(cb){
 function fetchTradeList(cb){
 
 	function success(res){
-		const resData = res.data || {};
-		const list = resData.cityList || null;
+		const resData = res || {};
+		const list = resData.cityList || [];
 		const param = {
 			defaultDesc:'请选择行业类型',
 			list:list,	//原数据
@@ -122,7 +120,7 @@ function fetchTradeList(cb){
 		DataService.successCb(cb);
 	}
 
-	tradeListModel.setParam();
+	// tradeListModel.setParam();
 	tradeListModel.excute(success,fail);
 }
 
@@ -130,8 +128,8 @@ function fetchTradeList(cb){
 function fetchUnusalList(cb){
 
 	function success(res){
-		const resData = res.data || {};
-		const list = resData.cityList || null;
+		const resData = res || {};
+		const list = resData.cityList || [];
 		searchData.unusalOpts = list;
 		const param = {
 			defaultDesc:'请选择行业类型',
@@ -154,7 +152,7 @@ function fetchUnusalList(cb){
 		DataService.successCb(cb);
 	}
 
-	unusalListModel.setParam();
+	// unusalListModel.setParam();
 	unusalListModel.excute(success,fail);
 }
 
@@ -162,8 +160,8 @@ function fetchUnusalList(cb){
 function fetchThemeList(cb){
 
 	function success(res){
-		const resData = res.data || {};
-		const list = resData.exceptionList || null;
+		const resData = res || {};
+		const list = resData.exceptionList || [];
 		const param = {
 			defaultDesc:'请选择行业类型',
 			list:list,	//原数据
@@ -185,7 +183,7 @@ function fetchThemeList(cb){
 		DataService.successCb(cb);
 	}
 
-	themeListModel.setParam();
+	// themeListModel.setParam();
 	themeListModel.excute(success,fail);
 }
 
@@ -195,20 +193,19 @@ var DataService = {
 	fetch:function(cb){
 		DataService.cb = cb;
 		fetchAddressList(DataService.successCb);
-		// fetchMeasureList(DataService.successCb);
-		// fetchTradeList(DataService.successCb);
-		// fetchUnusalList(DataService.successCb);
+		fetchMeasureList(DataService.successCb);
+		fetchTradeList(DataService.successCb);
+		fetchUnusalList(DataService.successCb);
 		// fetchThemeList(DataService.successCb);
 	},
 	successCb:function(){
-		
 		if(
 			searchData.provinceOpts && 
 			searchData.cityOpts && 
 			searchData.measureOpts && 
 			searchData.unusalOpts && 
 			searchData.tradeOpts && 
-			searchData.themeOpts
+			(searchData.themeOpts || true)
 		){
 			DataService.cb(searchData);
 		}
