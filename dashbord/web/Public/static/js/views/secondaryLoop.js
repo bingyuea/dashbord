@@ -34,7 +34,6 @@ import SearchBar from '../ui/ui.searchbar.js'
 import Slider from 'react-slick'
 import DataServince from '../services/searchbar.services'
 import moment from 'moment'
-
 //定义数据模型
 const queryExceptionCount = QueryExceptionCount.getInstance()
 const queryExceptionByArea = QueryExceptionByArea.getInstance()
@@ -82,16 +81,16 @@ class SecondaryLoop extends BaseView {
       pageStatus: 'init'
     })
     const self = this
-    DataServince.fetch(function(searchOptions) {
-      self.setState(
-        {
-          searchOptions: searchOptions
-        },
-        () => {
-          self.search()
-        }
-      )
-    })
+    // DataServince.fetch(function(searchOptions) {
+    //   self.setState(
+    //     {
+    //       searchOptions: searchOptions
+    //     },
+    //     () => {
+    //       self.search()
+    //     }
+    //   )
+    // })
   }
 
   search(value) {
@@ -1135,11 +1134,34 @@ class SecondaryLoop extends BaseView {
     })
     let tableHeight = $('#tableHeight').height() - 60 // table表格的高度
     let self = this
+
+    $('.scrollTable .ant-table-body').on('scroll', function() {
+      let viewH = $(this).height(),
+        contentH = $(this)
+          .children()
+          .height(),
+        scrollTop = $(this).scrollTop(),
+        distance = 100
+
+      console.log('viewH' + viewH)
+      console.log('contentH' + contentH)
+      console.log('scrollTop' + scrollTop)
+
+      if (contentH - viewH - scrollTop <= distance) {
+        //到达底部100px时,加载新内容
+        // 这里加载数据..
+        console.log('加载数据')
+        console.log(dataList)
+        self.fetchPageTwo(value)
+      }
+    })
+
     return (
       <div>
         <div className="content_title">二次回路异常事件</div>
         <div className="content-table">
           <Table
+            className={'scrollTable'}
             columns={columns}
             dataSource={tableData}
             pagination={false}
