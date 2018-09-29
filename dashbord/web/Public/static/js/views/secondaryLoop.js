@@ -81,16 +81,16 @@ class SecondaryLoop extends BaseView {
       pageStatus: 'init'
     })
     const self = this
-    // DataServince.fetch(function(searchOptions) {
-    //   self.setState(
-    //     {
-    //       searchOptions: searchOptions
-    //     },
-    //     () => {
-    //       self.search()
-    //     }
-    //   )
-    // })
+    DataServince.fetch(function(searchOptions) {
+      self.setState(
+        {
+          searchOptions: searchOptions
+        },
+        () => {
+          self.search()
+        }
+      )
+    })
   }
 
   search(value) {
@@ -107,8 +107,8 @@ class SecondaryLoop extends BaseView {
     // }
     _value = {
       endTime: '2018-09-29 18:53:00',
-      province: '江苏',
-      startTime: '2010-09-28 18:53:00',
+      province: '山西',
+      startTime: '2009-09-28 18:53:00',
       token: '234sdf234'
     }
     this.fetchPageOne(_value)
@@ -164,7 +164,7 @@ class SecondaryLoop extends BaseView {
         const resData = res.data || {}
         let pageOne = this.state.pageOne || {}
         pageOne.totalCount = resData
-        self.setData({
+        this.setData({
           pageOne: pageOne
         })
         // {
@@ -651,14 +651,14 @@ class SecondaryLoop extends BaseView {
 
   renderPageOne() {
     // 正式数据
-    // let {
-    //     totalCount,// 二次回路异常事件统计
-    //     areaList, // 异常区域占比查询
-    //     periodList, //异常事件数量变化趋势
-    //     tradeList, // 行业分布信息查询
-    //     exceptionList, // 异常类型分布情况查询
-    //     elecCurrentData,// 电流分析对比查询
-    // } = this.state.pageOne || {};
+    let {
+      totalCount, // 二次回路异常事件统计
+      areaList, // 异常区域占比查询
+      periodList, //异常事件数量变化趋势
+      tradeList, // 行业分布信息查询
+      exceptionList, // 异常类型分布情况查询
+      elecCurrentData // 电流分析对比查询
+    } = this.state.pageOne || {}
     let domHeight = $('.page-main').height()
     let loop_content = $('#eventAccount').height() - 20 // 算出表格高度
     let tradeListChartsHeight = $('#tradeListChartsHeight').height() - 20 - 30 // 图表高度
@@ -674,13 +674,13 @@ class SecondaryLoop extends BaseView {
       }, 0)
     }
 
-    let {
-      totalCount, // 二次回路异常事件统计
-      areaList, // 异常区域占比查询
-      periodList, //异常事件数量变化趋势
-      tradeList, // 行业分布信息查询
-      exceptionList // 异常类型分布情况查询
-    } = Mock
+    // let {
+    //   totalCount, // 二次回路异常事件统计
+    //   areaList, // 异常区域占比查询
+    //   periodList, //异常事件数量变化趋势
+    //   tradeList, // 行业分布信息查询
+    //   exceptionList // 异常类型分布情况查询
+    // } = Mock
 
     periodListCharts = {
       data: periodList,
