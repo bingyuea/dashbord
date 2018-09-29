@@ -62,7 +62,7 @@ class SecondaryLoop extends BaseView {
 
     this.state = {
       pageTitle: '二次回路单-异常分析',
-      pageIdx:0
+      pageIdx: 0
     }
 
     const dateFormat = 'YYYY-MM-DD HH:mm'
@@ -78,7 +78,6 @@ class SecondaryLoop extends BaseView {
 
   componentDidMount() {
     // this.pageInit();
-    console.log(2)
     this.setState({
       pageStatus: 'init'
     })
@@ -99,14 +98,14 @@ class SecondaryLoop extends BaseView {
     console.log(this.state.searchOptions)
     //拿到搜索需要参数
     let _value = value || {}
-    // if (!_value.province) {
-    //   _value.province = this.state.searchOptions.provinceOpts[0].value
-    // }
+    if (!_value.province) {
+      _value.province = this.state.searchOptions.provinceOpts[0].value
+    }
 
-    // if (!_value.startTime) {
-    //   _value.startTime = this.indata.defaultTime[0]
-    //   _value.endTime = this.indata.defaultTime[1]
-    // }
+    if (!_value.startTime) {
+      _value.startTime = this.indata.defaultTime[0]
+      _value.endTime = this.indata.defaultTime[1]
+    }
     _value = {
       endTime: '2018-09-29 18:53:00',
       province: '山西',
@@ -118,11 +117,11 @@ class SecondaryLoop extends BaseView {
   }
 
   //切换轮播的回调,idx:当前轮播的页面idx
-  afterSlickChange(idx){
+  afterSlickChange(idx) {
     console.log(idx)
     this.setState({
-      pageIdx:idx
-    });
+      pageIdx: idx
+    })
   }
 
   fetchPageOne(value) {
@@ -168,13 +167,13 @@ class SecondaryLoop extends BaseView {
     // exception	异常类型	int	否		1
     // startTime	开始时间	string	是		2017-03-03 10:10:10
     // endTime	结束时间	string	是		2017-03-05 10:10:10
+    let self = this
     queryExceptionCount.setParam({ ...value })
     queryExceptionCount.excute(
       res => {
-        const resData = res.data || {}
-        let pageOne = this.state.pageOne || {}
-        pageOne.totalCount = resData
-        this.setData({
+        let pageOne = self.state.pageOne || {}
+        pageOne.totalCount = res.totalCount || 0
+        self.setState({
           pageOne: pageOne
         })
         // {
@@ -197,15 +196,15 @@ class SecondaryLoop extends BaseView {
     // exception	异常类型	int	否		1
     // startTime	开始时间	string	是		2017-03-03 10:10:10
     // endTime	结束时间	string	是		2017-03-05 10:10:10
+    let self = this
     queryExceptionByArea.setParam({
       ...value
     })
     queryExceptionByArea.excute(
       res => {
-        const resData = res.data || {}
-        let pageOne = this.state.pageOne || {}
-        pageOne.areaList = resData
-        self.setData({
+        let pageOne = self.state.pageOne || {}
+        pageOne.areaList = res.areaList || []
+        self.setState({
           pageOne: pageOne
         })
         // {
@@ -238,15 +237,15 @@ class SecondaryLoop extends BaseView {
     // exception	异常类型	int	否		1
     // startTime	开始时间	string	是		2017-03-03 10:10:10
     // endTime	结束时间	string	是		2017-03-05 10:10:10
+    let self = this
     queryExceptionByTime.setParam({
       ...value
     })
     queryExceptionByTime.excute(
       res => {
-        const resData = res.data || {}
-        let pageOne = this.state.pageOne || {}
-        pageOne.periodList = resData
-        self.setData({
+        let pageOne = self.state.pageOne || {}
+        pageOne.periodList = res.periodList || []
+        self.setState({
           pageOne: pageOne
         })
         // {
@@ -279,15 +278,16 @@ class SecondaryLoop extends BaseView {
     // exception	异常类型	int	否		1
     // startTime	开始时间	string	是		2017-03-03 10:10:10
     // endTime	结束时间	string	是		2017-03-05 10:10:10
+    let self = this
     queryExceptionByTrade.setParam({
       ...value
     })
     queryExceptionByTrade.excute(
       res => {
-        const resData = res.data || {}
-        let pageOne = this.state.pageOne || {}
-        pageOne.tradeList = resData
-        self.setData({
+        let pageOne = self.state.pageOne || {}
+        // pageOne.tradeList = res.tradeList || []
+        pageOne.tradeList = res.periodList || []
+        self.setState({
           pageOne: pageOne
         })
         // {
@@ -322,15 +322,15 @@ class SecondaryLoop extends BaseView {
     // exception	异常类型	int	否		1
     // startTime	开始时间	string	是		2017-03-03 10:10:10
     // endTime	结束时间	string	是		2017-03-05 10:10:10
+    let self = this
     queryExceptionDetail.setParam({
       ...value
     })
     queryExceptionDetail.excute(
       res => {
-        const resData = res.data || {}
-        let pageOne = this.state.pageOne || {}
-        pageOne.exceptionList = resData
-        self.setData({
+        let pageOne = self.state.pageOne || {}
+        pageOne.exceptionList = res.exceptionList || []
+        self.setState({
           pageOne: pageOne
         })
         // {
@@ -366,16 +366,16 @@ class SecondaryLoop extends BaseView {
     // startTime	开始时间	string	是		2017-03-03 10:10:10
     // endTime	结束时间	string	是		2017-03-05 10:10:10
     // pageNo	页码	int	否		1
+    let self = this
     value.pageNo = 1
     queryExceptionList.setParam({
       ...value
     })
     queryExceptionList.excute(
       res => {
-        const resData = res.data || {}
-        let pageOne = this.state.pageOne || {}
-        pageOne.dataList = resData
-        self.setData({
+        let pageOne = self.state.pageOne || {}
+        pageOne.dataList = res.dataList || []
+        self.setState({
           pageOne: pageOne
         })
         // totalPage	总页数	int	是
@@ -437,7 +437,7 @@ class SecondaryLoop extends BaseView {
         const elecCurrentData = res.data || {}
         let pageTwo = this.state.pageTwo || {}
         pageTwo.xmdData = resData
-        self.setData({
+        self.setState({
           pageTwo
         })
         // {
@@ -482,7 +482,7 @@ class SecondaryLoop extends BaseView {
         const resData = res.data || {}
         let pageTwo = this.state.pageTwo || {}
         pageTwo.xmdEventData = resData
-        self.setData({
+        self.setState({
           pageTwo
         })
         // {
@@ -525,7 +525,7 @@ class SecondaryLoop extends BaseView {
         const resData = res.data || {}
         let pageTwo = this.state.pageTwo || {}
         pageTwo.eleEventData = resData
-        self.setData({
+        self.setState({
           pageTwo
         })
         // {
@@ -573,7 +573,7 @@ class SecondaryLoop extends BaseView {
         const resData = res.data || {}
         let pageTwo = this.state.pageTwo || {}
         pageTwo.elecDayData = resData
-        self.setData({
+        self.setState({
           pageTwo
         })
         // {
@@ -661,13 +661,13 @@ class SecondaryLoop extends BaseView {
 
   renderPageOne() {
     // 正式数据
+    // debugger
     let {
       totalCount, // 二次回路异常事件统计
       areaList, // 异常区域占比查询
       periodList, //异常事件数量变化趋势
       tradeList, // 行业分布信息查询
-      exceptionList, // 异常类型分布情况查询
-      elecCurrentData // 电流分析对比查询
+      exceptionList // 异常类型分布情况查询
     } = this.state.pageOne || {}
     let domHeight = $('.page-main').height()
     let loop_content = $('#eventAccount').height() - 20 // 算出表格高度
@@ -684,13 +684,13 @@ class SecondaryLoop extends BaseView {
       }, 0)
     }
 
-    // let {
-    //   totalCount, // 二次回路异常事件统计
-    //   areaList, // 异常区域占比查询
-    //   periodList, //异常事件数量变化趋势
-    //   tradeList, // 行业分布信息查询
-    //   exceptionList // 异常类型分布情况查询
-    // } = Mock
+    let {
+      // totalCount, // 二次回路异常事件统计
+      // areaList, // 异常区域占比查询
+      // periodList, //异常事件数量变化趋势
+      // tradeList // 行业分布信息查询
+      // exceptionList // 异常类型分布情况查询
+    } = Mock
 
     periodListCharts = {
       data: periodList,
@@ -698,6 +698,8 @@ class SecondaryLoop extends BaseView {
       height: loop_content,
       xAxis: 'period',
       yAxis: 'periodCount',
+      xLabel: '异常事件数量',
+      yLabel: '异常事件数量',
       forceFit: true,
       padding: 'auto',
       style: {
@@ -710,14 +712,15 @@ class SecondaryLoop extends BaseView {
         offset: 5
       }
     }
+    console.log(tradeList)
     tradeListCharts = {
       data: tradeList,
       height: tradeListChartsHeight,
       xAxis: 'tradeName',
       yAxis_line: 'tradeCount',
-      yAxis_line_name: '占比',
+      yAxis_line_name: '异常数量',
       yAxis_interval: 'trade',
-      yAxis_interval_name: '行业',
+      yAxis_interval_name: '异常名称',
       forceFit: true,
       padding: 'auto',
       cols: {
@@ -737,7 +740,6 @@ class SecondaryLoop extends BaseView {
     }
     exceptionListCharts = {
       data: exceptionList,
-      // data: Mock.charts5,
       height: tradeListChartsHeight,
       xAxis: 'name',
       yAxis: 'exceptionCount',
@@ -1069,10 +1071,10 @@ class SecondaryLoop extends BaseView {
     let columns = [
       {
         title: '所属城市',
-        dataIndex: 'city',
+        dataIndex: 'place',
         width: 60,
         align: 'center',
-        key: 'city'
+        key: 'place'
       },
       {
         title: '所属区县',
@@ -1132,16 +1134,18 @@ class SecondaryLoop extends BaseView {
       }
     ]
     // 正式数据
-    // let {
-    //     dataList, // 异常信息表查询
-    // } = this.state.pageOne;
     let {
       dataList // 异常信息表查询
-    } = Mock
-    let tableData = dataList.dataList
-    tableData.map((item, index) => {
-      return (item.key = index)
-    })
+    } = this.state.pageOne || []
+    // let {
+    //   dataList // 异常信息表查询
+    // } = Mock
+
+    let tableData = dataList
+    Array.isArray(tableData) &&
+      tableData.map((item, index) => {
+        return (item.key = index)
+      })
     let tableHeight = $('#tableHeight').height() - 60 // table表格的高度
     let self = this
 
@@ -1157,13 +1161,13 @@ class SecondaryLoop extends BaseView {
       console.log('contentH' + contentH)
       console.log('scrollTop' + scrollTop)
 
-      if (contentH - viewH - scrollTop <= distance) {
-        //到达底部100px时,加载新内容
-        // 这里加载数据..
-        console.log('加载数据')
-        console.log(dataList)
-        self.fetchPageTwo(value)
-      }
+      // if (contentH - viewH - scrollTop <= distance) {
+      //   //到达底部100px时,加载新内容
+      //   // 这里加载数据..
+      //   console.log('加载数据')
+      //   console.log(dataList)
+      //   self.fetchPageTwo(value)
+      // }
     })
 
     return (
@@ -1195,23 +1199,23 @@ class SecondaryLoop extends BaseView {
   }
   renderMain() {
     var settings = {
-        dots: false,
-        autoplay: false,
-        arrows: false,
-        infinite: true,
-        speed: 500,
-        autoplaySpeed:5000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        touchMove:true,
-        afterChange:this.afterSlickChange.bind(this)
-      };
+      dots: false,
+      autoplay: false,
+      arrows: false,
+      infinite: true,
+      speed: 500,
+      autoplaySpeed: 5000,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      touchMove: true,
+      afterChange: this.afterSlickChange.bind(this)
+    }
     return (
       <div className="page-slick page-SecondaryLoopLeft">
         <h1 className="page-title">{this.state.pageTitle}</h1>
         <div className="slick-btn">
-          <div className={this.state.pageIdx == 0?'btn ':'btn'}/>
-          <div className={this.state.pageIdx == 0?'btn':' btn'}/>
+          <div className={this.state.pageIdx == 0 ? 'btn ' : 'btn'} />
+          <div className={this.state.pageIdx == 0 ? 'btn' : ' btn'} />
         </div>
         {this.renderSearchBar()}
         <div className="page-main slider_content">
