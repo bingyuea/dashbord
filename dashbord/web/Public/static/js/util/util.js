@@ -109,6 +109,7 @@ function formatSelectOptions(param){
 */
 function translateCountToPercent(list,key){
 	let total = 0;
+	if(!list){return list}
 	list.forEach(item=>{
 		total = total + item[key];
 	})

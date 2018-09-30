@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import BaseView from '../core/view.base'
 import $ from 'jquery'
-
-import Mock from '../mock/mock';
+import { Table } from 'antd'
 //图表模型
 import {
   Basicline,
@@ -54,7 +53,6 @@ const xmdInstallModel = XmdInstallModel.getInstance(),
       xmdEventTableListModel = XmdEventTableListModel.getInstance(),
       rateModel = RateModel.getInstance();
 
-
 //巡检仪安装情况
 class XMD extends BaseView {
 
@@ -63,6 +61,7 @@ class XMD extends BaseView {
         super(props);
         this.state = {
           pageTitle:'巡检仪安装情况查询',
+          pageIdx:0
         }
 
         const dateFormat = 'YYYY-MM-DD HH:mm';
@@ -76,6 +75,7 @@ class XMD extends BaseView {
 
     componentDidMount(){
       const self = this;
+      
       DataServince.fetch(function(searchOptions){
           self.setState({
               searchOptions:searchOptions
@@ -86,7 +86,6 @@ class XMD extends BaseView {
     }
 
     search(value){
-      console.log(this.state.searchOptions)
       //拿到搜索需要参数
       let _value = value || {};
       if(!_value.province){
@@ -97,15 +96,15 @@ class XMD extends BaseView {
         _value.startTime = this.indata.defaultTime[0];
         _value.endTime = this.indata.defaultTime[1];
       }
-
-      this.fetchPageOne(_value);
-      // this.fetchPageTwo(_value);
+      // this.fetchPageOne(_value);
+      this.fetchPageTwo(_value);
     }
 
     fetchPageOne(value){
       this.fetchXmdInstall(value);
       this.fetchCustomerInfo(value);
       this.fetchRate(value);
+      this.fetchMeasure(value);
       this.fetchXmdTableLis(value);
     }
     //巡检仪安装情况
@@ -113,8 +112,8 @@ class XMD extends BaseView {
       const self = this;
       xmdInstallModel.setParam({...value});
       xmdInstallModel.excute((res)=>{
-        const resData = res.data || {};
-        let pageOne = this.state.pageOne || {};
+        const resData = res || {};
+        let pageOne = self.state.pageOne || {};
         pageOne.xmdInstall = resData;
         self.setState({
           pageOne:pageOne
@@ -129,8 +128,8 @@ class XMD extends BaseView {
       const self = this;
       customerInfoModel.setParam({...value});
       customerInfoModel.excute((res)=>{
-        const resData = res.data || {};
-        let pageOne = this.state.pageOne || {};
+        const resData = res || {};
+        let pageOne = self.state.pageOne || {};
         pageOne.customer = resData;
         self.setState({
           pageOne:pageOne
@@ -144,8 +143,8 @@ class XMD extends BaseView {
       const self = this;
       rateModel.setParam({...value});
       rateModel.excute((res)=>{
-        const resData = res.data || {};
-        let pageOne = this.state.pageOne || {};
+        const resData = res || {};
+        let pageOne = self.state.pageOne || {};
         pageOne.rate = resData;
         self.setState({
           pageOne:pageOne
@@ -160,8 +159,8 @@ class XMD extends BaseView {
       const self = this;
       measureModel.setParam({...value});
       measureModel.excute((res)=>{
-        const resData = res.data || {};
-        let pageOne = this.state.pageOne || {};
+        const resData = res || {};
+        let pageOne = self.state.pageOne || {};
         pageOne.measure = resData;
         self.setState({
           pageOne:pageOne
@@ -176,8 +175,8 @@ class XMD extends BaseView {
       const self = this;
       xmdTableListModel.setParam({...value});
       xmdTableListModel.excute((res)=>{
-        const resData = res.data || {};
-        let pageOne = this.state.pageOne || {};
+        const resData = res || {};
+        let pageOne = self.state.pageOne || {};
         pageOne.table = resData;
         self.setState({
           pageOne:pageOne
@@ -200,8 +199,8 @@ class XMD extends BaseView {
       const self = this;
       xmdEventModel.setParam({...value});
       xmdEventModel.excute((res)=>{
-        const resData = res.data || {};
-        let pageTwo = this.state.pageTwo || {};
+        const resData = res || {};
+        let pageTwo = self.state.pageTwo || {};
         pageTwo.xmdEvent = resData;
         self.setState({
           pageTwo:pageTwo
@@ -215,8 +214,8 @@ class XMD extends BaseView {
       const self = this;
       customerXmdEventModel.setParam({...value});
       customerXmdEventModel.excute((res)=>{
-        const resData = res.data || {};
-        let pageTwo = this.state.pageTwo || {};
+        const resData = res || {};
+        let pageTwo = self.state.pageTwo || {};
         pageTwo.customerXmdEvent = resData;
         self.setState({
           pageTwo:pageTwo
@@ -231,8 +230,8 @@ class XMD extends BaseView {
       const self = this;
       rateEventModel.setParam({...value});
       rateEventModel.excute((res)=>{
-        const resData = res.data || {};
-        let pageTwo = this.state.pageTwo || {};
+        const resData = res || {};
+        let pageTwo = self.state.pageTwo || {};
         pageTwo.rateEvent = resData;
         self.setState({
           pageTwo:pageTwo
@@ -247,8 +246,8 @@ class XMD extends BaseView {
       const self = this;
       measureEventModel.setParam({...value});
       measureEventModel.excute((res)=>{
-        const resData = res.data || {};
-        let pageTwo = this.state.pageTwo || {};
+        const resData = res || {};
+        let pageTwo = self.state.pageTwo || {};
         pageTwo.measureEvent = resData;
         self.setState({
           pageTwo:pageTwo
@@ -262,8 +261,8 @@ class XMD extends BaseView {
       const self = this;
       xmdEventTableListModel.setParam({...value});
       xmdEventTableListModel.excute((res)=>{
-        const resData = res.data || {};
-        let pageTwo = this.state.pageTwo || {};
+        const resData = res || {};
+        let pageTwo = self.state.pageTwo || {};
         pageTwo.xmdEventTable = resData;
         self.setState({
           pageTwo:pageTwo
@@ -335,26 +334,157 @@ class XMD extends BaseView {
       });
     }
 
-    renderPageOne(){
-      const {
-        xmdInstall,
-        customer,
-        rate,
-        measure,
-        table
-      } = this.state.pageOne || {}; 
-
+    renderTable() {
       return ''
+      let columns = [
+        {
+          title: '所属城市',
+          dataIndex: 'city',
+          width: 60,
+          align: 'center',
+          key: 'city'
+        },
+        {
+          title: '所属区县',
+          dataIndex: 'region',
+          width: 60,
+          align: 'center',
+          key: 'region'
+        },
+        {
+          title: '巡检仪资产编号',
+          dataIndex: 'serialNum',
+          width: 60,
+          align: 'center',
+          key: 'serialNum'
+        },
+        {
+          title: '电能表资产编号',
+          dataIndex: 'elecSerialNum',
+          width: 60,
+          align: 'center',
+          key: 'elecSerialNum'
+        },
+        {
+          title: '户名',
+          dataIndex: 'username',
+          width: 60,
+          align: 'center',
+          key: 'username'
+        },
+        {
+          title: '用电类型',
+          dataIndex: 'trade',
+          width: 60,
+          align: 'center',
+          key: 'trade'
+        },
+        {
+          title: '异常类型',
+          dataIndex: 'name',
+          width: 60,
+          key: 'name',
+          align: 'center'
+        },
+        {
+          title: '异常日期',
+          dataIndex: 'occTime',
+          width: 60,
+          align: 'center',
+          key: 'occTime'
+        },
+        {
+          title: '恢复日期',
+          dataIndex: 'recoverTime',
+          width: 60,
+          align: 'center',
+          key: 'recoverTime'
+        }
+      ]
+      // 正式数据
+      // let {
+      //     dataList, // 异常信息表查询
+      // } = this.state.pageOne;
+      
+      let tableData = dataList.dataList
+      tableData.map((item, index) => {
+        return (item.key = index)
+      })
+      let tableHeight = $('#tableHeight').height() - 60 // table表格的高度
+      let self = this
+
+      $('.scrollTable .ant-table-body').on('scroll', function() {
+        let viewH = $(this).height(),
+          contentH = $(this)
+            .children()
+            .height(),
+          scrollTop = $(this).scrollTop(),
+          distance = 100
+
+        console.log('viewH' + viewH)
+        console.log('contentH' + contentH)
+        console.log('scrollTop' + scrollTop)
+
+        if (contentH - viewH - scrollTop <= distance) {
+          //到达底部100px时,加载新内容
+          // 这里加载数据..
+          console.log('加载数据')
+          console.log(dataList)
+          self.fetchPageTwo(value)
+        }
+      })
+
+      return (
+        <div>
+          <div className="content_title">二次回路异常事件</div>
+          <div className="content-table">
+            <Table
+              className={'scrollTable'}
+              columns={columns}
+              dataSource={tableData}
+              pagination={false}
+              scroll={{ y: tableHeight }}
+              onRow={record => {
+                return {
+                  onClick: () => {
+                    let pageTwo = self.state.pageTwo || {}
+                    pageTwo.record = record
+                    self.setState({
+                      pageTwo
+                    })
+                    self.fetchrowCLick(record)
+                  }
+                }
+              }}
+            />
+          </div>
+        </div>
+      )
+    }
+
+    renderPageOne(){
+      const pageOne = this.state.pageOne || {};
+      const [
+        xmdInstall = {},
+        customer ={},
+        rate={},
+        measure={},
+        table={}
+      ] = [
+        pageOne.xmdInstall,
+        pageOne.customer,
+        pageOne.rate,
+        pageOne.measure,
+        pageOne.table
+      ];
+
 
       const self = this;
       const domHeight = $('.page-main').height();
+      if(!domHeight){return false}
       const leftChartHeight = (domHeight - 25 - 2 - 70 - 70 - 20) / 2;
       const centerChartHeight = (domHeight / 2) - 20 - 27;
       let centerTopHeight = leftChartHeight;
-      setTimeout(function(){
-        centerTopHeight = $('#centerSectionContent').height() - 35; 
-        self.foreUpdata(); 
-      },0);
       
       //巡检仪上线数
       const charts2 = {
@@ -395,29 +525,28 @@ class XMD extends BaseView {
 
       //客户分布情况
       const charts8 = {
-        data:translateCountToPercent(customer.tradeList,'tradeCount'),
+        data:customer.tradeList,
         height:centerTopHeight,
-        xAxis:'tradeName',
-        yAxis_line:'percent',
-        yAxis_interval:'tradeCount',
-        forceFit:true,
-        padding:'auto',
-        cols:{
-          tradeName: {
-            min: 0
-          },
-          percent: {
+        xAxis: 'tradeName',
+        yAxis_line: 'tradeCount',
+        yAxis_line_name: '占比',
+        yAxis_interval: 'percent',
+        yAxis_interval_name: '行业',
+        forceFit: false,
+        padding: 'auto',
+        cols: {
+          tradeCount: {
             min: 0
           }
         },
-        style:{
-          overflow:'auto'
+        style: {
+          overflow: 'hidden'
         },
-        xLabel:{
-          offset:15,
+        xLabel: {
+          offset: 15
         },
-        yLabel:{
-          offset:5,
+        yLabel: {
+          offset: 5
         }
       }
 
@@ -458,6 +587,8 @@ class XMD extends BaseView {
         }
       }
 
+      const totalCount = xmdInstall.totalCount || 0;
+
       return (
         <div className="slick-page"  style={{height:domHeight}}>
           <div className='side-content content_box'>
@@ -466,7 +597,7 @@ class XMD extends BaseView {
             </div>
             <div className="blue_underline"></div>
             <div className='total-num'>
-              <span className='blue-txt'>{xmdInstall.totalCount.replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</span>
+              <span className='blue-txt'>{totalCount.toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</span>
               台
             </div>
             <div className='charts-content'>
@@ -486,13 +617,13 @@ class XMD extends BaseView {
                   客户分布情况
               </div>
               <div className="blue_underline"></div>
-              <div className='section-content' id='centerSectionContent'>
+              <div className='section-content'>
                   <span>行业信息</span>
                   <Doubleaxes {...charts8}/>
                 </div>
             </div>
             <div className='bottom'>
-              <div className='section-content' id='bottomSectionContent'>
+              <div className='section-content'>
                 <div className="content_title">
                   综合倍率
                 </div>
@@ -507,34 +638,36 @@ class XMD extends BaseView {
             </div>
           </div>
           <div className='side-content content_box'>
-            <Table 
-              columns={columns} 
-              dataSource={data} 
-              pagination={false}
-              scroll={{y: 120}}
-            />
+            {this.renderTable()}
           </div>
         </div>
       )
     }
 
     renderPageTwo(){
-      return ''
-      const {
-        xmdEvent,
-        customerXmdEvent,
-        measureEvent,
-        rateEvent,
-        xmdEventTable,
-      } = this.state.pageTwo || {}; 
+
+      const pageTwo = this.state.pageTwo || {};
+      const [
+        xmdEvent = {},
+        customerXmdEvent ={},
+        measureEvent={},
+        rateEvent={},
+        xmdEventTable={}
+      ] = [
+        pageTwo.xmdEvent,
+        pageTwo.customerXmdEvent,
+        pageTwo.rateEventEvent,
+        pageTwo.measure,
+        pageTwo.xmdEventTable
+      ];
+
+      console.log(customerXmdEvent)
 
       const domHeight = $('.page-main').height();
+      if(!domHeight){return false};
       const leftChartHeight = (domHeight - 25 - 2 - 70 - 70 - 20) / 2;
       const centerChartHeight = (domHeight / 2) - 20 - 27;
       let centerTopHeight = leftChartHeight;
-      setTimeout(function(){
-        centerTopHeight = $('#centerSectionContent').height() - 35;  
-      },0);
 
       const charts1 = {
         data:xmdEvent,
@@ -581,29 +714,28 @@ class XMD extends BaseView {
 
       //事件分布信息
       const charts8 = {
-        data:translateCountToPercent(customerXmdEvent.tradeList,'tradeCount'),
+        data:customerXmdEvent.tradeList,
         height:centerTopHeight,
-        xAxis:'tradeName',
-        yAxis_line:'percent',
-        yAxis_interval:'tradeCount',
-        forceFit:true,
-        padding:'auto',
-        cols:{
-          tradeName: {
-            min: 0
-          },
-          percent: {
+        xAxis: 'tradeName',
+        yAxis_line: 'tradeCount',
+        yAxis_line_name: '占比',
+        yAxis_interval: 'percent',
+        yAxis_interval_name: '行业',
+        forceFit: false,
+        padding: 'auto',
+        cols: {
+          tradeCount: {
             min: 0
           }
         },
-        style:{
-          overflow:'auto'
+        style: {
+          overflow: 'hidden'
         },
-        xLabel:{
-          offset:15,
+        xLabel: {
+          offset: 15
         },
-        yLabel:{
-          offset:5,
+        yLabel: {
+          offset: 5
         }
       }
 
@@ -644,6 +776,8 @@ class XMD extends BaseView {
         }
       }
 
+      const totalCount = xmdEvent.totalCount || 0;
+
       return (
         <div className="slick-page"  style={{height:domHeight}}>
           <div className='side-content content_box'>
@@ -654,11 +788,11 @@ class XMD extends BaseView {
             <div className="blue_underline"></div>
             <div className='bottom-section'>
               <div className='total-num'>
-                <span className='blue-txt'>{xmdEvent.totalCount.replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</span>
+                <span className='blue-txt'>{totalCount.toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</span>
                 件
               </div>
               <div className='right-content'>
-                <Labelline {...charts1}/>
+                 {/*<Labelline {...charts1}/>*/}
               </div>
             </div>
             
@@ -689,13 +823,13 @@ class XMD extends BaseView {
                 <div className="content_title">
                   综合倍率
                 </div>
-                <Labelline {...charts3}/>
+                 {/*<Labelline {...charts3}/>*/}
               </div>
               <div className='section-content' >
                 <div className="content_title">
                   计量类型
                 </div>
-                <Labelline {...charts4}/>
+                {/*<Labelline {...charts4}/>*/}
               </div>
             </div>
           </div>
@@ -721,12 +855,16 @@ class XMD extends BaseView {
         afterChange:this.afterSlickChange.bind(this)
       };
 
+      const {
+        pageIdx
+      } = this.state;
+
       return (
         <div className='page-xmd page-slick'>
           <h1 className='page-title'>{this.state.pageTitle}</h1>
           <div className='slick-btn'>
-            <div className='btn active'></div>
-            <div className='btn'></div>
+            <div className={pageIdx == 0 ?'btn active':'btn'}></div>
+            <div className={pageIdx == 1 ?'btn active':'btn'}></div>
           </div>
           {this.renderSearchBar()}
           <div className='page-main slider_content'>
