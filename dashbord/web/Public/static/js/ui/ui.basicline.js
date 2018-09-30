@@ -20,11 +20,21 @@ import { DEFAULT_COLOR, DARK_DEFAULT_COLOR } from '../data/color'
 //基础折线图
 class BasicLine extends React.Component {
   render() {
-    if(!this.props.height){return false}
+    if (!this.props.height) {
+      return false
+    }
 
     return (
       <div>
-        <Chart  placeholder={<div className='loading'><span></span></div>} {...this.props} scale={this.props.cols}>
+        <Chart
+          placeholder={
+            <div className="loading">
+              <span />
+            </div>
+          }
+          {...this.props}
+          scale={this.props.cols}
+        >
           <Axis name={this.props.xAxis} label={this.props.xLabel} />
           <Axis name={this.props.yAxis} label={this.props.yLabel} />
           <Tooltip
