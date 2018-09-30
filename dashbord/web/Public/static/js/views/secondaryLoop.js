@@ -429,14 +429,21 @@ class SecondaryLoop extends BaseView {
   // 电流分析对比查询
   fetchQueryElecCurrentData(params) {
     const self = this
+    // 参数只能使用特定的参数，作为测试
+    params = {}
+    params = {
+      token: '234sdf234',
+      serialNum: '1430009000003609329616',
+      elecSerialNum: '1430001130021003140648',
+      occTime: '2018-06-20'
+    }
     queryElecCurrentData.setParam({
       ...params
     })
     queryElecCurrentData.excute(
       res => {
-        const elecCurrentData = res.data || {}
         let pageTwo = this.state.pageTwo || {}
-        pageTwo.xmdData = resData
+        pageTwo.elecCurrentData = res
         self.setState({
           pageTwo
         })
@@ -474,14 +481,21 @@ class SecondaryLoop extends BaseView {
     const self = this
     let data = JSON.parse(JSON.stringify(params))
     data.occTime = ''
+    // 模拟查询条件
+    data = {}
+    data = {
+      token: '234sdf234',
+      serialNum: '1430009000003708559235',
+      elecSerialNum: '1440701012212030319317',
+      occTime: '2018-07-30'
+    }
     queryXMDEvent.setParam({
       ...data
     })
     queryXMDEvent.excute(
       res => {
-        const resData = res.data || {}
         let pageTwo = this.state.pageTwo || {}
-        pageTwo.xmdEventData = resData
+        pageTwo.xmdEventData = res
         self.setState({
           pageTwo
         })
@@ -517,14 +531,23 @@ class SecondaryLoop extends BaseView {
     const self = this
     let data = JSON.parse(JSON.stringify(params))
     data.occTime = ''
+
+    // 模拟查询条件
+    data = {}
+    data = {
+      token: '234sdf234',
+      serialNum: '1440701012212030328050',
+      elecSerialNum: '1440701012212030328050',
+      occTime: '2018-07-30'
+    }
+
     queryElecEvent.setParam({
       ...data
     })
     queryElecEvent.excute(
       res => {
-        const resData = res.data || {}
         let pageTwo = this.state.pageTwo || {}
-        pageTwo.eleEventData = resData
+        pageTwo.eleEventData = res || {}
         self.setState({
           pageTwo
         })
@@ -565,14 +588,21 @@ class SecondaryLoop extends BaseView {
     // elecSerialNum	电能表资产编号	string	是		1
     // occTime	异常发生时间	string	是
     // pageOne.exceptionList = resData 列表第一条数据
+    // 模拟查询条件
+    params = {}
+    params = {
+      token: '234sdf234',
+      serialNum: '1430009000003609335198',
+      elecSerialNum: '1410101012212120538038',
+      occTime: '2018-05-30'
+    }
     queryElecData.setParam({
       ...params
     })
     queryElecData.excute(
       res => {
-        const resData = res.data || {}
         let pageTwo = this.state.pageTwo || {}
-        pageTwo.elecDayData = resData
+        pageTwo.elecDayData = res
         self.setState({
           pageTwo
         })
@@ -842,13 +872,18 @@ class SecondaryLoop extends BaseView {
 
   renderPageTwo() {
     // 正式数据
-    // let {
-    // elecCurrentData, // 电流分析对比查询
-    // xmdEventData, // 巡检仪上报事件查询
-    // eleEventData, // 电能表上报事件查询
-    // elecDayData, // 电量数据查询
-    // exceptionList, // 异常类型分布情况查询
-    // } = this.state.pageTwo || {};
+    let {
+      // elecCurrentData, // 电流分析对比查询
+      xmdEventData, // 巡检仪上报事件查询
+      eleEventData, // 电能表上报事件查询
+      elecDayData // 电量数据查询
+      // exceptionList // 异常类型分布情况查询
+    } = this.state.pageTwo || {}
+
+    xmdEventData = (xmdEventData && xmdEventData.xmdData) || []
+    eleEventData = (eleEventData && eleEventData.elecData) || []
+    elecDayData = (elecDayData && elecDayData.elecData) || []
+
     let domHeight = $('.page-main').height() // tab页面的高度
     let chartsEleA = {} // 电流分析对比查询 图表A
     let chartsEleB = {} // 电流分析对比查询 图表B
@@ -865,10 +900,10 @@ class SecondaryLoop extends BaseView {
       }, 0)
     }
     let {
-      elecCurrentData, // 电流分析对比查询
-      xmdEventData, // 巡检仪上报事件查询
-      eleEventData, // 电能表上报事件查询
-      elecDayData // 电量数据查询
+      elecCurrentData // 电流分析对比查询
+      // xmdEventData, // 巡检仪上报事件查询
+      // eleEventData, // 电能表上报事件查询
+      // elecDayData // 电量数据查询
     } = Mock
 
     // let dataA = elecCurrentData.xmdData
@@ -995,52 +1030,54 @@ class SecondaryLoop extends BaseView {
                   <div className="content_title">事件信息</div>
                   <div className="event-table">
                     <ul>
-                      {xmdEventData.map((item, index) => {
-                        return (
-                          <li key={index}>
-                            <div className="title">巡检仪上报事件</div>
-                            <div className="blue_underline" />
-                            <ul className="event_report">
-                              <li>异常类型 : {item.exception}</li>
-                              <li>事件状态 : {item.event}</li>
-                              <li>事件发生时间 : {item.eventTime}</li>
-                              <li>
-                                A相异常 : {item.phaseA ? '发生' : '未发生'}
-                              </li>
-                              <li>
-                                B相异常 : {item.phaseB ? '发生' : '未发生'}
-                              </li>
-                              <li>
-                                C相异常 : {item.phaseC ? '发生' : '未发生'}
-                              </li>
-                            </ul>
-                          </li>
-                        )
-                      })}
+                      {Array.isArray(xmdEventData) &&
+                        xmdEventData.map((item, index) => {
+                          return (
+                            <li key={index}>
+                              <div className="title">巡检仪上报事件</div>
+                              <div className="blue_underline" />
+                              <ul className="event_report">
+                                <li>异常类型 : {item.exception}</li>
+                                <li>事件状态 : {item.event}</li>
+                                <li>事件发生时间 : {item.eventTime}</li>
+                                <li>
+                                  A相异常 : {item.phaseA ? '发生' : '未发生'}
+                                </li>
+                                <li>
+                                  B相异常 : {item.phaseB ? '发生' : '未发生'}
+                                </li>
+                                <li>
+                                  C相异常 : {item.phaseC ? '发生' : '未发生'}
+                                </li>
+                              </ul>
+                            </li>
+                          )
+                        })}
                     </ul>
                     <ul>
-                      {eleEventData.map((item, index) => {
-                        return (
-                          <li key={index}>
-                            <div className="title">电能表上报事件</div>
-                            <div className="blue_underline" />
-                            <ul className="event_report">
-                              <li>异常类型 : {item.exception}</li>
-                              <li>事件状态 : {item.event}</li>
-                              <li>事件发生时间 : {item.eventTime}</li>
-                              <li>
-                                A相异常 : {item.phaseA ? '发生' : '未发生'}
-                              </li>
-                              <li>
-                                B相异常 : {item.phaseB ? '发生' : '未发生'}
-                              </li>
-                              <li>
-                                C相异常 : {item.phaseC ? '发生' : '未发生'}
-                              </li>
-                            </ul>
-                          </li>
-                        )
-                      })}
+                      {Array.isArray(eleEventData) &&
+                        eleEventData.map((item, index) => {
+                          return (
+                            <li key={index}>
+                              <div className="title">电能表上报事件</div>
+                              <div className="blue_underline" />
+                              <ul className="event_report">
+                                <li>异常类型 : {item.exception}</li>
+                                <li>事件状态 : {item.event}</li>
+                                <li>事件发生时间 : {item.eventTime}</li>
+                                <li>
+                                  A相异常 : {item.phaseA ? '发生' : '未发生'}
+                                </li>
+                                <li>
+                                  B相异常 : {item.phaseB ? '发生' : '未发生'}
+                                </li>
+                                <li>
+                                  C相异常 : {item.phaseC ? '发生' : '未发生'}
+                                </li>
+                              </ul>
+                            </li>
+                          )
+                        })}
                     </ul>
                   </div>
                 </div>
