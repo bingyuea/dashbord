@@ -138,7 +138,6 @@ class SecondaryLoop extends BaseView {
 
   fetchrowCLick(value) {
     // pageOne.dataList = resData 列表第一条数据
-    debugger
     let { serialNum, elecSerialNum, occTime } =
       (this.state.pageTwo && this.state.pageTwo.record) ||
       this.state.pageOne.dataList[0] ||
@@ -442,6 +441,7 @@ class SecondaryLoop extends BaseView {
     })
     queryElecCurrentData.excute(
       res => {
+        debugger
         let pageTwo = this.state.pageTwo || {}
         pageTwo.elecCurrentData = res
         self.setState({
@@ -869,15 +869,38 @@ class SecondaryLoop extends BaseView {
       </div>
     )
   }
-
+  elecCurrentDataToChart(elecCurrentData) {
+    let tempArr = elecCurrentData.xmdData
+      .filter(item => {
+        item.type = '巡航器'
+        return item.phase === phase
+      })
+      .concat(
+        elecCurrentData.elecData.filter(item => {
+          item.type = '电能表'
+          return item.phase === phase
+        })
+      )
+    // 展开数组 ，转化为图表数据
+    let data = []
+    tempArr.map(item => {
+      item.pointList.map(function(ele, index) {
+        let tempObj = {}
+        tempObj.type = item.type
+        tempObj.x = index
+        tempObj.y = ele
+        data.push(tempObj)
+      })
+    })
+    return data
+  }
   renderPageTwo() {
     // 正式数据
     let {
-      // elecCurrentData, // 电流分析对比查询
+      elecCurrentData, // 电流分析对比查询
       xmdEventData, // 巡检仪上报事件查询
       eleEventData, // 电能表上报事件查询
       elecDayData // 电量数据查询
-      // exceptionList // 异常类型分布情况查询
     } = this.state.pageTwo || {}
 
     xmdEventData = (xmdEventData && xmdEventData.xmdData) || []
@@ -900,29 +923,29 @@ class SecondaryLoop extends BaseView {
       }, 0)
     }
     let {
-      elecCurrentData // 电流分析对比查询
+      // elecCurrentData // 电流分析对比查询
       // xmdEventData, // 巡检仪上报事件查询
       // eleEventData, // 电能表上报事件查询
       // elecDayData // 电量数据查询
     } = Mock
 
-    // let dataA = elecCurrentData.xmdData
-    //   .filter(item => {
-    //     return item.phase === 'A相'
-    //   })
-    //   .concat(
-    //     elecCurrentData.elecData.filter(item => {
-    //       return item.phase === 'A相'
-    //     })
-    //   )
-    // console.log(dataA)
+    let dataA, dataB, dataC
+    debugger
+    if (
+      elecCurrentData &&
+      elecCurrentData.xmdData &&
+      elecCurrentData.elecData
+    ) {
+      dataA = _this.elecCurrentDataToChart(elecCurrentData, 'A 相')
+      dataB = _this.elecCurrentDataToChart(elecCurrentData, 'B 相')
+      dataC = _this.elecCurrentDataToChart(elecCurrentData, 'C 相')
+    }
     // 电流分析对比查询 图表A
     chartsEleA = {
-      data: Mock.testData,
+      data: dataA,
       height: chartsEleHeight,
-      xAxis: 'month',
-      yAxis: 'temperature',
-      // doubletype: 'type',
+      xAxis: 'x',
+      yAxis: 'y',
       doubletype: ['type', ['#ff0000', '#00ff00']],
       doubleLine: true,
       forceFit: true,
@@ -939,12 +962,11 @@ class SecondaryLoop extends BaseView {
     }
     // 电流分析对比查询 图表B
     chartsEleB = {
-      // data:yearCountData,
-      data: Mock.charts2,
-      type: 'area',
+      data: dataB,
       height: chartsEleHeight,
-      xAxis: 'year',
-      yAxis: 'count',
+      xAxis: 'x',
+      yAxis: 'y',
+      doubletype: ['type', ['#ff0000', '#00ff00']],
       forceFit: true,
       padding: 'auto',
       cols: {
@@ -964,13 +986,11 @@ class SecondaryLoop extends BaseView {
     }
     // 电流分析对比查询 图表C
     chartsEleC = {
-      // data:yearCountData,
-      data: Mock.charts2,
-      type: 'area',
+      data: dataC,
       height: chartsEleHeight,
-      xAxis: 'year',
-      yAxis: 'count',
-      doubleLine: true,
+      xAxis: 'x',
+      yAxis: 'y',
+      doubletype: ['type', ['#ff0000', '#00ff00']],
       forceFit: true,
       padding: 'auto',
       style: {
@@ -1006,15 +1026,15 @@ class SecondaryLoop extends BaseView {
           <div className="content_box">
             <div className="content_title">电流对比分析</div>
             <div className="ele_charts">
-              <p className="ele_charts_title">A组</p>
+              <p className="ele_charts_title">A相</p>
               <Basicline {...chartsEleA} />
             </div>
             <div className="ele_charts">
-              <p className="ele_charts_title">A组</p>
+              <p className="ele_charts_title">B相</p>
               <Basicline {...chartsEleB} />
             </div>
             <div className="ele_charts">
-              <p className="ele_charts_title">A组</p>
+              <p className="ele_charts_title">C相</p>
               <Basicline {...chartsEleC} />
             </div>
           </div>

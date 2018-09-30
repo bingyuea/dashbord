@@ -399,82 +399,26 @@ const Mock = {
   ],
   elecCurrentData: {
     xmdData: [
-      // {
-      //   phase: 'A相',
-      //   pointList: [0.5, 0.6, 0.9]
-      // },
       {
         phase: 'A相',
-        pointList: [
-          {
-            data: 0.5,
-            type: 'xmdData',
-            x: '2016-01-01'
-          },
-          {
-            data: 0.6,
-            type: 'elecData',
-            x: '2016-01-01'
-          },
-          {
-            data: 0.5,
-            type: 'xmdData',
-            x: '2016-01-02'
-          },
-          {
-            data: 0.6,
-            type: 'elecData',
-            x: '2016-01-02'
-          },
-          {
-            data: 0.5,
-            type: 'xmdData',
-            x: '2016-01-03'
-          },
-          {
-            data: 0.6,
-            type: 'elecData',
-            x: '2016-01-03'
-          }
-        ]
-      },
-      {
-        phase: ' B相',
         pointList: [0.5, 0.6, 0.9]
       },
       {
-        phase: ' C相',
+        phase: 'B相',
+        pointList: [0.5, 0.6, 0.9]
+      },
+      {
+        phase: 'C相',
         pointList: [0.5, 0.6, 0.9]
       }
     ],
     elecData: [
       {
         phase: 'A相',
-        pointList: [
-          {
-            y: 0.5,
-            x: '2016-01-01'
-          },
-          {
-            y: 0.6,
-            x: '2016-01-02'
-          },
-          {
-            y: 0.9,
-            x: '2016-01-03'
-          },
-          {
-            y: 0.9,
-            x: '2016-01-04'
-          },
-          {
-            y: 0.1,
-            x: '2016-01-05'
-          }
-        ]
+        pointList: [0.2, 0.1, 0.3]
       },
       {
-        phase: ' B相',
+        phase: 'B相',
         pointList: [0.5, 0.3, 0.9]
       },
       {
