@@ -95,7 +95,6 @@ class SecondaryLoop extends BaseView {
   }
 
   search(value) {
-    console.log(this.state.searchOptions)
     //拿到搜索需要参数
     let _value = value || {}
     if (!_value.province) {
@@ -138,11 +137,12 @@ class SecondaryLoop extends BaseView {
   }
 
   fetchrowCLick(value) {
-    console.log(value)
-    console.log(this.state)
-    // pageOne.exceptionList = resData 列表第一条数据
+    // pageOne.dataList = resData 列表第一条数据
+    debugger
     let { serialNum, elecSerialNum, occTime } =
-      this.state.pageTwo.record || this.state.pageOne.exceptionList[0] || {}
+      (this.state.pageTwo && this.state.pageTwo.record) ||
+      this.state.pageOne.dataList[0] ||
+      {}
     let params = { serialNum, elecSerialNum, occTime }
     /*
     *  二次回路单-异常分析2
@@ -712,7 +712,6 @@ class SecondaryLoop extends BaseView {
         offset: 5
       }
     }
-    console.log(tradeList)
     tradeListCharts = {
       data: tradeList,
       height: tradeListChartsHeight,
