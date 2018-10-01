@@ -187,23 +187,28 @@ class Dashboard extends BaseView {
         const resData = res || {}
         const listData = resData.eventList || []
         self.setState({
-          provinceEventCountData: self.formatProvinceEventCount(listData,'eventName','province','count')
+          provinceEventCountData: self.formatProvinceEventCount(
+            listData,
+            'eventName',
+            'province',
+            'count'
+          )
         })
       },
       err => {}
     )
   }
 
-  formatProvinceEventCount(list,filedsName,key,value) {
+  formatProvinceEventCount(list, filedsName, key, value) {
     if (!list) {
       return []
     }
     let newList = [],
-      target = {};
+      target = {}
     list.forEach(item => {
       target = {}
-      target.name = item[filedsName];
-      (item.detail || []).forEach(detailItem => {
+      target.name = item[filedsName]
+      ;(item.detail || []).forEach(detailItem => {
         target[detailItem[key]] = detailItem[value]
       })
       newList.push(target)
@@ -216,13 +221,12 @@ class Dashboard extends BaseView {
     if (!list) {
       return []
     }
-    var temp = JSON.stringify(list);
-    temp = JSON.parse(temp);
-    let target = [];
+    var temp = JSON.stringify(list)
+    temp = JSON.parse(temp)
+    let target = []
     temp.forEach(item => {
       delete item.name
       target = target.concat(Object.keys(item))
-
     })
 
     return uniqueArr(target)
@@ -237,7 +241,12 @@ class Dashboard extends BaseView {
         const listData = resData.eventList || []
 
         self.setState({
-          tradeEventCountMData: self.formatProvinceEventCount(listData,'trade','eventName','count')
+          tradeEventCountMData: self.formatProvinceEventCount(
+            listData,
+            'trade',
+            'eventName',
+            'count'
+          )
         })
       },
       err => {}
@@ -245,15 +254,17 @@ class Dashboard extends BaseView {
   }
 
   //地图数据
-  formatMapData(list){
-    if(!list || list.length == 0){return}
-    let mapData = [];
-    list.map(item=>{
+  formatMapData(list) {
+    if (!list || list.length == 0) {
+      return
+    }
+    let mapData = []
+    list.map(item => {
       mapData.push({
-        city:item.name,
-        name:item.name,
-        userValue:item.count
-      });
+        city: item.name,
+        name: item.name,
+        userValue: item.count
+      })
     })
     return mapData
   }
@@ -402,13 +413,12 @@ class Dashboard extends BaseView {
     )
   }
   renderPageCenter() {
-    const { provinceCountData } = this.state || {};
+    const { provinceCountData } = this.state || {}
 
     const height = $('.page-center').height()
     const mapHeight = height - 80 - 80 - 20 - 50
-    
 
-    const mapData = this.formatMapData(provinceCountData);
+    const mapData = this.formatMapData(provinceCountData)
     // const mapData = this.formatMapData(Mock.charts1);
     // console.log(mapData)
     return (
@@ -458,7 +468,7 @@ class Dashboard extends BaseView {
     //事件有效性
     const charts6 = {
       // data:validityEventCountData,
-      data:eventCountData? Mock.charts6:'',
+      data: eventCountData ? Mock.charts6 : '',
       height: chartHeight,
       innerRadius: 0.6,
       forceFit: true,
@@ -516,8 +526,8 @@ class Dashboard extends BaseView {
       fieldsName: 'name',
       forceFit: false,
       style: {
-        overflow: 'auto'
-      },
+        overflow: 'hidden'
+      }
     }
 
     return (

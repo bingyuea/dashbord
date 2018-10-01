@@ -72,7 +72,7 @@ class QueryXMDEvent extends BaseModel {
   constructor(props) {
     super(props)
     this.url =
-      __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryXMDEvent'
+      __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryInspecEvent'
   }
 }
 // 电能表上报事件查询
