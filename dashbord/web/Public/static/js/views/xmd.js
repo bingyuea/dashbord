@@ -74,49 +74,42 @@ class XMD extends BaseView {
             {
               title: '所属地市',
               dataIndex: 'place',
-              width: 60,
+              width:'14.8%',
               align: 'center',
               key: 'city'
             },
             {
-              title: '所属区县',
-              dataIndex: 'region',
-              width: 60,
-              align: 'center',
-              key: 'region'
-            },
-            {
               title: '巡检仪资产编号',
               dataIndex: 'serialNum',
-              width: 60,
+              width:'28%',
               align: 'center',
               key: 'serialNum'
             },
             {
               title: '行业类别',
               dataIndex: 'trade',
-              width: 60,
+              width:'14.8%',
               align: 'center',
               key: 'trade'
             },
             {
               title: '异常类型',
               dataIndex: 'exception',
-              width: 60,
-              key: 'exception',
-              align: 'center'
+              width:'14.8%',
+              align: 'center',
+              key: 'exception'
             },
             {
               title: '异常日期',
               dataIndex: 'occTime',
-              width: 60,
+              width:'14.8%',
               align: 'center',
               key: 'occTime'
             },
             {
               title: '恢复日期',
               dataIndex: 'recoverTime',
-              width: 60,
+              width:'14.8%',
               align: 'center',
               key: 'recoverTime'
             }
@@ -125,49 +118,42 @@ class XMD extends BaseView {
             {
               title: '所属地市',
               dataIndex: 'place',
-              width: 60,
+              width:'14.8%',
               align: 'center',
               key: 'city'
             },
             {
-              title: '所属区县',
-              dataIndex: 'region',
-              width: 60,
-              align: 'center',
-              key: 'region'
-            },
-            {
               title: '巡检仪资产编号',
               dataIndex: 'serialNum',
-              width: 60,
+              width:'28%',
               align: 'center',
               key: 'serialNum'
             },
             {
               title: '行业类别',
               dataIndex: 'trade',
-              width: 60,
+              width:'14.8%',
               align: 'center',
               key: 'trade'
             },
             {
               title: '安装日期',
               dataIndex: 'time',
-              width: 60,
+              width:'14.8%',
               key: 'time',
               align: 'center'
             },
             {
               title: '综合倍率',
               dataIndex: 'rate',
-              width: 60,
+              width:'14.8%',
               align: 'center',
               key: 'rate'
             },
             {
               title: '接线方式',
               dataIndex: 'measureName',
-              width: 60,
+              width:'14.8%',
               align: 'center',
               key: 'measureName'
             }
@@ -436,6 +422,11 @@ class XMD extends BaseView {
       });
     }
 
+    //切换轮播
+    slickBtn(idx){
+      this.slider.slickGoTo(idx);
+    }
+
     renderTable(pageIdx,table) {
 
       const {
@@ -454,8 +445,16 @@ class XMD extends BaseView {
         return item
       })
 
-      console.log(list)
-      let tableHeight = $('#tableHeight').height() - 60 // table表格的高度
+      const domHeight = $('.page-main').height();
+      const domWidth = $('body').width();
+
+      const tableWidth = ((domWidth - 30) * 0.3) - 20;
+
+      if(!domHeight){return false};
+
+      const tableHeight = domHeight - 10 - 24 - 20;
+      
+
       let self = this
 
       $('.scrollTable .ant-table-body').on('scroll', function() {
@@ -474,7 +473,7 @@ class XMD extends BaseView {
       const title = pageIdx == 0 ? '巡检仪档案信息':'巡检仪上报事件';
 
       return (
-        <div>
+        <div className='table-box'>
           <div className="content_title">{title}</div>
           <div className="content-table">
             <Table
@@ -482,7 +481,7 @@ class XMD extends BaseView {
               columns={columns}
               dataSource={list}
               pagination={false}
-              scroll={{ y: tableHeight }}
+              scroll={{y: tableHeight }}
             />
           </div>
         </div>
@@ -510,7 +509,7 @@ class XMD extends BaseView {
       const domHeight = $('.page-main').height();
       if(!domHeight){return false}
       const leftChartHeight = (domHeight - 25 - 2 - 70 - 70 - 20) / 2;
-      const centerChartHeight = (domHeight / 2) - 20 - 27;
+      const centerChartHeight = ((domHeight - 10 - 15) /2) - 4 - 20 - 20;
       let centerTopHeight = leftChartHeight;
       
       //巡检仪上线数
@@ -519,7 +518,7 @@ class XMD extends BaseView {
         height:leftChartHeight,
         xAxis:'period',
         yAxis:'periodCount',
-        forceFit:true,
+        forceFit:false,
         padding:'auto',
         style:{
           overflow:'auto',
@@ -537,7 +536,7 @@ class XMD extends BaseView {
         height:leftChartHeight,
         xAxis:'area',
         yAxis:'areaCount',
-        forceFit:true,
+        forceFit:false,
         padding:'auto',
         style:{
           overflow:'auto',
@@ -888,12 +887,12 @@ class XMD extends BaseView {
         <div className='page-xmd page-slick'>
           <h1 className='page-title'>{this.state.pageTitle}</h1>
           <div className='slick-btn'>
-            <div className={pageIdx == 0 ?'btn active':'btn'}></div>
-            <div className={pageIdx == 1 ?'btn active':'btn'}></div>
+            <div className={pageIdx == 0 ?'btn active':'btn'} onClick={this.slickBtn.bind(this,0)}></div>
+            <div className={pageIdx == 1 ?'btn active':'btn'} onClick={this.slickBtn.bind(this,1)}></div>
           </div>
           {this.renderSearchBar()}
           <div className='page-main slider_content'>
-            <Slider {...settings}>
+            <Slider {...settings} ref={slider=>this.slider = slider}>
               <div className="slider_sec">
                 {this.renderPageOne()}
               </div>
