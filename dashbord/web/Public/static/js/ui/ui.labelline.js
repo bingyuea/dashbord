@@ -17,7 +17,8 @@ import {
 import DataSet from "@antv/data-set";
 
 import {
-  COLOR_PLATE_8
+  COLOR_PLATE_8,
+  COLOR_PLATE_24
 } from '../data/color'
 
 //饼图
@@ -58,7 +59,7 @@ class Labelline extends React.Component {
           <Geom
             type="intervalStack"
             position="percent"
-            color={[this.props.dimension, COLOR_PLATE_8]}
+            color={[this.props.dimension, COLOR_PLATE_24]}
             tooltip={[
               `${this.props.dimension}*percent`,
               (item, percent) => {

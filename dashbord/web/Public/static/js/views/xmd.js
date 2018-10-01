@@ -69,7 +69,109 @@ class XMD extends BaseView {
         const lastday = moment().add(-1, 'days').format(dateFormat);
 
         this.indata = {
-          defaultTime:['2001-01-01 00:00',today]
+          defaultTime:['2001-01-01 00:00',today],
+          pageTwoTableCloumn:[
+            {
+              title: '所属地市',
+              dataIndex: 'place',
+              width: 60,
+              align: 'center',
+              key: 'city'
+            },
+            {
+              title: '所属区县',
+              dataIndex: 'region',
+              width: 60,
+              align: 'center',
+              key: 'region'
+            },
+            {
+              title: '巡检仪资产编号',
+              dataIndex: 'serialNum',
+              width: 60,
+              align: 'center',
+              key: 'serialNum'
+            },
+            {
+              title: '行业类别',
+              dataIndex: 'trade',
+              width: 60,
+              align: 'center',
+              key: 'trade'
+            },
+            {
+              title: '异常类型',
+              dataIndex: 'exception',
+              width: 60,
+              key: 'exception',
+              align: 'center'
+            },
+            {
+              title: '异常日期',
+              dataIndex: 'occTime',
+              width: 60,
+              align: 'center',
+              key: 'occTime'
+            },
+            {
+              title: '恢复日期',
+              dataIndex: 'recoverTime',
+              width: 60,
+              align: 'center',
+              key: 'recoverTime'
+            }
+          ],
+          pageOneTableCloumn:[
+            {
+              title: '所属地市',
+              dataIndex: 'place',
+              width: 60,
+              align: 'center',
+              key: 'city'
+            },
+            {
+              title: '所属区县',
+              dataIndex: 'region',
+              width: 60,
+              align: 'center',
+              key: 'region'
+            },
+            {
+              title: '巡检仪资产编号',
+              dataIndex: 'serialNum',
+              width: 60,
+              align: 'center',
+              key: 'serialNum'
+            },
+            {
+              title: '行业类别',
+              dataIndex: 'trade',
+              width: 60,
+              align: 'center',
+              key: 'trade'
+            },
+            {
+              title: '安装日期',
+              dataIndex: 'time',
+              width: 60,
+              key: 'time',
+              align: 'center'
+            },
+            {
+              title: '综合倍率',
+              dataIndex: 'rate',
+              width: 60,
+              align: 'center',
+              key: 'rate'
+            },
+            {
+              title: '接线方式',
+              dataIndex: 'measureName',
+              width: 60,
+              align: 'center',
+              key: 'measureName'
+            }
+          ],
         }
     }
 
@@ -96,7 +198,7 @@ class XMD extends BaseView {
         _value.startTime = this.indata.defaultTime[0];
         _value.endTime = this.indata.defaultTime[1];
       }
-      // this.fetchPageOne(_value);
+      this.fetchPageOne(_value);
       this.fetchPageTwo(_value);
     }
 
@@ -334,82 +436,25 @@ class XMD extends BaseView {
       });
     }
 
-    renderTable() {
-      return ''
-      let columns = [
-        {
-          title: '所属城市',
-          dataIndex: 'city',
-          width: 60,
-          align: 'center',
-          key: 'city'
-        },
-        {
-          title: '所属区县',
-          dataIndex: 'region',
-          width: 60,
-          align: 'center',
-          key: 'region'
-        },
-        {
-          title: '巡检仪资产编号',
-          dataIndex: 'serialNum',
-          width: 60,
-          align: 'center',
-          key: 'serialNum'
-        },
-        {
-          title: '电能表资产编号',
-          dataIndex: 'elecSerialNum',
-          width: 60,
-          align: 'center',
-          key: 'elecSerialNum'
-        },
-        {
-          title: '户名',
-          dataIndex: 'username',
-          width: 60,
-          align: 'center',
-          key: 'username'
-        },
-        {
-          title: '用电类型',
-          dataIndex: 'trade',
-          width: 60,
-          align: 'center',
-          key: 'trade'
-        },
-        {
-          title: '异常类型',
-          dataIndex: 'name',
-          width: 60,
-          key: 'name',
-          align: 'center'
-        },
-        {
-          title: '异常日期',
-          dataIndex: 'occTime',
-          width: 60,
-          align: 'center',
-          key: 'occTime'
-        },
-        {
-          title: '恢复日期',
-          dataIndex: 'recoverTime',
-          width: 60,
-          align: 'center',
-          key: 'recoverTime'
-        }
-      ]
-      // 正式数据
-      // let {
-      //     dataList, // 异常信息表查询
-      // } = this.state.pageOne;
-      
-      let tableData = dataList.dataList
-      tableData.map((item, index) => {
-        return (item.key = index)
+    renderTable(pageIdx,table) {
+
+      const {
+        pageOneTableCloumn,
+        pageTwoTableCloumn
+      } = this.indata;
+
+      const columns = pageIdx == 0 ?pageOneTableCloumn:pageTwoTableCloumn;
+
+      //增加目前是否选择了城市的判断
+      //TODO
+      const tableData = table || [];
+
+      let list = tableData.map((item, index) => {
+        item.key = index
+        return item
       })
+
+      console.log(list)
       let tableHeight = $('#tableHeight').height() - 60 // table表格的高度
       let self = this
 
@@ -421,41 +466,23 @@ class XMD extends BaseView {
           scrollTop = $(this).scrollTop(),
           distance = 100
 
-        console.log('viewH' + viewH)
-        console.log('contentH' + contentH)
-        console.log('scrollTop' + scrollTop)
-
         if (contentH - viewH - scrollTop <= distance) {
-          //到达底部100px时,加载新内容
-          // 这里加载数据..
-          console.log('加载数据')
-          console.log(dataList)
-          self.fetchPageTwo(value)
+          // self.fetchPageTwo(value)
         }
       })
 
+      const title = pageIdx == 0 ? '巡检仪档案信息':'巡检仪上报事件';
+
       return (
         <div>
-          <div className="content_title">二次回路异常事件</div>
+          <div className="content_title">{title}</div>
           <div className="content-table">
             <Table
               className={'scrollTable'}
               columns={columns}
-              dataSource={tableData}
+              dataSource={list}
               pagination={false}
               scroll={{ y: tableHeight }}
-              onRow={record => {
-                return {
-                  onClick: () => {
-                    let pageTwo = self.state.pageTwo || {}
-                    pageTwo.record = record
-                    self.setState({
-                      pageTwo
-                    })
-                    self.fetchrowCLick(record)
-                  }
-                }
-              }}
             />
           </div>
         </div>
@@ -638,7 +665,7 @@ class XMD extends BaseView {
             </div>
           </div>
           <div className='side-content content_box'>
-            {this.renderTable()}
+            {this.renderTable(0,table.dataList)}
           </div>
         </div>
       )
@@ -650,18 +677,16 @@ class XMD extends BaseView {
       const [
         xmdEvent = {},
         customerXmdEvent ={},
-        measureEvent={},
         rateEvent={},
+        measureEvent={},
         xmdEventTable={}
       ] = [
         pageTwo.xmdEvent,
         pageTwo.customerXmdEvent,
-        pageTwo.rateEventEvent,
-        pageTwo.measure,
+        pageTwo.rateEvent,
+        pageTwo.measureEvent,
         pageTwo.xmdEventTable
       ];
-
-      console.log(customerXmdEvent)
 
       const domHeight = $('.page-main').height();
       if(!domHeight){return false};
@@ -823,18 +848,18 @@ class XMD extends BaseView {
                 <div className="content_title">
                   综合倍率
                 </div>
-                 {/*<Labelline {...charts3}/>*/}
+                <Labelline {...charts3}/>
               </div>
               <div className='section-content' >
                 <div className="content_title">
                   计量类型
                 </div>
-                {/*<Labelline {...charts4}/>*/}
+                <Labelline {...charts4}/>
               </div>
             </div>
           </div>
           <div className='side-content content_box'>
-            
+            {this.renderTable(1,xmdEventTable.rateList)}
           </div>
         </div>
       )
