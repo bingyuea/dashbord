@@ -23,47 +23,47 @@ class Status2 extends Component {
     }
   }
   componentDidMount() {
-    // this.fetchQuerySecondLoopExceptionDetailData()
+    this.fetchQuerySecondLoopExceptionDetailData()
 
-    this.setState({
-      detailData:{
-        "result":1,
-        "username":"张三",
-        "province":"江苏省",
-        "city":"南京市",
-        "serialNum":"SN1234325",
-        "elecType":"SN1234325",
-        "trade":"大工业用电",
-        "rate":1000,
-        "measure":"三相三线",
-        "grade":98,
-        "gradeTrend":0.01,
-        "ranking":0.01,
-        " rankingTrend":0.01,
-        "eventList":[
-        {
-          "eventName":"电流流失",
-          "date":"2017-10-11"
-        },
-          {
-          "eventName":"电流流失",
-          "date":"2017-10-11"
-        }
-        ],
-        "gradeList":[
-        {
-          "grade":99,
-          "date":"2017-10"
-        },
-          {
-          "grade":98,
-          "date":"2017-11"
-        }
-        ]
+    // this.setState({
+    //   detailData:{
+    //     "result":1,
+    //     "username":"张三",
+    //     "province":"江苏省",
+    //     "city":"南京市",
+    //     "serialNum":"SN1234325",
+    //     "elecType":"SN1234325",
+    //     "trade":"大工业用电",
+    //     "rate":1000,
+    //     "measure":"三相三线",
+    //     "grade":98,
+    //     "gradeTrend":0.01,
+    //     "ranking":0.01,
+    //     " rankingTrend":0.01,
+    //     "eventList":[
+    //     {
+    //       "eventName":"电流流失",
+    //       "date":"2017-10-11"
+    //     },
+    //       {
+    //       "eventName":"电流流失",
+    //       "date":"2017-10-11"
+    //     }
+    //     ],
+    //     "gradeList":[
+    //     {
+    //       "grade":99,
+    //       "date":"2017-10"
+    //     },
+    //       {
+    //       "grade":98,
+    //       "date":"2017-11"
+    //     }
+    //     ]
 
-      }
+    //   }
 
-    })
+    // })
   }
 
 
@@ -73,7 +73,7 @@ class Status2 extends Component {
       token:"234sdf234",
       serialNum:"1430009000003609335198",
       elecSerialNum:"1410101012212120538038",
-      date:"2018-05-30"
+      date:"2018-05"
     }
     querySecondLoopExceptionDetailData.setParam(value);
     querySecondLoopExceptionDetailData.excute((res)=>{
@@ -88,7 +88,11 @@ class Status2 extends Component {
   }
 
   renderPageCenter() {
-    const { provinceCountData } = this.state
+    const { 
+      city,
+      province
+
+    } = this.state
     const height = $('.section-content.map').height()
     const mapHeight = height - 50
 

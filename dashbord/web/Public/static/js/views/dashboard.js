@@ -57,14 +57,14 @@ class Dashboard extends BaseView {
 
   pageInit() {
     this.fetchProvinceCount()
-    this.fetchYearCount()
-    this.fetchMeasureCount()
-    this.fetchRateCount()
-    this.fetchTradeCount()
-    this.fetchEventCount()
-    this.fetchValidityEventCount()
-    this.fetchProvinceEventCount()
-    this.fetchTradeEventCount()
+    // this.fetchYearCount()
+    // this.fetchMeasureCount()
+    // this.fetchRateCount()
+    // this.fetchTradeCount()
+    // this.fetchEventCount()
+    // this.fetchValidityEventCount()
+    // this.fetchProvinceEventCount()
+    // this.fetchTradeEventCount()
   }
 
   //不同省份安装情况
@@ -418,9 +418,11 @@ class Dashboard extends BaseView {
     const height = $('.page-center').height()
     const mapHeight = height - 80 - 80 - 20 - 50
 
-    const mapData = this.formatMapData(provinceCountData);
-    // const mapData = this.formatMapData(Mock.charts1);
+    // const mapData = this.formatMapData(provinceCountData);
+    const mapData = this.formatMapData(Mock.charts1);
     // console.log(mapData)
+    
+    
     return (
       <div className="page-center">
         <h1>巡检仪大数据分析平台</h1>

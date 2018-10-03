@@ -6,7 +6,7 @@ import{
     cityMap
 } from '../data/map-data';
 
-//基础折线图
+//Echart地图下钻
 class ChinaMapEcharts extends React.Component {
 
 

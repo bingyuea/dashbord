@@ -34,9 +34,9 @@ echarts.extendsMap = function(id, opt) {
   var name = [opt.mapName];
   var idx = 0;
   var pos = {
-      leftPlus: 115,
-      leftCur: 150,
-      left: 198,
+      leftPlus: 50,
+      leftCur: 0,
+      left: 0,
       top: 50
   };
 
@@ -49,7 +49,8 @@ echarts.extendsMap = function(id, opt) {
   var style = {
       font: '18px "Microsoft YaHei", sans-serif',
       textColor: '#eee',
-      lineColor: 'rgba(147, 235, 248, .8)'
+      lineTopColor: 'rgba(147, 235, 248, .0)',
+      lineBottomColor:'rgba(147, 235, 248, .8)'
   };
 
   var handleEvents = {
@@ -95,6 +96,7 @@ echarts.extendsMap = function(id, opt) {
               };
               name.splice(j + 1, l);
               idx = j;
+              
               pos.leftCur -= pos.leftPlus * (l - j - 1);
           };
 
@@ -151,23 +153,26 @@ echarts.extendsMap = function(id, opt) {
               id: name,
               left: pos.leftCur + pos.leftPlus,
               top: pos.top + 3,
-              children: [{
-                  type: 'polyline',
-                  left: -90,
-                  top: -5,
-                  shape: {
-                      points: line
-                  },
-                  style: {
-                      stroke: '#fff',
-                      key: name
-                      // lineWidth: 2,
-                  },
-                  onclick: function() {
-                      var name = this.style.key;
-                      handleEvents.resetOption(chart, option, name);
-                  }
-              }, {
+              children: [
+              //箭头
+              // {
+              //     type: 'polyline',
+              //     left: -90,
+              //     top: -30,
+              //     shape: {
+              //         points: line
+              //     },
+              //     style: {
+              //         stroke: '#f00',
+              //         key: name
+              //         // lineWidth: 2,
+              //     },
+              //     onclick: function() {
+              //         var name = this.style.key;
+              //         handleEvents.resetOption(chart, option, name);
+              //     }
+              // },
+               {
                   type: 'text',
                   left: -68,
                   top: 'middle',
@@ -188,7 +193,7 @@ echarts.extendsMap = function(id, opt) {
                   style: {
 
                       name: name,
-                      text: cityToPinyin[name] ? cityToPinyin[name].toUpperCase() : '',
+                      // text: cityToPinyin[name] ? cityToPinyin[name].toUpperCase() : '',地图英文名
                       textAlign: 'center',
                       fill: style.textColor,
                       font: '12px "Microsoft YaHei", sans-serif',
@@ -273,12 +278,12 @@ echarts.extendsMap = function(id, opt) {
                   y2: 0
               },
               style: {
-                  stroke: style.lineColor,
+                  stroke: style.lineTopColor,
               }
           }, {
               type: 'line',
               left: 0,
-              top: 20,
+              top: 10,
               shape: {
                   x1: 0,
                   y1: 0,
@@ -286,7 +291,7 @@ echarts.extendsMap = function(id, opt) {
                   y2: 0
               },
               style: {
-                  stroke: style.lineColor,
+                  stroke: style.lineBottomColor,
               }
           }]
       }, 
@@ -328,7 +333,7 @@ echarts.extendsMap = function(id, opt) {
               left: 0,
               top: 10,
               style: {
-                  text: 'China',
+                  // text: 'China',
                   textAlign: 'center',
                   fill: style.textColor,
                   font: '12px "Microsoft YaHei", sans-serif',
