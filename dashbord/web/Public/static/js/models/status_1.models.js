@@ -11,6 +11,15 @@ class GetTopTenOfSecondLoopException extends BaseModel {
   }
 }
 
+// 区域二次回路状态评估
+class GetTopTenOfSecondLoopException extends BaseModel {
+  constructor(props) {
+    super(props)
+    this.url =
+      __mei_wei__.env.restfulapi +
+      '/ele/shangcen/xmdplatform/getTopTenOfSecondLoopException'
+  }
+}
 module.exports = {
   GetTopTenOfSecondLoopException
 }
