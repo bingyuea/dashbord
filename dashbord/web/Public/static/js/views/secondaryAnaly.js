@@ -245,6 +245,21 @@ class SecondaryAnaly extends Component {
     return <SearchBar {...barOptions} />
   }
 
+  getThemeData(sourceData, nameList) {
+    if (nameList.length > 0) {
+      let arr = []
+      nameList.forEach((ele, index) => {
+        sourceData.map(item => {
+          let temp = {}
+          temp[item.period] = item[ele]
+          temp['name'] = `${item[ele]}`
+          arr.push(temp)
+        })
+      })
+      return arr
+    }
+  }
+
   renderPageOne() {
     // 正式数据
     // debugger
@@ -268,10 +283,35 @@ class SecondaryAnaly extends Component {
     console.log(totalCount)
     console.log(periodList)
     console.log(periodListLine)
-
-    let fieldsList = periodListLine.map(item => {
-      return item.period
-    })
+    let fieldsList = []
+    if (periodListLine && periodListLine.length > 0) {
+      fieldsList = periodListLine.map(item => {
+        return item.period
+      })
+    }
+    // stealingPower	疑似窃电	double
+    // trouble	设备故障	double
+    // wiringFault	错接线	double
+    // expansion	配变需扩容	double
+    // maintain	现场需维护	double
+    // failure	电池失效	double
+    // loopExce	回路异常	double
+    // elecExec	用电异常	double
+    let nameList = [
+      'stealingPower',
+      'trouble',
+      'wiringFault',
+      'expansion',
+      'maintain',
+      'failure',
+      'loopExce',
+      'elecExec'
+    ]
+    let data = []
+    if (periodListLine && periodListLine.length > 0) {
+      data = _this.getThemeData(periodListLine, nameList)
+    }
+    console.log(data)
     periodListCharts = {
       data: periodList,
       type: 'area',
@@ -292,6 +332,7 @@ class SecondaryAnaly extends Component {
         offset: 5
       }
     }
+
     theme = {
       data: [
         {
@@ -320,7 +361,7 @@ class SecondaryAnaly extends Component {
       fields: fieldsList,
       keyName: '时间',
       value: '事件数量',
-      fieldsName: 'period',
+      fieldsName: 'name',
       style: {
         overflow: 'hidden'
       },
