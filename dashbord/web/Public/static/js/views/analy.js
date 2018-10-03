@@ -51,7 +51,12 @@ class Analy extends Component {
     const { provinceCountData } = this.state
     const height = $('.section-content.map').height()
     const mapHeight = height - 50
-
+    let _this = this
+    if (!height) {
+      let time = setTimeout(function() {
+        _this.forceUpdate()
+      }, 0)
+    }
     const mapData = {
       height: mapHeight,
       // userData:provinceCountData,
@@ -77,6 +82,13 @@ class Analy extends Component {
   }
   render() {
     let appview = $('#appview').height()
+    const domHeight = $('.page-main').height()
+    let _this = this
+    if (!domHeight) {
+      let time = setTimeout(function() {
+        _this.forceUpdate()
+      }, 0)
+    }
     let { exceptionDataObj } = this.state
     const exceptionData =
       (exceptionDataObj && exceptionDataObj.rankData[0]) || {}
@@ -90,17 +102,10 @@ class Analy extends Component {
         })
       }
     }
-    // console.log(exceptionData)
+    console.log(exceptionData)
     // 这里本是有值的
 
     // debugger
-    const domHeight = $('.page-main').height()
-    let _this = this
-    if (!domHeight) {
-      let time = setTimeout(function() {
-        _this.forceUpdate()
-      }, 0)
-    }
     return (
       <div className="page-analy page-dashboard" style={{ height: domHeight }}>
         <div className="page-left">
@@ -116,12 +121,12 @@ class Analy extends Component {
                   exceptionData.stealingPowerRanking.map((item, index) => {
                     return (
                       <div
-                        key={item.key}
                         className={
                           (index + 1) % 2 === 0
                             ? ['row3 flex-layout ']
                             : ['row2 flex-layout ']
                         }
+                        key={item.index}
                       >
                         <div className="flex">{item.user}</div>
                         <div className="flex">{item.index}</div>
@@ -149,7 +154,7 @@ class Analy extends Component {
                             ? ['row3 flex-layout ']
                             : ['row2 flex-layout ']
                         }
-                        key={item.user}
+                        key={item.key}
                       >
                         <div className="flex">{item.user}</div>
                         <div className="flex">{item.index}</div>
@@ -177,7 +182,7 @@ class Analy extends Component {
                             ? ['row3 flex-layout ']
                             : ['row2 flex-layout ']
                         }
-                        key={item.user}
+                        key={item.key}
                       >
                         <div className="flex">{item.user}</div>
                         <div className="flex">{item.index}</div>
@@ -205,7 +210,7 @@ class Analy extends Component {
                             ? ['row3 flex-layout ']
                             : ['row2 flex-layout ']
                         }
-                        key={item.user}
+                        key={item.key}
                       >
                         <div className="flex">{item.user}</div>
                         <div className="flex">{item.index}</div>
@@ -235,7 +240,7 @@ class Analy extends Component {
                             ? ['row3 flex-layout ']
                             : ['row2 flex-layout ']
                         }
-                        key={item.user}
+                        key={item.key}
                       >
                         <div className="flex">{item.user}</div>
                         <div className="flex">{item.index}</div>
@@ -262,7 +267,7 @@ class Analy extends Component {
                             ? ['row3 flex-layout ']
                             : ['row2 flex-layout ']
                         }
-                        key={item.user}
+                        key={item.key}
                       >
                         <div className="flex">{item.user}</div>
                         <div className="flex">{item.index}</div>
@@ -317,7 +322,7 @@ class Analy extends Component {
                             ? ['row3 flex-layout ']
                             : ['row2 flex-layout ']
                         }
-                        key={item.user}
+                        key={item.key}
                       >
                         <div className="flex">{item.user}</div>
                         <div className="flex">{item.index}</div>

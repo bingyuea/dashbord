@@ -75,7 +75,7 @@ class SecondaryAnaly extends Component {
       _value.endTime = this.indata.defaultTime[1]
     }
 
-    this.fetchPageOne(_value)
+    // this.fetchPageOne(_value)
   }
 
   fetchPageOne(value) {
