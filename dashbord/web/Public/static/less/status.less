@@ -1,10 +1,10 @@
 .page-status {
-    .left,.right{
-        width: 17%;
-        min-width: 183px;
-        margin-top: 60px;
-        height: calc(~"100% - 60px");
-       
+    .status-main{
+        display: flex;
+        flex-direction: row;
+    }
+    .page-left,.page-right{
+        width: 20%;
             .label {
                 height: 40px;
                 color: #fff;
@@ -36,6 +36,9 @@
                     align-self: center;
                 }
             }
+    }
+    .page-center{
+        flex:1;
     }
     .center {
         text-align: center;

@@ -8,7 +8,7 @@ import SecondaryAnaly from './../views/SecondaryAnaly'
 import { ChinaMapChart } from '../ui/ui.charts'
 import Slider from 'react-slick'
 import {
-  //异常数据统计
+  //异常数据统计a
   QueryElecCurrentData,
   //二次回路异常事件查询
   QuerySecondLoopExceptionCount
