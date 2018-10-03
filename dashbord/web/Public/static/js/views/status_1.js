@@ -80,6 +80,14 @@ class Status1 extends Component {
     let appview = $('.page-main').height()
     let { dataList } = this.state || {}
     dataList = (dataList && dataList.dataList) || []
+    console.log(dataList)
+
+    // dataList = [
+    //   {
+    //     user: '111',
+    //     assessedValue: 1
+    //   }
+    // ]
     debugger
     return (
       <div className="status-main page" style={{ height: appview }}>
