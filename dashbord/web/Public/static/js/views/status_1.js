@@ -20,8 +20,12 @@ class Status1 extends Component {
     })
     let params = {
       token: '234sdf234',
-      province: '西安'
+      province: '山西',
+      startTime: '2011-01',
+      endTime: '2019-01'
+      // data: 'yyyy-mm'
     }
+    // {"token":"234sdf234","province":"山西","startTime":"2011-01","endTime":"2019-01"}
     //  '{"token":"234sdf234","province":"西安"}'
     this.FetchGetTopTenOfSecondLoopExceptionTop(params)
   }
@@ -32,25 +36,11 @@ class Status1 extends Component {
     getTopTenOfSecondLoopExceptionTop.setParam({ ...value })
     getTopTenOfSecondLoopExceptionTop.excute(
       res => {
+        debugger
         let dataList = res || {}
         self.setState({
           dataList
         })
-        // {
-        //     "result":1,
-        //     "dataList":[
-        //         {
-        //             "serialNum":"123",
-        //             "elecSerialNum":"123",
-        //             "assessedValue":85.66
-        //         },
-        //         {
-        //             "serialNum":"1243",
-        //             "elecSerialNum":"1243",
-        //             "assessedValue":82.66
-        //         }
-        //     ]
-        // }
       },
       err => {
         console.log(err)
@@ -88,7 +78,9 @@ class Status1 extends Component {
   }
   render() {
     let appview = $('.page-main').height()
-
+    let { dataList } = this.state || {}
+    dataList = (dataList && dataList.dataList) || []
+    debugger
     return (
       <div className="status-main page" style={{ height: appview }}>
         <div className="page-left ">
@@ -98,42 +90,22 @@ class Status1 extends Component {
               <h6 className="h6 flex">用户</h6>
               <h6 className="h6 flex">评估值</h6>
             </div>
-            <div className="row2 flex-layout">
-              <div className="flex"> </div>
-              <div className="flex" />
-            </div>
-            <div className="row1 flex-layout">
-              <div className="flex"> </div>
-              <div className="flex" />
-            </div>
-            <div className="row2 flex-layout">
-              <div className="flex"> </div>
-              <div className="flex" />
-            </div>
-            <div className="row1 flex-layout">
-              <div className="flex"> </div>
-              <div className="flex" />
-            </div>
-            <div className="row2 flex-layout">
-              <div className="flex"> </div>
-              <div className="flex" />
-            </div>
-            <div className="row1 flex-layout">
-              <div className="flex"> </div>
-              <div className="flex" />
-            </div>
-            <div className="row2 flex-layout">
-              <div className="flex"> </div>
-              <div className="flex" />
-            </div>
-            <div className="row1 flex-layout">
-              <div className="flex"> </div>
-              <div className="flex" />
-            </div>
-            <div className="row2 flex-layout">
-              <div className="flex"> </div>
-              <div className="flex" />
-            </div>
+            {Array.isArray(dataList) &&
+              dataList.map((item, index) => {
+                return (
+                  <div
+                    className={
+                      (index + 1) % 2 === 0
+                        ? ['row2 flex-layout ']
+                        : ['row1 flex-layout ']
+                    }
+                    key={index}
+                  >
+                    <div className="flex">{item.user}</div>
+                    <div className="flex">{item.assessedValue}</div>
+                  </div>
+                )
+              })}
           </div>
         </div>
         {this.renderPageCenter()}
