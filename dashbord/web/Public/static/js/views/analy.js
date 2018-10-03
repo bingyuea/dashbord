@@ -79,19 +79,20 @@ class Analy extends Component {
     let appview = $('#appview').height()
     let { exceptionDataObj } = this.state
     const exceptionData =
-      (exceptionDataObj && exceptionDataObj.rankData[0]) || []
+      (exceptionDataObj && exceptionDataObj.rankData[0]) || {}
     // 这里是不需要做去重处理
-    let arr = []
-    if (Array.isArray(exceptionData)) {
-      exceptionData.map(item => {
-        let temp = []
-        temp = item.map((ele, index) => {
-          return (ele.key = index)
+    let data = {}
+    if (JSON.stringify(exceptionData) !== '{}') {
+      for (let k in exceptionData) {
+        exceptionData[k].map((item, index) => {
+          item.key = index
+          return item
         })
-        arr.push(temp)
-      })
+      }
     }
-    console.log(arr)
+    // console.log(exceptionData)
+    // 这里本是有值的
+
     // debugger
     const domHeight = $('.page-main').height()
     let _this = this
@@ -115,6 +116,7 @@ class Analy extends Component {
                   exceptionData.stealingPowerRanking.map((item, index) => {
                     return (
                       <div
+                        key={item.key}
                         className={
                           (index + 1) % 2 === 0
                             ? ['row3 flex-layout ']
