@@ -3,7 +3,6 @@ import BaseView from '../core/view.base'
 import $ from 'jquery';
 import Mock from '../mock/mock';
 //图表模型
-import { ChinaMapChart } from '../ui/ui.charts';
 import Slider from "react-slick";
 
 import Status1  from './status_1'
@@ -38,43 +37,6 @@ class Status extends BaseView {
       this.slider.slickGoTo(idx);
     }
 
-    pageInit() {
-
-    }
-    renderPageOne() {
-        
-    }
-    renderPageTwo() {
-        
-    }
-    renderPageCenter() {
-        const {
-            provinceCountData
-        } = this.state;
-        const height = $('.section-content.map').height();
-        const mapHeight = height - 50;
-        const mapData = {
-            height: mapHeight,
-            // userData:provinceCountData,
-            userData: Mock.charts1,
-            padding: 'auto',
-            xAxis: 'name',
-            yAxis: 'count',
-            scale: {
-                'count': {
-                    alias: '安装数量'
-                }
-            },
-            forceFit: true
-        };
-        return (
-            <div className='page-center'>
-                <div className='section-content map '>
-                    <ChinaMapChart {...mapData} />
-                </div>
-            </div>
-        )
-    }
     renderMain() {
         
         var settings = {

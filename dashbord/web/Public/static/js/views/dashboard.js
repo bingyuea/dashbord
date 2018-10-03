@@ -418,7 +418,8 @@ class Dashboard extends BaseView {
     const height = $('.page-center').height()
     const mapHeight = height - 80 - 80 - 20 - 50
 
-    const mapData = this.formatMapData(provinceCountData)
+    const mapData = this.formatMapData(provinceCountData);
+    console.log(mapData)
     // const mapData = this.formatMapData(Mock.charts1);
     // console.log(mapData)
     return (

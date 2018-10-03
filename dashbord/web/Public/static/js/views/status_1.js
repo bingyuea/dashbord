@@ -3,13 +3,12 @@ import BaseView from '../core/view.base'
 import $ from 'jquery'
 import Mock from '../mock/mock'
 //图表模型
-import { ChinaMapChart } from '../ui/ui.charts';
+import { ChinaMapEcharts } from '../ui/ui.charts';
 //异常数据统计
 import { QueryElecCurrentData } from '../models/mergeAnaly.models';
 //定义数据模型
 const queryElecCurrentData = QueryElecCurrentData.getInstance();
 let { exceptionDataObj } = Mock;
-console.log('eleEventData',exceptionDataObj)
 class Status1 extends Component {
   constructor(props) {
     super(props)
@@ -22,9 +21,7 @@ class Status1 extends Component {
     })
   }
 
-  pageInit() {
-
-  }
+ 
   
 
   renderPageCenter() {
@@ -50,12 +47,13 @@ class Status1 extends Component {
     return (
       <div className="page-center">
         <div className="section-content map ">
-          <ChinaMapChart {...mapData} />
+          <ChinaMapEcharts {...mapData} />
         </div>
       </div>
     )
   }
   render() {
+    return <div></div>
     let appview = $(".page-main").height();
         return (
             <div className='status-main page' style = {{height:appview}} >

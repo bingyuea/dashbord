@@ -1,14 +1,13 @@
-import Basiccolumn from './ui.basiccolumn'
-import Basicline from './ui.basicline'
-import Labelline from './ui.labelline'
+import Basiccolumn from './ui.basiccolumn.js'
+import Basicline from './ui.basicline.js'
+import Labelline from './ui.labelline.js'
 import Grouped from './ui.grouped.js'
 import Groupedcolumn from './ui.groupedcolumn.js'
 import Basicbar from './ui.basicbar.js'
 import Basicradar from './ui.basicradar.js'
 import ChinaMapChart from './ui.chainamap.js'
 import Doubleaxes from './ui.doubleaxes.js'
-import ChinaMapEcharts from '../ui/ui.chinamapecharts'
-
+import ChinaMapEcharts from '../ui/ui.chinamapecharts.js'
 
 module.exports = {
 	Basiccolumn:Basiccolumn,

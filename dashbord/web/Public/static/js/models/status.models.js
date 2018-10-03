@@ -74,6 +74,17 @@ class QueryElecData extends BaseModel {
         this.url = __mei_wei__.env.restfulapi + '/shangcen/xmdplatform/queryElecData';
     }
 }
+
+// 二次回路详情查询  page-9
+class QuerySecondLoopExceptionDetailData extends BaseModel {
+    constructor(props) {
+        super(props);
+        this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/queryDetailOfSecondLoopException';
+    }
+}
+
+
+
 module.exports = {
     /*
      *  二次回路单-异常分析1
@@ -101,4 +112,6 @@ module.exports = {
     QueryElecEvent,
     // 电量数据查询
     QueryElecData,
+
+    QuerySecondLoopExceptionDetailData
 };

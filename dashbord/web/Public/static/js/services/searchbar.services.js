@@ -196,7 +196,7 @@ var DataService = {
 		fetchMeasureList(DataService.successCb);
 		fetchTradeList(DataService.successCb);
 		fetchUnusalList(DataService.successCb);
-		// fetchThemeList(DataService.successCb);
+		fetchThemeList(DataService.successCb);
 	},
 	successCb:function(){
 		if(
@@ -205,7 +205,7 @@ var DataService = {
 			searchData.measureOpts && 
 			searchData.unusalOpts && 
 			searchData.tradeOpts && 
-			(searchData.themeOpts || true)
+			(searchData.themeOpts)
 		){
 			DataService.cb(searchData);
 		}
