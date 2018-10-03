@@ -5,9 +5,9 @@ import Mock from '../mock/mock'
 //图表模型
 import { ChinaMapEcharts } from '../ui/ui.charts'
 //二次回路状态值排名前十数据获取
-import { GetTopTenOfSecondLoopException } from '../models/status_1.models'
+import { GetTopTenOfSecondLoopExceptionTop } from '../models/status.models'
 //定义数据模型
-const getTopTenOfSecondLoopException = GetTopTenOfSecondLoopException.getInstance()
+const getTopTenOfSecondLoopExceptionTop = GetTopTenOfSecondLoopExceptionTop.getInstance()
 let { exceptionDataObj } = Mock
 class Status1 extends Component {
   constructor(props) {
@@ -23,14 +23,14 @@ class Status1 extends Component {
       province: '西安'
     }
     //  '{"token":"234sdf234","province":"西安"}'
-    this.FetchGetTopTenOfSecondLoopException(params)
+    this.FetchGetTopTenOfSecondLoopExceptionTop(params)
   }
 
   //二次回路状态值排名前十数据获取
-  FetchGetTopTenOfSecondLoopException(value) {
+  FetchGetTopTenOfSecondLoopExceptionTop(value) {
     let self = this
-    getTopTenOfSecondLoopException.setParam({ ...value })
-    getTopTenOfSecondLoopException.excute(
+    getTopTenOfSecondLoopExceptionTop.setParam({ ...value })
+    getTopTenOfSecondLoopExceptionTop.excute(
       res => {
         let dataList = res || {}
         self.setState({
