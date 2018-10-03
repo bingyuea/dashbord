@@ -39,7 +39,7 @@ const queryExceptionDetail = QueryExceptionDetail.getInstance();
 // 异常信息表查询
 const queryExceptionList = QueryExceptionList.getInstance();
 
-class SecondaryAnaly extends BaseView {
+class SecondaryAnaly extends Component {
     constructor(props) {
         super(props);
 
@@ -475,27 +475,10 @@ class SecondaryAnaly extends BaseView {
         );
     }
 
-    renderMain() {
-        let appview = $("#appview").height();
-        var settings = {
-            dots: false,
-            dotsClass: "slick-dots slick-thumb item_box",
-            autoplay: false,
-            arrows: false,
-            infinite: true,
-            speed: 500,
-            autoplaySpeed: 5000,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            touchMove: true
-        };
+    render() {
+        let appview = $(".page-main").height();
         return (
             <div className="page-slick page-SecondaryAnaly" style = {{height:appview}}>
-                <h1 className="page-title">{this.state.pageTitle}</h1>
-                <div className="slick-btn">
-                    <div className="btn active"/>
-                    <div className="btn"/>
-                </div>
                 {this.renderSearchBar()}
                 {this.renderPageOne()}
             </div>

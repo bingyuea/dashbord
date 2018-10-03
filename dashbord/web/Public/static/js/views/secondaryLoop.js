@@ -72,7 +72,7 @@ class SecondaryLoop extends BaseView {
       .format(dateFormat)
 
     this.indata = {
-      defaultTime: [lastday, today]
+      defaultTime: ['2001-01-01 00:00', today]
     }
   }
 
@@ -105,22 +105,9 @@ class SecondaryLoop extends BaseView {
       _value.startTime = this.indata.defaultTime[0]
       _value.endTime = this.indata.defaultTime[1]
     }
-    _value = {
-      endTime: '2018-09-29 18:53:00',
-      province: '山西',
-      startTime: '2009-09-28 18:53:00',
-      token: '234sdf234'
-    }
+    
     this.fetchPageOne(_value)
     this.fetchPageTwo(_value)
-  }
-
-  //切换轮播的回调,idx:当前轮播的页面idx
-  afterSlickChange(idx) {
-    console.log(idx)
-    this.setState({
-      pageIdx: idx
-    })
   }
 
   fetchPageOne(value) {
@@ -441,7 +428,6 @@ class SecondaryLoop extends BaseView {
     })
     queryElecCurrentData.excute(
       res => {
-        debugger
         let pageTwo = this.state.pageTwo || {}
         pageTwo.elecCurrentData = res
         self.setState({
@@ -686,8 +672,6 @@ class SecondaryLoop extends BaseView {
     }
     return <SearchBar {...barOptions} />
   }
-  //切换轮播的回调,idx:当前轮播的页面idx
-  afterSlickChange(idx) {}
 
   renderPageOne() {
     // 正式数据
@@ -873,12 +857,12 @@ class SecondaryLoop extends BaseView {
     let tempArr = elecCurrentData.xmdData
       .filter(item => {
         item.type = '巡航器'
-        return item.phase === phase
+        return item.phase === item.phase
       })
       .concat(
         elecCurrentData.elecData.filter(item => {
           item.type = '电能表'
-          return item.phase === phase
+          return item.phase === item.phase
         })
       )
     // 展开数组 ，转化为图表数据
@@ -894,6 +878,19 @@ class SecondaryLoop extends BaseView {
     })
     return data
   }
+
+  //切换轮播的回调,idx:当前轮播的页面idx
+    afterSlickChange(idx){
+      this.setState({
+        pageIdx:idx
+      });
+    }
+
+    //切换轮播
+    slickBtn(idx){
+      this.slider.slickGoTo(idx);
+    }
+
   renderPageTwo() {
     // 正式数据
     let {
@@ -930,7 +927,6 @@ class SecondaryLoop extends BaseView {
     } = Mock
 
     let dataA, dataB, dataC
-    debugger
     if (
       elecCurrentData &&
       elecCurrentData.xmdData &&
@@ -1270,12 +1266,12 @@ class SecondaryLoop extends BaseView {
       <div className="page-slick page-SecondaryLoopLeft">
         <h1 className="page-title">{this.state.pageTitle}</h1>
         <div className="slick-btn">
-          <div className={this.state.pageIdx == 0 ? 'btn ' : 'btn'} />
-          <div className={this.state.pageIdx == 0 ? 'btn' : ' btn'} />
+          <div className={this.state.pageIdx == 0 ? 'btn active' : 'btn'}  onClick={this.slickBtn.bind(this,0)}/>
+          <div className={this.state.pageIdx == 1 ? 'btn active' : 'btn'}  onClick={this.slickBtn.bind(this,1)}/>
         </div>
         {this.renderSearchBar()}
         <div className="page-main slider_content">
-          <Slider {...settings}>
+          <Slider {...settings} ref={slider => this.slider = slider}>
             <div className="slider_sec ">{this.renderPageOne()}</div>
             <div className="slider_sec">{this.renderPageTwo()}</div>
           </Slider>

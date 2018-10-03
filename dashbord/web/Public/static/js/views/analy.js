@@ -10,7 +10,7 @@ import { QueryElecCurrentData } from '../models/mergeAnaly.models';
 const queryElecCurrentData = QueryElecCurrentData.getInstance();
 let { exceptionDataObj } = Mock;
 console.log('eleEventData',exceptionDataObj)
-class Analy extends BaseView {
+class Analy extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -70,18 +70,13 @@ class Analy extends BaseView {
 
     return (
       <div className="page-center">
-        <h1>二次回路异常主题分析</h1>
-        <div className="slick-btn center">
-          <div className="btn active" />
-          <div className="btn" />
-        </div>
         <div className="section-content map ">
           <ChinaMapChart {...mapData} />
         </div>
       </div>
     )
   }
-  renderMain() {
+  render() {
     let appview = $('#appview').height();
     // let { exceptionData }=this.state;
     let exceptionDataAyy=
@@ -257,12 +252,13 @@ class Analy extends BaseView {
         ];
         const exceptionData=exceptionDataAyy[0];
        console.log('exceptionData',exceptionData)
+    const domHeight = $('.page-main').height();
     return (
       <div
-        className="page-analy page-dashboard page"
-        style={{ height: appview }}
+        className="page-analy page-dashboard"
+        style={{height:domHeight}}
       >
-        <div className="left">
+        <div className="page-left">
           <div className="item">
             <h4 className="label ">疑似窃电风险排行榜</h4>
             <div className="tabel" >
@@ -376,7 +372,7 @@ class Analy extends BaseView {
           </div>
         </div>
         {this.renderPageCenter()}
-        <div className="right">
+        <div className="page-right">
           <div className="item">
             <h4 className="label ">现场许维护排行榜</h4>
             <div className="tabel">

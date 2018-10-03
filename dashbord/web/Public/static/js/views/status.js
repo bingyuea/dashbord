@@ -12,7 +12,8 @@ class Status extends BaseView {
         super(props);
 
         this.state = {
-            pageStatus: "init"
+            pageStatus: "init",
+            pageIdx:0
         }
     }
 
@@ -20,6 +21,18 @@ class Status extends BaseView {
         this.setState({
             pageStatus: 'init'
         });
+    }
+
+    //切换轮播的回调,idx:当前轮播的页面idx
+    afterSlickChange(idx){
+      this.setState({
+        pageIdx:idx
+      });
+    }
+
+    //切换轮播
+    slickBtn(idx){
+      this.slider.slickGoTo(idx);
     }
 
     pageInit() {
@@ -206,11 +219,6 @@ class Status extends BaseView {
         };
         return (
             <div className='page-center'>
-                <h1>二次回路状态在线监测</h1>
-                <div className='slick-btn center'>
-                    <div className='btn active'></div>
-                    <div className='btn'></div>
-                </div>
                 <div className='section-content map '>
                     <ChinaMapChart {...mapData} />
                 </div>
@@ -229,14 +237,23 @@ class Status extends BaseView {
             autoplaySpeed: 5000,
             slidesToShow: 1,
             slidesToScroll: 1,
-            touchMove: true
+            touchMove: true,
+            afterChange:this.afterSlickChange.bind(this)
         };
+        const pageIdx = this.state.pageIdx;
         return (
-            <div className=" slider_content">
-                <Slider {...settings}>
-                    <div className="slider_sec ">{this.renderPageOne()}</div>
-                    <div className="slider_sec">{this.renderPageTwo()}</div>
-                </Slider>
+            <div className="page-status page">
+                <h1 className='page-title'>二次回路状态在线监测</h1>
+                <div className='slick-btn'>
+                    <div className={pageIdx == 0 ?'btn active':'btn'} onClick={this.slickBtn.bind(this,0)}></div>
+                    <div className={pageIdx == 1 ?'btn active':'btn'} onClick={this.slickBtn.bind(this,1)}></div>
+                </div>
+                <div className="page-main slider_content">
+                    <Slider {...settings}  ref={slider=>this.slider = slider}>
+                        <div className="slider_sec ">{this.renderPageOne()}</div>
+                        <div className="slider_sec">{this.renderPageTwo()}</div>
+                    </Slider>
+                </div>
             </div>
 
         )
