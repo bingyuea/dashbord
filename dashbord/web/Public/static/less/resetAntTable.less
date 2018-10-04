@@ -2,7 +2,7 @@
   background: transparent;
 }
 .ant-table-tbody, .ant-table-thead{
-  background:#000 !important;
+  background:rgba(0,0,0,0);
   & > tr{
     border:0;
   }
@@ -10,7 +10,7 @@
 .ant-table-tbody > tr > td, .ant-table-thead > tr > th {
   padding: 5px;
   border:0px;
-  background: #000;
+  background: rgba(0,0,0,0);
   color:#fff;
   border-radius: 0;
 }
@@ -22,7 +22,7 @@
 .ant-table-tbody > tr.ant-table-row-hover > td,
 .ant-table-thead > tr:hover > td,
 .ant-table-tbody > tr:hover > td{
-  background: #000;
+  background: rgba(0,0,0,0);
 }
 
 // 去除table tbody滚动条
@@ -32,6 +32,12 @@
   }
 }
 
+.ant-table-header,
+.ant-table-placeholder,
+.ant-table-fixed-header>.ant-table-content>.ant-table-scroll>.ant-table-body{
+  background:rgba(0,0,0,0);
+}
+
 
 // 给每个tr 添加小圆点(不起作用)
 .content-table{
@@ -39,7 +45,7 @@
 }
 .ant-table-tbody > tr{
   position: relative;
-  background: red !important;
+  background: rgba(0,0,0,0);
   z-index: 999999;
   &:after{
     position: absolute;

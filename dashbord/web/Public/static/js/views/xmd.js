@@ -83,6 +83,7 @@ class XMD extends BaseView {
               dataIndex: 'serialNum',
               width:'28%',
               align: 'center',
+              className:'blue',
               key: 'serialNum'
             },
             {
@@ -125,6 +126,7 @@ class XMD extends BaseView {
             {
               title: '巡检仪资产编号',
               dataIndex: 'serialNum',
+              className:'blue',
               width:'28%',
               align: 'center',
               key: 'serialNum'
@@ -146,6 +148,7 @@ class XMD extends BaseView {
             {
               title: '综合倍率',
               dataIndex: 'rate',
+              className:'yellow',
               width:'14.8%',
               align: 'center',
               key: 'rate'
@@ -174,6 +177,10 @@ class XMD extends BaseView {
     }
 
     search(value){
+      this.setState({
+        pageOne:null,
+        pageTwo:null
+      })
       //拿到搜索需要参数
       let _value = value || {};
       if(!_value.province){
@@ -446,13 +453,10 @@ class XMD extends BaseView {
       })
 
       const domHeight = $('.page-main').height();
-      const domWidth = $('body').width();
-
-      const tableWidth = ((domWidth - 30) * 0.3) - 20;
 
       if(!domHeight){return false};
 
-      const tableHeight = domHeight - 10 - 24 - 20;
+      const tableHeight = domHeight - 10 - 20 - 21 - 20;
       
 
       let self = this
@@ -474,7 +478,14 @@ class XMD extends BaseView {
 
       return (
         <div className='table-box'>
-          <div className="content_title">{title}</div>
+          <div className="small-title">
+            <span className='arrow'>&gt;&gt;</span>
+            <div className='title'>
+              {title}
+            </div>
+            <span className='arrow last'>&gt;&gt;</span>
+            <div className="blue-line"></div>
+          </div>
           <div className="content-table">
             <Table
               className={'scrollTable'}
@@ -504,14 +515,12 @@ class XMD extends BaseView {
         pageOne.table
       ];
 
-
       const self = this;
       const domHeight = $('.page-main').height();
       if(!domHeight){return false}
-      const leftChartHeight = (domHeight - 25 - 2 - 70 - 70 - 20) / 2;
-      const centerChartHeight = ((domHeight - 10 - 15) /2) - 4 - 20 - 20;
-      let centerTopHeight = leftChartHeight;
-      
+      const leftChartHeight = (domHeight - 20 - 21 - 70 - 25 * 2) / 2;
+      const centerChartHeight = (domHeight - 15 - 10) / 2 - 20 - 21 - 25;
+      // let centerTopHeight = leftChartHeight;
       //巡检仪上线数
       const charts2 = {
         data:xmdInstall.periodList,
@@ -525,9 +534,17 @@ class XMD extends BaseView {
         },
         xLabel:{
           offset:15,
+          textStyle:{
+            fill:'#fff',
+            fontSize:12
+          }
         },
         yLabel:{
           offset:5,
+          textStyle:{
+            fill:'#fff',
+            fontSize:12
+          }
         }
       }
        //地区分布信息
@@ -536,23 +553,31 @@ class XMD extends BaseView {
         height:leftChartHeight,
         xAxis:'area',
         yAxis:'areaCount',
-        forceFit:false,
+        forceFit:true,
         padding:'auto',
         style:{
           overflow:'auto',
         },
         xLabel:{
           offset:15,
+          textStyle:{
+            fill:'#fff',
+            fontSize:12
+          }
         },
         yLabel:{
           offset:5,
+          textStyle:{
+            fill:'#fff',
+            fontSize:12
+          }
         }
       }
 
       //客户分布情况
       const charts8 = {
         data:customer.tradeList,
-        height:centerTopHeight,
+        height:centerChartHeight,
         xAxis: 'tradeName',
         yAxis_line: 'tradeCount',
         yAxis_line_name: '占比',
@@ -569,10 +594,18 @@ class XMD extends BaseView {
           overflow: 'hidden'
         },
         xLabel: {
-          offset: 15
+          offset: 15,
+          textStyle:{
+            fill:'#fff',
+            fontSize:12
+          }
         },
         yLabel: {
-          offset: 5
+          offset: 5,
+          textStyle:{
+            fill:'#fff',
+            fontSize:12
+          }
         }
       }
 
@@ -584,7 +617,7 @@ class XMD extends BaseView {
         padding:'auto',
         field:'rateCount',
         dimension:'rate',
-        innerRadius:.6,
+        innerRadius:.7,
         cols:{
           percent: {
             formatter: val => {
@@ -599,7 +632,7 @@ class XMD extends BaseView {
         data:measure.rateList,
         height:centerChartHeight,
         forceFit:true,
-        innerRadius:.6,
+        innerRadius:.7,
         padding:'auto',
         field:'measureCount',
         dimension:'measureName',
@@ -618,10 +651,14 @@ class XMD extends BaseView {
       return (
         <div className="slick-page"  style={{height:domHeight}}>
           <div className='side-content content_box'>
-            <div className="content_title">
-                巡检仪安装情况
+            <div className="small-title">
+                <span className='arrow'>&gt;&gt;</span>
+                <div className='title'>
+                  巡检仪安装情况
+                </div>
+                <span className='arrow last'>&gt;&gt;</span>
+                <div className="blue-line"></div>
             </div>
-            <div className="blue_underline"></div>
             <div className='total-num'>
               <span className='blue-txt'>{totalCount.toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</span>
               台
@@ -639,10 +676,14 @@ class XMD extends BaseView {
           </div>
           <div className='center-content'>
             <div className='top content_box'>
-              <div className="content_title">
+              <div className="small-title">
+                <span className='arrow'>&gt;&gt;</span>
+                <div className='title'>
                   客户分布情况
+                </div>
+                <span className='arrow last'>&gt;&gt;</span>
+                <div className="blue-line"></div>
               </div>
-              <div className="blue_underline"></div>
               <div className='section-content'>
                   <span>行业信息</span>
                   <Doubleaxes {...charts8}/>
@@ -650,20 +691,30 @@ class XMD extends BaseView {
             </div>
             <div className='bottom'>
               <div className='section-content'>
-                <div className="content_title">
-                  综合倍率
+                <div className="small-title">
+                  <span className='arrow'>&gt;&gt;</span>
+                  <div className='title'>
+                    综合倍率
+                  </div>
+                  <span className='arrow last'>&gt;&gt;</span>
+                  <div className="blue-line"></div>
                 </div>
                 <Labelline {...charts3}/>
               </div>
               <div className='section-content' >
-                <div className="content_title">
-                  计量类型
+                <div className="small-title">
+                  <span className='arrow'>&gt;&gt;</span>
+                  <div className='title'>
+                    计量类型
+                  </div>
+                  <span className='arrow last'>&gt;&gt;</span>
+                  <div className="blue-line"></div>
                 </div>
                 <Labelline {...charts4}/>
               </div>
             </div>
           </div>
-          <div className='side-content content_box'>
+          <div className='side-content content_box spec'>
             {this.renderTable(0,table.dataList)}
           </div>
         </div>
@@ -712,9 +763,17 @@ class XMD extends BaseView {
         },
         xLabel:{
           offset:15,
+          textStyle:{
+            fill:'#fff',
+            fontSize:12
+          }
         },
         yLabel:{
           offset:5,
+          textStyle:{
+            fill:'#fff',
+            fontSize:12
+          }
         }
       }
        //事件类型信息
@@ -730,9 +789,17 @@ class XMD extends BaseView {
         },
         xLabel:{
           offset:15,
+          textStyle:{
+            fill:'#fff',
+            fontSize:12
+          }
         },
         yLabel:{
           offset:5,
+          textStyle:{
+            fill:'#fff',
+            fontSize:12
+          }
         }
       }
 
@@ -756,10 +823,18 @@ class XMD extends BaseView {
           overflow: 'hidden'
         },
         xLabel: {
-          offset: 15
+          offset: 15,
+          textStyle:{
+            fill:'#fff',
+            fontSize:12
+          }
         },
         yLabel: {
-          offset: 5
+          offset: 5,
+          textStyle:{
+            fill:'#fff',
+            fontSize:12
+          }
         }
       }
 
@@ -770,7 +845,7 @@ class XMD extends BaseView {
         forceFit:true,
         padding:'auto',
         field:'rateCount',
-        innerRadius:.6,
+        innerRadius:.7,
         dimension:'rate',
         cols:{
           percent: {
@@ -786,7 +861,7 @@ class XMD extends BaseView {
         data:measureEvent.rateList,
         height:centerChartHeight,
         forceFit:true,
-        innerRadius:.6,
+        innerRadius:.7,
         padding:'auto',
         field:'measureCount',
         dimension:'measureName',
@@ -857,7 +932,7 @@ class XMD extends BaseView {
               </div>
             </div>
           </div>
-          <div className='side-content content_box'>
+          <div className='side-content content_box spec'>
             {this.renderTable(1,xmdEventTable.rateList)}
           </div>
         </div>

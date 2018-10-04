@@ -64,16 +64,6 @@ class BasicLine extends React.Component {
             position={`${this.props.xAxis}*${this.props.yAxis}`}
             size={2}
           />
-          {this.props.type === 'area' ? (
-            <Geom
-              type="area"
-              color={DEFAULT_COLOR}
-              position={`${this.props.xAxis}*${this.props.yAxis}`}
-              size={2}
-            />
-          ) : (
-            ''
-          )}
           <Geom
             type="point"
             color={DEFAULT_COLOR}
@@ -85,6 +75,12 @@ class BasicLine extends React.Component {
               lineWidth: 1
             }}
           />
+          <Geom
+              type="area"
+              position={`${this.props.xAxis}*${this.props.yAxis}`}
+              color={`l(100) 0:${DEFAULT_COLOR} 1:rgba(0,0,0,0)`}
+              opacity={0.85}
+            />
         </Chart>
       </div>
     )

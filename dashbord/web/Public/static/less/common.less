@@ -364,8 +364,9 @@ canvas{
 }
 // 二次回路单页 box
 .content_box{
-  border:2px dashed @blue;
-  border-radius: 30px ;
+  // border:2px dashed @blue;
+  // border-radius: 30px ;
+  background:rgba(7,51,100,.2);
 }
 // 二次回路单页 title
 .content_title{
@@ -382,6 +383,36 @@ canvas{
     border-left:0px;
   }
 }
+//小标题样式
+.small-title{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 21px;
+	line-height:20px;
+	.title{
+		font-size:14px;
+		color:#fff;
+		line-height:20px;
+		display: inline-block;
+		padding:0 10px;
+	}
+	.arrow{
+		color:#106392;
+		&.last{
+			position: relative;
+			left:2px;
+		}
+	}
+	.blue-line{
+		flex:1;
+		height: 1px;
+		margin:10px 0;
+		background:#106392;
+	}	
+}
+
+//小标题样式
 
 .loading{
 	width:100%;

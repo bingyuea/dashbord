@@ -1,84 +1,13 @@
-const DEFAULT_COLOR = '#21eeff'
-const COLOR_PLATE_8 = [
-  '#21eeff',
-  '#fcc',
-  '#cff',
-  '#ff9',
-  '#ccf',
-  '#f96',
-  '#f66',
-  '#cf9'
-]
-const COLOR_PLATE_16 = [
-  '#21eeff',
-  '#ccc',
-  '#fff',
-  '#cff',
-  '#9c9',
-  '#ff9',
-  '#9cc',
-  '#ccf',
-  '#fc9',
-  '#f96',
-  '#fcc',
-  '#f66',
-  '#ccf',
-  '#cf9',
-  '#ffc'
-]
-const COLOR_PLATE_24 = [
-  '#21eeff',
-  '#66B5FF',
-  '#ccc',
-  '#fff',
-  '#6EDB8F',
-  '#9AE65C',
-  '#cff',
-  '#9c9',
-  '#57AD71',
-  '#ff9',
-  '#738AE6',
-  '#9cc',
-  '#ccf',
-  '#A877ED',
-  '#fc9',
-  '#f96',
-  '#70E0E0',
-  '#fcc',
-  '#f66',
-  '#8082FF',
-  '#DD81E6',
-  '#cf9',
-  '#FA7D92',
-  '#ffc'
-]
-const COLOR_PIE = [
-  '#21eeff',
-  '#f96',
-  '#fff',
-  '#cff',
-  '#cf9',
-  '#ccf',
-  '#f66',
-  '#ff9'
-]
-const COLOR_PIE_16 = [
-  '#21eeff',
-  '#ccc',
-  '#fff',
-  '#cff',
-  '#9c9',
-  '#ff9',
-  '#9cc',
-  '#ccf',
-  '#fc9',
-  '#f96',
-  '#fcc',
-  '#f66',
-  '#ccf',
-  '#cf9',
-  '#ffc'
-]
+const DEFAULT_COLOR = '#21eeff';
+const COLOR_PLATE_8 = [ '#21eeff', '#2FC25B', '#FACC14', '#223273', '#8543E0', '#13C2C2', '#3436C7', '#F04864' ];
+const COLOR_PLATE_16 = [ '#21eeff', '#41D9C7', '#2FC25B', '#FACC14', '#E6965C', '#223273', '#7564CC', '#8543E0',
+  '#5C8EE6', '#13C2C2', '#5CA3E6', '#3436C7', '#B381E6', '#F04864', '#D598D9' ];
+const COLOR_PLATE_24 = [ '#21eeff', '#66B5FF', '#41D9C7', '#2FC25B', '#6EDB8F', '#9AE65C', '#FACC14', '#E6965C',
+  '#57AD71', '#223273', '#738AE6', '#7564CC', '#8543E0', '#A877ED', '#5C8EE6', '#13C2C2', '#70E0E0', '#5CA3E6',
+  '#3436C7', '#8082FF', '#DD81E6', '#F04864', '#FA7D92', '#D598D9' ];
+const COLOR_PIE = [ '#21eeff', '#13C2C2', '#2FC25B', '#FACC14', '#F04864', '#8543E0', '#3436C7', '#223273' ];
+const COLOR_PIE_16 = [ '#21eeff', '#73C9E6', '#13C2C2', '#6CD9B3', '#2FC25B', '#9DD96C', '#FACC14', '#E6965C',
+  '#F04864', '#D66BCA', '#8543E0', '#8E77ED', '#3436C7', '#737EE6', '#223273', '#7EA2E6' ];
 const DARK_DEFAULT_COLOR = '#21426c'
 module.exports = {
   DEFAULT_COLOR,

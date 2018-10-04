@@ -65,8 +65,9 @@ class SearchBar extends Component {
         </Option>
       )
     })
-    let defaultValue = item.key == 'province' ? item.options[0].value : '请选择';
-    defaultValue = item.key == 'city' ? '城市':'请选择';
+    let defaultValue = item.key == 'city' ? '城市':'请选择';
+    defaultValue = item.key == 'province' ? item.options[0].value : '请选择';
+    
     return (
       <Select
         disabled={item.disabled || false}
