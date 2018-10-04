@@ -105,7 +105,7 @@ class SecondaryLoop extends BaseView {
       _value.startTime = this.indata.defaultTime[0]
       _value.endTime = this.indata.defaultTime[1]
     }
-    
+
     this.fetchPageOne(_value)
     this.fetchPageTwo(_value)
   }
@@ -684,7 +684,7 @@ class SecondaryLoop extends BaseView {
       exceptionList // 异常类型分布情况查询
     } = this.state.pageOne || {}
     let domHeight = $('.page-main').height()
-    let loop_content = $('#eventAccount').height() - 20 // 算出表格高度
+    let loop_content = $('#eventAccount').height() - 40 // 算出表格高度
     let tradeListChartsHeight = $('#tradeListChartsHeight').height() - 20 - 30 // 图表高度
     let periodListCharts = {} // 异常事件数量变化趋势
     let tradeListCharts = {} // 异常事件行业分布信息
@@ -794,31 +794,40 @@ class SecondaryLoop extends BaseView {
         <div className="SecondaryLoopLeft_left">
           <div className="content_box">
             <div className="loop_top" id="eventAccount">
-              <div className="loop_top_left">
-                <div className="content_title">二次回路异常事件统计</div>
-                <div className="blue_underline" />
-                <div
-                  className="loop_content loop_number"
-                  style={{
-                    height: loop_content,
-                    lineHeight: `${loop_content}px`,
-                    fontSize: `${loop_content / 6}px`
-                  }}
-                >
-                  {String(totalCount).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}
-                  <span className="text-white">&nbsp;件</span>
-                </div>
+              <div className="small-title">
+                <span className="arrow">&gt;&gt;</span>
+                <div className="title">二次回路异常事件统计</div>
+                <span className="arrow last">&gt;&gt;</span>
+                <div className="blue-line" />
               </div>
-              <div className="loop_top_right">
-                <div className="content_title no_border_left">区域占比</div>
-                <div className="blue_underline" />
-                <div className="loop_content">
-                  <Labelline {...areaListCharts} />
+              <div className="loop_top_content">
+                <div className="loop_top_left">
+                  <div
+                    className="loop_content loop_number"
+                    style={{
+                      height: loop_content,
+                      lineHeight: `${loop_content}px`,
+                      fontSize: `${loop_content / 8}px`
+                    }}
+                  >
+                    {String(totalCount).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}
+                    <span className="text-white">&nbsp;件</span>
+                  </div>
+                </div>
+                <div className="loop_top_right">
+                  <div className="loop_content">
+                    <Labelline {...areaListCharts} />
+                  </div>
                 </div>
               </div>
             </div>
             <div className="loop_bottom">
-              <div className="content_title">异常事件数量变化趋势</div>
+              <div className="small-title">
+                <span className="arrow">&gt;&gt;</span>
+                <div className="title">异常事件数量变化趋势</div>
+                <span className="arrow last">&gt;&gt;</span>
+                <div className="blue-line" />
+              </div>
               <Basicline {...periodListCharts} />
             </div>
           </div>
@@ -833,7 +842,13 @@ class SecondaryLoop extends BaseView {
             <div className="event_bottom" id="tradeListChartsHeight">
               <div className="event_bottom_left">
                 <div className="content_box">
-                  <div className="content_title">异常事件行业分布信息</div>
+                  <div className="small-title">
+                    <span className="arrow">&gt;&gt;</span>
+                    <div className="title">异常事件行业分布信息</div>
+                    <span className="arrow last">&gt;&gt;</span>
+                    <div className="blue-line" />
+                  </div>
+                  {/* <div className="content_title">异常事件行业分布信息</div> */}
                   <div className="event-table">
                     <Doubleaxes {...tradeListCharts} />
                   </div>
@@ -841,7 +856,13 @@ class SecondaryLoop extends BaseView {
               </div>
               <div className="event_bottom_right">
                 <div className="content_box">
-                  <div className="content_title">异常事件类型信息</div>
+                  <div className="small-title">
+                    <span className="arrow">&gt;&gt;</span>
+                    <div className="title">异常事件类型信息</div>
+                    <span className="arrow last">&gt;&gt;</span>
+                    <div className="blue-line" />
+                  </div>
+                  {/* <div className="content_title">异常事件类型信息</div> */}
                   <div className="event-table">
                     <Basicbar {...exceptionListCharts} />
                   </div>
@@ -880,16 +901,16 @@ class SecondaryLoop extends BaseView {
   }
 
   //切换轮播的回调,idx:当前轮播的页面idx
-    afterSlickChange(idx){
-      this.setState({
-        pageIdx:idx
-      });
-    }
+  afterSlickChange(idx) {
+    this.setState({
+      pageIdx: idx
+    })
+  }
 
-    //切换轮播
-    slickBtn(idx){
-      this.slider.slickGoTo(idx);
-    }
+  //切换轮播
+  slickBtn(idx) {
+    this.slider.slickGoTo(idx)
+  }
 
   renderPageTwo() {
     // 正式数据
@@ -1020,7 +1041,13 @@ class SecondaryLoop extends BaseView {
       <div className="SecondaryLoopRight content" style={{ height: domHeight }}>
         <div className="SecondaryLoopRight_left">
           <div className="content_box">
-            <div className="content_title">电流对比分析</div>
+            {/* <div className="content_title">电流对比分析</div> */}
+            <div className="small-title">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">电流对比分析</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
             <div className="ele_charts">
               <p className="ele_charts_title">A相</p>
               <Basicline {...chartsEleA} />
@@ -1043,14 +1070,26 @@ class SecondaryLoop extends BaseView {
             <div className="event_bottom">
               <div className="event_bottom_left">
                 <div className="content_box">
-                  <div className="content_title">事件信息</div>
+                  {/* <div className="content_title">事件信息</div> */}
+                  <div className="small-title">
+                    <span className="arrow">&gt;&gt;</span>
+                    <div className="title">事件信息</div>
+                    <span className="arrow last">&gt;&gt;</span>
+                    <div className="blue-line" />
+                  </div>
                   <div className="event-table">
                     <ul>
                       {Array.isArray(xmdEventData) &&
                         xmdEventData.map((item, index) => {
                           return (
                             <li key={index}>
-                              <div className="title">巡检仪上报事件</div>
+                              {/* <div className="title">巡检仪上报事件</div> */}
+                              <div className="small-title">
+                                <span className="arrow">&gt;&gt;</span>
+                                <div className="title">巡检仪上报事件</div>
+                                <span className="arrow last">&gt;&gt;</span>
+                                <div className="blue-line" />
+                              </div>
                               <div className="blue_underline" />
                               <ul className="event_report">
                                 <li>异常类型 : {item.exception}</li>
@@ -1100,7 +1139,13 @@ class SecondaryLoop extends BaseView {
               </div>
               <div className="event_bottom_center ">
                 <div className="content_box chartsEleChangeHeight">
-                  <div className="content_title">电量变化</div>
+                  {/* <div className="content_title">电量变化</div> */}
+                  <div className="small-title">
+                    <span className="arrow">&gt;&gt;</span>
+                    <div className="title">电量变化</div>
+                    <span className="arrow last">&gt;&gt;</span>
+                    <div className="blue-line" />
+                  </div>
                   <div className="event-table">
                     <Basicline {...chartsEleChange} />
                   </div>
@@ -1108,7 +1153,13 @@ class SecondaryLoop extends BaseView {
               </div>
               <div className="event_bottom_right">
                 <div className="content_box">
-                  <div className="content_title">判定条件</div>
+                  {/* <div className="content_title">判定条件</div> */}
+                  <div className="small-title">
+                    <span className="arrow">&gt;&gt;</span>
+                    <div className="title">判定条件</div>
+                    <span className="arrow last">&gt;&gt;</span>
+                    <div className="blue-line" />
+                  </div>
                   <div className="event-table" />
                 </div>
               </div>
@@ -1224,7 +1275,13 @@ class SecondaryLoop extends BaseView {
 
     return (
       <div>
-        <div className="content_title">二次回路异常事件</div>
+        {/* <div className="content_title">二次回路异常事件</div> */}
+        <div className="small-title">
+          <span className="arrow">&gt;&gt;</span>
+          <div className="title">二次回路异常事件</div>
+          <span className="arrow last">&gt;&gt;</span>
+          <div className="blue-line" />
+        </div>
         <div className="content-table">
           <Table
             className={'scrollTable'}
@@ -1263,15 +1320,21 @@ class SecondaryLoop extends BaseView {
       afterChange: this.afterSlickChange.bind(this)
     }
     return (
-      <div className="page-slick page-SecondaryLoopLeft">
+      <div className="page-slick page-SecondaryLoopLeft page">
         <h1 className="page-title">{this.state.pageTitle}</h1>
         <div className="slick-btn">
-          <div className={this.state.pageIdx == 0 ? 'btn active' : 'btn'}  onClick={this.slickBtn.bind(this,0)}/>
-          <div className={this.state.pageIdx == 1 ? 'btn active' : 'btn'}  onClick={this.slickBtn.bind(this,1)}/>
+          <div
+            className={this.state.pageIdx == 0 ? 'btn active' : 'btn'}
+            onClick={this.slickBtn.bind(this, 0)}
+          />
+          <div
+            className={this.state.pageIdx == 1 ? 'btn active' : 'btn'}
+            onClick={this.slickBtn.bind(this, 1)}
+          />
         </div>
         {this.renderSearchBar()}
         <div className="page-main slider_content">
-          <Slider {...settings} ref={slider => this.slider = slider}>
+          <Slider {...settings} ref={slider => (this.slider = slider)}>
             <div className="slider_sec ">{this.renderPageOne()}</div>
             <div className="slider_sec">{this.renderPageTwo()}</div>
           </Slider>
