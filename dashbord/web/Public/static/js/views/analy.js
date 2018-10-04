@@ -40,6 +40,7 @@ class Analy extends Component {
         self.setState({
           exceptionDataObj
         })
+        self.props.pageInit && self.props.pageInit();
       },
       err => {
         console.log(err)
@@ -81,12 +82,9 @@ class Analy extends Component {
     )
   }
 
-  renderRank(){
-    const { exceptionDataObj } = this.state;
-    if(!exceptionDataObj){return false}
-    const stealingPowerRanking = exceptionDataObj.exceptionDataObj;
-    if(!stealingPowerRanking){return false}
-    let a =stealingPowerRanking.map((item, index) => {
+  renderRank(list){
+    if(!list){return false}
+    return list.map((item, index) => {
       return (
         <div
           className={
@@ -101,8 +99,6 @@ class Analy extends Component {
         </div>
       )
     })
-  console.log('jxgo' + a)
-  return a
   }
 
   render() {
@@ -127,10 +123,6 @@ class Analy extends Component {
         })
       }
     }
-    console.log(exceptionData)
-    // 这里本是有值的
-
-    // debugger
     return (
       <div className="page-analy page-dashboard" style={{ height: domHeight }}>
         <div className="page-left">
@@ -142,25 +134,7 @@ class Analy extends Component {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                {this.renderRank()}
-                {Array.isArray(exceptionData.stealingPowerRanking) &&
-                  exceptionData.stealingPowerRanking.map((item, index) => {
-                    return (
-                      <div
-                        className={
-                          (index + 1) % 2 === 0
-                            ? ['row3 flex-layout ']
-                            : ['row2 flex-layout ']
-                        }
-                        key={item.index}
-                      >
-                        <div className="flex">{item.user}</div>
-                        <div className="flex">{item.index}</div>
-                      </div>
-                    )
-                  })}
-                }
-              }
+                {this.renderRank(exceptionData.stealingPowerRanking)}
               </div>
             </div>
           </div>

@@ -14,12 +14,13 @@ import {
 import {
   QueryExceptionCount,
   QueryExceptionByTime,
-  // 主题类型查询
-  GetSubjectType,
+  
   // 二次回路异常事件查询
   QuerySecondLoopExceptionCount
 } from '../models/mergeAnaly.models'
+
 import Mock from '../mock/mock'
+
 import DataServince from '../services/searchbar.services'
 import moment from 'moment'
 import SearchBar from '../ui/ui.searchbar.js'
@@ -105,7 +106,7 @@ class SecondaryAnaly extends Component {
         })
       },
       err => {
-        console.log(err)
+        
       }
     )
   }
@@ -125,7 +126,7 @@ class SecondaryAnaly extends Component {
         })
       },
       err => {
-        console.log(err)
+        
       }
     )
   }
@@ -154,7 +155,7 @@ class SecondaryAnaly extends Component {
         })
       },
       err => {
-        console.log(err)
+        
       }
     )
   }
@@ -276,13 +277,13 @@ class SecondaryAnaly extends Component {
     let _this = this
     if (!themeHeight) {
       let time = setTimeout(function() {
-        _this.forceUpdate()
+        // _this.forceUpdate()
       }, 0)
     }
 
-    console.log(totalCount)
-    console.log(periodList)
-    console.log(periodListLine)
+    // console.log(totalCount)
+    // console.log(periodList)
+    // console.log(periodListLine)
     let fieldsList = []
     if (periodListLine && periodListLine.length > 0) {
       fieldsList = periodListLine.map(item => {
