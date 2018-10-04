@@ -65,7 +65,8 @@ class SearchBar extends Component {
         </Option>
       )
     })
-    const defaultValue = item.key == 'province' ? item.options[0].value : '请选择';
+    let defaultValue = item.key == 'province' ? item.options[0].value : '请选择';
+    defaultValue = item.key == 'city' ? '城市':'请选择';
     return (
       <Select
         disabled={item.disabled || false}
@@ -83,11 +84,9 @@ class SearchBar extends Component {
         <div className="title">{locationData.title}</div>
         <div className="select-box double">
           <div className="left">
-            <div className="title">省份</div>
             {this.renderSelect(locationData.province)}
           </div>
           <div className="right">
-            <div className="title">城市</div>
             {this.renderSelect(locationData.city)}
           </div>
         </div>
@@ -153,11 +152,9 @@ class SearchBar extends Component {
     return (
       <div className="btn-box">
         <div className=" search-btn" onClick={this.searchHandle.bind(this)}>
-          <Icon type="search" />
-          搜索
+          查询
         </div>
-        <div className="search-btn" onClick={this.resetHandle.bind(this)}>
-          <Icon type="search" />
+        <div className="reset-btn" onClick={this.resetHandle.bind(this)}>
           重置
         </div>
       </div>
