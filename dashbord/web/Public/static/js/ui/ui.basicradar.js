@@ -41,17 +41,16 @@ class Basicradar extends React.Component {
       type: "fold",
       fields: this.props.fields,
       // 展开字段集
-      key: "yeats",
+      key: "trade",
       // key字段
-      value: ''// value字段
+      value: 'count'// value字段
     });
     const cols = {
-      sales: {
-        min: 0,
-        max: 80
+      count: {
+        min: 0
       }
     };
-    console.log(this.props.data)
+    console.log(dv)
     return (
       <div>
         <Chart
@@ -83,8 +82,8 @@ class Basicradar extends React.Component {
               alternateColor: "rgba(0, 0, 0,1)"
             }}
           />
-          <Geom type="area" position={`${this.props.xAxis}*${this.props.yAxis}`} color={[this.props.yAxis,DEFAULT_COLOR]} />
-          <Geom type="line" position={`${this.props.xAxis}*${this.props.yAxis}`} color={[this.props.yAxis,DEFAULT_COLOR]} size={2} />
+          <Geom type="area" position={`${this.props.xAxis}*${this.props.yAxis}`} color={this.props.yAxis} />
+          <Geom type="line" position={`${this.props.xAxis}*${this.props.yAxis}`} color={this.props.yAxis} size={2} />
           <Geom
             type="point"
             position={`${this.props.xAxis}*${this.props.yAxis}`}

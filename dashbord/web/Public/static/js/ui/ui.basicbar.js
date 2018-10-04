@@ -48,6 +48,17 @@ class Basicbar extends React.Component {
     });
 
     if(!this.props.height){return false}
+    const xLine = {
+      stroke: 'rgba(255,255,255,.1)',
+      fill: 'rgba(255,255,255,.1)',
+      lineWidth: 1
+    }
+    const yLine = xLine;
+    const grid = {//坐标轴网格线
+      lineStyle:{
+        stroke:'rgba(255,255,255,.1)'
+      }
+    }
     return (
       <div>
         <Chart {...this.props} data={dv} placeholder={<div className='loading'><span></span></div>}>
@@ -55,10 +66,11 @@ class Basicbar extends React.Component {
           <Axis
             name={this.props.xAxis}
             label={this.props.xLabel}
+            line={xLine} tickLine={null}
           />
-          <Axis name={this.props.yAxis} label={this.props.yLabel}/>
+          <Axis name={this.props.yAxis} label={this.props.yLabel} line={yLine} tickLine={null} grid={grid}/>
           <Tooltip />
-          <Geom type="interval" position={`${this.props.xAxis}*${this.props.yAxis}`} color={DEFAULT_COLOR}/>
+          <Geom type="interval" position={`${this.props.xAxis}*${this.props.yAxis}`} color={'#7a7a7a'}/>
         </Chart>
       </div>
     );

@@ -52,11 +52,11 @@ class Analy extends Component {
     const height = $('.section-content.map').height()
     const mapHeight = height - 50
     let _this = this
-    if (!height) {
-      let time = setTimeout(function() {
-        _this.forceUpdate()
-      }, 0)
-    }
+    // if (!height) {
+    //   let time = setTimeout(function() {
+    //     _this.forceUpdate()
+    //   }, 0)
+    // }
     const mapData = {
       height: mapHeight,
       // userData:provinceCountData,
@@ -80,13 +80,38 @@ class Analy extends Component {
       </div>
     )
   }
+
+  renderRank(){
+    const { exceptionDataObj } = this.state;
+    if(!exceptionDataObj){return false}
+    const stealingPowerRanking = exceptionDataObj.exceptionDataObj;
+    if(!stealingPowerRanking){return false}
+    let a =stealingPowerRanking.map((item, index) => {
+      return (
+        <div
+          className={
+            (index + 1) % 2 === 0
+              ? ['row3 flex-layout ']
+              : ['row2 flex-layout ']
+          }
+          key={item.index}
+        >
+          <div className="flex">{item.user}</div>
+          <div className="flex">{item.index}</div>
+        </div>
+      )
+    })
+  console.log('jxgo' + a)
+  return a
+  }
+
   render() {
     let appview = $('#appview').height()
     const domHeight = $('.page-main').height()
     let _this = this
     if (!domHeight) {
       let time = setTimeout(function() {
-        _this.forceUpdate()
+        // _this.forceUpdate()
       }, 0)
     }
     let { exceptionDataObj } = this.state
@@ -117,6 +142,7 @@ class Analy extends Component {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
+                {this.renderRank()}
                 {Array.isArray(exceptionData.stealingPowerRanking) &&
                   exceptionData.stealingPowerRanking.map((item, index) => {
                     return (
@@ -133,6 +159,8 @@ class Analy extends Component {
                       </div>
                     )
                   })}
+                }
+              }
               </div>
             </div>
           </div>

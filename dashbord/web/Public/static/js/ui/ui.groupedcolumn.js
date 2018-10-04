@@ -41,11 +41,23 @@ class Groupedcolumn extends React.Component {
       value: this.props.value//"月均降雨量" // value字段
     });
 
+    const xLine = {
+      stroke: 'rgba(255,255,255,.1)',
+      fill: 'rgba(255,255,255,.1)',
+      lineWidth: 1
+    }
+    const yLine = xLine;
+    const grid = {//坐标轴网格线
+      lineStyle:{
+        stroke:'rgba(255,255,255,.1)'
+      }
+    }
+
     return (
       <div>
         <Chart {...this.props} data={dv}  placeholder={<div className='loading'><span></span></div>}>
-          <Axis name={this.props.keyName} />
-          <Axis name={this.props.value} />
+          <Axis name={this.props.keyName} label={this.props.xLabel} line={xLine} tickLine={null}/>
+          <Axis name={this.props.value} label={this.props.yLabel} line={yLine} tickLine={null} grid={grid}/>
           <Tooltip
             crosshairs={{
               type: "y"

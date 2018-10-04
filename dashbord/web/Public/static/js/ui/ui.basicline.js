@@ -24,6 +24,18 @@ class BasicLine extends React.Component {
       return false
     }
 
+    const xLine = {
+      stroke: 'rgba(255,255,255,.1)',
+      fill: 'rgba(255,255,255,.1)',
+      lineWidth: 1
+    }
+    const yLine = xLine;
+    const grid = {//坐标轴网格线
+      lineStyle:{
+        stroke:'rgba(255,255,255,.1)'
+      }
+    }
+
     return (
       <div>
         <Chart
@@ -35,8 +47,8 @@ class BasicLine extends React.Component {
           {...this.props}
           scale={this.props.cols}
         >
-          <Axis name={this.props.xAxis} label={this.props.xLabel} />
-          <Axis name={this.props.yAxis} label={this.props.yLabel} />
+          <Axis name={this.props.xAxis} label={this.props.xLabel} tickLine={null} line={xLine}/>
+          <Axis name={this.props.yAxis} label={this.props.yLabel} tickLine={null} line={yLine} grid={grid}/>
           <Tooltip
             crosshairs={{
               type: 'y'
@@ -64,7 +76,7 @@ class BasicLine extends React.Component {
           )}
           <Geom
             type="point"
-            color={'#fff'}
+            color={DEFAULT_COLOR}
             position={`${this.props.xAxis}*${this.props.yAxis}`}
             size={3}
             shape={'circle'}

@@ -57,14 +57,14 @@ class Dashboard extends BaseView {
 
   pageInit() {
     this.fetchProvinceCount()
-    // this.fetchYearCount()
-    // this.fetchMeasureCount()
-    // this.fetchRateCount()
-    // this.fetchTradeCount()
-    // this.fetchEventCount()
-    // this.fetchValidityEventCount()
-    // this.fetchProvinceEventCount()
-    // this.fetchTradeEventCount()
+    this.fetchYearCount()
+    this.fetchMeasureCount()
+    this.fetchRateCount()
+    this.fetchTradeCount()
+    this.fetchEventCount()
+    this.fetchValidityEventCount()
+    this.fetchProvinceEventCount()
+    this.fetchTradeEventCount()
   }
 
   //不同省份安装情况
@@ -279,25 +279,37 @@ class Dashboard extends BaseView {
     } = this.state
 
     const height = $('.page-left .charts-content').height()
-    const chartHeight = (height - 160) / 4
+    const chartHeight = (height - 25 * 4) / 4;
 
     //不同省份安装情况
     const charts1 = {
       data: provinceCountData,
-      height: chartHeight,
+      height: chartHeight - 20,
       xAxis: 'name',
       yAxis: 'count',
       forceFit: true,
       padding: 'auto',
-      cols: {},
+      cols: {
+        'count':{
+          tickCount:5
+        }
+      },
       style: {
         overflow: 'hidden'
       },
       xLabel: {
-        offset: 15
+        offset: 15,
+        textStyle:{
+          fill:'#fff',
+          fontSize:12
+        }
       },
       yLabel: {
-        offset: 5
+        offset: 5,
+        textStyle:{
+          fill:'#fff',
+          fontSize:12
+        }
       }
     }
 
@@ -311,17 +323,28 @@ class Dashboard extends BaseView {
       padding: 'auto',
       cols: {
         sales: {
-          alias: 'year'
+          alias: 'year',
+        },
+        count:{
+          tickCount:5
         }
       },
       style: {
         overflow: 'hidden'
       },
       xLabel: {
-        offset: 15
+        offset: 15,
+        textStyle:{
+          fill:'#fff',
+          fontSize:12
+        }
       },
       yLabel: {
-        offset: 5
+        offset: 5,
+        textStyle:{
+          fill:'#fff',
+          fontSize:12
+        }
       }
     }
 
@@ -331,6 +354,7 @@ class Dashboard extends BaseView {
       height: chartHeight,
       forceFit: true,
       padding: 'auto',
+      radius:.7,
       field: 'count',
       dimension: 'name',
       cols: {
@@ -349,6 +373,7 @@ class Dashboard extends BaseView {
       height: chartHeight,
       forceFit: true,
       padding: 'auto',
+      radius:.7,
       field: 'count',
       dimension: 'rate',
       cols: {
@@ -364,19 +389,27 @@ class Dashboard extends BaseView {
     //行业类型
     const charts5 = {
       data: tradeCountData,
-      height: chartHeight,
+      height: chartHeight + 20,
       xAxis: 'trade',
       yAxis: 'count',
-      forceFit: true,
+      forceFit: false,
       padding: 'auto',
       style: {
         overflow: 'hidden'
       },
       xLabel: {
-        offset: 15
+        offset: 15,
+        textStyle:{
+          fill:'#fff',
+          fontSize:12
+        }
       },
       yLabel: {
-        offset: 5
+        offset: 5,
+        textStyle:{
+          fill:'#fff',
+          fontSize:10
+        }
       }
     }
 
@@ -412,16 +445,25 @@ class Dashboard extends BaseView {
       </div>
     )
   }
+
+  renderNum(num){
+    const temp = num.split('');
+    let cls = '';
+    return temp.map((item,idx)=>{
+      cls = item == ','?'num spec':'num';
+      return (
+        <li className={cls} key={idx}>{item}</li>
+      )
+    })
+  }
   renderPageCenter() {
     const { provinceCountData } = this.state || {}
 
     const height = $('.page-center').height()
     const mapHeight = height - 80 - 80 - 20 - 50
 
-    // const mapData = this.formatMapData(provinceCountData);
-    const mapData = this.formatMapData(Mock.charts1);
-    // console.log(mapData)
-    
+    const mapData = this.formatMapData(provinceCountData);
+    // const mapData = this.formatMapData(Mock.charts1);
     
     return (
       <div className="page-center">
@@ -430,23 +472,13 @@ class Dashboard extends BaseView {
           <div className="section-left child">
             <h4>巡检仪安装总量</h4>
             <div className="num-box">
-              <li className="num">1</li>
-              <li className="num">2</li>
-              <li className="num">3</li>
-              <li className="num">3</li>
-              <li className="num">4</li>
-              <li className="num">4</li>
+              {this.renderNum('213,12')}
             </div>
           </div>
           <div className="section-right child">
             <h4>巡检仪线上运行数量</h4>
             <div className="num-box">
-              <li className="num">2</li>
-              <li className="num">3</li>
-              <li className="num">4</li>
-              <li className="num">5</li>
-              <li className="num">6</li>
-              <li className="num">3</li>
+              {this.renderNum('342,89')}
             </div>
           </div>
         </div>
@@ -466,13 +498,21 @@ class Dashboard extends BaseView {
     } = this.state
 
     const height = $('.page-right .charts-content').height()
-    const chartHeight = (height - 80 - 75 - 40) / 3
+    let chartHeight = (height - 25 * 3 - 65) / 3;
+    let labelHeight = chartHeight;
+    //page-right 的innerwidth
+    const domWidth = $('body').width() / 4 - 40;
+    if(domWidth / 2 < chartHeight){
+      labelHeight = domWidth / 2;
+      chartHeight = (height - 25 * 3 - 65 - labelHeight) / 2;
+    }
     //事件有效性
     const charts6 = {
       // data:validityEventCountData,
       data: eventCountData ? Mock.charts6 : '',
-      height: chartHeight,
-      innerRadius: 0.6,
+      height: labelHeight,
+      innerRadius: 0.7,
+      radius:.9,
       forceFit: true,
       padding: 'auto',
       field: 'count',
@@ -489,8 +529,9 @@ class Dashboard extends BaseView {
     //事件类型
     const charts7 = {
       data: eventCountData,
-      height: chartHeight,
-      innerRadius: 0.6,
+      height: labelHeight,
+      innerRadius: 0.7,
+      radius:.9,
       forceFit: true,
       padding: 'auto',
       field: 'count',
@@ -515,9 +556,27 @@ class Dashboard extends BaseView {
       style: {
         overflow: 'hidden'
       },
+      xLabel: {
+        offset: 15,
+        textStyle:{
+          fill:'#fff',
+          fontSize:12
+        }
+      },
+      yLabel: {
+        offset: 5,
+        textStyle:{
+          fill:'#fff',
+          fontSize:10
+        }
+      },
       padding: 'auto',
       height: chartHeight
     }
+
+    console.log(tradeEventCountMData)
+    console.log(this.getFields(tradeEventCountMData))
+
     const charts9 = {
       data: tradeEventCountMData,
       height: chartHeight,
@@ -525,7 +584,34 @@ class Dashboard extends BaseView {
       fields: this.getFields(tradeEventCountMData),
       keyName: '行业',
       value: '上报数量',
+      xLabel: {
+        offset: 15,
+        textStyle:{
+          fill:'#fff',
+          fontSize:12
+        }
+      },
+      yLabel: {
+        offset: 5,
+        textStyle:{
+          fill:'#fff',
+          fontSize:10
+        }
+      },
       fieldsName: 'name',
+      forceFit: true,
+      style: {
+        overflow: 'hidden'
+      }
+    }
+
+    const charts10 = {
+      data: tradeEventCountMData && tradeEventCountMData.slice(0,3),
+      height: chartHeight,
+      padding: 'auto',
+      xAxis:'name',
+      yAxis:'count',
+      fields: tradeEventCountMData && this.getFields(tradeEventCountMData.slice(0,3)),
       forceFit: false,
       style: {
         overflow: 'hidden'
@@ -551,16 +637,16 @@ class Dashboard extends BaseView {
 
           <div
             className="section-content has-child"
-            style={{ height: '75px', flex: 'none' }}
+            
           >
             <div className="child">
-              <h6 className="text-blue">月上报事件数</h6>
+              <h6>月上报事件数</h6>
               <div className="text">
                 <span>{'123,123'}</span> 件
               </div>
             </div>
             <div className="child">
-              <h6 className="text-blue">有效性</h6>
+              <h6>有效性</h6>
               <div className="text">
                 <span>{'123.22'}</span> %
               </div>
@@ -571,8 +657,9 @@ class Dashboard extends BaseView {
             <Groupedcolumn {...charts8} />
           </div>
           <div className="section-content flex-column">
-            <h6>行业类型</h6>
+            <h6 style={{textAlign:'center'}}>行业类型</h6>
             <Groupedcolumn {...charts9} />
+            {/*<Basicradar {...charts10} />*/}
           </div>
         </div>
       </div>
@@ -580,7 +667,7 @@ class Dashboard extends BaseView {
   }
   renderMain() {
     return (
-      <div className="page-dashboard">
+      <div className="page-dashboard page">
         {this.renderPageLeft()}
         {this.renderPageCenter()}
         {this.renderPageRight()}

@@ -884,7 +884,7 @@ class XMD extends BaseView {
       } = this.state;
 
       return (
-        <div className='page-xmd page-slick'>
+        <div className='page-xmd page-slick page'>
           <h1 className='page-title'>{this.state.pageTitle}</h1>
           <div className='slick-btn'>
             <div className={pageIdx == 0 ?'btn active':'btn'} onClick={this.slickBtn.bind(this,0)}></div>

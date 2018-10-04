@@ -47,10 +47,10 @@ echarts.extendsMap = function(id, opt) {
   ];
   // style
   var style = {
-      font: '18px "Microsoft YaHei", sans-serif',
+      font: '12px "Microsoft YaHei", sans-serif',
       textColor: '#eee',
-      lineTopColor: 'rgba(147, 235, 248, .0)',
-      lineBottomColor:'rgba(147, 235, 248, .8)'
+      lineTopColor: 'rgba(0,0,0,0)',
+      lineBottomColor:'#21eeff'
   };
 
   var handleEvents = {
@@ -260,6 +260,7 @@ echarts.extendsMap = function(id, opt) {
         enterable:true,
         position:['60%','70%'],
         formatter:function(params, ticket, callback){
+          console.log(params)
             return '省份：'+params.data.name+'<br/>'+'安装数量：'+params.data.userValue
         }
       },
@@ -369,12 +370,14 @@ echarts.extendsMap = function(id, opt) {
                       x: 0.5,
                       y: 0.5,
                       r: 0.8,
-                      colorStops: [{
+                      colorStops: [{// #110b52#344580
                           offset: 0,
-                          color: 'rgba(147, 235, 248, 0)' // 0% 处的颜色
+                          // color: 'rgba(147, 235, 248, 0)' // 0% 处的颜色
+                          color: '#110b52' // 0% 处的颜色
                       }, {
                           offset: 1,
-                          color: 'rgba(147, 235, 248, .2)' // 100% 处的颜色
+                          // color: 'rgba(147, 235, 248, .2)' // 100% 处的颜色
+                          color: '#344580' // 100% 处的颜色
                       }],
                       globalCoord: false // 缺省为 false
                   },
@@ -385,7 +388,7 @@ echarts.extendsMap = function(id, opt) {
                   shadowBlur: 10
               },
               emphasis: {
-                  areaColor: '#389BB7',
+                  areaColor: '#21eeff',
                   borderWidth: 0
               }
           },
