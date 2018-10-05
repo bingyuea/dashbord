@@ -876,9 +876,11 @@ class XMD extends BaseView {
     return (
       <div className="slick-page" style={{ height: domHeight }}>
         <div className="side-content content_box">
-          <div className="content_title">
-            <span>巡检仪事件统计</span>
-            <span>事件有效性</span>
+          <div className="small-title">
+            <span className="arrow">&gt;&gt;</span>
+            <div className="title">巡检仪事件统计</div>
+            <span className="arrow last">&gt;&gt;</span>
+            <div className="blue-line" />
           </div>
           <div className="blue_underline" />
           <div className="bottom-section">
@@ -904,8 +906,12 @@ class XMD extends BaseView {
         </div>
         <div className="center-content">
           <div className="top content_box">
-            <div className="content_title">客户分布情况</div>
-            <div className="blue_underline" />
+            <div className="small-title">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">客户分布情况</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
             <div className="section-content" id="centerSectionContent">
               <span>行业信息</span>
               <Doubleaxes {...charts8} />

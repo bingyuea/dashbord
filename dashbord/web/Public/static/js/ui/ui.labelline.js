@@ -20,7 +20,7 @@ import {
   COLOR_PLATE_8,
   COLOR_PLATE_24
 } from '../data/color'
-
+const { Html } = Guide;
 //饼图
 class Labelline extends React.Component {
   render() {
@@ -56,6 +56,14 @@ class Labelline extends React.Component {
             showTitle={false}
             itemTpl="<li><span style=&quot;background-color:{color};&quot; class=&quot;g2-tooltip-marker&quot;></span>{name}: {value}</li>"
           />
+          {this.props.innerText?<Guide>
+            <Html
+              position={["50%", "50%"]}
+              html={`<div class='label-inner'>${this.props.innerText}</div>`}
+              alignX="middle"
+              alignY="middle"
+            />
+          </Guide>:''}
           <Geom
             type="intervalStack"
             position="percent"

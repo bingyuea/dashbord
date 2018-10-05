@@ -769,17 +769,19 @@ class MergeAnaly extends BaseView {
     }
 
     return (
-      <div className="page-slick page">
-        <h1 className="page-title">二次回路异常主题分析</h1>
-        <div className="slick-btn">
-          <div
-            className={this.state.pageIdx == 0 ? 'btn active' : 'btn'}
-            onClick={this.slickBtn.bind(this, 0)}
-          />
-          <div
-            className={this.state.pageIdx == 1 ? 'btn active' : 'btn'}
-            onClick={this.slickBtn.bind(this, 1)}
-          />
+      <div className="page-slick page page-merge-analy">
+        <div className='top-content'>
+          <h1 className="page-title">二次回路异常主题分析</h1>
+          <div className="slick-btn">
+            <div
+              className={this.state.pageIdx == 0 ? 'btn active' : 'btn'}
+              onClick={this.slickBtn.bind(this, 0)}
+            />
+            <div
+              className={this.state.pageIdx == 1 ? 'btn active' : 'btn'}
+              onClick={this.slickBtn.bind(this, 1)}
+            />
+          </div>
         </div>
         <div className="page-main slider_content">
           <Slider {...settings} ref={slider => (this.slider = slider)}>

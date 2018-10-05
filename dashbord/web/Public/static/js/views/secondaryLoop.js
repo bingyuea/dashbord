@@ -106,6 +106,9 @@ class SecondaryLoop extends BaseView {
       _value.endTime = this.indata.defaultTime[1]
     }
 
+    this.setState({
+      searchValue:_value
+    })
     this.fetchPageOne(_value)
     this.fetchPageTwo(_value)
   }
@@ -123,7 +126,7 @@ class SecondaryLoop extends BaseView {
     this.fetchQueryExceptionList(value)
   }
 
-  fetchrowCLick(value) {
+  fetchrowCLick() {
     // pageOne.dataList = resData 列表第一条数据
     let { serialNum, elecSerialNum, occTime } =
       (this.state.pageTwo && this.state.pageTwo.record) ||
@@ -162,10 +165,7 @@ class SecondaryLoop extends BaseView {
         self.setState({
           pageOne: pageOne
         })
-        // {
-        //   "result":1,
-        //   "totalCount":12000,
-        // }
+        
       },
       err => {
         console.log(err)
@@ -193,19 +193,6 @@ class SecondaryLoop extends BaseView {
         self.setState({
           pageOne: pageOne
         })
-        // {
-        //   "result":1.
-        //   "areaList":[
-        //   {
-        //     "area":"浦东新区,
-        //     "areaCount": 200
-        //   },
-        //     {
-        //     "area":"黄浦区",
-        //     "areaCount"; 300
-        //   }
-        //   ]
-        // }
       },
       err => {
         console.log(err)
@@ -234,19 +221,6 @@ class SecondaryLoop extends BaseView {
         self.setState({
           pageOne: pageOne
         })
-        // {
-        //   "result":1.
-        //   "periodList":[
-        //     {
-        //       "period":"2017-03-01",
-        //       "periodCount":200
-        //     },
-        //        {
-        //       "period":"2017-03-02",
-        //       "periodCount":300
-        //     }
-        //     ]
-        // }
       },
       err => {
         console.log(err)
@@ -276,21 +250,6 @@ class SecondaryLoop extends BaseView {
         self.setState({
           pageOne: pageOne
         })
-        // {
-        //   "result":1.
-        //   "tradeList":[
-        //   {
-        //     "trade":1,
-        //     "tradeName":"大工业用电",
-        //     "tradeCount":200
-        //   },
-        //   {
-        //     "trade":2,
-        //     "tradeName":"轻工业用电",
-        //     "tradeCount": 100
-        //   }
-        //     ]
-        // }
       },
       err => {
         console.log(err)
@@ -319,21 +278,6 @@ class SecondaryLoop extends BaseView {
         self.setState({
           pageOne: pageOne
         })
-        // {
-        //   "result":1.
-        //   "exceptionList":[
-        //     {
-        //       "exception":1,
-        //       "name":"二次侧短路",
-        //       "exceptionCount":20
-        //     },
-        //       {
-        //     “exception":2,
-        //     “name":"电能表计量示值错误",
-        //     “exceptionCount":30
-        //     }
-        //     ]
-        // }
       },
       err => {
         console.log(err)
@@ -363,44 +307,9 @@ class SecondaryLoop extends BaseView {
         pageOne.dataList = res.dataList || []
         self.setState({
           pageOne: pageOne
+        },()=>{
+          self.fetchrowCLick();
         })
-        // totalPage	总页数	int	是
-        // currentPage	当前页数	int	是
-        // username	户名	string	是
-        // place	所属地	string	是
-        // serialNum	巡检仪资产编号	string	是
-        // elecSerialNum	电能表资产编号	string	是
-        // trade	行业类别	string	是
-        // exception	异常类型	int
-        // occTime	异常日期	string	是
-        // recoverTime	恢复日期	string	是
-        // {
-        //     "result":1,
-        //     "totalPage":3,
-        //     "currentPage":1,
-        //     "dataList":[
-        //     {
-        //         "username":"张三",
-        //         "place":"南京市",
-        //         "serialNum":"SN1234325",
-        //         "elecSerialNum":"SN1234325",
-        //         "trade":"大工业用电",
-        //         "exception":1,
-        //         "occTime":"2017-10-10",
-        //         "recoverTime":"2017-10-11'
-        //     },
-        //     {
-        //         "username":"李四",
-        //         "place":"南京市",
-        //         "serialNum":"SN1234322",
-        //         "elecSerialNum":"SN1234325",
-        //         "trade":"轻工业用电",
-        //         "exception":2,
-        //         "occTime":"2017-10-10",
-        //         "recoverTime":"2017-10-11'
-        //     }
-        // ]
-        // }
       },
       err => {
         console.log(err)
@@ -433,29 +342,6 @@ class SecondaryLoop extends BaseView {
         self.setState({
           pageTwo
         })
-        // {
-        //     "result":1,
-        //     "xmdData":[
-        //     {
-        //         "phase":"A相",
-        //         "pointList":[0.5,0.6,.....,0.9]
-        // },
-        //     {
-        //         "phase ":" B相",
-        //         "pointList":[0.5,0.6,.....,0.9]
-        //     }
-        // ],
-        //     "elecData":[
-        //     {
-        //         "phase":"A相",
-        //         "pointList":[0.5,0.6,.....,0.9]
-        // },
-        //     {
-        //         "phase ":" B相",
-        //         "pointList":[0.5,0.6,.....,0.9]
-        //     }
-        // ]
-        // }
       },
       err => {
         console.log(err)
@@ -485,27 +371,6 @@ class SecondaryLoop extends BaseView {
         self.setState({
           pageTwo
         })
-        // {
-        //     "result":1,
-        //     "xmdData":[
-        //     {
-        //         "exception":"表示值不平",
-        //         "event":"发生",
-        //         "eventTime":"　2018-06-01 0:33:55",
-        //         "phaseA":0,
-        //         "phaseB":0,
-        //         "phaseC":1
-        //     },
-        //     {
-        //         "exception":"电能表飞走",
-        //         "event":"发生",
-        //         "eventTime":"　2018-06-01 0:33:55",
-        //         "phaseA":0,
-        //         "phaseB":0,
-        //         "phaseC":1
-        //     }
-        // ]
-        // }
       },
       err => {
         console.log(err)
@@ -537,27 +402,6 @@ class SecondaryLoop extends BaseView {
         self.setState({
           pageTwo
         })
-        // {
-        //     "result":1,
-        //     "elecData":[
-        //     {
-        //         "exception":"表示值不平",
-        //         "event":"发生",
-        //         "eventTime":"　2018-06-01 0:33:55",
-        //         "phaseA":0,
-        //         "phaseB":0,
-        //         "phaseC":1
-        //     },
-        //       {
-        //         "exception":"电能表飞走",
-        //         "event":"发生",
-        //         "eventTime":"　2018-06-01 0:33:55",
-        //         "phaseA":0,
-        //         "phaseB":0,
-        //         "phaseC":1
-        //     }
-        //      ]
-        // }
       },
       err => {
         console.log(err)
@@ -592,36 +436,6 @@ class SecondaryLoop extends BaseView {
         self.setState({
           pageTwo
         })
-        // {
-        //     "result":1,
-        //     "elecData":[
-        //     {
-        //         "time ":"　2018-06-01",
-        //         "activePower":100,
-        //         "reactivePower":100
-        //     },
-        //       {
-        //         "time ":"　2018-06-02",
-        //         "activePower":100,
-        //         "reactivePower":100
-        //     },
-        //     {
-        //         "time ":"　2018-06-03",
-        //         "activePower":100,
-        //         "reactivePower":100
-        //     },
-        //       {
-        //         "time ":"　2018-06-04",
-        //         "activePower":100,
-        //         "reactivePower":100
-        //     },
-        //     {
-        //         "time ":"　2018-06-05",
-        //         "activePower":100,
-        //         "reactivePower":100
-        //     }
-        //      ]
-        // }
       },
       err => {
         console.log(err)
@@ -720,10 +534,18 @@ class SecondaryLoop extends BaseView {
         overflow: 'hidden'
       },
       xLabel: {
-        offset: 15
+        offset: 15,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       },
       yLabel: {
-        offset: 5
+        offset: 5,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       }
     }
     tradeListCharts = {
@@ -745,10 +567,18 @@ class SecondaryLoop extends BaseView {
         overflow: 'hidden'
       },
       xLabel: {
-        offset: 15
+        offset: 15,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       },
       yLabel: {
-        offset: 5
+        offset: 5,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       }
     }
     exceptionListCharts = {
@@ -762,10 +592,18 @@ class SecondaryLoop extends BaseView {
         overflow: 'hidden'
       },
       xLabel: {
-        offset: 15
+        offset: 15,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       },
       yLabel: {
-        offset: 5
+        offset: 5,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       }
     }
     // 区域占比
@@ -778,6 +616,7 @@ class SecondaryLoop extends BaseView {
       innerRadius: 0.7,
       field: 'areaCount',
       dimension: 'area',
+      innerText:'区域占比',
       cols: {
         percent: {
           formatter: val => {
@@ -971,10 +810,18 @@ class SecondaryLoop extends BaseView {
         overflow: 'hidden'
       },
       xLabel: {
-        offset: 15
+        offset: 15,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       },
       yLabel: {
-        offset: 5
+        offset: 5,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       }
     }
     // 电流分析对比查询 图表B
@@ -995,10 +842,18 @@ class SecondaryLoop extends BaseView {
         overflow: 'hidden'
       },
       xLabel: {
-        offset: 15
+        offset: 15,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       },
       yLabel: {
-        offset: 5
+        offset: 5,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       }
     }
     // 电流分析对比查询 图表C
@@ -1014,10 +869,19 @@ class SecondaryLoop extends BaseView {
         overflow: 'hidden'
       },
       xLabel: {
-        offset: 15
+        offset: 15,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
+
       },
       yLabel: {
-        offset: 5
+        offset: 5,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       }
     }
     chartsEleChange = {
@@ -1031,10 +895,18 @@ class SecondaryLoop extends BaseView {
         overflow: 'hidden'
       },
       xLabel: {
-        offset: 15
+        offset: 15,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       },
       yLabel: {
-        offset: 5
+        offset: 5,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
       }
     } // 电量变化图表
     return (
@@ -1175,71 +1047,79 @@ class SecondaryLoop extends BaseView {
   }
 
   renderTable() {
+    const searchValue = this.state.searchValue;
+
     let columns = [
       {
         title: '所属城市',
         dataIndex: 'place',
-        width: 60,
+        width: '12%',
         align: 'center',
         key: 'place'
       },
       {
         title: '所属区县',
         dataIndex: 'region',
-        width: 60,
+        width: '12%',
         align: 'center',
         key: 'region'
       },
       {
         title: '巡检仪资产编号',
         dataIndex: 'serialNum',
-        width: 60,
+        width: '20%',
         align: 'center',
         key: 'serialNum'
       },
       {
         title: '电能表资产编号',
         dataIndex: 'elecSerialNum',
-        width: 60,
+        width: '20%',
         align: 'center',
         key: 'elecSerialNum'
       },
-      {
-        title: '户名',
-        dataIndex: 'username',
-        width: 60,
-        align: 'center',
-        key: 'username'
-      },
+      // {
+      //   title: '户名',
+      //   dataIndex: 'username',
+      //   width: '5.4%',
+      //   align: 'center',
+      //   key: 'username'
+      // },
       {
         title: '用电类型',
         dataIndex: 'trade',
-        width: 60,
+        width: '12%',
         align: 'center',
         key: 'trade'
       },
       {
         title: '异常类型',
         dataIndex: 'name',
-        width: 60,
+        width: '12%',
         key: 'name',
         align: 'center'
       },
       {
         title: '异常日期',
         dataIndex: 'occTime',
-        width: 60,
+        width: '12%',
         align: 'center',
         key: 'occTime'
       },
       {
         title: '恢复日期',
         dataIndex: 'recoverTime',
-        width: 60,
+        width: '12%',
         align: 'center',
         key: 'recoverTime'
       }
     ]
+
+    if(searchValue && searchValue.city){
+      columns.splice(0,1);
+    }else{
+      columns.splice(1,1);
+    }
     // 正式数据
     let {
       dataList // 异常信息表查询
@@ -1279,7 +1159,6 @@ class SecondaryLoop extends BaseView {
 
     return (
       <div>
-        {/* <div className="content_title">二次回路异常事件</div> */}
         <div className="small-title">
           <span className="arrow">&gt;&gt;</span>
           <div className="title">二次回路异常事件</div>
