@@ -1,54 +1,49 @@
 .page-analy {
   .page-left,
   .page-right {
-    padding-top: 50px;
-    width: 20%;
+    width: 25%;
     flex-shrink: 0;
+    padding: 50px 30px 30px 30px;
+    box-sizing: border-box;
     .item {
       height: 25%;
       padding-bottom: 15px;
       .label {
-        border-left: 6px solid #5fa3ac;
-        padding-left: 10px;
-        margin-bottom: 5px;
-        line-height: 15px;
+        margin-bottom: 25px;
+        line-height: 20px;
         height: 20px;
         text-align: left;
         color: #5fa3ac;
       }
       .tabel {
         width: 100%;
-        height: calc(~'100% - 25px');
-        // .list {
-        //   height: auto;
-        //   width: 100%;
-        //   position: relative;
-          .scrollList {
-            height:calc(~'100% - 33%');
-            overflow: auto;
-            &::-webkit-scrollbar {
-              width: 0;
-            }
-            .row2,.row3{
-              height: 50%;
-            }
+        height: calc(~'100% - 45px');
+        .scrollList {
+          height: calc(~'100% - 33%');
+          overflow: auto;
+          &::-webkit-scrollbar {
+            width: 0;
           }
-        // }
-        .row1{
+          .row2,
+          .row3 {
+            height: 50%;
+          }
+        }
+        .row1 {
           height: 33%;
         }
         .row1 {
-          background: rgb(59, 59, 59);
+          background: rgba(7, 35, 82, 0.4);
           .h6 {
             display: inline-block;
-            color: #fff;
+            color: @blue;
           }
         }
         .row2 {
-          background: #777;
+          background: rgba(9, 25, 61, 0.4);
         }
         .row3 {
-          background: rgb(59, 59, 59);
+          background: rgba(12, 35, 69, 0.4);
         }
         .flex {
           flex: 1;
@@ -64,16 +59,16 @@
   }
 }
 
-.page-merge-analy{
+.page-merge-analy {
   position: relative;
-  .top-content{
+  .top-content {
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     right: 0;
-    margin:auto;
+    margin: auto;
   }
-  .page-center{
+  .page-center {
     padding-top: 140px;
   }
 }
