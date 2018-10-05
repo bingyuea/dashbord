@@ -1083,15 +1083,9 @@ class SecondaryLoop extends BaseView {
                         xmdEventData.map((item, index) => {
                           return (
                             <li key={index}>
-                              {/* <div className="title">巡检仪上报事件</div> */}
-                              <div className="small-title">
-                                <span className="arrow">&gt;&gt;</span>
-                                <div className="title">巡检仪上报事件</div>
-                                <span className="arrow last">&gt;&gt;</span>
-                                <div className="blue-line" />
-                              </div>
+                              <div className="title">巡检仪上报事件</div>
                               <div className="blue_underline" />
-                              <ul className="event_report">
+                              <ul className="event_report event_blue">
                                 <li>异常类型 : {item.exception}</li>
                                 <li>事件状态 : {item.event}</li>
                                 <li>事件发生时间 : {item.eventTime}</li>
@@ -1116,7 +1110,7 @@ class SecondaryLoop extends BaseView {
                             <li key={index}>
                               <div className="title">电能表上报事件</div>
                               <div className="blue_underline" />
-                              <ul className="event_report">
+                              <ul className="event_report event_red">
                                 <li>异常类型 : {item.exception}</li>
                                 <li>事件状态 : {item.event}</li>
                                 <li>事件发生时间 : {item.eventTime}</li>
@@ -1160,7 +1154,17 @@ class SecondaryLoop extends BaseView {
                     <span className="arrow last">&gt;&gt;</span>
                     <div className="blue-line" />
                   </div>
-                  <div className="event-table" />
+                  <div className="event-table event-table-info">
+                    <p className="info">
+                      1.点击二次回路异常事件，则显示该事件相关电流、电量、事件信息
+                    </p>
+                    <p className="">
+                      2.“查询日期”为下拉栏，其中起始时间和结束时间下拉栏提供时间表
+                    </p>
+                    <p className="">
+                      3.“安装地点”中“省份”和“城市”是下拉栏，若只提供省份，则提供整个省份的信息；若提供城市，则提供该市的信息
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

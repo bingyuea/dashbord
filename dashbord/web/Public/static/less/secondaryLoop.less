@@ -10,7 +10,6 @@
         flex-direction: column;
         padding: 15px 20px;
         height: 100%;
-        border-radius: 40px;
         .loop_top,
         .loop_bottom {
           flex: 1;
@@ -98,7 +97,6 @@
         flex-direction: column;
         padding: 15px 20px;
         height: 100%;
-        border-radius: 40px;
         .ele_charts {
           padding-top: 15px;
           &_title {
@@ -181,6 +179,12 @@
                     padding: 0;
                     height: auto;
                     padding: 5px 0 5px 5px;
+                    &.event_blue {
+                      background: rgba(31, 137, 150, 0.4);
+                    }
+                    &.event_red {
+                      background: rgba(168, 89, 95, 0.4);
+                    }
                     > li {
                       text-align: left;
                     }
@@ -193,7 +197,11 @@
             width: 25%;
             .event-table {
               width: 100%;
-              background: #777;
+              &-info {
+                padding: 15px;
+                font-size: 12px;
+                text-align: left;
+              }
             }
           }
           &_center {
