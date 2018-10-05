@@ -360,7 +360,7 @@ class Status extends BaseView {
         };
         const pageIdx = this.state.pageIdx;
         return (
-            <div className="page-status page-slick">
+            <div className="page-status page-slick page">
                 <h1 className='page-title'>二次回路状态在线监测</h1>
                 <div className='slick-btn'>
                     <div className={pageIdx == 0 ?'btn active':'btn'} onClick={this.slickBtn.bind(this,0)}></div>
