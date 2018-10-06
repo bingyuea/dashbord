@@ -11,11 +11,13 @@ const { MonthPicker } = DatePicker
 //异常数据统计
 import {
   QuerySecondLoopExceptionDetailData,
-  GetTopTenOfSecondLoopExceptionTop
+  GetTopTenOfSecondLoopExceptionTop,
+  GetTopTenOfSecondLoopException
 } from '../models/status.models'
 //定义数据模型
 const querySecondLoopExceptionDetailData = QuerySecondLoopExceptionDetailData.getInstance(),
-  getTopTenOfSecondLoopExceptionTop = GetTopTenOfSecondLoopExceptionTop.getInstance()
+  getTopTenOfSecondLoopExceptionTop = GetTopTenOfSecondLoopExceptionTop.getInstance(),
+  getTopTenOfSecondLoopException = GetTopTenOfSecondLoopException.getInstance()
 class Status extends BaseView {
   constructor(props) {
     super(props)
@@ -34,11 +36,28 @@ class Status extends BaseView {
       startTime: '2011-01',
       endTime: '2019-01'
     }
+
+    let averageParams = {
+      token: '234sdf234',
+      province: '山西'
+    }
+    // 排行榜
     this.fetchGetTopTenOfSecondLoopExceptionTop(params)
+    // 平均分
+    this.fetchGetTopTenOfSecondLoopException(averageParams)
     //pagetwo
     this.fetchQuerySecondLoopExceptionDetailData()
   }
 
+  // #page9
+  // curl -X POST -d '{"token":"234sdf234","serialNum":"1430009000003609335198","elecSerialNum":"1410101012212120538038","date":"2018-05-30"}' "' "https://api.c2py.com/ele/shangcen/xmdplatform/queryDetailOfSecondLoopException""
+  // #page8
+  // #1
+  // curl -X POST -d '{"token":"234sdf234","province":"西安"}' "' "https://api.c2py.com/ele/shangcen/xmdplatform/getTopTenOfSecondLoopExceptionTop"
+  // #2"
+  // #2 getTopTenOfSecondLoopException未做
+
+  // 排行榜
   fetchGetTopTenOfSecondLoopExceptionTop(value) {
     let self = this
     getTopTenOfSecondLoopExceptionTop.setParam({ ...value })
@@ -48,6 +67,24 @@ class Status extends BaseView {
         let dataList = res || {}
         self.setState({
           dataList
+        })
+      },
+      err => {
+        console.log(err)
+      }
+    )
+  }
+
+  // 平均分
+  fetchGetTopTenOfSecondLoopException(value) {
+    let self = this
+    getTopTenOfSecondLoopException.setParam({ ...value })
+    getTopTenOfSecondLoopException.excute(
+      res => {
+        // debugger
+        let averageList = res || {}
+        self.setState({
+          averageList
         })
       },
       err => {
@@ -123,7 +160,23 @@ class Status extends BaseView {
   }
   renderPageOne() {
     let appview = $('.page-main').height()
-    let { dataList } = this.state || {}
+    let { dataList, averageList } = this.state || {}
+    console.log(averageList)
+    averageList = {
+      result: 1,
+      average: 88.65,
+      monthChain: 0.01,
+      dataList: [
+        {
+          date: '2018-01',
+          average: 85.66
+        },
+        {
+          date: '2018-02',
+          average: 85.66
+        }
+      ]
+    }
     dataList = (dataList && dataList.dataList) || []
     const detailData = this.state.detailData
 
@@ -149,8 +202,6 @@ class Status extends BaseView {
     } = detailData
 
     // const bottomHeight = $('#status2RightBottom').height()
-
-    debugger
     const monthChartsHeight = $('.chartsBox').height() / 2
 
     //状态变化
@@ -179,14 +230,15 @@ class Status extends BaseView {
 
     // 平均得分
     const averageCharts = {
-      data: Mock.charts6,
+      data: Mock.charts1,
       height: monthChartsHeight,
       innerRadius: 0.7,
       radius: 0.9,
       forceFit: true,
       padding: 'auto',
       field: 'count',
-      dimension: 'eventName',
+      // dimension: 'eventName',
+      dimension: 'name',
       cols: {
         percent: {
           formatter: val => {
@@ -206,7 +258,8 @@ class Status extends BaseView {
       forceFit: true,
       padding: 'auto',
       field: 'count',
-      dimension: 'eventName',
+      // dimension: 'eventName',
+      dimension: 'name',
       cols: {
         percent: {
           formatter: val => {
