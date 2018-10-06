@@ -822,7 +822,8 @@ class SecondaryLoop extends BaseView {
       yAxis: 'y',
       doubletype: ['type', ['#ff0000', '#00ff00']],
       doubleLine: true,
-      forceFit: false,
+      forceFit: true,
+      hidePoint:true,
       padding: 'auto',
       style: {
         overflow: 'hidden'
@@ -849,7 +850,8 @@ class SecondaryLoop extends BaseView {
       xAxis: 'x',
       yAxis: 'y',
       doubletype: ['type', ['#ff0000', '#00ff00']],
-      forceFit: false,
+      forceFit: true,
+      hidePoint:true,
       padding: 'auto',
       cols: {
         year: {
@@ -881,7 +883,8 @@ class SecondaryLoop extends BaseView {
       xAxis: 'x',
       yAxis: 'y',
       doubletype: ['type', ['#ff0000', '#00ff00']],
-      forceFit: false,
+      forceFit: true,
+      hidePoint:true,
       padding: 'auto',
       style: {
         overflow: 'hidden'
