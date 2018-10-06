@@ -63,7 +63,7 @@ class SecondaryLoop extends BaseView {
     super(props)
 
     this.state = {
-      pageTitle: '二次回路单-异常分析',
+      pageTitle: '二次回路单一异常分析',
       pageIdx: 0
     }
 
@@ -508,6 +508,7 @@ class SecondaryLoop extends BaseView {
       data: periodList,
       type: 'area',
       height: loop_content,
+      hidePoint:true,
       xAxis: 'period',
       yAxis: 'periodCount',
       xLabel: {
@@ -556,9 +557,9 @@ class SecondaryLoop extends BaseView {
       height: tradeListChartsHeight,
       xAxis: 'tradeName',
       yAxis_line: 'tradeCount',
-      yAxis_line_name: '异常数量',
+      yAxis_line_name: '事件数量',
       yAxis_interval: 'percent',
-      yAxis_interval_name: '占比',
+      yAxis_interval_name: '事件占比',
       forceFit: true,
       padding: 'auto',
       cols: {
@@ -657,9 +658,7 @@ class SecondaryLoop extends BaseView {
                   <div
                     className="loop_content loop_number"
                     style={{
-                      height: loop_content,
-                      lineHeight: `${loop_content}px`,
-                      fontSize: `${loop_content / 8}px`
+                      height: loop_content
                     }}
                   >
                     {String(totalCount || 0).replace(

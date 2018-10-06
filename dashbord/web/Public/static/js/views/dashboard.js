@@ -301,14 +301,14 @@ class Dashboard extends BaseView {
         offset: 15,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       },
       yLabel: {
         offset: 5,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       }
     }
@@ -321,6 +321,7 @@ class Dashboard extends BaseView {
       yAxis: 'count',
       forceFit: true,
       padding: 'auto',
+      hideTooltip:true,
       cols: {
         count:{
           alias: '数量',
@@ -334,14 +335,14 @@ class Dashboard extends BaseView {
         offset: 15,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       },
       yLabel: {
         offset: 5,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       }
     }
@@ -352,7 +353,8 @@ class Dashboard extends BaseView {
       height: chartHeight,
       forceFit: true,
       padding: 'auto',
-      radius:.7,
+      radius:1,
+
       field: 'count',
       dimension: 'name',
       cols: {
@@ -371,7 +373,7 @@ class Dashboard extends BaseView {
       height: chartHeight,
       forceFit: true,
       padding: 'auto',
-      radius:.7,
+      radius:1,
       field: 'count',
       dimension: 'rate',
       cols: {
@@ -399,7 +401,7 @@ class Dashboard extends BaseView {
         offset: 15,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       },
       yLabel: {
@@ -415,6 +417,7 @@ class Dashboard extends BaseView {
       <div className="page-left">
         <div className="title-content">
           <h3>安装综合统计</h3>
+          <div className='bule-title-line'></div>
         </div>
         <div className="charts-content">
           <div className="section-content">
@@ -507,6 +510,12 @@ class Dashboard extends BaseView {
       data: eventCountData ? Mock.charts6 : '',
       height: labelHeight,
       innerRadius: 0.7,
+      legend:{
+        position:'right-center',
+        textStyle:{
+          fontSize:10
+        }
+      },
       radius:.9,
       forceFit: true,
       padding: 'auto',
@@ -529,6 +538,12 @@ class Dashboard extends BaseView {
       radius:.9,
       forceFit: true,
       padding: 'auto',
+      legend:{
+        position:'right-center',
+        textStyle:{
+          fontSize:10
+        }
+      },
       field: 'count',
       dimension: 'eventName',
       cols: {
@@ -548,6 +563,13 @@ class Dashboard extends BaseView {
       value: '上报数量',
       fieldsName: 'name',
       forceFit: true,
+      legend:{
+        position:'top-center',
+        marker:'circle',
+        textStyle:{
+          fontSize:10
+        }
+      },
       style: {
         overflow: 'hidden'
       },
@@ -555,7 +577,7 @@ class Dashboard extends BaseView {
         offset: 15,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       },
       yLabel: {
@@ -569,9 +591,6 @@ class Dashboard extends BaseView {
       height: chartHeight
     }
 
-    console.log(tradeEventCountMData)
-    console.log(this.getFields(tradeEventCountMData))
-
     const charts9 = {
       data: tradeEventCountMData,
       height: chartHeight,
@@ -583,7 +602,7 @@ class Dashboard extends BaseView {
         offset: 15,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       },
       yLabel: {
@@ -630,18 +649,15 @@ class Dashboard extends BaseView {
             </div>
           </div>
 
-          <div
-            className="section-content has-child"
-            
-          >
+          <div className="section-content has-child">
             <div className="child">
-              <h6>月上报事件数</h6>
+              <h6 className='spec'>月上报事件数</h6>
               <div className="text">
                 <span>{'123,123'}</span> 件
               </div>
             </div>
             <div className="child">
-              <h6>有效性</h6>
+              <h6 className='spec'>有效性</h6>
               <div className="text">
                 <span>{'123.22'}</span> %
               </div>

@@ -68,11 +68,8 @@ class Groupedcolumn extends React.Component {
         <Chart {...this.props} data={dv}  placeholder={<div className='loading'><span></span></div>}>
           <Axis name={this.props.keyName} label={this.props.xLabel} line={xLine} tickLine={null}/>
           <Axis name={this.props.value} label={this.props.yLabel} line={yLine} tickLine={null} grid={grid}/>
-          <Tooltip
-            crosshairs={{
-              type: "y"
-            }}
-          />
+          <Tooltip/>
+          {this.props.legend?<Legend {...this.props.legend}/>:''}
           <Geom
             type="interval"
             position={`${this.props.keyName}*${this.props.value}`}

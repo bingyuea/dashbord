@@ -139,7 +139,7 @@ class SearchBar extends Component {
     const searchValue = this.state.searchValue || {}
     return (
       <div className="search-item" style={item.style}>
-        <div className="title">{item.title}</div>
+        <div className="title spec">{item.title}</div>
         <div className="select-box">
           <Input
             placeholder={item.placeholder}
