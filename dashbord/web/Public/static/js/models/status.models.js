@@ -19,6 +19,7 @@ class GetTopTenOfSecondLoopException extends BaseModel {
       '/ele/shangcen/xmdplatform/getTopTenOfSecondLoopException'
   }
 }
+
 // 二次回路详情查询  page-9
 class QuerySecondLoopExceptionDetailData extends BaseModel {
   constructor(props) {
