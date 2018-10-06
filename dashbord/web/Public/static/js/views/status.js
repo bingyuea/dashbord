@@ -125,78 +125,6 @@ class Status extends BaseView {
     let appview = $('.page-main').height()
     let { dataList } = this.state || {}
     dataList = (dataList && dataList.dataList) || []
-    console.log(dataList)
-    dataList = [
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      },
-      {
-        user: '太原市长风清源水业有限公司',
-        assessedValue: '49'
-      }
-    ]
-
     const detailData = this.state.detailData
 
     if (!detailData) {
@@ -245,6 +173,48 @@ class Status extends BaseView {
         offset: 5
       }
     }
+
+    // 平均得分
+    let areaListCharts = {
+      data: areaList,
+      height: loop_content,
+      forceFit: true,
+      padding: 'auto',
+      radius: 1,
+      innerRadius: 0.7,
+      field: 'areaCount',
+      dimension: 'area',
+      innerText: '区域占比',
+      cols: {
+        percent: {
+          formatter: val => {
+            val = (val * 100).toFixed(0) + '%'
+            return val
+          }
+        }
+      }
+    }
+
+    // 月环比
+    let averageCharts = {
+      data: areaList,
+      height: loop_content,
+      forceFit: true,
+      padding: 'auto',
+      radius: 1,
+      innerRadius: 0.7,
+      field: 'areaCount',
+      dimension: 'area',
+      innerText: '区域占比',
+      cols: {
+        percent: {
+          formatter: val => {
+            val = (val * 100).toFixed(0) + '%'
+            return val
+          }
+        }
+      }
+    }
     return (
       <div className="status-main" style={{ height: appview }}>
         <div className="page-left ">
@@ -290,39 +260,33 @@ class Status extends BaseView {
           <div className="title-content">
             <h3>区域回路二次状态评估</h3>
           </div>
-          <div className="small-title label">
-            <span className="arrow">&gt;&gt;</span>
-            <div className="title">总体状态</div>
-            <span className="arrow last">&gt;&gt;</span>
-            <div className="blue-line" />
-          </div>
-          <div className="top">
-            <div className="title">当前状态</div>
-            <div className="dt">
-              <div className="title2 ">评分</div>
-              <div className="mr_b flex-layout">
-                <div style={{ fontSize: '20px' }}>{grade || 100}</div>
-                <div className="pa_l flex-layout">
-                  <div className="iconfont icon-icon-dsj" />
-                  <span>{gradeTrend || ''}</span>
-                </div>
+          <div className="chartsStatus">
+            <div className="top">
+              <div className="small-title label">
+                <span className="arrow">&gt;&gt;</span>
+                <div className="title">总体状态</div>
+                <span className="arrow last">&gt;&gt;</span>
+                <div className="blue-line" />
               </div>
-              <div className="title2 ">排名</div>
-              <div className="mr_b flex-layout">
-                <div>
-                  <span style={{ fontSize: '20px' }}>{ranking || ''}</span>
-                  <span style={{ color: '#5fa3ac' }}>%</span>
+
+              <div className="chartsBox">
+                <div className="chartsTop">
+                  <div className="itemLeft">平均得分</div>
+                  <div className="itemCenter">图表</div>
+                  <div className="itemRight">百分比</div>
                 </div>
-                <div className="pa_l flex-layout">
-                  <div className="iconfont icon-icon-dsj" />
-                  <span>{rankingTrend || ''}</span>
-                </div>
+                <div className="chartsBotttom" />
               </div>
             </div>
-          </div>
-          <div className="bottom" id="status2RightBottom">
-            <div className="title">状态变化</div>
-            <Basicline {...chartsData} />
+            <div className="bottom" id="status2RightBottom">
+              <div className="small-title label">
+                <span className="arrow">&gt;&gt;</span>
+                <div className="title">状态变化</div>
+                <span className="arrow last">&gt;&gt;</span>
+                <div className="blue-line" />
+              </div>
+              <Basicline {...chartsData} />
+            </div>
           </div>
         </div>
       </div>
