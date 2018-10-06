@@ -6,7 +6,7 @@ import Mock from '../mock/mock'
 //图表模型
 import Slider from 'react-slick'
 //图表模型
-import { ChinaMapEcharts, Basicline, Labelline } from '../ui/ui.charts.js'
+import { ChinaMapEcharts, Basicline, Labelline } from '../ui/ui.charts'
 import { DatePicker } from 'antd'
 import locale from 'antd/lib/date-picker/locale/zh_CN';
 import moment from 'moment';
