@@ -135,9 +135,6 @@ class Status extends BaseView {
   renderPageOneCenter() {
 
     const mapData = [];
-    const height = $('.section-content.map').height()
-    const mapHeight = height - 50
-
     return (
       <div className="page-center">
         <div className="section-content map ">
@@ -148,7 +145,7 @@ class Status extends BaseView {
   }
   onChange(value) {
     console.log(value)
-    
+
   }
   renderPageOne() {
     let appview = $('.page-main').height()
@@ -363,28 +360,13 @@ class Status extends BaseView {
 
   renderPageTwoCenter() {
     const { city, province } = this.state
-    const height = $('.section-content.map').height()
-    const mapHeight = height - 50
 
-    const mapData = {
-      height: mapHeight,
-      // userData:provinceCountData,
-      userData: Mock.charts1,
-      padding: 'auto',
-      xAxis: 'name',
-      yAxis: 'count',
-      scale: {
-        count: {
-          alias: '安装数量'
-        }
-      },
-      forceFit: true
-    }
+    const mapData = [];
 
     return (
       <div className="page-center">
         <div className="section-content map ">
-          <ChinaMapEcharts {...mapData} />
+          <ChinaMapEcharts mapData={mapData} />
         </div>
       </div>
     )
