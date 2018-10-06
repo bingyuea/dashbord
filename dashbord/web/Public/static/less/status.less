@@ -4,6 +4,10 @@
     flex-direction: row;
     padding: 0 20px;
   }
+  .page-right {
+    display: flex;
+    flex-direction: column;
+  }
   .page-left,
   .page-right {
     width: 25%;
@@ -105,9 +109,41 @@
 
 .chartsStatus {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  .top {
+    display: flex;
+    flex-direction: column;
+  }
   .top,
   .bottom {
     width: 100%;
     flex: 1;
+    .chartsBox {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      .chartsTop,
+      .chartsBotttom {
+        flex: 1;
+        display: flex;
+        justify-content: space-around;
+        justify-content: center;
+        padding: 0 20px;
+        .itemLeft,
+        .itemCenter,
+        .itemRight {
+          display: flex;
+          align-items: center;
+        }
+        .itemLeft,
+        .itemRight {
+          width: 20%;
+        }
+        .itemCenter {
+          flex: 1;
+        }
+      }
+    }
   }
 }
