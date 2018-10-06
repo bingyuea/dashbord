@@ -97,7 +97,6 @@ class SecondaryLoop extends BaseView {
   }
 
   search(value) {
-
     //拿到搜索需要参数
     let _value = value || {}
     if (!_value.province) {
@@ -110,9 +109,9 @@ class SecondaryLoop extends BaseView {
     }
 
     this.setState({
-      searchValue:_value,
-      pageOne:null,
-      pageTwo:null
+      searchValue: _value,
+      pageOne: null,
+      pageTwo: null
     })
     this.fetchPageOne(_value)
     this.fetchPageTwo(_value)
@@ -170,10 +169,8 @@ class SecondaryLoop extends BaseView {
         self.setState({
           pageOne: pageOne
         })
-        
       },
-      err => {
-      }
+      err => {}
     )
   }
   // 异常区域占比查询
@@ -198,8 +195,7 @@ class SecondaryLoop extends BaseView {
           pageOne: pageOne
         })
       },
-      err => {
-      }
+      err => {}
     )
   }
 
@@ -225,8 +221,7 @@ class SecondaryLoop extends BaseView {
           pageOne: pageOne
         })
       },
-      err => {
-      }
+      err => {}
     )
   }
 
@@ -253,8 +248,7 @@ class SecondaryLoop extends BaseView {
           pageOne: pageOne
         })
       },
-      err => {
-      }
+      err => {}
     )
   }
 
@@ -280,8 +274,7 @@ class SecondaryLoop extends BaseView {
           pageOne: pageOne
         })
       },
-      err => {
-      }
+      err => {}
     )
   }
 
@@ -305,14 +298,16 @@ class SecondaryLoop extends BaseView {
       res => {
         let pageOne = self.state.pageOne || {}
         pageOne.dataList = res.dataList || []
-        self.setState({
-          pageOne: pageOne
-        },()=>{
-          self.fetchrowCLick();
-        })
+        self.setState(
+          {
+            pageOne: pageOne
+          },
+          () => {
+            self.fetchrowCLick()
+          }
+        )
       },
-      err => {
-      }
+      err => {}
     )
   }
 
@@ -342,8 +337,7 @@ class SecondaryLoop extends BaseView {
           pageTwo
         })
       },
-      err => {
-      }
+      err => {}
     )
   }
   // 巡检仪上报事件查询
@@ -533,9 +527,9 @@ class SecondaryLoop extends BaseView {
       },
       cols: {
         periodCount: {
-          tickCount:5,
-          alias:'数量'
-        },
+          tickCount: 5,
+          alias: '数量'
+        }
       },
       forceFit: true,
       padding: 'auto',
@@ -557,7 +551,7 @@ class SecondaryLoop extends BaseView {
         }
       }
     }
-    const _tradeList = translateCountToPercent(tradeList,'tradeCount');
+    const _tradeList = translateCountToPercent(tradeList, 'tradeCount')
     tradeListCharts = {
       data: _tradeList,
       height: tradeListChartsHeight,
@@ -571,13 +565,13 @@ class SecondaryLoop extends BaseView {
       cols: {
         tradeCount: {
           min: 0,
-          alias:'数量'
+          alias: '数量'
         },
-        percent:{
-          tickCount:5,
-          alias:'占比',
+        percent: {
+          tickCount: 5,
+          alias: '占比',
           formatter: val => {
-            val = val + "%";
+            val = val + '%'
             return val
           }
         }
@@ -636,7 +630,7 @@ class SecondaryLoop extends BaseView {
       innerRadius: 0.7,
       field: 'areaCount',
       dimension: 'area',
-      innerText:'区域占比',
+      innerText: '区域占比',
       cols: {
         percent: {
           formatter: val => {
@@ -667,7 +661,10 @@ class SecondaryLoop extends BaseView {
                       height: loop_content
                     }}
                   >
-                    {String(totalCount || 0).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}
+                    {String(totalCount || 0).replace(
+                      /(\d)(?=(?:\d{3})+$)/g,
+                      '$1,'
+                    )}
                     <span className="text-white">&nbsp;件</span>
                   </div>
                 </div>
@@ -820,7 +817,7 @@ class SecondaryLoop extends BaseView {
       height: chartsEleHeight,
       xAxis: 'x',
       yAxis: 'y',
-      doubletype: ['type', ['#ff0000', '#00ff00']],
+      // doubletype: ['type', ['#ff0000', '#00ff00']],
       doubleLine: true,
       forceFit: true,
       hidePoint:true,
@@ -895,7 +892,6 @@ class SecondaryLoop extends BaseView {
           fill: '#fff',
           fontSize: 12
         }
-
       },
       yLabel: {
         offset: 5,
@@ -963,7 +959,7 @@ class SecondaryLoop extends BaseView {
             </div>
             <div className="event_bottom">
               <div className="event_bottom_left">
-                <div className="content_box" style={{paddingRight:'10px'}}>
+                <div className="content_box" style={{ paddingRight: '10px' }}>
                   {/* <div className="content_title">事件信息</div> */}
                   <div className="small-title">
                     <span className="arrow">&gt;&gt;</span>
@@ -972,12 +968,12 @@ class SecondaryLoop extends BaseView {
                     <div className="blue-line" />
                   </div>
                   <div className="event-table">
-                    <div className='scroll-content'>
+                    <div className="scroll-content">
                       <ul>
                         {Array.isArray(xmdEventData) &&
                           xmdEventData.map((item, index) => {
                             return (
-                              <li key={index} className='item-section'>
+                              <li key={index} className="item-section">
                                 <div className="title">巡检仪上报事件</div>
                                 <div className="blue_underline" />
                                 <ul className="event_report event_blue">
@@ -1071,7 +1067,7 @@ class SecondaryLoop extends BaseView {
   }
 
   renderTable() {
-    const searchValue = this.state.searchValue;
+    const searchValue = this.state.searchValue
 
     let columns = [
       {
@@ -1139,16 +1135,16 @@ class SecondaryLoop extends BaseView {
       }
     ]
 
-    if(searchValue && searchValue.city){
-      columns.splice(0,1);
-    }else{
-      columns.splice(1,1);
+    if (searchValue && searchValue.city) {
+      columns.splice(0, 1)
+    } else {
+      columns.splice(1, 1)
     }
     // 正式数据
     let {
       dataList // 异常信息表查询
     } = this.state.pageOne || []
-   
+
     let tableData = dataList
     Array.isArray(tableData) &&
       tableData.map((item, index) => {
@@ -1195,14 +1191,14 @@ class SecondaryLoop extends BaseView {
             dataSource={tableData}
             pagination={false}
             scroll={{ y: tableHeight }}
-            onRow={(record,idx) => {
+            onRow={(record, idx) => {
               return {
                 onClick: () => {
                   console.log(record)
                   console.log(idx)
                   let pageTwo = self.state.pageTwo || {}
                   pageTwo.record = record
-                  
+
                   self.setState({
                     pageTwo
                   })
