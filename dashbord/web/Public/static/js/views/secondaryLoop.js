@@ -31,6 +31,8 @@ import Mock from '../mock/mock'
 
 import SearchBar from '../ui/ui.searchbar.js'
 
+import { translateCountToPercent } from '../util/util'
+
 import Slider from 'react-slick'
 import DataServince from '../services/searchbar.services'
 import moment from 'moment'
@@ -95,6 +97,7 @@ class SecondaryLoop extends BaseView {
   }
 
   search(value) {
+
     //拿到搜索需要参数
     let _value = value || {}
     if (!_value.province) {
@@ -107,7 +110,9 @@ class SecondaryLoop extends BaseView {
     }
 
     this.setState({
-      searchValue:_value
+      searchValue:_value,
+      pageOne:null,
+      pageTwo:null
     })
     this.fetchPageOne(_value)
     this.fetchPageTwo(_value)
@@ -168,7 +173,6 @@ class SecondaryLoop extends BaseView {
         
       },
       err => {
-        console.log(err)
       }
     )
   }
@@ -195,7 +199,6 @@ class SecondaryLoop extends BaseView {
         })
       },
       err => {
-        console.log(err)
       }
     )
   }
@@ -223,7 +226,6 @@ class SecondaryLoop extends BaseView {
         })
       },
       err => {
-        console.log(err)
       }
     )
   }
@@ -252,7 +254,6 @@ class SecondaryLoop extends BaseView {
         })
       },
       err => {
-        console.log(err)
       }
     )
   }
@@ -280,7 +281,6 @@ class SecondaryLoop extends BaseView {
         })
       },
       err => {
-        console.log(err)
       }
     )
   }
@@ -312,7 +312,6 @@ class SecondaryLoop extends BaseView {
         })
       },
       err => {
-        console.log(err)
       }
     )
   }
@@ -344,7 +343,6 @@ class SecondaryLoop extends BaseView {
         })
       },
       err => {
-        console.log(err)
       }
     )
   }
@@ -512,26 +510,36 @@ class SecondaryLoop extends BaseView {
       }, 0)
     }
 
-    let {
-      // totalCount, // 二次回路异常事件统计
-      // areaList, // 异常区域占比查询
-      // periodList, //异常事件数量变化趋势
-      // tradeList // 行业分布信息查询
-      // exceptionList // 异常类型分布情况查询
-    } = Mock
-
     periodListCharts = {
       data: periodList,
       type: 'area',
       height: loop_content,
       xAxis: 'period',
       yAxis: 'periodCount',
-      xLabel: '异常事件数量',
-      yLabel: '异常事件数量',
+      xLabel: {
+        offset: 15,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
+      },
+      yLabel: {
+        offset: 5,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 12
+        }
+      },
+      cols: {
+        periodCount: {
+          tickCount:5,
+          alias:'数量'
+        },
+      },
       forceFit: true,
       padding: 'auto',
       style: {
-        overflow: 'hidden'
+        overflow: 'auto'
       },
       xLabel: {
         offset: 15,
@@ -548,19 +556,29 @@ class SecondaryLoop extends BaseView {
         }
       }
     }
+    const _tradeList = translateCountToPercent(tradeList,'tradeCount');
     tradeListCharts = {
-      data: tradeList,
+      data: _tradeList,
       height: tradeListChartsHeight,
       xAxis: 'tradeName',
       yAxis_line: 'tradeCount',
       yAxis_line_name: '异常数量',
-      yAxis_interval: 'trade',
-      yAxis_interval_name: '异常名称',
+      yAxis_interval: 'percent',
+      yAxis_interval_name: '占比',
       forceFit: true,
       padding: 'auto',
       cols: {
         tradeCount: {
-          min: 0
+          min: 0,
+          alias:'数量'
+        },
+        percent:{
+          tickCount:5,
+          alias:'占比',
+          formatter: val => {
+            val = val + "%";
+            return val
+          }
         }
       },
       style: {
@@ -581,6 +599,7 @@ class SecondaryLoop extends BaseView {
         }
       }
     }
+
     exceptionListCharts = {
       data: exceptionList,
       height: tradeListChartsHeight,
@@ -649,7 +668,7 @@ class SecondaryLoop extends BaseView {
                       fontSize: `${loop_content / 8}px`
                     }}
                   >
-                    {String(totalCount).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}
+                    {String(totalCount || 0).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}
                     <span className="text-white">&nbsp;件</span>
                   </div>
                 </div>
@@ -804,7 +823,7 @@ class SecondaryLoop extends BaseView {
       yAxis: 'y',
       doubletype: ['type', ['#ff0000', '#00ff00']],
       doubleLine: true,
-      forceFit: true,
+      forceFit: false,
       padding: 'auto',
       style: {
         overflow: 'hidden'
@@ -831,7 +850,7 @@ class SecondaryLoop extends BaseView {
       xAxis: 'x',
       yAxis: 'y',
       doubletype: ['type', ['#ff0000', '#00ff00']],
-      forceFit: true,
+      forceFit: false,
       padding: 'auto',
       cols: {
         year: {
@@ -863,7 +882,7 @@ class SecondaryLoop extends BaseView {
       xAxis: 'x',
       yAxis: 'y',
       doubletype: ['type', ['#ff0000', '#00ff00']],
-      forceFit: true,
+      forceFit: false,
       padding: 'auto',
       style: {
         overflow: 'hidden'
@@ -884,6 +903,7 @@ class SecondaryLoop extends BaseView {
         }
       }
     }
+    console.log(elecDayData)
     chartsEleChange = {
       data: elecDayData,
       height: chartsEleChangeHeight,
@@ -941,7 +961,7 @@ class SecondaryLoop extends BaseView {
             </div>
             <div className="event_bottom">
               <div className="event_bottom_left">
-                <div className="content_box">
+                <div className="content_box" style={{paddingRight:'10px'}}>
                   {/* <div className="content_title">事件信息</div> */}
                   <div className="small-title">
                     <span className="arrow">&gt;&gt;</span>
@@ -950,56 +970,58 @@ class SecondaryLoop extends BaseView {
                     <div className="blue-line" />
                   </div>
                   <div className="event-table">
-                    <ul>
-                      {Array.isArray(xmdEventData) &&
-                        xmdEventData.map((item, index) => {
-                          return (
-                            <li key={index}>
-                              <div className="title">巡检仪上报事件</div>
-                              <div className="blue_underline" />
-                              <ul className="event_report event_blue">
-                                <li>异常类型 : {item.exception}</li>
-                                <li>事件状态 : {item.event}</li>
-                                <li>事件发生时间 : {item.eventTime}</li>
-                                <li>
-                                  A相异常 : {item.phaseA ? '发生' : '未发生'}
-                                </li>
-                                <li>
-                                  B相异常 : {item.phaseB ? '发生' : '未发生'}
-                                </li>
-                                <li>
-                                  C相异常 : {item.phaseC ? '发生' : '未发生'}
-                                </li>
-                              </ul>
-                            </li>
-                          )
-                        })}
-                    </ul>
-                    <ul>
-                      {Array.isArray(eleEventData) &&
-                        eleEventData.map((item, index) => {
-                          return (
-                            <li key={index}>
-                              <div className="title">电能表上报事件</div>
-                              <div className="blue_underline" />
-                              <ul className="event_report event_red">
-                                <li>异常类型 : {item.exception}</li>
-                                <li>事件状态 : {item.event}</li>
-                                <li>事件发生时间 : {item.eventTime}</li>
-                                <li>
-                                  A相异常 : {item.phaseA ? '发生' : '未发生'}
-                                </li>
-                                <li>
-                                  B相异常 : {item.phaseB ? '发生' : '未发生'}
-                                </li>
-                                <li>
-                                  C相异常 : {item.phaseC ? '发生' : '未发生'}
-                                </li>
-                              </ul>
-                            </li>
-                          )
-                        })}
-                    </ul>
+                    <div className='scroll-content'>
+                      <ul>
+                        {Array.isArray(xmdEventData) &&
+                          xmdEventData.map((item, index) => {
+                            return (
+                              <li key={index} className='item-section'>
+                                <div className="title">巡检仪上报事件</div>
+                                <div className="blue_underline" />
+                                <ul className="event_report event_blue">
+                                  <li>异常类型 : {item.exception}</li>
+                                  <li>事件状态 : {item.event}</li>
+                                  <li>事件发生时间 : {item.eventTime}</li>
+                                  <li>
+                                    A相异常 : {item.phaseA ? '发生' : '未发生'}
+                                  </li>
+                                  <li>
+                                    B相异常 : {item.phaseB ? '发生' : '未发生'}
+                                  </li>
+                                  <li>
+                                    C相异常 : {item.phaseC ? '发生' : '未发生'}
+                                  </li>
+                                </ul>
+                              </li>
+                            )
+                          })}
+                      </ul>
+                      <ul>
+                        {Array.isArray(eleEventData) &&
+                          eleEventData.map((item, index) => {
+                            return (
+                              <li key={index}>
+                                <div className="title">电能表上报事件</div>
+                                <div className="blue_underline" />
+                                <ul className="event_report event_red">
+                                  <li>异常类型 : {item.exception}</li>
+                                  <li>事件状态 : {item.event}</li>
+                                  <li>事件发生时间 : {item.eventTime}</li>
+                                  <li>
+                                    A相异常 : {item.phaseA ? '发生' : '未发生'}
+                                  </li>
+                                  <li>
+                                    B相异常 : {item.phaseB ? '发生' : '未发生'}
+                                  </li>
+                                  <li>
+                                    C相异常 : {item.phaseC ? '发生' : '未发生'}
+                                  </li>
+                                </ul>
+                              </li>
+                            )
+                          })}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1027,7 +1049,7 @@ class SecondaryLoop extends BaseView {
                     <div className="blue-line" />
                   </div>
                   <div className="event-table event-table-info">
-                    <p className="info">
+                    {/*<p className="info">
                       1.点击二次回路异常事件，则显示该事件相关电流、电量、事件信息
                     </p>
                     <p className="">
@@ -1035,7 +1057,7 @@ class SecondaryLoop extends BaseView {
                     </p>
                     <p className="">
                       3.“安装地点”中“省份”和“城市”是下拉栏，若只提供省份，则提供整个省份的信息；若提供城市，则提供该市的信息
-                    </p>
+                    </p>*/}
                   </div>
                 </div>
               </div>
@@ -1124,10 +1146,7 @@ class SecondaryLoop extends BaseView {
     let {
       dataList // 异常信息表查询
     } = this.state.pageOne || []
-    // let {
-    //   dataList // 异常信息表查询
-    // } = Mock
-
+   
     let tableData = dataList
     Array.isArray(tableData) &&
       tableData.map((item, index) => {
@@ -1144,9 +1163,9 @@ class SecondaryLoop extends BaseView {
         scrollTop = $(this).scrollTop(),
         distance = 100
 
-      console.log('viewH' + viewH)
-      console.log('contentH' + contentH)
-      console.log('scrollTop' + scrollTop)
+      // console.log('viewH' + viewH)
+      // console.log('contentH' + contentH)
+      // console.log('scrollTop' + scrollTop)
 
       // if (contentH - viewH - scrollTop <= distance) {
       //   //到达底部100px时,加载新内容
@@ -1156,6 +1175,8 @@ class SecondaryLoop extends BaseView {
       //   self.fetchPageTwo(value)
       // }
     })
+
+    //
 
     return (
       <div>
@@ -1172,11 +1193,14 @@ class SecondaryLoop extends BaseView {
             dataSource={tableData}
             pagination={false}
             scroll={{ y: tableHeight }}
-            onRow={record => {
+            onRow={(record,idx) => {
               return {
                 onClick: () => {
+                  console.log(record)
+                  console.log(idx)
                   let pageTwo = self.state.pageTwo || {}
                   pageTwo.record = record
+                  
                   self.setState({
                     pageTwo
                   })
