@@ -321,6 +321,7 @@ class Dashboard extends BaseView {
       yAxis: 'count',
       forceFit: true,
       padding: 'auto',
+      hideTooltip:true,
       cols: {
         count:{
           alias: '数量',
@@ -352,7 +353,8 @@ class Dashboard extends BaseView {
       height: chartHeight,
       forceFit: true,
       padding: 'auto',
-      radius:.7,
+      radius:1,
+
       field: 'count',
       dimension: 'name',
       cols: {
@@ -371,7 +373,7 @@ class Dashboard extends BaseView {
       height: chartHeight,
       forceFit: true,
       padding: 'auto',
-      radius:.7,
+      radius:1,
       field: 'count',
       dimension: 'rate',
       cols: {
@@ -415,6 +417,7 @@ class Dashboard extends BaseView {
       <div className="page-left">
         <div className="title-content">
           <h3>安装综合统计</h3>
+          <div className='bule-title-line'></div>
         </div>
         <div className="charts-content">
           <div className="section-content">
@@ -507,6 +510,12 @@ class Dashboard extends BaseView {
       data: eventCountData ? Mock.charts6 : '',
       height: labelHeight,
       innerRadius: 0.7,
+      legend:{
+        position:'right-center',
+        textStyle:{
+          fontSize:8
+        }
+      },
       radius:.9,
       forceFit: true,
       padding: 'auto',
@@ -529,6 +538,12 @@ class Dashboard extends BaseView {
       radius:.9,
       forceFit: true,
       padding: 'auto',
+      legend:{
+        position:'right-center',
+        textStyle:{
+          fontSize:8
+        }
+      },
       field: 'count',
       dimension: 'eventName',
       cols: {
@@ -548,6 +563,10 @@ class Dashboard extends BaseView {
       value: '上报数量',
       fieldsName: 'name',
       forceFit: true,
+      // legend:{
+      //   position:'top'
+      // },
+      legend:true,
       style: {
         overflow: 'hidden'
       },
@@ -568,9 +587,6 @@ class Dashboard extends BaseView {
       padding: 'auto',
       height: chartHeight
     }
-
-    console.log(tradeEventCountMData)
-    console.log(this.getFields(tradeEventCountMData))
 
     const charts9 = {
       data: tradeEventCountMData,

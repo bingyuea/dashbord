@@ -59,9 +59,10 @@ class BasicLine extends React.Component {
         >
           <Axis name={this.props.xAxis} label={this.props.xLabel} tickLine={null} line={xLine}/>
           <Axis name={this.props.yAxis} label={this.props.yLabel} tickLine={null} line={yLine} grid={grid}/>
-          <Tooltip
+          {this.props.hideTooltip?'':<Tooltip
             shared={false}
-          />
+          />}
+          
           <Geom
             type="line"
             color={
