@@ -543,7 +543,7 @@ class XMD extends BaseView {
       height: leftChartHeight,
       xAxis: 'period',
       yAxis: 'periodCount',
-      forceFit: false,
+      forceFit: true,
       padding: 'auto',
       style: {
         overflow: 'auto'

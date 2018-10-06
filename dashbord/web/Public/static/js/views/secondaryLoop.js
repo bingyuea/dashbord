@@ -514,6 +514,7 @@ class SecondaryLoop extends BaseView {
       data: periodList,
       type: 'area',
       height: loop_content,
+      hidePoint:true,
       xAxis: 'period',
       yAxis: 'periodCount',
       xLabel: {
@@ -562,9 +563,9 @@ class SecondaryLoop extends BaseView {
       height: tradeListChartsHeight,
       xAxis: 'tradeName',
       yAxis_line: 'tradeCount',
-      yAxis_line_name: '异常数量',
+      yAxis_line_name: '事件数量',
       yAxis_interval: 'percent',
-      yAxis_interval_name: '占比',
+      yAxis_interval_name: '事件占比',
       forceFit: true,
       padding: 'auto',
       cols: {

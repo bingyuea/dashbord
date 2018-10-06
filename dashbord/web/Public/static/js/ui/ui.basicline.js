@@ -73,7 +73,7 @@ class BasicLine extends React.Component {
             position={`${this.props.xAxis}*${this.props.yAxis}`}
             size={2}
           />
-          <Geom
+          {this.props.hidePoint?'':<Geom
             type="point"
             color={DEFAULT_COLOR}
             position={`${this.props.xAxis}*${this.props.yAxis}`}
@@ -83,7 +83,7 @@ class BasicLine extends React.Component {
               stroke: '#fff',
               lineWidth: 1
             }}
-          />
+          />}
           <Geom
               type="area"
               position={`${this.props.xAxis}*${this.props.yAxis}`}
