@@ -41,8 +41,9 @@ class SearchBar extends Component {
 
   rangeOkHandle(date,dateString) {
     let searchValue = this.state.searchValue
-    searchValue.startTime = date[0] + '00:00:00'
-    searchValue.endTime = date[1] + '00:00:00'
+    
+    searchValue.startTime = dateString[0] + '00:00:00'
+    searchValue.endTime = dateString[1] + '00:00:00'
     this.setState({
       searchValue: searchValue
     })

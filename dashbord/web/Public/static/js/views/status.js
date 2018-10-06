@@ -49,7 +49,6 @@ class Status extends BaseView {
         getTopTenOfSecondLoopExceptionTop.setParam({ ...value })
         getTopTenOfSecondLoopExceptionTop.excute(
           res => {
-            debugger
             let dataList = res || {}
             self.setState({
               dataList
