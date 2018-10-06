@@ -493,6 +493,9 @@ class XMD extends BaseView {
             dataSource={list}
             pagination={false}
             scroll={{ y: tableHeight }}
+            locale={{
+              emptyText: '暂无数据',
+            }}
           />
         </div>
       </div>
@@ -532,7 +535,7 @@ class XMD extends BaseView {
       forceFit: false,
       padding: 'auto',
       style: {
-        overflow: 'hidden'
+        overflow: 'auto'
       },
       xLabel: {
         offset: 15,
@@ -558,7 +561,7 @@ class XMD extends BaseView {
       forceFit: true,
       padding: 'auto',
       style: {
-        overflow: 'hidden'
+        overflow: 'auto'
       },
       xLabel: {
         offset: 15,
@@ -575,10 +578,10 @@ class XMD extends BaseView {
         }
       }
     }
-
+    const tradeList = translateCountToPercent(customer.tradeList,'tradeCount');
     //客户分布情况
     const charts8 = {
-      data: customer.tradeList,
+      data: tradeList,
       height: centerChartHeight,
       xAxis: 'tradeName',
       yAxis_line: 'tradeCount',
@@ -589,26 +592,33 @@ class XMD extends BaseView {
       padding: 'auto',
       cols: {
         tradeCount: {
-          min: 0
+          tickCount:5
+        },
+        percent:{
+          tickCount:5,
+          formatter: val => {
+            val = val + "%";
+            return val
+          }
         }
+
       },
       style: {
-        overflow: 'hidden'
+        overflow: 'auto'
       },
-      xLabel: {
+      xLable: {
         offset: 15,
         textStyle: {
           fill: '#fff',
           fontSize: 12
         }
       },
-      yLabel: {
-        offset: 5,
-        textStyle: {
-          fill: '#fff',
-          fontSize: 12
-        }
-      }
+      // yLabel: {
+      //   offset: 5,
+      //   textStyle: {
+      //     fontSize: 12
+      //   }
+      // }
     }
 
     //综合倍率
@@ -798,7 +808,7 @@ class XMD extends BaseView {
         }
       }
     }
-
+    const tradeList = translateCountToPercent(customerXmdEvent.tradeList,'tradeCount');
     //事件分布信息
     const charts8 = {
       data: customerXmdEvent.tradeList,
@@ -812,7 +822,14 @@ class XMD extends BaseView {
       padding: 'auto',
       cols: {
         tradeCount: {
-          min: 0
+          tickCount:5
+        },
+        percent:{
+          formatter: val => {
+            val = val + "%";
+            return val
+          },
+          tickCount:5
         }
       },
       style: {
@@ -825,13 +842,6 @@ class XMD extends BaseView {
           fontSize: 12
         }
       },
-      yLabel: {
-        offset: 5,
-        textStyle: {
-          fill: '#fff',
-          fontSize: 12
-        }
-      }
     }
 
     //综合倍率
@@ -882,7 +892,6 @@ class XMD extends BaseView {
             <span className="arrow last">&gt;&gt;</span>
             <div className="blue-line" />
           </div>
-          <div className="blue_underline" />
           <div className="bottom-section">
             <div className="total-num">
               <span className="blue-txt">
@@ -919,11 +928,21 @@ class XMD extends BaseView {
           </div>
           <div className="bottom">
             <div className="section-content" id="bottomSectionContent">
-              <div className="content_title">综合倍率</div>
+              <div className="small-title">
+                <span className="arrow">&gt;&gt;</span>
+                <div className="title">综合倍率</div>
+                <span className="arrow last">&gt;&gt;</span>
+                <div className="blue-line" />
+              </div>
               <Labelline {...charts3} />
             </div>
             <div className="section-content">
-              <div className="content_title">计量类型</div>
+              <div className="small-title">
+                <span className="arrow">&gt;&gt;</span>
+                <div className="title">计量类型</div>
+                <span className="arrow last">&gt;&gt;</span>
+                <div className="blue-line" />
+              </div>
               <Labelline {...charts4} />
             </div>
           </div>

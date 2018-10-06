@@ -295,7 +295,7 @@ class Dashboard extends BaseView {
         }
       },
       style: {
-        overflow: 'hidden'
+        overflow: 'auto'
       },
       xLabel: {
         offset: 15,

@@ -3,7 +3,7 @@ import BaseView from '../core/view.base'
 import $ from 'jquery'
 import Mock from '../mock/mock'
 //图表模型
-import { 
+import {
   ChinaMapChart,
   Labelline,
   Basicline,
@@ -13,11 +13,11 @@ import {
 } from '../ui/ui.charts'
 import Slider from 'react-slick'
 
-import SearchBar from '../ui/ui.searchbar.js';
+import SearchBar from '../ui/ui.searchbar.js'
 
-import moment from 'moment';
+import moment from 'moment'
 
-import DataServince from '../services/searchbar.services';
+import DataServince from '../services/searchbar.services'
 
 import {
   //异常数据统计a
@@ -49,20 +49,22 @@ class MergeAnaly extends BaseView {
     this.indata = {
       defaultTime: ['2001-01-01 00:00', today]
     }
-
   }
 
   componentDidMount() {
     //pageOne
     this.fetchQueryElecCurrentData()
-    const self = this;
-    DataServince.fetch(function(searchOptions){
-        self.setState({
-            searchOptions:searchOptions
-        },()=>{
-          self.search();
-        });
-    });
+    const self = this
+    DataServince.fetch(function(searchOptions) {
+      self.setState(
+        {
+          searchOptions: searchOptions
+        },
+        () => {
+          self.search()
+        }
+      )
+    })
   }
 
   fetchQueryElecCurrentData(token) {
@@ -121,9 +123,7 @@ class MergeAnaly extends BaseView {
           pageTwo: pageTwo
         })
       },
-      err => {
-        
-      }
+      err => {}
     )
   }
 
@@ -141,9 +141,7 @@ class MergeAnaly extends BaseView {
           pageTwo: pageTwo
         })
       },
-      err => {
-        
-      }
+      err => {}
     )
   }
 
@@ -170,9 +168,7 @@ class MergeAnaly extends BaseView {
           pageTwo: pageTwo
         })
       },
-      err => {
-        
-      }
+      err => {}
     )
   }
 
@@ -223,8 +219,10 @@ class MergeAnaly extends BaseView {
     )
   }
 
-  renderRank(list){
-    if(!list){return false}
+  renderRank(list) {
+    if (!list) {
+      return false
+    }
     return list.map((item, index) => {
       return (
         <div
@@ -268,7 +266,12 @@ class MergeAnaly extends BaseView {
       <div className="page-analy page-dashboard" style={{ height: domHeight }}>
         <div className="page-left">
           <div className="item">
-            <h4 className="label ">疑似窃电风险排行榜</h4>
+            <div className="small-title label">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">疑似窃电风险排行榜</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
             <div className="tabel">
               <div className="row1 flex-layout ">
                 <h6 className="h6 flex">用户</h6>
@@ -281,7 +284,12 @@ class MergeAnaly extends BaseView {
           </div>
 
           <div className="item">
-            <h4 className="label ">设备故障风险排行榜</h4>
+            <div className="small-title label">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">设备故障风险排行榜</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
             <div className="tabel">
               <div className="row1 flex-layout">
                 <h6 className="h6 flex">用户</h6>
@@ -309,7 +317,12 @@ class MergeAnaly extends BaseView {
           </div>
 
           <div className="item">
-            <h4 className="label ">错接线风险排行榜</h4>
+            <div className="small-title label">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">错接线风险排行榜</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
             <div className="tabel">
               <div className="row1 flex-layout">
                 <h6 className="h6 flex">用户</h6>
@@ -337,7 +350,12 @@ class MergeAnaly extends BaseView {
           </div>
 
           <div className="item">
-            <h4 className="label ">配变需扩容排行榜</h4>
+            <div className="small-title label">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">配变需扩容排行榜</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
             <div className="tabel">
               <div className="row1 flex-layout">
                 <h6 className="h6 flex">用户</h6>
@@ -367,7 +385,12 @@ class MergeAnaly extends BaseView {
         {this.renderPageCenter()}
         <div className="page-right">
           <div className="item">
-            <h4 className="label ">现场许维护排行榜</h4>
+            <div className="small-title label">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">现场许维护排行榜</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
             <div className="tabel">
               <div className="row1 flex-layout">
                 <h6 className="h6 flex">用户</h6>
@@ -394,7 +417,12 @@ class MergeAnaly extends BaseView {
             </div>
           </div>
           <div className="item">
-            <h4 className="label ">电池失效排行榜</h4>
+            <div className="small-title label">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">电池失效排行榜</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
             <div className="tabel">
               <div className="row1 flex-layout">
                 <h6 className="h6 flex">用户</h6>
@@ -422,7 +450,12 @@ class MergeAnaly extends BaseView {
           </div>
 
           <div className="item">
-            <h4 className="label ">回路异常风险排行榜</h4>
+            <div className="small-title label">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">回路异常风险排行榜</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
             <div className="tabel">
               <div className="row1 flex-layout">
                 <h6 className="h6 flex">用户</h6>
@@ -449,7 +482,12 @@ class MergeAnaly extends BaseView {
             </div>
           </div>
           <div className="item">
-            <h4 className="label ">用电异常风险排行榜</h4>
+            <div className="small-title label">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">用电异常风险排行榜</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
             <div className="tabel">
               <div className="row1 flex-layout">
                 <h6 className="h6 flex">用户</h6>
@@ -480,7 +518,6 @@ class MergeAnaly extends BaseView {
     )
   }
   /**************   pageOne    *******************/
-
 
   /****************   pageTwo    *****************/
   renderSearchBar() {
@@ -559,7 +596,7 @@ class MergeAnaly extends BaseView {
       periodListLine //异常主题评估
     } = this.state.pageTwo || {}
     let periodListCharts = {} // 异常事件数量变化趋势
-    let loop_bottom = $('.loop_bottom').height() - 20 // 异常事件数量变化趋势 高度
+    let loop_bottom = $('.loop_bottom').height() - 40 // 异常事件数量变化趋势 高度
     let theme = {}
     let themeHeight = $('.themeHeight').height() - 20 // 异常主题评估 高度
 
@@ -624,30 +661,6 @@ class MergeAnaly extends BaseView {
     }
 
     theme = {
-      // data: [
-      //   {
-      //     name: 'London',
-      //     'Jan.': 18.9,
-      //     'Feb.': 28.8,
-      //     'Mar.': 39.3,
-      //     'Apr.': 81.4,
-      //     May: 47,
-      //     'Jun.': 20.3,
-      //     'Jul.': 24,
-      //     'Aug.': 35.6
-      //   },
-      //   {
-      //     name: 'Berlin',
-      //     'Jan.': 12.4,
-      //     'Feb.': 23.2,
-      //     'Mar.': 34.5,
-      //     'Apr.': 99.7,
-      //     May: 52.6,
-      //     'Jun.': 35.5,
-      //     'Jul.': 37.4,
-      //     'Aug.': 42.4
-      //   }
-      // ],
       data: data,
       fields: fieldsList,
       keyName: '时间',
@@ -668,25 +681,33 @@ class MergeAnaly extends BaseView {
           <div className="content_box">
             <div className="loop_top">
               <div className="loop_top_box">
-                <div className="content_title" style={{ maxWidth: '80%' }}>
-                  二次回路异常事件统计
-                  <span className="blue_underline" />
-                  <div
-                    className="loop_content loop_number"
-                    style={{
-                      height: loop_bottom,
-                      lineHeight: `${loop_bottom}px`,
-                      fontSize: `${loop_bottom / 6}px`
-                    }}
-                  >
-                    {String(totalCount).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}
-                    <span className="text-white">&nbsp;件</span>
-                  </div>
+                <div className="small-title">
+                  <span className="arrow">&gt;&gt;</span>
+                  <div className="title">二次回路异常事件统计</div>
+                  <span className="arrow last">&gt;&gt;</span>
+                  <div className="blue-line" />
+                </div>
+                <span className="blue_underline" />
+                <div
+                  className="loop_content loop_number"
+                  style={{
+                    height: loop_bottom - 80,
+                    lineHeight: `${loop_bottom - 80}px`,
+                    fontSize: `${loop_bottom / 10}px`
+                  }}
+                >
+                  {String(totalCount).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}
+                  <span className="text-white">&nbsp;件</span>
                 </div>
               </div>
             </div>
             <div className="loop_bottom">
-              <div className="content_title">异常事件数量变化趋势</div>
+              <div className="small-title">
+                <span className="arrow">&gt;&gt;</span>
+                <div className="title">异常事件数量变化趋势</div>
+                <span className="arrow last">&gt;&gt;</span>
+                <div className="blue-line" />
+              </div>
               <Basicline {...periodListCharts} />
             </div>
           </div>
@@ -694,7 +715,12 @@ class MergeAnaly extends BaseView {
         <div className="SecondaryanalyRight_right">
           <div className="event">
             <div className="content_box">
-              <div className="content_title">异常主题评估</div>
+              <div className="small-title">
+                <span className="arrow">&gt;&gt;</span>
+                <div className="title">异常主题评估</div>
+                <span className="arrow last">&gt;&gt;</span>
+                <div className="blue-line" />
+              </div>
               <div className="event-table themeHeight">
                 <Groupedcolumn {...theme} />
               </div>
@@ -720,7 +746,7 @@ class MergeAnaly extends BaseView {
   /*****************   pageTwo   ****************/
 
   renderMain() {
-    var settings ={
+    var settings = {
       dots: false,
       dotsClass: 'slick-dots slick-thumb item_box',
       autoplay: false,
@@ -736,7 +762,7 @@ class MergeAnaly extends BaseView {
 
     return (
       <div className="page-slick page page-merge-analy">
-        <div className='top-content'>
+        <div className="top-content">
           <h1 className="page-title">二次回路异常主题分析</h1>
           <div className="slick-btn">
             <div
@@ -751,12 +777,8 @@ class MergeAnaly extends BaseView {
         </div>
         <div className="page-main slider_content">
           <Slider {...settings} ref={slider => (this.slider = slider)}>
-            <div className="slider_sec ">
-              {this.renderPageOne()}
-            </div>
-            <div className="slider_sec">
-              {this.renderPageTwo()}
-            </div>
+            <div className="slider_sec ">{this.renderPageOne()}</div>
+            <div className="slider_sec">{this.renderPageTwo()}</div>
           </Slider>
         </div>
       </div>

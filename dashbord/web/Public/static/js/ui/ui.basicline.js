@@ -23,6 +23,16 @@ class BasicLine extends React.Component {
     if (!this.props.height) {
       return false
     }
+    if(this.props.data && this.props.data.length == 0){
+      return (
+        <div>
+        <Chart
+           placeholder={<div className='no-data'>暂无数据</div>}
+           height={this.props.height}
+        ></Chart>
+        </div>
+      )
+    }
 
     const xLine = {
       stroke: 'rgba(255,255,255,.1)',

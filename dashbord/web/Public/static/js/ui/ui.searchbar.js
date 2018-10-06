@@ -68,12 +68,14 @@ class SearchBar extends Component {
     })
     let defaultValue = item.key == 'city' ? '城市':'请选择';
     defaultValue = item.key == 'province' ? item.options[0].value : '请选择';
+    const dropdownClassName = item.key == 'city' ? 'city-select':'';
     
     return (
       <Select
         disabled={item.disabled || false}
         value={searchValue[item.key] || defaultValue}
         onChange={this.inputChangeHandle.bind(this, item.key)}
+        dropdownClassName={dropdownClassName}
       >
         {optionContent}
       </Select>
@@ -123,6 +125,7 @@ class SearchBar extends Component {
               moment(item.defaultTime[0], dateFormat),
               moment(item.defaultTime[1], dateFormat)
             ]}
+            allowClear={false}
             placeholder={['开始时间', '结束时间']}
             onChange={this.rangeOkHandle.bind(this)}
           />
@@ -156,7 +159,7 @@ class SearchBar extends Component {
         <div className=" search-btn" onClick={this.searchHandle.bind(this)}>
           查询
         </div>
-        <div className="reset-btn" onClick={this.resetHandle.bind(this)}>
+        <div className="reset-btn" onClick={this.resetHandle.bind(this)} style={{display:'none'}}>
           重置
         </div>
       </div>

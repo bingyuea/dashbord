@@ -29,6 +29,16 @@ class Basiccolumn extends Component {
 
   render() {
     if(!this.props.height){return false}
+    if(this.props.data && this.props.data.length == 0){
+      return (
+        <div>
+        <Chart
+           placeholder={<div className='no-data'>暂无数据</div>}
+           height={this.props.height}
+        ></Chart>
+        </div>
+      )
+    }
     const xLine = {
       stroke: 'rgba(255,255,255,.1)',
       fill: 'rgba(255,255,255,.1)',
@@ -51,6 +61,7 @@ class Basiccolumn extends Component {
             crosshairs={{
               type: "y"
             }}
+            
           />
           <Geom type="interval" size={this.props.yAxis,[10]} color={'#7a7a7a'} position={`${this.props.xAxis}*${this.props.yAxis}`}/>
         </Chart>

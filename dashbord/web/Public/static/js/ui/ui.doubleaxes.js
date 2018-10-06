@@ -14,7 +14,7 @@ import {
   Facet,
   Util
 } from "bizcharts";
-
+// import DataSet from "@antv/data-set";
 import {
   DEFAULT_COLOR
 } from '../data/color'
@@ -23,7 +23,24 @@ import {
 class Doubleaxes extends React.Component {
   render() {
     if(!this.props.height){return false}
-    
+    // const dv = new DataView();
+    // dv.source(this.props.data).transform({
+    //   type: "percent",
+    //   field: this.props.,
+    //   dimension: "item",
+    //   as: "percent"
+    // });
+
+    if(this.props.data && this.props.data.length == 0){
+      return (
+        <div>
+        <Chart
+           placeholder={<div className='no-data'>暂无数据</div>}
+           height={this.props.height}
+        ></Chart>
+        </div>
+      )
+    }
     let chartIns = null;
     return (
       <div>
@@ -53,7 +70,7 @@ class Doubleaxes extends React.Component {
                   symbol: "hyphen",
                   stroke: DEFAULT_COLOR,
                   radius: 5,
-                  lineWidth: 3
+                  lineWidth: 2
                 }
               }
             ]}
@@ -61,10 +78,25 @@ class Doubleaxes extends React.Component {
           <Axis
             name={this.props.xAxis}
             lable={this.props.xLable}
+            tickLine={null}
+          />
+          <Axis
+            name={this.props.yAxis_line}
             grid={null}
+            position='left'
             label={{
               textStyle: {
                 fill: '#fff'
+              }
+            }}
+          />
+          <Axis
+            name={this.props.yAxis_interval}
+            grid={null}
+            position='right'
+            label={{
+              textStyle: {
+                fill: DEFAULT_COLOR
               }
             }}
           />

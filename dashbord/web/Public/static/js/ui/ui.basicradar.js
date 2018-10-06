@@ -35,6 +35,16 @@ class Basicradar extends React.Component {
         </div>
       )
     }
+    if(this.props.data.length == 0){
+      return (
+        <div>
+        <Chart
+           placeholder={<div className='no-data'>暂无数据</div>}
+           height={this.props.height}
+        ></Chart>
+        </div>
+      )
+    }
     const { DataView } = DataSet;
     const dv = new DataView().source(this.props.data);
     dv.transform({

@@ -115,7 +115,8 @@ function translateCountToPercent(list,key){
 	})
 
 	return list.map(item=>{
-		return item.percent = ((item[key] / total) * 100).toFixed(0)
+		item.percent = Number(((item[key] / total) * 100).toFixed(0))
+		return item
 	})
 
 }
