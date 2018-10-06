@@ -5,7 +5,7 @@ import Mock from '../mock/mock'
 //图表模型
 import Slider from 'react-slick'
 //图表模型
-import { ChinaMapEcharts, Basicline } from '../ui/ui.charts.js'
+import { ChinaMapEcharts, Basicline, Labelline } from '../ui/ui.charts.js'
 import { DatePicker } from 'antd'
 const { MonthPicker } = DatePicker
 //异常数据统计
@@ -148,12 +148,15 @@ class Status extends BaseView {
       gradeList
     } = detailData
 
-    const bottomHeight = $('#status2RightBottom').height()
+    // const bottomHeight = $('#status2RightBottom').height()
+
+    debugger
+    const monthChartsHeight = $('.chartsBox').height() / 2
 
     //状态变化
     const chartsData = {
       data: gradeList,
-      height: bottomHeight - 35,
+      height: monthChartsHeight,
       xAxis: 'date',
       yAxis: 'grade',
       forceFit: true,
@@ -175,16 +178,15 @@ class Status extends BaseView {
     }
 
     // 平均得分
-    let areaListCharts = {
-      data: areaList,
-      height: loop_content,
+    const averageCharts = {
+      data: Mock.charts6,
+      height: monthChartsHeight,
+      innerRadius: 0.7,
+      radius: 0.9,
       forceFit: true,
       padding: 'auto',
-      radius: 1,
-      innerRadius: 0.7,
-      field: 'areaCount',
-      dimension: 'area',
-      innerText: '区域占比',
+      field: 'count',
+      dimension: 'eventName',
       cols: {
         percent: {
           formatter: val => {
@@ -196,16 +198,15 @@ class Status extends BaseView {
     }
 
     // 月环比
-    let averageCharts = {
-      data: areaList,
-      height: loop_content,
+    const monthCharts = {
+      data: Mock.charts6,
+      height: monthChartsHeight,
+      innerRadius: 0.7,
+      radius: 0.9,
       forceFit: true,
       padding: 'auto',
-      radius: 1,
-      innerRadius: 0.7,
-      field: 'areaCount',
-      dimension: 'area',
-      innerText: '区域占比',
+      field: 'count',
+      dimension: 'eventName',
       cols: {
         percent: {
           formatter: val => {
@@ -272,10 +273,24 @@ class Status extends BaseView {
               <div className="chartsBox">
                 <div className="chartsTop">
                   <div className="itemLeft">平均得分</div>
-                  <div className="itemCenter">图表</div>
-                  <div className="itemRight">百分比</div>
+                  <div className="itemCenter">
+                    <Labelline {...averageCharts} />
+                  </div>
+                  <div className="itemRight">
+                    <div className="iconfont icon-icon-dsj" />
+                    <span className="monthRange">0.24</span>
+                  </div>
                 </div>
-                <div className="chartsBotttom" />
+                <div className="chartsBotttom">
+                  <div className="itemLeft">月环比</div>
+                  <div className="itemCenter">
+                    <Labelline {...monthCharts} />
+                  </div>
+                  <div className="itemRight">
+                    <div className="iconfont icon-icon-dsj" />
+                    <span className="monthRange">0.24</span>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="bottom" id="status2RightBottom">
