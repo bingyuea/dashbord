@@ -6,7 +6,8 @@ import Mock from '../mock/mock'
 import Slider from 'react-slick'
 //图表模型
 import { ChinaMapEcharts, Basicline } from '../ui/ui.charts.js'
-
+import { DatePicker } from 'antd'
+const { MonthPicker } = DatePicker
 //异常数据统计
 import {
   QuerySecondLoopExceptionDetailData,
@@ -32,7 +33,6 @@ class Status extends BaseView {
       province: '山西',
       startTime: '2011-01',
       endTime: '2019-01'
-      // data: 'yyyy-mm'
     }
     this.fetchGetTopTenOfSecondLoopExceptionTop(params)
     //pagetwo
@@ -118,11 +118,84 @@ class Status extends BaseView {
       </div>
     )
   }
+  onChange(value) {
+    console.log(value)
+  }
   renderPageOne() {
     let appview = $('.page-main').height()
     let { dataList } = this.state || {}
     dataList = (dataList && dataList.dataList) || []
     console.log(dataList)
+    dataList = [
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      },
+      {
+        user: '太原市长风清源水业有限公司',
+        assessedValue: '49'
+      }
+    ]
 
     const detailData = this.state.detailData
 
@@ -184,11 +257,16 @@ class Status extends BaseView {
             <span className="arrow last">&gt;&gt;</span>
             <div className="blue-line" />
           </div>
-          <div className="tabel">
+          <div className="searchTime">
+            <MonthPicker onChange={this.onChange.bind(this)} />
+          </div>
+          <div className="fixedTable">
             <div className="row1 flex-layout">
               <h6 className="h6 flex">用户</h6>
               <h6 className="h6 flex">评估值</h6>
             </div>
+          </div>
+          <div className="tabel">
             {Array.isArray(dataList) &&
               dataList.map((item, index) => {
                 return (
@@ -196,7 +274,7 @@ class Status extends BaseView {
                     className={
                       (index + 1) % 2 === 0
                         ? ['row2 flex-layout ']
-                        : ['row1 flex-layout ']
+                        : ['row3 flex-layout ']
                     }
                     key={index}
                   >

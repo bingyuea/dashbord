@@ -7,29 +7,41 @@
   .page-left,
   .page-right {
     width: 25%;
-    .tabel {
-      width: 100%;
-      height: 55%;
+    background: rgba(7, 51, 100, 0.4);
+    .tabel,
+    .fixedTable {
       .row1,
-      .row2 {
+      .row2,
+      .row3 {
         height: 9.1%;
+        padding: 8px;
       }
       .row1 {
-        background: rgb(59, 59, 59);
+        background: rgba(6, 34, 80, 0.4);
         .h6 {
           display: inline-block;
-          color: #5fa3ac;
+          color: @blue;
           font-size: 17px;
         }
       }
       .row2 {
-        background: #777;
+        background: rgba(12, 35, 69, 0.4);
+      }
+      .row3 {
+        background: rgba(17, 27, 61, 0.4);
       }
       .flex {
         flex: 1;
         text-align: left;
         padding-left: 10px;
         align-self: center;
+      }
+    }
+    .tabel {
+      height: 580px;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        width: 0;
       }
     }
   }
@@ -124,4 +136,9 @@
   .bottom {
     flex: 1;
   }
+}
+
+.searchTime {
+  padding: 20px 0;
+  text-align: left;
 }
