@@ -144,7 +144,68 @@ class Status extends BaseView {
   }
   renderPageOne() {
     let appview = $('.page-main').height()
-    let { rangeList, averageList } = this.state || {}
+    let { rangeList } = this.state || {}
+    // 排行榜
+    rangeList = (rangeList && rangeList.dataList) || []
+    const bottomHeight = $('#status2RightBottom').height()
+    const monthChartsHeight = $('.chartsBox').height() / 2
+
+    const monthFormat = 'YYYY-MM'
+
+    return (
+      <div className="status-main" style={{ height: appview }}>
+        <div className="page-left ">
+          <div className="title-content">
+            <h3>二次回路状态排行榜</h3>
+          </div>
+          <div className="small-title label">
+            <span className="arrow">&gt;&gt;</span>
+            <div className="title">查询日期</div>
+            <span className="arrow last">&gt;&gt;</span>
+            <div className="blue-line" />
+          </div>
+          <div className="searchTime">
+            <MonthPicker
+              onChange={this.onChange.bind(this)}
+              allowEmpty={false}
+              placeholder={'请选择日期'}
+              format={monthFormat}
+              locale={locale}
+            />
+          </div>
+          <div className="fixedTable">
+            <div className="row1 flex-layout">
+              <h6 className="h6 flex">用户</h6>
+              <h6 className="h6 flex">评估值</h6>
+            </div>
+          </div>
+          <div className="tabel">
+            {Array.isArray(rangeList) &&
+              rangeList.map((item, index) => {
+                return (
+                  <div
+                    className={
+                      (index + 1) % 2 === 0
+                        ? ['row2 flex-layout ']
+                        : ['row3 flex-layout ']
+                    }
+                    key={index}
+                  >
+                    <div className="flex">{item.user}</div>
+                    <div className="flex">{item.assessedValue}</div>
+                  </div>
+                )
+              })}
+          </div>
+        </div>
+        {this.renderPageOneCenter()}
+        {this.renderRightCommon()}
+      </div>
+    )
+  }
+
+  renderRightCommon() {
+    let { averageList } = this.state || {}
     averageList = {
       result: 1,
       average: 88.65,
@@ -160,8 +221,6 @@ class Status extends BaseView {
         }
       ]
     }
-    // 排行榜
-    rangeList = (rangeList && rangeList.dataList) || []
     // 平均分
     let averageDataList = (averageList && averageList.dataList) || []
     let average = (averageList && averageList.average) || 0
@@ -237,106 +296,56 @@ class Status extends BaseView {
         }
       }
     }
-
-    const monthFormat = 'YYYY-MM'
-
     return (
-      <div className="status-main" style={{ height: appview }}>
-        <div className="page-left ">
-          <div className="title-content">
-            <h3>二次回路状态排行榜</h3>
-          </div>
-          <div className="small-title label">
-            <span className="arrow">&gt;&gt;</span>
-            <div className="title">查询日期</div>
-            <span className="arrow last">&gt;&gt;</span>
-            <div className="blue-line" />
-          </div>
-          <div className="searchTime">
-            <MonthPicker
-              onChange={this.onChange.bind(this)}
-              allowEmpty={false}
-              placeholder={'请选择日期'}
-              format={monthFormat}
-              locale={locale}
-            />
-          </div>
-          <div className="fixedTable">
-            <div className="row1 flex-layout">
-              <h6 className="h6 flex">用户</h6>
-              <h6 className="h6 flex">评估值</h6>
-            </div>
-          </div>
-          <div className="tabel">
-            {Array.isArray(rangeList) &&
-              rangeList.map((item, index) => {
-                return (
-                  <div
-                    className={
-                      (index + 1) % 2 === 0
-                        ? ['row2 flex-layout ']
-                        : ['row3 flex-layout ']
-                    }
-                    key={index}
-                  >
-                    <div className="flex">{item.user}</div>
-                    <div className="flex">{item.assessedValue}</div>
-                  </div>
-                )
-              })}
-          </div>
+      <div className="page-right">
+        <div className="title-content">
+          <h3>区域回路二次状态评估</h3>
         </div>
-        {this.renderPageOneCenter()}
-        <div className="page-right">
-          <div className="title-content">
-            <h3>区域回路二次状态评估</h3>
-          </div>
-          <div className="chartsStatus">
-            <div className="top">
-              <div className="small-title label">
-                <span className="arrow">&gt;&gt;</span>
-                <div className="title">总体状态</div>
-                <span className="arrow last">&gt;&gt;</span>
-                <div className="blue-line" />
-              </div>
+        <div className="chartsStatus">
+          <div className="top">
+            <div className="small-title label">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">总体状态</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
 
-              <div className="chartsBox">
-                <div className="chartsTop">
-                  <div className="itemLeft">平均得分</div>
-                  <div className="itemCenter">
-                    <div>
-                      <Labelline {...averageCharts} />
-                    </div>
-                  </div>
-                  <div className="itemRight">
-                    <div className="iconfont icon-icon-dsj" />
-                    <span className="monthRange">0.24</span>
+            <div className="chartsBox">
+              <div className="chartsTop">
+                <div className="itemLeft">平均得分</div>
+                <div className="itemCenter">
+                  <div>
+                    <Labelline {...averageCharts} />
                   </div>
                 </div>
-                <div className="chartsBotttom">
-                  <div className="itemLeft">月环比</div>
-                  <div className="itemCenter">
-                    <div>
-                      <Labelline {...monthCharts} />
-                    </div>
+                <div className="itemRight">
+                  <div className="iconfont icon-icon-dsj" />
+                  <span className="monthRange">0.24</span>
+                </div>
+              </div>
+              <div className="chartsBotttom">
+                <div className="itemLeft">月环比</div>
+                <div className="itemCenter">
+                  <div>
+                    <Labelline {...monthCharts} />
                   </div>
-                  <div className="itemRight">
-                    <div className="iconfont icon-icon-dsj" />
-                    <span className="monthRange">0.24</span>
-                  </div>
+                </div>
+                <div className="itemRight">
+                  <div className="iconfont icon-icon-dsj" />
+                  <span className="monthRange">0.24</span>
                 </div>
               </div>
             </div>
-            <div className="bottom" id="status2RightBottom">
-              <div className="small-title label">
-                <span className="arrow">&gt;&gt;</span>
-                <div className="title">状态变化</div>
-                <span className="arrow last">&gt;&gt;</span>
-                <div className="blue-line" />
-              </div>
-              <div>
-                <Basicline {...chartsData} />
-              </div>
+          </div>
+          <div className="bottom" id="status2RightBottom">
+            <div className="small-title label">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">状态变化</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
+            <div>
+              <Basicline {...chartsData} />
             </div>
           </div>
         </div>
@@ -358,26 +367,12 @@ class Status extends BaseView {
     )
   }
 
-  renderLoopEvent(list) {
-    if (!list || list.length == 0) {
-      return ''
-    }
-    return list.map((item, idx) => {
-      return (
-        <div className="flex-layout row" key={idx}>
-          <div className="flex">{item.eventName}</div>
-          <div className="flex">{item.date}</div>
-        </div>
-      )
-    })
-  }
-
   renderPageTwo() {
-    const detailData = this.state.detailData || {}
+    let detailData = this.state.detailData || {}
     if (!detailData) {
       return <div />
     }
-
+    detailData = detailData && detailData.dataList
     const {
       eventList,
       username,
@@ -393,7 +388,7 @@ class Status extends BaseView {
       ranking,
       rankingTrend,
       gradeList
-    } = detailData
+    } = detailData || {}
 
     const bottomHeight = $('#status2RightBottom').height()
 
@@ -425,82 +420,87 @@ class Status extends BaseView {
     return (
       <div className="status-main status-2" style={{ height: domHeight }}>
         <div className="page-left ">
-          <h4 className="label ">二次回路信息</h4>
-          <div className="topTable">
-            <div className=" flex-layout row">
+          <div className="title-content">
+            <h3>二次回路信息</h3>
+          </div>
+          <div className="small-title label">
+            <span className="arrow">&gt;&gt;</span>
+            <div className="title">查询日期</div>
+            <span className="arrow last">&gt;&gt;</span>
+            <div className="blue-line" />
+          </div>
+
+          <div className="status_9 mt-30">
+            <div className="row1 flex-layout">
               <h6 className="h6 flex">省份</h6>
               <h6 className="h6 flex">城市</h6>
             </div>
-            <div className=" flex-layout row">
-              <div className=" font flex">{province || ''}</div>
-              <div className="font flex">{city || ''}</div>
-            </div>
-            <div className=" flex-layout row">
+          </div>
+          <div className="row3 flex-layout status_9">
+            <div className="flex">{province || ''}</div>
+            <div className="flex">{city || ''}</div>
+          </div>
+
+          <div className="status_9 mt-20">
+            <div className="row1 flex-layout">
               <h6 className="h6 flex">户名</h6>
-              <h6 className="h6 flex ellipsis">巡检仪资产编号</h6>
-            </div>
-            <div className=" flex-layout row">
-              <div className=" font flex">{username || ''}</div>
-              <div className="font flex">{serialNum || ''}</div>
-            </div>
-            <div className=" flex-layout row">
-              <h6 className="h6 flex">用电类别</h6>
-              <h6 className="h6 flex ellipsis">行业类别</h6>
-            </div>
-            <div className=" flex-layout row">
-              <div className=" font flex">{elecType || ''}</div>
-              <div className="font flex">{trade || ''}</div>
-            </div>
-            <div className=" flex-layout row">
-              <h6 className="h6 flex">综合倍率</h6>
-              <h6 className="h6 flex ellipsis">接线方式</h6>
-            </div>
-            <div className=" flex-layout row">
-              <div className=" font flex">{rate || ''}</div>
-              <div className="font flex">{measure || ''}</div>
+              <h6 className="h6 flex">巡检仪资产编号</h6>
             </div>
           </div>
-          <h4 className="label2 ">影响二次回路事件</h4>
-          <div className="table">
-            <div className="row1 flex-layout row">
-              <div className="flex ">事件</div>
-              <div className="flex">时间</div>
+          <div className="row3 flex-layout status_9">
+            <div className="flex">{username || ''}</div>
+            <div className="flex">{serialNum || ''}</div>
+          </div>
+
+          <div className="fixedTable mt-20 status_9">
+            <div className="row1 flex-layout">
+              <h6 className="h6 flex">用电类别</h6>
+              <h6 className="h6 flex">行业类别</h6>
             </div>
-            {this.renderLoopEvent(eventList)}
+          </div>
+          <div className="row3 flex-layout status_9">
+            <div className="flex">{elecType || ''}</div>
+            <div className="flex">{trade || ''}</div>
+          </div>
+
+          <div className="fixedTable mt-20 status_9">
+            <div className="row1 flex-layout">
+              <h6 className="h6 flex">综合倍率</h6>
+              <h6 className="h6 flex">接线方式</h6>
+            </div>
+          </div>
+          <div className="row3 flex-layout status_9">
+            <div className="flex">{rate || ''}</div>
+            <div className="flex">{measure || ''}</div>
+          </div>
+
+          <div className="event">
+            <div className="small-title label mb-20">
+              <span className="arrow">&gt;&gt;</span>
+              <div className="title">影响二次回路事件</div>
+              <span className="arrow last">&gt;&gt;</span>
+              <div className="blue-line" />
+            </div>
+            {Array.isArray(eventList) &&
+              eventList.map((item, index) => {
+                return (
+                  <div
+                    className={
+                      (index + 1) % 2 === 0
+                        ? ['row2 flex-layout status_9']
+                        : ['row3 flex-layout status_9']
+                    }
+                    key={index}
+                  >
+                    <div className="flex">{item.eventName}</div>
+                    <div className="flex">{item.date}</div>
+                  </div>
+                )
+              })}
           </div>
         </div>
         {this.renderPageTwoCenter()}
-        <div className="page-right">
-          <h4 className="label ">二次回路状态</h4>
-          <div className="top">
-            <div className="title">当前状态</div>
-            <div className="dt">
-              <div className="title2 ">评分</div>
-              <div className="mr_b flex-layout">
-                <div style={{ fontSize: '20px' }}>{grade || 100}</div>
-                <div className="pa_l flex-layout">
-                  <div className="iconfont icon-icon-dsj" />
-                  <span>{gradeTrend || ''}</span>
-                </div>
-              </div>
-              <div className="title2 ">排名</div>
-              <div className="mr_b flex-layout">
-                <div>
-                  <span style={{ fontSize: '20px' }}>{ranking || ''}</span>
-                  <span style={{ color: '#5fa3ac' }}>%</span>
-                </div>
-                <div className="pa_l flex-layout">
-                  <div className="iconfont icon-icon-dsj" />
-                  <span>{rankingTrend || ''}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="bottom" id="status2RightBottom">
-            <div className="title">状态变化</div>
-            <Basicline {...chartsData} />
-          </div>
-        </div>
+        {this.renderRightCommon()}
       </div>
     )
   }
