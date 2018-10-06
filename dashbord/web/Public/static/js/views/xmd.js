@@ -537,6 +537,11 @@ class XMD extends BaseView {
       style: {
         overflow: 'auto'
       },
+      cols:{
+        periodCount: {
+          alias: "数量"
+        }
+      },
       xLabel: {
         offset: 15,
         textStyle: {
@@ -562,6 +567,11 @@ class XMD extends BaseView {
       padding: 'auto',
       style: {
         overflow: 'auto'
+      },
+      cols:{
+        areaCount: {
+          alias: "数量"
+        }
       },
       xLabel: {
         offset: 15,
@@ -592,10 +602,12 @@ class XMD extends BaseView {
       padding: 'auto',
       cols: {
         tradeCount: {
-          tickCount:5
+          tickCount:5,
+          alias:'数量'
         },
         percent:{
           tickCount:5,
+          alias:'占比',
           formatter: val => {
             val = val + "%";
             return val
@@ -767,6 +779,11 @@ class XMD extends BaseView {
       style: {
         overflow: 'hidden'
       },
+      cols:{
+        periodCount: {
+          alias: "发生数量"
+        }
+      },
       xLabel: {
         offset: 15,
         textStyle: {
@@ -793,6 +810,12 @@ class XMD extends BaseView {
       style: {
         overflow: 'hidden'
       },
+      cols:{
+        exceptionCount: {
+          alias: "发生数量"
+        }
+      },
+
       xLabel: {
         offset: 15,
         textStyle: {
@@ -822,9 +845,11 @@ class XMD extends BaseView {
       padding: 'auto',
       cols: {
         tradeCount: {
-          tickCount:5
+          tickCount:5,
+          alias: "数量"
         },
         percent:{
+          alias: "占比",
           formatter: val => {
             val = val + "%";
             return val

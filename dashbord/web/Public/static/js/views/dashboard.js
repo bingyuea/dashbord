@@ -291,6 +291,7 @@ class Dashboard extends BaseView {
       padding: 'auto',
       cols: {
         'count':{
+          alias:'数量',
           tickCount:5
         }
       },
@@ -322,10 +323,8 @@ class Dashboard extends BaseView {
       forceFit: true,
       padding: 'auto',
       cols: {
-        sales: {
-          alias: 'year',
-        },
         count:{
+          alias: '数量',
           tickCount:5
         }
       },

@@ -71,7 +71,7 @@ class Basicbar extends React.Component {
     }
     return (
       <div>
-        <Chart {...this.props} data={dv} placeholder={<div className='loading'><span></span></div>}>
+        <Chart {...this.props} data={dv} placeholder={<div className='loading'><span></span></div>} scale={this.props.cols}>
           <Coord transpose />
           <Axis
             name={this.props.xAxis}
