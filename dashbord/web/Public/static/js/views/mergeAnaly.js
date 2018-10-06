@@ -4,7 +4,7 @@ import $ from 'jquery'
 import Mock from '../mock/mock'
 //图表模型
 import {
-  ChinaMapChart,
+  ChinaMapEcharts,
   Labelline,
   Basicline,
   Doubleaxes,
@@ -85,7 +85,7 @@ class MergeAnaly extends BaseView {
         })
       },
       err => {
-        console.log(err)
+        
       }
     )
   }
@@ -184,54 +184,50 @@ class MergeAnaly extends BaseView {
     this.slider.slickGoTo(idx)
   }
 
+  //地图数据
+  formatMapData(list) {
+    if (!list || list.length == 0) {
+      return
+    }
+    let mapData = []
+    list.map(item => {
+      mapData.push({
+        city: item.rangeName,
+        name: item.rangeName,
+        userValue: item.exceptionIndex
+      })
+    })
+    return mapData
+  }
+
   /**************   pageOne    *******************/
   renderPageCenter() {
-    const { provinceCountData } = this.state
-    const height = $('.section-content.map').height()
-    const mapHeight = height - 50
+    const exceptionDataObj  = this.state.exceptionDataObj || {};
+    const exceptionData = exceptionDataObj.exceptionData || [];
+    const mapData = this.formatMapData(exceptionData);
     let _this = this
-    // if (!height) {
-    //   let time = setTimeout(function() {
-    //     _this.forceUpdate()
-    //   }, 0)
-    // }
-    const mapData = {
-      height: mapHeight,
-      // userData:provinceCountData,
-      userData: Mock.charts1,
-      padding: 'auto',
-      xAxis: 'name',
-      yAxis: 'count',
-      scale: {
-        count: {
-          alias: '安装数量'
-        }
-      },
-      forceFit: true
-    }
-
     return (
       <div className="page-center">
         <div className="section-content map ">
-          <ChinaMapChart {...mapData} />
+          <ChinaMapEcharts mapData={mapData} />
         </div>
       </div>
     )
   }
 
   renderRank(list) {
-    if (!list) {
+    if (!list || list.length == 0) {
       return false
     }
-    return list.map((item, index) => {
+    return list.map((item, idx) => {
       return (
         <div
           className={
-            (index + 1) % 2 === 0
+            (idx + 1) % 2 === 0
               ? ['row3 flex-layout ']
               : ['row2 flex-layout ']
           }
-          key={item.index}
+          key={idx}
         >
           <div className="flex">{item.user}</div>
           <div className="flex">{item.index}</div>
@@ -245,11 +241,9 @@ class MergeAnaly extends BaseView {
     const domHeight = $('.page-main').height()
     let _this = this
     if (!domHeight) {
-      let time = setTimeout(function() {
-        // _this.forceUpdate()
-      }, 0)
+      
     }
-    let { exceptionDataObj } = this.state
+    let { exceptionDataObj } = this.state;
     const exceptionData =
       (exceptionDataObj && exceptionDataObj.rankData[0]) || {}
     // 这里是不需要做去重处理
@@ -278,7 +272,10 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                {this.renderRank(exceptionData.stealingPowerRanking)}
+                <div className='scroll-body'>
+                  {this.renderRank(exceptionData.stealingPowerRanking)}
+                </div>
+                
               </div>
             </div>
           </div>
@@ -296,22 +293,10 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                {Array.isArray(exceptionData.troubleRanking) &&
-                  exceptionData.troubleRanking.map((item, index) => {
-                    return (
-                      <div
-                        className={
-                          (index + 1) % 2 === 0
-                            ? ['row3 flex-layout ']
-                            : ['row2 flex-layout ']
-                        }
-                        key={item.key}
-                      >
-                        <div className="flex">{item.user}</div>
-                        <div className="flex">{item.index}</div>
-                      </div>
-                    )
-                  })}
+                <div className='scroll-body'>
+                  {this.renderRank(exceptionData.troubleRanking)}
+                </div>
+                
               </div>
             </div>
           </div>
@@ -329,22 +314,9 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                {Array.isArray(exceptionData.wiringFaultRanking) &&
-                  exceptionData.wiringFaultRanking.map((item, index) => {
-                    return (
-                      <div
-                        className={
-                          (index + 1) % 2 === 0
-                            ? ['row3 flex-layout ']
-                            : ['row2 flex-layout ']
-                        }
-                        key={item.key}
-                      >
-                        <div className="flex">{item.user}</div>
-                        <div className="flex">{item.index}</div>
-                      </div>
-                    )
-                  })}
+                <div className='scroll-body'>
+                  {this.renderRank(exceptionData.wiringFaultRanking)}
+                </div>
               </div>
             </div>
           </div>
@@ -362,22 +334,10 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                {Array.isArray(exceptionData.expansionRanking) &&
-                  exceptionData.expansionRanking.map((item, index) => {
-                    return (
-                      <div
-                        className={
-                          (index + 1) % 2 === 0
-                            ? ['row3 flex-layout ']
-                            : ['row2 flex-layout ']
-                        }
-                        key={item.key}
-                      >
-                        <div className="flex">{item.user}</div>
-                        <div className="flex">{item.index}</div>
-                      </div>
-                    )
-                  })}
+                <div className='scroll-body'>
+                  {this.renderRank(exceptionData.expansionRanking)}
+                </div>
+                
               </div>
             </div>
           </div>
@@ -387,7 +347,7 @@ class MergeAnaly extends BaseView {
           <div className="item">
             <div className="small-title label">
               <span className="arrow">&gt;&gt;</span>
-              <div className="title">现场许维护排行榜</div>
+              <div className="title">现场需维护排行榜</div>
               <span className="arrow last">&gt;&gt;</span>
               <div className="blue-line" />
             </div>
@@ -397,22 +357,10 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                {Array.isArray(exceptionData.maintainRanking) &&
-                  exceptionData.maintainRanking.map((item, index) => {
-                    return (
-                      <div
-                        className={
-                          (index + 1) % 2 === 0
-                            ? ['row3 flex-layout ']
-                            : ['row2 flex-layout ']
-                        }
-                        key={item.key}
-                      >
-                        <div className="flex">{item.user}</div>
-                        <div className="flex">{item.index}</div>
-                      </div>
-                    )
-                  })}
+                <div className='scroll-body'>
+                  {this.renderRank(exceptionData.maintainRanking)}
+                </div>
+                
               </div>
             </div>
           </div>
@@ -429,22 +377,10 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                {Array.isArray(exceptionData.failureRanking) &&
-                  exceptionData.failureRanking.map((item, index) => {
-                    return (
-                      <div
-                        className={
-                          (index + 1) % 2 === 0
-                            ? ['row3 flex-layout ']
-                            : ['row2 flex-layout ']
-                        }
-                        key={item.key}
-                      >
-                        <div className="flex">{item.user}</div>
-                        <div className="flex">{item.index}</div>
-                      </div>
-                    )
-                  })}
+                <div className='scroll-body'>
+                  {this.renderRank(exceptionData.failureRanking)}
+                </div>
+                
               </div>
             </div>
           </div>
@@ -462,22 +398,10 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                {Array.isArray(exceptionData.loopExceRanking) &&
-                  exceptionData.loopExceRanking.map((item, index) => {
-                    return (
-                      <div
-                        className={
-                          (index + 1) % 2 === 0
-                            ? ['row3 flex-layout ']
-                            : ['row2 flex-layout ']
-                        }
-                        key={item.user}
-                      >
-                        <div className="flex">{item.user}</div>
-                        <div className="flex">{item.index}</div>
-                      </div>
-                    )
-                  })}
+                <div className='scroll-body'>
+                  {this.renderRank(exceptionData.loopExceRanking)}
+                </div>
+                
               </div>
             </div>
           </div>
@@ -494,22 +418,10 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                {Array.isArray(exceptionData.elecExecRanking) &&
-                  exceptionData.elecExecRanking.map((item, index) => {
-                    return (
-                      <div
-                        className={
-                          (index + 1) % 2 === 0
-                            ? ['row3 flex-layout ']
-                            : ['row2 flex-layout ']
-                        }
-                        key={item.key}
-                      >
-                        <div className="flex">{item.user}</div>
-                        <div className="flex">{item.index}</div>
-                      </div>
-                    )
-                  })}
+                <div className='scroll-body'>
+                  {this.renderRank(exceptionData.elecExecRanking)}
+                </div>
+                
               </div>
             </div>
           </div>
@@ -546,20 +458,20 @@ class MergeAnaly extends BaseView {
           key: 'city'
         }
       },
-      measureData: {
-        title: '计量类型',
-        key: 'measure',
-        options: measureOpts
+      inputData: {
+        title: '巡检仪资产编号',
+        key: 'serialNum',
+        placeholder: '请输入资产编号'
       },
       tradeData: {
         title: '行业类型',
         key: 'trade',
         options: tradeOpts
       },
-      unusualData: {
-        title: '异常类型',
-        key: 'unusual',
-        options: unusalOpts
+      themeData: {
+        title: '主题类型',
+        key: 'subject',
+        options: themeOpts
       },
       dateData: {
         title: '上报时间',
@@ -638,28 +550,38 @@ class MergeAnaly extends BaseView {
     if (periodListLine && periodListLine.length > 0) {
       data = _this.getThemeData(periodListLine, nameList)
     }
-    console.log(data)
     periodListCharts = {
       data: periodList,
-      type: 'area',
       height: loop_bottom,
       xAxis: 'period',
       yAxis: 'periodCount',
-      xLabel: '异常事件数量',
-      yLabel: '异常事件数量',
       forceFit: true,
       padding: 'auto',
+      cols:{
+        periodCount:{
+          alias:'数量'
+        }
+      },
       style: {
         overflow: 'hidden'
       },
       xLabel: {
-        offset: 15
+        offset: 15,
+        textStyle:{
+          fontSize:12,
+          fill:'#fff'
+        }
       },
       yLabel: {
-        offset: 5
+        offset: 5,
+        textStyle:{
+          fontSize:12,
+          fill:'#fff'
+        }
       }
     }
-
+    console.log(data)
+    console.log(fieldsList)
     theme = {
       data: data,
       fields: fieldsList,
@@ -670,7 +592,21 @@ class MergeAnaly extends BaseView {
         overflow: 'hidden'
       },
       padding: 'auto',
-      height: themeHeight
+      height: themeHeight,
+      xLabel: {
+        offset: 15,
+        textStyle:{
+          fill:'#fff',
+          fontSize:12
+        }
+      },
+      yLabel: {
+        offset: 5,
+        textStyle:{
+          fill:'#fff',
+          fontSize:10
+        }
+      },
     }
 
     // '{"token":"234sdf234","province":"山西","subject":1,"startTime":"2011-01-01","endTime":"2019-01-1"}' "' "https://api.c2py.com/ele/shangcen/xmdplatform/getSubjectType"
@@ -696,7 +632,7 @@ class MergeAnaly extends BaseView {
                     fontSize: `${loop_bottom / 10}px`
                   }}
                 >
-                  {String(totalCount).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}
+                  {String(totalCount || 0).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}
                   <span className="text-white">&nbsp;件</span>
                 </div>
               </div>

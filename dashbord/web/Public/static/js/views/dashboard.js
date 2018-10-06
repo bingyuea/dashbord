@@ -10,7 +10,6 @@ import {
   Groupedcolumn,
   Basicbar,
   Basicradar,
-  ChinaMapChart,
   ChinaMapEcharts
 } from '../ui/ui.charts'
 
