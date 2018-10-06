@@ -580,8 +580,6 @@ class MergeAnaly extends BaseView {
         }
       }
     }
-    console.log(data)
-    console.log(fieldsList)
     theme = {
       data: data,
       fields: fieldsList,

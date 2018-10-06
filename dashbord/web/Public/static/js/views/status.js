@@ -2,11 +2,16 @@ import React, { Component } from 'react'
 import BaseView from '../core/view.base'
 import $ from 'jquery'
 import Mock from '../mock/mock'
+
 //图表模型
 import Slider from 'react-slick'
 //图表模型
 import { ChinaMapEcharts, Basicline, Labelline } from '../ui/ui.charts.js'
 import { DatePicker } from 'antd'
+import locale from 'antd/lib/date-picker/locale/zh_CN';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
 const { MonthPicker } = DatePicker
 //异常数据统计
 import {
@@ -128,40 +133,26 @@ class Status extends BaseView {
   }
 
   renderPageOneCenter() {
-    const { provinceCountData } = this.state
+
+    const mapData = [];
     const height = $('.section-content.map').height()
     const mapHeight = height - 50
-
-    const mapData = {
-      height: mapHeight,
-      // userData:provinceCountData,
-      userData: Mock.charts1,
-      padding: 'auto',
-      xAxis: 'name',
-      yAxis: 'count',
-      scale: {
-        count: {
-          alias: '安装数量'
-        }
-      },
-      forceFit: true
-    }
 
     return (
       <div className="page-center">
         <div className="section-content map ">
-          <ChinaMapEcharts {...mapData} />
+          <ChinaMapEcharts mapData={mapData} />
         </div>
       </div>
     )
   }
   onChange(value) {
     console.log(value)
+    
   }
   renderPageOne() {
     let appview = $('.page-main').height()
     let { dataList, averageList } = this.state || {}
-    console.log(averageList)
     averageList = {
       result: 1,
       average: 88.65,
@@ -269,6 +260,9 @@ class Status extends BaseView {
         }
       }
     }
+
+    const monthFormat = 'YYYY-MM';
+
     return (
       <div className="status-main" style={{ height: appview }}>
         <div className="page-left ">
@@ -282,7 +276,13 @@ class Status extends BaseView {
             <div className="blue-line" />
           </div>
           <div className="searchTime">
-            <MonthPicker onChange={this.onChange.bind(this)} />
+            <MonthPicker 
+              onChange={this.onChange.bind(this)} 
+              allowEmpty={false}
+              placeholder={'请选择日期'}
+              format={monthFormat}
+              locale={locale}
+            />
           </div>
           <div className="fixedTable">
             <div className="row1 flex-layout">
