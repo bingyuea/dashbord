@@ -63,6 +63,7 @@ class BasicLine extends React.Component {
             crosshairs={{
               type: 'y'
             }}
+            shared={false}
           />
           <Geom
             type="line"
