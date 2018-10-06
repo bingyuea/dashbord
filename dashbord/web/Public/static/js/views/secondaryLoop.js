@@ -63,7 +63,7 @@ class SecondaryLoop extends BaseView {
     super(props)
 
     this.state = {
-      pageTitle: '二次回路单-异常分析',
+      pageTitle: '二次回路单一异常分析',
       pageIdx: 0
     }
 
@@ -663,9 +663,7 @@ class SecondaryLoop extends BaseView {
                   <div
                     className="loop_content loop_number"
                     style={{
-                      height: loop_content,
-                      lineHeight: `${loop_content}px`,
-                      fontSize: `${loop_content / 8}px`
+                      height: loop_content
                     }}
                   >
                     {String(totalCount || 0).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}

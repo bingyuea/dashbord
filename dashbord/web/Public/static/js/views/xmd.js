@@ -174,6 +174,17 @@ class XMD extends BaseView {
     })
   }
 
+  componentDidUpdate(){
+    //获取需要滚动的高度
+    const scrollHeight = $('.ant-table-body').scrollHeight;
+    //算出需要滚动的时间
+    console.log(scrollHeight)
+    if(!scrollHeight){return false}
+    const time = scrollHeight / 20 ;
+    //复制
+    $('.ant-table-body').attr('style','animationDuration:' + time);
+  }
+
   search(value) {
     this.setState({
       pageOne: null,
@@ -461,7 +472,7 @@ class XMD extends BaseView {
 
     const tableHeight = domHeight - 10 - 20 - 21 - 20
 
-    let self = this
+    let self = this;
 
     $('.scrollTable .ant-table-body').on('scroll', function() {
       let viewH = $(this).height(),

@@ -301,14 +301,14 @@ class Dashboard extends BaseView {
         offset: 15,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       },
       yLabel: {
         offset: 5,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       }
     }
@@ -335,14 +335,14 @@ class Dashboard extends BaseView {
         offset: 15,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       },
       yLabel: {
         offset: 5,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       }
     }
@@ -401,7 +401,7 @@ class Dashboard extends BaseView {
         offset: 15,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       },
       yLabel: {
@@ -513,7 +513,7 @@ class Dashboard extends BaseView {
       legend:{
         position:'right-center',
         textStyle:{
-          fontSize:8
+          fontSize:10
         }
       },
       radius:.9,
@@ -541,7 +541,7 @@ class Dashboard extends BaseView {
       legend:{
         position:'right-center',
         textStyle:{
-          fontSize:8
+          fontSize:10
         }
       },
       field: 'count',
@@ -563,10 +563,13 @@ class Dashboard extends BaseView {
       value: '上报数量',
       fieldsName: 'name',
       forceFit: true,
-      // legend:{
-      //   position:'top'
-      // },
-      legend:true,
+      legend:{
+        position:'top-center',
+        marker:'circle',
+        textStyle:{
+          fontSize:10
+        }
+      },
       style: {
         overflow: 'hidden'
       },
@@ -574,7 +577,7 @@ class Dashboard extends BaseView {
         offset: 15,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       },
       yLabel: {
@@ -599,7 +602,7 @@ class Dashboard extends BaseView {
         offset: 15,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       },
       yLabel: {
@@ -646,18 +649,15 @@ class Dashboard extends BaseView {
             </div>
           </div>
 
-          <div
-            className="section-content has-child"
-            
-          >
+          <div className="section-content has-child">
             <div className="child">
-              <h6>月上报事件数</h6>
+              <h6 className='spec'>月上报事件数</h6>
               <div className="text">
                 <span>{'123,123'}</span> 件
               </div>
             </div>
             <div className="child">
-              <h6>有效性</h6>
+              <h6 className='spec'>有效性</h6>
               <div className="text">
                 <span>{'123.22'}</span> %
               </div>
