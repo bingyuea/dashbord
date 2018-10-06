@@ -8,10 +8,10 @@ import Slider from 'react-slick'
 //图表模型
 import { ChinaMapEcharts, Basicline, Labelline } from '../ui/ui.charts'
 import { DatePicker } from 'antd'
-import locale from 'antd/lib/date-picker/locale/zh_CN';
-import moment from 'moment';
-import 'moment/locale/zh-cn';
-moment.locale('zh-cn');
+import locale from 'antd/lib/date-picker/locale/zh_CN'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+moment.locale('zh-cn')
 const { MonthPicker } = DatePicker
 //异常数据统计
 import {
@@ -68,10 +68,9 @@ class Status extends BaseView {
     getTopTenOfSecondLoopExceptionTop.setParam({ ...value })
     getTopTenOfSecondLoopExceptionTop.excute(
       res => {
-        // debugger
-        let dataList = res || {}
+        let rangeList = res || {}
         self.setState({
-          dataList
+          rangeList
         })
       },
       err => {
@@ -86,7 +85,6 @@ class Status extends BaseView {
     getTopTenOfSecondLoopException.setParam({ ...value })
     getTopTenOfSecondLoopException.excute(
       res => {
-        // debugger
         let averageList = res || {}
         self.setState({
           averageList
@@ -110,7 +108,6 @@ class Status extends BaseView {
     querySecondLoopExceptionDetailData.excute(
       res => {
         const resData = res || {}
-        console.log(resData)
         self.setState({
           detailData: resData
         })
@@ -133,8 +130,7 @@ class Status extends BaseView {
   }
 
   renderPageOneCenter() {
-
-    const mapData = [];
+    const mapData = []
     return (
       <div className="page-center">
         <div className="section-content map ">
@@ -145,11 +141,10 @@ class Status extends BaseView {
   }
   onChange(value) {
     console.log(value)
-
   }
   renderPageOne() {
     let appview = $('.page-main').height()
-    let { dataList, averageList } = this.state || {}
+    let { rangeList, averageList } = this.state || {}
     averageList = {
       result: 1,
       average: 88.65,
@@ -165,39 +160,22 @@ class Status extends BaseView {
         }
       ]
     }
-    dataList = (dataList && dataList.dataList) || []
-    const detailData = this.state.detailData
+    // 排行榜
+    rangeList = (rangeList && rangeList.dataList) || []
+    // 平均分
+    let averageDataList = (averageList && averageList.dataList) || []
+    let average = (averageList && averageList.average) || 0
+    let monthChain = (averageList && averageList.monthChain) || 0
 
-    if (!detailData) {
-      return <div />
-    }
-
-    const {
-      eventList,
-      username,
-      province,
-      city,
-      serialNum,
-      elecType,
-      trade,
-      rate,
-      measure,
-      grade,
-      gradeTrend,
-      ranking,
-      rankingTrend,
-      gradeList
-    } = detailData
-
-    // const bottomHeight = $('#status2RightBottom').height()
+    const bottomHeight = $('#status2RightBottom').height()
     const monthChartsHeight = $('.chartsBox').height() / 2
 
     //状态变化
     const chartsData = {
-      data: gradeList,
+      data: averageDataList,
       height: monthChartsHeight,
       xAxis: 'date',
-      yAxis: 'grade',
+      yAxis: 'average',
       forceFit: true,
       padding: 'auto',
       cols: {
@@ -218,7 +196,8 @@ class Status extends BaseView {
 
     // 平均得分
     const averageCharts = {
-      data: Mock.charts1,
+      // data: average,
+      data: Mock.charts3,
       height: monthChartsHeight,
       innerRadius: 0.7,
       radius: 0.9,
@@ -239,7 +218,8 @@ class Status extends BaseView {
 
     // 月环比
     const monthCharts = {
-      data: Mock.charts6,
+      data: Mock.charts3,
+      // data: monthChain,
       height: monthChartsHeight,
       innerRadius: 0.7,
       radius: 0.9,
@@ -258,7 +238,7 @@ class Status extends BaseView {
       }
     }
 
-    const monthFormat = 'YYYY-MM';
+    const monthFormat = 'YYYY-MM'
 
     return (
       <div className="status-main" style={{ height: appview }}>
@@ -273,8 +253,8 @@ class Status extends BaseView {
             <div className="blue-line" />
           </div>
           <div className="searchTime">
-            <MonthPicker 
-              onChange={this.onChange.bind(this)} 
+            <MonthPicker
+              onChange={this.onChange.bind(this)}
               allowEmpty={false}
               placeholder={'请选择日期'}
               format={monthFormat}
@@ -288,8 +268,8 @@ class Status extends BaseView {
             </div>
           </div>
           <div className="tabel">
-            {Array.isArray(dataList) &&
-              dataList.map((item, index) => {
+            {Array.isArray(rangeList) &&
+              rangeList.map((item, index) => {
                 return (
                   <div
                     className={
@@ -324,7 +304,9 @@ class Status extends BaseView {
                 <div className="chartsTop">
                   <div className="itemLeft">平均得分</div>
                   <div className="itemCenter">
-                    <Labelline {...averageCharts} />
+                    <div>
+                      <Labelline {...averageCharts} />
+                    </div>
                   </div>
                   <div className="itemRight">
                     <div className="iconfont icon-icon-dsj" />
@@ -334,7 +316,9 @@ class Status extends BaseView {
                 <div className="chartsBotttom">
                   <div className="itemLeft">月环比</div>
                   <div className="itemCenter">
-                    <Labelline {...monthCharts} />
+                    <div>
+                      <Labelline {...monthCharts} />
+                    </div>
                   </div>
                   <div className="itemRight">
                     <div className="iconfont icon-icon-dsj" />
@@ -350,7 +334,9 @@ class Status extends BaseView {
                 <span className="arrow last">&gt;&gt;</span>
                 <div className="blue-line" />
               </div>
-              <Basicline {...chartsData} />
+              <div>
+                <Basicline {...chartsData} />
+              </div>
             </div>
           </div>
         </div>
@@ -361,7 +347,7 @@ class Status extends BaseView {
   renderPageTwoCenter() {
     const { city, province } = this.state
 
-    const mapData = [];
+    const mapData = []
 
     return (
       <div className="page-center">
@@ -387,8 +373,7 @@ class Status extends BaseView {
   }
 
   renderPageTwo() {
-    const detailData = this.state.detailData
-
+    const detailData = this.state.detailData || {}
     if (!detailData) {
       return <div />
     }
