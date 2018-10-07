@@ -460,7 +460,7 @@ class Status extends BaseView {
             <div className="blue-line" />
           </div>
 
-          <div className="status_9 mt-30">
+          <div className="status_9 mt-10">
             <div className="row1 flex-layout">
               <h6 className="h6 flex">省份</h6>
               <h6 className="h6 flex">城市</h6>
