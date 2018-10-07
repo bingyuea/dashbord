@@ -161,7 +161,9 @@ class Status extends BaseView {
   }
 
   onChange(value) {
+    value = moment(value).format('YYYY-MM')
     console.log(value)
+    // this.fetchGetTopTenOfSecondLoopExceptionTop(value)
   }
   renderPageOne() {
     let appview = $('.page-main').height()
