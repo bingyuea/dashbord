@@ -1,70 +1,78 @@
 .ant-table-wrapper {
   background: transparent;
 }
-.ant-table-tbody, .ant-table-thead{
-  background:rgba(0,0,0,0);
-  & > tr{
-    border:0;
+
+.ant-table-tbody,
+.ant-table-thead {
+  background: rgba(0, 0, 0, 0);
+  &>tr {
+    border: 0;
   }
 }
-.ant-table-tbody > tr > td, .ant-table-thead > tr > th {
+
+.ant-table-tbody>tr>td,
+.ant-table-thead>tr>th {
   padding: 5px;
-  border:0px;
-  background: rgba(0,0,0,0);
-  color:rgba(255,255,255,.5);
+  border: 0px;
+  background: rgba(0, 0, 0, 0);
+  color: rgba(255, 255, 255, 0.5);
   border-radius: 0;
 }
-.ant-table{
-  color:#fff;
+
+.ant-table {
+  color: #fff;
   font-size: 12px;
 }
-.ant-table-thead > tr.ant-table-row-hover > td,
-.ant-table-tbody > tr.ant-table-row-hover > td,
-.ant-table-thead > tr:hover > td,
-.ant-table-tbody > tr:hover > td{
-  background: rgba(0,0,0,0);
-  
+
+// table  hover的颜色
+.ant-table-thead>tr.ant-table-row-hover>td,
+.ant-table-tbody>tr.ant-table-row-hover>td,
+.ant-table-thead>tr:hover>td,
+.ant-table-tbody>tr:hover>td {
+  background: rgba(8, 14, 38, 0.6);
 }
 
 // 去除table tbody滚动条
-.ant-table-body,.ant-table-fixed-header .ant-table-scroll .ant-table-header{
-  &::-webkit-scrollbar{
+.ant-table-body,
+.ant-table-fixed-header .ant-table-scroll .ant-table-header {
+  &::-webkit-scrollbar {
     width: 0 !important;
   }
 }
 
 .ant-table-header,
 .ant-table-placeholder,
-.ant-table-fixed-header>.ant-table-content>.ant-table-scroll>.ant-table-body{
-  background:rgba(0,0,0,0);
+.ant-table-fixed-header>.ant-table-content>.ant-table-scroll>.ant-table-body {
+  background: rgba(0, 0, 0, 0);
 }
 
-.ant-table-placeholder{
-  border-bottom:0;
-  color:#fff;
+.ant-table-placeholder {
+  border-bottom: 0;
+  color: #fff;
 }
-
 
 // 给每个tr 添加小圆点(不起作用)
-.content-table{
+.content-table {
   // padding-left: 15px;
 }
-.ant-table-tbody > tr{
+
+.ant-table-tbody>tr {
   position: relative;
-  background: rgba(0,0,0,0);
+  background: rgba(0, 0, 0, 0);
   z-index: 999999;
-  &:after{
+  &:after {
     position: absolute;
     width: 5px;
     height: 5px;
     background: @blue;
     display: block;
-    top:50%;
+    top: 50%;
     left: -8px;
   }
 }
 
-.ant-table-thead>tr:first-child>th:first-child,.ant-table-thead>tr:first-child>th:last-child{
-  border-top-right-radius: 0  ;
-  border-top-left-radius: 0  ;
+.ant-table-thead>tr:first-child>th:first-child,
+.ant-table-thead>tr:first-child>th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
 }

@@ -57,11 +57,11 @@ li {
         line-height: 20px;
         text-align: center;
         font-size: 15px;
-        color: rgba(0,0,0,.5);
-        color:#fff;
-        font-weight:bold;
-        span{
-          color:#fff;
+        color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font-weight: bold;
+        span {
+          color: #fff;
         }
       }
     }
@@ -77,13 +77,12 @@ li {
     }
     h6 {
       text-align: center;
-      &.spec{
-        font-weight:bold;
-        color:#5fa3ac;
-        font-size:15px;
+      &.spec {
+        font-weight: bold;
+        color: #5fa3ac;
+        font-size: 15px;
       }
     }
-
   }
 }
 
@@ -130,7 +129,7 @@ li {
 
 .text-white {
   color: #fff !important;
-  font-size:15px;
+  font-size: 15px;
   position: relative;
   top: 5px;
 }
@@ -164,7 +163,7 @@ li {
     .title {
       flex: none;
       width: 70px;
-      &.spec{
+      &.spec {
         width: 120px;
       }
       color: @blue;
@@ -266,7 +265,7 @@ h3 {
   text-align: center;
   line-height: 50px;
   border-bottom: 5px solid @blue;
-  border-image: linear-gradient(to right,@blue,#112B50) 30 30;
+  border-image: linear-gradient(to right, @blue, #112b50) 30 30;
 }
 
 h4 {
@@ -297,8 +296,7 @@ canvas {
     display: inline-block;
     background: #777;
     margin-right: 20px;
-    background:#7a7a7a;
-    // background: rgba(7, 51, 100, 0.2);
+    background: #7a7a7a; // background: rgba(7, 51, 100, 0.2);
     // border: 1px solid @blue;
     cursor: pointer;
     &:last-child {
@@ -564,4 +562,14 @@ canvas {
 
 .mb-20 {
   margin-bottom: 20px;
+}
+
+// 所有的scrollTable 添加滚动效果
+.scrollTable {
+  .ant-table-tbody {
+    animation: scrollTable 100s linear infinite;
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
 }

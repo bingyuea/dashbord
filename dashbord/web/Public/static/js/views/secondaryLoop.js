@@ -508,7 +508,7 @@ class SecondaryLoop extends BaseView {
       data: periodList,
       type: 'area',
       height: loop_content,
-      hidePoint:true,
+      hidePoint: true,
       xAxis: 'period',
       yAxis: 'periodCount',
       xLabel: {
@@ -817,10 +817,10 @@ class SecondaryLoop extends BaseView {
       height: chartsEleHeight,
       xAxis: 'x',
       yAxis: 'y',
-      // doubletype: ['type', ['#ff0000', '#00ff00']],
+      doubletype: ['type', ['#ff0000', '#00ff00']],
       doubleLine: true,
       forceFit: true,
-      hidePoint:true,
+      hidePoint: true,
       padding: 'auto',
       style: {
         overflow: 'hidden'
@@ -848,7 +848,7 @@ class SecondaryLoop extends BaseView {
       yAxis: 'y',
       doubletype: ['type', ['#ff0000', '#00ff00']],
       forceFit: true,
-      hidePoint:true,
+      hidePoint: true,
       padding: 'auto',
       cols: {
         year: {
@@ -881,7 +881,7 @@ class SecondaryLoop extends BaseView {
       yAxis: 'y',
       doubletype: ['type', ['#ff0000', '#00ff00']],
       forceFit: true,
-      hidePoint:true,
+      hidePoint: true,
       padding: 'auto',
       style: {
         overflow: 'hidden'
