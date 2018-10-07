@@ -11,10 +11,11 @@ class ChinaMapEcharts extends React.Component {
 
 
   showMap(){
+    console.log(this.props.domId)
     echarts.registerMap('中国', cityMap['中国']);
     const mapData = this.props.mapData;
     if(!mapData){return false}
-    var myChart = echarts.extendsMap('mapContent', {
+    var myChart = echarts.extendsMap(this.props.domId || 'mapContent', {
         bgColor: 'rgba(0,0,0,0)', // 画布背景色
         mapName: '中国', // 地图名
         text:'',
@@ -43,7 +44,7 @@ class ChinaMapEcharts extends React.Component {
   render() {
     
     return (
-      <div id='mapContent' style={{height:'100%'}}>{this.showMap()}</div>
+      <div id={this.props.domId || 'mapContent'} style={{height:'100%'}}>{this.showMap()}</div>
     )
   }
 }

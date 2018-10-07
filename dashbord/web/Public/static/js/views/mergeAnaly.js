@@ -568,14 +568,14 @@ class MergeAnaly extends BaseView {
       xLabel: {
         offset: 15,
         textStyle:{
-          fontSize:12,
+          fontSize:10,
           fill:'#fff'
         }
       },
       yLabel: {
         offset: 5,
         textStyle:{
-          fontSize:12,
+          fontSize:10,
           fill:'#fff'
         }
       }
@@ -595,7 +595,7 @@ class MergeAnaly extends BaseView {
         offset: 15,
         textStyle:{
           fill:'#fff',
-          fontSize:12
+          fontSize:10
         }
       },
       yLabel: {

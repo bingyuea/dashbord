@@ -77,7 +77,7 @@ class Doubleaxes extends React.Component {
           />
           <Axis
             name={this.props.xAxis}
-            lable={this.props.xLable}
+            label={this.props.xLabel}
             tickLine={null}
           />
           <Axis

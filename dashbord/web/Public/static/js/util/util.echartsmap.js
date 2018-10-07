@@ -260,7 +260,6 @@ echarts.extendsMap = function(id, opt) {
         enterable:true,
         position:['60%','70%'],
         formatter:function(params, ticket, callback){
-          console.log(params)
             return '省份：'+params.data.name+'<br/>'+'数量：'+params.data.userValue
         }
       },
