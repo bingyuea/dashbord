@@ -174,15 +174,17 @@ class XMD extends BaseView {
     })
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     //获取需要滚动的高度
-    const scrollHeight = $('.ant-table-body').scrollHeight;
+    const scrollHeight = $('.ant-table-body').scrollHeight
     //算出需要滚动的时间
     console.log(scrollHeight)
-    if(!scrollHeight){return false}
-    const time = scrollHeight / 20 ;
+    if (!scrollHeight) {
+      return false
+    }
+    const time = scrollHeight / 20
     //复制
-    $('.ant-table-body').attr('style','animationDuration:' + time);
+    $('.ant-table-body').attr('style', 'animationDuration:' + time)
   }
 
   search(value) {
@@ -472,7 +474,7 @@ class XMD extends BaseView {
 
     const tableHeight = domHeight - 10 - 20 - 21 - 20
 
-    let self = this;
+    let self = this
 
     $('.scrollTable .ant-table-body').on('scroll', function() {
       let viewH = $(this).height(),
@@ -505,7 +507,7 @@ class XMD extends BaseView {
             pagination={false}
             scroll={{ y: tableHeight }}
             locale={{
-              emptyText: '暂无数据',
+              emptyText: '暂无数据'
             }}
           />
         </div>
@@ -546,13 +548,13 @@ class XMD extends BaseView {
       forceFit: true,
       padding: 'auto',
       style: {
-        overflow: 'auto'
+        overflow: 'hidden'
       },
-      cols:{
+      cols: {
         periodCount: {
-          alias: "数量"
+          alias: '数量'
         },
-        period:{
+        period: {
           // tickCount:5
         }
       },
@@ -560,14 +562,14 @@ class XMD extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize:10
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize:10
+          fontSize: 10
         }
       }
     }
@@ -580,29 +582,29 @@ class XMD extends BaseView {
       forceFit: true,
       padding: 'auto',
       style: {
-        overflow: 'auto'
+        overflow: 'hidden'
       },
-      cols:{
+      cols: {
         areaCount: {
-          alias: "数量"
+          alias: '数量'
         }
       },
       xLabel: {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize:10
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize:10
+          fontSize: 10
         }
       }
     }
-    const tradeList = translateCountToPercent(customer.tradeList,'tradeCount');
+    const tradeList = translateCountToPercent(customer.tradeList, 'tradeCount')
     //客户分布情况
     const charts8 = {
       data: tradeList,
@@ -616,29 +618,28 @@ class XMD extends BaseView {
       padding: 'auto',
       cols: {
         tradeCount: {
-          tickCount:5,
-          alias:'数量'
+          tickCount: 5,
+          alias: '数量'
         },
-        percent:{
-          tickCount:5,
-          alias:'占比',
+        percent: {
+          tickCount: 5,
+          alias: '占比',
           formatter: val => {
-            val = val + "%";
+            val = val + '%'
             return val
           }
         }
-
       },
       style: {
-        overflow: 'auto'
+        overflow: 'hidden'
       },
       xLabel: {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize:10
+          fontSize: 10
         }
-      },
+      }
       // yLabel: {
       //   offset: 5,
       //   textStyle: {
@@ -654,7 +655,7 @@ class XMD extends BaseView {
       forceFit: true,
       padding: 'auto',
       field: 'rateCount',
-      legend:true,
+      legend: true,
       dimension: 'rate',
       innerRadius: 0.7,
       cols: {
@@ -672,7 +673,7 @@ class XMD extends BaseView {
       height: centerChartHeight,
       forceFit: true,
       innerRadius: 0.7,
-      legend:true,
+      legend: true,
       padding: 'auto',
       field: 'measureCount',
       dimension: 'measureName',
@@ -795,23 +796,23 @@ class XMD extends BaseView {
       style: {
         overflow: 'hidden'
       },
-      cols:{
+      cols: {
         periodCount: {
-          alias: "发生数量"
+          alias: '发生数量'
         }
       },
       xLabel: {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize:10
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize:10
+          fontSize: 10
         }
       }
     }
@@ -826,9 +827,9 @@ class XMD extends BaseView {
       style: {
         overflow: 'hidden'
       },
-      cols:{
+      cols: {
         exceptionCount: {
-          alias: "发生数量"
+          alias: '发生数量'
         }
       },
 
@@ -836,18 +837,21 @@ class XMD extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize:10
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize:10
+          fontSize: 10
         }
       }
     }
-    const tradeList = translateCountToPercent(customerXmdEvent.tradeList,'tradeCount');
+    const tradeList = translateCountToPercent(
+      customerXmdEvent.tradeList,
+      'tradeCount'
+    )
     //事件分布信息
     const charts8 = {
       data: customerXmdEvent.tradeList,
@@ -861,18 +865,18 @@ class XMD extends BaseView {
       padding: 'auto',
       cols: {
         tradeCount: {
-          tickCount:5,
-          alias: "数量"
+          tickCount: 5,
+          alias: '数量'
         },
-        percent:{
-          alias: "占比",
-          min:0,
-          max:100,
+        percent: {
+          alias: '占比',
+          min: 0,
+          max: 100,
           formatter: val => {
-            val = val + "%";
+            val = val + '%'
             return val
           },
-          tickCount:5
+          tickCount: 5
         }
       },
       style: {
@@ -882,9 +886,9 @@ class XMD extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize:10
+          fontSize: 10
         }
-      },
+      }
     }
 
     //综合倍率
@@ -894,7 +898,7 @@ class XMD extends BaseView {
       forceFit: true,
       padding: 'auto',
       field: 'rateCount',
-      legend:true,
+      legend: true,
       innerRadius: 0.7,
       dimension: 'rate',
       cols: {
@@ -911,7 +915,7 @@ class XMD extends BaseView {
       data: measureEvent.rateList,
       height: centerChartHeight,
       forceFit: true,
-      legend:true,
+      legend: true,
       innerRadius: 0.7,
       padding: 'auto',
       field: 'measureCount',
