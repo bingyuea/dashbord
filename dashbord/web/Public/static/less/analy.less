@@ -21,22 +21,22 @@
         .scrollList {
           height: calc(~'100% - 33%');
           overflow: auto;
-          .scroll-body{
-            animation: scrollTable  10s linear infinite;
-            &:hover{
-              animation-play-state:paused;
+          .scroll-body {
+            animation: scrollTable 10s linear infinite;
+            &:hover {
+              animation-play-state: paused;
             }
           }
-          
           &::-webkit-scrollbar {
             width: 0;
           }
           .row2,
           .row3 {
-            line-height:20px;
+            line-height: 20px;
+            min-height: 42px;
             display: flex;
             justify-content: center;
-            .flex{
+            .flex {
               display: flex;
               justify-content: center;
             }
@@ -50,7 +50,7 @@
           .h6 {
             display: inline-block;
             color: @blue;
-            font-size:13px;
+            font-size: 13px;
             display: flex;
             justify-content: center;
           }
@@ -62,7 +62,7 @@
           background: rgba(12, 35, 69, 0.4);
         }
         .flex {
-          font-size:12px;
+          font-size: 12px;
           flex: 1;
           text-align: left;
           align-self: center;
@@ -83,10 +83,9 @@
     left: 0;
     right: 0;
     margin: auto;
-
   }
-  .page-title{
-    background-size:480px 70px;
+  .page-title {
+    background-size: 480px 70px;
     background-position: center center;
   }
   .page-center {
