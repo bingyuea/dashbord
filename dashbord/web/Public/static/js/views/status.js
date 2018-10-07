@@ -5,6 +5,12 @@ import Mock from '../mock/mock'
 
 //图表模型
 import Slider from 'react-slick'
+
+//缓存
+import {
+  PageNineStore
+} from '../store/business.store';
+
 //图表模型
 import { ChinaMapEcharts, Basicline, Labelline } from '../ui/ui.charts'
 import { DatePicker } from 'antd'
@@ -22,7 +28,9 @@ import {
 //定义数据模型
 const querySecondLoopExceptionDetailData = QuerySecondLoopExceptionDetailData.getInstance(),
   getTopTenOfSecondLoopExceptionTop = GetTopTenOfSecondLoopExceptionTop.getInstance(),
-  getTopTenOfSecondLoopException = GetTopTenOfSecondLoopException.getInstance()
+  getTopTenOfSecondLoopException = GetTopTenOfSecondLoopException.getInstance();
+
+const pageNineStore = PageNineStore.getInstance();
 class Status extends BaseView {
   constructor(props) {
     super(props)
@@ -122,6 +130,10 @@ class Status extends BaseView {
     this.setState({
       pageIdx: idx
     })
+    //认为是到第二个页面，拿数据请求接口
+    if(idx == 1){
+      
+    }
   }
 
   //切换轮播
@@ -134,11 +146,21 @@ class Status extends BaseView {
     return (
       <div className="page-center">
         <div className="section-content map ">
-          <ChinaMapEcharts mapData={mapData} />
+          <ChinaMapEcharts mapData={mapData} domId={'pageOneMap'}/>
         </div>
       </div>
     )
   }
+
+  goPageTwo(value){
+
+    this.setState({
+      pageTwoParam:value
+    },()=>{
+      this.slickBtn(1);
+    });
+  }
+
   onChange(value) {
     console.log(value)
   }
@@ -151,7 +173,7 @@ class Status extends BaseView {
     const monthChartsHeight = $('.chartsBox').height() / 2
 
     const monthFormat = 'YYYY-MM'
-
+    const self = this;
     return (
       <div className="status-main" style={{ height: appview }}>
         <div className="page-left ">
@@ -190,6 +212,7 @@ class Status extends BaseView {
                         : ['row3 flex-layout ']
                     }
                     key={index}
+                    onClick={self.goPageTwo.bind(self,item)}
                   >
                     <div className="flex">{item.user}</div>
                     <div className="flex">{item.assessedValue}</div>
@@ -246,10 +269,18 @@ class Status extends BaseView {
         overflow: 'hidden'
       },
       xLabel: {
-        offset: 15
+        offset: 15,
+        textStyle:{
+          fontSize:10,
+          fill:'#fff'
+        }
       },
       yLabel: {
-        offset: 5
+        offset: 5,
+        textStyle:{
+          fontSize:10,
+          fill:'#fff'
+        }
       }
     }
 
@@ -354,14 +385,13 @@ class Status extends BaseView {
   }
 
   renderPageTwoCenter() {
-    const { city, province } = this.state
 
     const mapData = []
 
     return (
       <div className="page-center">
         <div className="section-content map ">
-          <ChinaMapEcharts mapData={mapData} />
+          <ChinaMapEcharts mapData={mapData} domId={'pageTwoMap'}/>
         </div>
       </div>
     )
@@ -430,7 +460,7 @@ class Status extends BaseView {
             <div className="blue-line" />
           </div>
 
-          <div className="status_9 mt-30">
+          <div className="status_9 mt-10">
             <div className="row1 flex-layout">
               <h6 className="h6 flex">省份</h6>
               <h6 className="h6 flex">城市</h6>
@@ -507,11 +537,9 @@ class Status extends BaseView {
 
   renderMain() {
     var settings = {
-      dots: false,
-      dotsClass: 'slick-dots slick-thumb item_box',
       autoplay: false,
       arrows: false,
-      infinite: true,
+      infinite: false,
       speed: 500,
       autoplaySpeed: 5000,
       slidesToShow: 1,

@@ -515,14 +515,14 @@ class SecondaryLoop extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       },
       cols: {
@@ -540,14 +540,14 @@ class SecondaryLoop extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       }
     }
@@ -583,14 +583,14 @@ class SecondaryLoop extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       }
     }
@@ -609,14 +609,14 @@ class SecondaryLoop extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       }
     }
@@ -829,14 +829,14 @@ class SecondaryLoop extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       }
     }
@@ -857,14 +857,14 @@ class SecondaryLoop extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       }
     }
@@ -885,18 +885,17 @@ class SecondaryLoop extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       }
     }
-    console.log(elecDayData)
     chartsEleChange = {
       data: elecDayData,
       height: chartsEleChangeHeight,
@@ -911,14 +910,14 @@ class SecondaryLoop extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize: 10
         }
       }
     } // 电量变化图表

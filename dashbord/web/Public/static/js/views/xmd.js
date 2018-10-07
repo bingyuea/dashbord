@@ -551,20 +551,23 @@ class XMD extends BaseView {
       cols:{
         periodCount: {
           alias: "数量"
+        },
+        period:{
+          // tickCount:5
         }
       },
       xLabel: {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize:10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize:10
         }
       }
     }
@@ -588,14 +591,14 @@ class XMD extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize:10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize:10
         }
       }
     }
@@ -629,17 +632,17 @@ class XMD extends BaseView {
       style: {
         overflow: 'auto'
       },
-      xLable: {
+      xLabel: {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize:10
         }
       },
       // yLabel: {
       //   offset: 5,
       //   textStyle: {
-      //     fontSize: 12
+      //     fontSize:10
       //   }
       // }
     }
@@ -651,6 +654,7 @@ class XMD extends BaseView {
       forceFit: true,
       padding: 'auto',
       field: 'rateCount',
+      legend:true,
       dimension: 'rate',
       innerRadius: 0.7,
       cols: {
@@ -668,6 +672,7 @@ class XMD extends BaseView {
       height: centerChartHeight,
       forceFit: true,
       innerRadius: 0.7,
+      legend:true,
       padding: 'auto',
       field: 'measureCount',
       dimension: 'measureName',
@@ -692,7 +697,7 @@ class XMD extends BaseView {
             <span className="arrow last">&gt;&gt;</span>
             <div className="blue-line" />
           </div>
-          <div className="total-num">
+          <div className="total-num has-bg">
             <span className="blue-txt">
               {totalCount.toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}
             </span>
@@ -799,14 +804,14 @@ class XMD extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize:10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize:10
         }
       }
     }
@@ -831,14 +836,14 @@ class XMD extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize:10
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize:10
         }
       }
     }
@@ -861,6 +866,8 @@ class XMD extends BaseView {
         },
         percent:{
           alias: "占比",
+          min:0,
+          max:100,
           formatter: val => {
             val = val + "%";
             return val
@@ -875,7 +882,7 @@ class XMD extends BaseView {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 12
+          fontSize:10
         }
       },
     }
@@ -887,6 +894,7 @@ class XMD extends BaseView {
       forceFit: true,
       padding: 'auto',
       field: 'rateCount',
+      legend:true,
       innerRadius: 0.7,
       dimension: 'rate',
       cols: {
@@ -903,6 +911,7 @@ class XMD extends BaseView {
       data: measureEvent.rateList,
       height: centerChartHeight,
       forceFit: true,
+      legend:true,
       innerRadius: 0.7,
       padding: 'auto',
       field: 'measureCount',
