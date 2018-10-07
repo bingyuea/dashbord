@@ -25,7 +25,6 @@ const querySecondLoopExceptionDetailData = QuerySecondLoopExceptionDetailData.ge
   getTopTenOfSecondLoopExceptionTop = GetTopTenOfSecondLoopExceptionTop.getInstance(),
   getTopTenOfSecondLoopException = GetTopTenOfSecondLoopException.getInstance();
 
-const pageNineStore = PageNineStore.getInstance();
 class Status extends BaseView {
   constructor(props) {
     super(props)
