@@ -746,6 +746,16 @@ class SecondaryLoop extends BaseView {
       item.pointList.map(function(ele, index) {
         let tempObj = {}
         tempObj.type = item.type
+        // if (index % 4 === 0) {
+        //   let num = index / 4
+        //   num = num < 10 ? '0' + num : num
+        //   tempObj.x = num
+        // } else {
+        //   let num = index % 4
+        //   num = num < 10 ? '0' + num : num
+        //   tempObj.x = num+":"
+        // }
+        // 这里后台处理x轴的对应关系
         tempObj.x = index
         tempObj.y = ele
         data.push(tempObj)
@@ -847,6 +857,7 @@ class SecondaryLoop extends BaseView {
       xAxis: 'x',
       yAxis: 'y',
       doubletype: ['type', ['#965059', '#039fba']],
+      doubleLine: true,
       forceFit: true,
       hidePoint: true,
       padding: 'auto',
@@ -875,6 +886,7 @@ class SecondaryLoop extends BaseView {
       xAxis: 'x',
       yAxis: 'y',
       doubletype: ['type', ['#965059', '#039fba']],
+      doubleLine: true,
       forceFit: true,
       hidePoint: true,
       padding: 'auto',
@@ -896,11 +908,33 @@ class SecondaryLoop extends BaseView {
         }
       }
     }
+    // 这个也是双折线图
+    let elecDayDataCharts = []
+    elecDayData.map((item, index) => {
+      for (let k in item) {
+        let obj = {}
+        if (k === 'activePower') {
+          obj.type = '正向有功总'
+          obj.x = item.time
+          obj.y = item.activePower
+        } else if (k === 'reactivePower') {
+          obj.type = '正向无功总'
+          obj.x = item.time
+          obj.y = item.reactivePower
+        }
+        if (obj && obj.type) {
+          elecDayDataCharts.push(obj)
+        }
+      }
+    })
+    console.log(elecDayDataCharts)
     chartsEleChange = {
-      data: elecDayData,
+      data: elecDayDataCharts,
       height: chartsEleChangeHeight,
-      xAxis: 'time',
-      yAxis: 'activePower',
+      xAxis: 'x',
+      yAxis: 'y',
+      doubletype: ['type', ['#965059', '#039fba']],
+      doubleLine: true,
       forceFit: true,
       padding: 'auto',
       style: {
