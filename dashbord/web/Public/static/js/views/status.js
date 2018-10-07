@@ -194,13 +194,13 @@ class Status extends BaseView {
               locale={locale}
             />
           </div>
-          <div className="fixedTable">
+          <div className="fixedTable pd-30">
             <div className="row1 flex-layout">
               <h6 className="h6 flex text-c">用户</h6>
               <h6 className="h6 flex text-c">评估值</h6>
             </div>
           </div>
-          <div className="tabel">
+          <div className="tabel pd-30">
             <div className="scroll-body">
               {Array.isArray(rangeList) &&
                 rangeList.map((item, index) => {
