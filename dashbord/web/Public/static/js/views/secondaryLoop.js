@@ -534,7 +534,7 @@ class SecondaryLoop extends BaseView {
       forceFit: true,
       padding: 'auto',
       style: {
-        overflow: 'auto'
+        overflow: 'hidden'
       },
       xLabel: {
         offset: 15,
@@ -728,16 +728,16 @@ class SecondaryLoop extends BaseView {
       </div>
     )
   }
-  elecCurrentDataToChart(elecCurrentData) {
+  elecCurrentDataToChart(elecCurrentData, phase) {
     let tempArr = elecCurrentData.xmdData
       .filter(item => {
         item.type = '巡航器'
-        return item.phase === item.phase
+        return item.phase === phase
       })
       .concat(
         elecCurrentData.elecData.filter(item => {
           item.type = '电能表'
-          return item.phase === item.phase
+          return item.phase === phase
         })
       )
     // 展开数组 ，转化为图表数据
@@ -746,6 +746,16 @@ class SecondaryLoop extends BaseView {
       item.pointList.map(function(ele, index) {
         let tempObj = {}
         tempObj.type = item.type
+        // if (index % 4 === 0) {
+        //   let num = index / 4
+        //   num = num < 10 ? '0' + num : num
+        //   tempObj.x = num
+        // } else {
+        //   let num = index % 4
+        //   num = num < 10 ? '0' + num : num
+        //   tempObj.x = num+":"
+        // }
+        // 这里后台处理x轴的对应关系
         tempObj.x = index
         tempObj.y = ele
         data.push(tempObj)
@@ -817,7 +827,7 @@ class SecondaryLoop extends BaseView {
       height: chartsEleHeight,
       xAxis: 'x',
       yAxis: 'y',
-      doubletype: ['type', ['#ff0000', '#00ff00']],
+      doubletype: ['type', ['#965059', '#039fba']],
       doubleLine: true,
       forceFit: true,
       hidePoint: true,
@@ -846,15 +856,11 @@ class SecondaryLoop extends BaseView {
       height: chartsEleHeight,
       xAxis: 'x',
       yAxis: 'y',
-      doubletype: ['type', ['#ff0000', '#00ff00']],
+      doubletype: ['type', ['#965059', '#039fba']],
+      doubleLine: true,
       forceFit: true,
       hidePoint: true,
       padding: 'auto',
-      cols: {
-        year: {
-          tickInterval: 1
-        }
-      },
       style: {
         overflow: 'hidden'
       },
@@ -879,7 +885,8 @@ class SecondaryLoop extends BaseView {
       height: chartsEleHeight,
       xAxis: 'x',
       yAxis: 'y',
-      doubletype: ['type', ['#ff0000', '#00ff00']],
+      doubletype: ['type', ['#965059', '#039fba']],
+      doubleLine: true,
       forceFit: true,
       hidePoint: true,
       padding: 'auto',
@@ -901,11 +908,33 @@ class SecondaryLoop extends BaseView {
         }
       }
     }
+    // 这个也是双折线图
+    let elecDayDataCharts = []
+    elecDayData.map((item, index) => {
+      for (let k in item) {
+        let obj = {}
+        if (k === 'activePower') {
+          obj.type = '正向有功总'
+          obj.x = item.time
+          obj.y = item.activePower
+        } else if (k === 'reactivePower') {
+          obj.type = '正向无功总'
+          obj.x = item.time
+          obj.y = item.reactivePower
+        }
+        if (obj && obj.type) {
+          elecDayDataCharts.push(obj)
+        }
+      }
+    })
+    console.log(elecDayDataCharts)
     chartsEleChange = {
-      data: elecDayData,
+      data: elecDayDataCharts,
       height: chartsEleChangeHeight,
-      xAxis: 'time',
-      yAxis: 'activePower',
+      xAxis: 'x',
+      yAxis: 'y',
+      doubletype: ['type', ['#965059', '#039fba']],
+      doubleLine: true,
       forceFit: true,
       padding: 'auto',
       style: {

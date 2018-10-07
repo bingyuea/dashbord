@@ -23,13 +23,13 @@ class BasicLine extends React.Component {
     if (!this.props.height) {
       return false
     }
-    if(this.props.data && this.props.data.length == 0){
+    if (this.props.data && this.props.data.length == 0) {
       return (
         <div>
-        <Chart
-           placeholder={<div className='no-data'>暂无数据</div>}
-           height={this.props.height}
-        ></Chart>
+          <Chart
+            placeholder={<div className="no-data">暂无数据</div>}
+            height={this.props.height}
+          />
         </div>
       )
     }
@@ -39,10 +39,11 @@ class BasicLine extends React.Component {
       fill: 'rgba(255,255,255,.1)',
       lineWidth: 1
     }
-    const yLine = xLine;
-    const grid = {//坐标轴网格线
-      lineStyle:{
-        stroke:'rgba(255,255,255,.1)'
+    const yLine = xLine
+    const grid = {
+      //坐标轴网格线
+      lineStyle: {
+        stroke: 'rgba(255,255,255,.1)'
       }
     }
 
@@ -57,12 +58,22 @@ class BasicLine extends React.Component {
           {...this.props}
           scale={this.props.cols}
         >
-          <Axis name={this.props.xAxis} label={this.props.xLabel} tickLine={null} line={xLine}/>
-          <Axis name={this.props.yAxis} label={this.props.yLabel} tickLine={null} line={yLine} grid={grid}/>
-          {this.props.hideTooltip?'':<Tooltip
-            shared={false}
-          />}
-          
+          <Axis
+            name={this.props.xAxis}
+            label={this.props.xLabel}
+            tickLine={null}
+            line={xLine}
+          />
+          <Axis
+            name={this.props.yAxis}
+            label={this.props.yLabel}
+            tickLine={null}
+            line={yLine}
+            grid={grid}
+          />
+          {this.props.hideTooltip ? '' : <Tooltip shared={false} />}
+          {/* 这里添加tooltip */}
+          {/* <Tooltip crosshairs={{ type: 'y' }} /> */}
           <Geom
             type="line"
             color={
@@ -73,23 +84,27 @@ class BasicLine extends React.Component {
             position={`${this.props.xAxis}*${this.props.yAxis}`}
             size={2}
           />
-          {this.props.hidePoint?'':<Geom
-            type="point"
-            color={DEFAULT_COLOR}
-            position={`${this.props.xAxis}*${this.props.yAxis}`}
-            size={3}
-            shape={'circle'}
-            style={{
-              stroke: '#fff',
-              lineWidth: 1
-            }}
-          />}
-          <Geom
-              type="area"
+          {this.props.hidePoint ? (
+            ''
+          ) : (
+            <Geom
+              type="point"
+              color={DEFAULT_COLOR}
               position={`${this.props.xAxis}*${this.props.yAxis}`}
-              color={`l(100) 0:${DEFAULT_COLOR} 1:rgba(0,0,0,0)`}
-              opacity={0.85}
+              size={3}
+              shape={'circle'}
+              style={{
+                stroke: '#fff',
+                lineWidth: 1
+              }}
             />
+          )}
+          <Geom
+            type="area"
+            position={`${this.props.xAxis}*${this.props.yAxis}`}
+            color={`l(100) 0:${DEFAULT_COLOR} 1:rgba(0,0,0,0)`}
+            opacity={0.85}
+          />
         </Chart>
       </div>
     )
