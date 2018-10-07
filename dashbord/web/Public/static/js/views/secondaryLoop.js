@@ -534,7 +534,7 @@ class SecondaryLoop extends BaseView {
       forceFit: true,
       padding: 'auto',
       style: {
-        overflow: 'auto'
+        overflow: 'hidden'
       },
       xLabel: {
         offset: 15,
@@ -728,16 +728,16 @@ class SecondaryLoop extends BaseView {
       </div>
     )
   }
-  elecCurrentDataToChart(elecCurrentData) {
+  elecCurrentDataToChart(elecCurrentData, phase) {
     let tempArr = elecCurrentData.xmdData
       .filter(item => {
         item.type = '巡航器'
-        return item.phase === item.phase
+        return item.phase === phase
       })
       .concat(
         elecCurrentData.elecData.filter(item => {
           item.type = '电能表'
-          return item.phase === item.phase
+          return item.phase === phase
         })
       )
     // 展开数组 ，转化为图表数据
@@ -817,7 +817,7 @@ class SecondaryLoop extends BaseView {
       height: chartsEleHeight,
       xAxis: 'x',
       yAxis: 'y',
-      doubletype: ['type', ['#ff0000', '#00ff00']],
+      doubletype: ['type', ['#965059', '#039fba']],
       doubleLine: true,
       forceFit: true,
       hidePoint: true,
@@ -846,15 +846,10 @@ class SecondaryLoop extends BaseView {
       height: chartsEleHeight,
       xAxis: 'x',
       yAxis: 'y',
-      doubletype: ['type', ['#ff0000', '#00ff00']],
+      doubletype: ['type', ['#965059', '#039fba']],
       forceFit: true,
       hidePoint: true,
       padding: 'auto',
-      cols: {
-        year: {
-          tickInterval: 1
-        }
-      },
       style: {
         overflow: 'hidden'
       },
@@ -879,7 +874,7 @@ class SecondaryLoop extends BaseView {
       height: chartsEleHeight,
       xAxis: 'x',
       yAxis: 'y',
-      doubletype: ['type', ['#ff0000', '#00ff00']],
+      doubletype: ['type', ['#965059', '#039fba']],
       forceFit: true,
       hidePoint: true,
       padding: 'auto',
