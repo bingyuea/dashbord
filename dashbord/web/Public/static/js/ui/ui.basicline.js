@@ -73,7 +73,7 @@ class BasicLine extends React.Component {
           />
           {this.props.hideTooltip ? '' : <Tooltip shared={false} />}
           {/* 这里添加tooltip */}
-          {/* <Tooltip crosshairs={{ type: 'y' }} /> */}
+          {/* <Tooltip crosshairs={{ type: 'x' }} /> */}
           <Geom
             type="line"
             color={

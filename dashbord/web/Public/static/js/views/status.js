@@ -7,9 +7,7 @@ import Mock from '../mock/mock'
 import Slider from 'react-slick'
 
 //缓存
-import {
-  PageNineStore
-} from '../store/business.store';
+import { PageNineStore } from '../store/business.store'
 
 //图表模型
 import { ChinaMapEcharts, Basicline, Labelline } from '../ui/ui.charts'
@@ -28,9 +26,9 @@ import {
 //定义数据模型
 const querySecondLoopExceptionDetailData = QuerySecondLoopExceptionDetailData.getInstance(),
   getTopTenOfSecondLoopExceptionTop = GetTopTenOfSecondLoopExceptionTop.getInstance(),
-  getTopTenOfSecondLoopException = GetTopTenOfSecondLoopException.getInstance();
+  getTopTenOfSecondLoopException = GetTopTenOfSecondLoopException.getInstance()
 
-const pageNineStore = PageNineStore.getInstance();
+const pageNineStore = PageNineStore.getInstance()
 class Status extends BaseView {
   constructor(props) {
     super(props)
@@ -131,8 +129,7 @@ class Status extends BaseView {
       pageIdx: idx
     })
     //认为是到第二个页面，拿数据请求接口
-    if(idx == 1){
-      
+    if (idx == 1) {
     }
   }
 
@@ -146,19 +143,21 @@ class Status extends BaseView {
     return (
       <div className="page-center">
         <div className="section-content map ">
-          <ChinaMapEcharts mapData={mapData} domId={'pageOneMap'}/>
+          <ChinaMapEcharts mapData={mapData} domId={'pageOneMap'} />
         </div>
       </div>
     )
   }
 
-  goPageTwo(value){
-
-    this.setState({
-      pageTwoParam:value
-    },()=>{
-      this.slickBtn(1);
-    });
+  goPageTwo(value) {
+    this.setState(
+      {
+        pageTwoParam: value
+      },
+      () => {
+        this.slickBtn(1)
+      }
+    )
   }
 
   onChange(value) {
@@ -173,7 +172,7 @@ class Status extends BaseView {
     const monthChartsHeight = $('.chartsBox').height() / 2
 
     const monthFormat = 'YYYY-MM'
-    const self = this;
+    const self = this
     return (
       <div className="status-main" style={{ height: appview }}>
         <div className="page-left ">
@@ -197,28 +196,30 @@ class Status extends BaseView {
           </div>
           <div className="fixedTable">
             <div className="row1 flex-layout">
-              <h6 className="h6 flex">用户</h6>
-              <h6 className="h6 flex">评估值</h6>
+              <h6 className="h6 flex text-c">用户</h6>
+              <h6 className="h6 flex text-c">评估值</h6>
             </div>
           </div>
           <div className="tabel">
-            {Array.isArray(rangeList) &&
-              rangeList.map((item, index) => {
-                return (
-                  <div
-                    className={
-                      (index + 1) % 2 === 0
-                        ? ['row2 flex-layout ']
-                        : ['row3 flex-layout ']
-                    }
-                    key={index}
-                    onClick={self.goPageTwo.bind(self,item)}
-                  >
-                    <div className="flex">{item.user}</div>
-                    <div className="flex">{item.assessedValue}</div>
-                  </div>
-                )
-              })}
+            <div className="scroll-body">
+              {Array.isArray(rangeList) &&
+                rangeList.map((item, index) => {
+                  return (
+                    <div
+                      className={
+                        (index + 1) % 2 === 0
+                          ? ['row2 flex-layout ']
+                          : ['row3 flex-layout ']
+                      }
+                      key={index}
+                      onClick={self.goPageTwo.bind(self, item)}
+                    >
+                      <div className="flex">{item.user}</div>
+                      <div className="flex">{item.assessedValue}</div>
+                    </div>
+                  )
+                })}
+            </div>
           </div>
         </div>
         {this.renderPageOneCenter()}
@@ -270,16 +271,16 @@ class Status extends BaseView {
       },
       xLabel: {
         offset: 15,
-        textStyle:{
-          fontSize:10,
-          fill:'#fff'
+        textStyle: {
+          fontSize: 10,
+          fill: '#fff'
         }
       },
       yLabel: {
         offset: 5,
-        textStyle:{
-          fontSize:10,
-          fill:'#fff'
+        textStyle: {
+          fontSize: 10,
+          fill: '#fff'
         }
       }
     }
@@ -385,13 +386,12 @@ class Status extends BaseView {
   }
 
   renderPageTwoCenter() {
-
     const mapData = []
 
     return (
       <div className="page-center">
         <div className="section-content map ">
-          <ChinaMapEcharts mapData={mapData} domId={'pageTwoMap'}/>
+          <ChinaMapEcharts mapData={mapData} domId={'pageTwoMap'} />
         </div>
       </div>
     )
@@ -460,73 +460,77 @@ class Status extends BaseView {
             <div className="blue-line" />
           </div>
 
-          <div className="status_9 mt-10">
-            <div className="row1 flex-layout">
-              <h6 className="h6 flex">省份</h6>
-              <h6 className="h6 flex">城市</h6>
+          <div className="info-box">
+            <div className="row1 flex-layout ">
+              <h6 className="h6 flex text-c">省份</h6>
+              <h6 className="h6 flex text-c">城市</h6>
+            </div>
+            <div className="fixedTable row3 flex-layout status_9">
+              <div className="flex text-c">{province || ''}</div>
+              <div className="flex text-c">{city || ''}</div>
             </div>
           </div>
-          <div className="row3 flex-layout status_9">
-            <div className="flex">{province || ''}</div>
-            <div className="flex">{city || ''}</div>
-          </div>
 
-          <div className="status_9 mt-20">
-            <div className="row1 flex-layout">
-              <h6 className="h6 flex">户名</h6>
-              <h6 className="h6 flex">巡检仪资产编号</h6>
+          <div className="info-box">
+            <div className="row1 flex-layout ">
+              <h6 className="h6 flex text-c">户名</h6>
+              <h6 className="h6 flex text-c">巡检仪资产编号</h6>
+            </div>
+            <div className="fixedTable row3 flex-layout status_9">
+              <div className="flex text-c">{username || ''}</div>
+              <div className="flex text-c">{serialNum || ''}</div>
             </div>
           </div>
-          <div className="row3 flex-layout status_9">
-            <div className="flex">{username || ''}</div>
-            <div className="flex">{serialNum || ''}</div>
-          </div>
 
-          <div className="fixedTable mt-20 status_9">
-            <div className="row1 flex-layout">
-              <h6 className="h6 flex">用电类别</h6>
-              <h6 className="h6 flex">行业类别</h6>
+          <div className="info-box">
+            <div className="row1 flex-layout ">
+              <h6 className="h6 flex text-c">用电类别</h6>
+              <h6 className="h6 flex text-c">行业类别</h6>
+            </div>
+            <div className="fixedTable row3 flex-layout status_9">
+              <div className="flex text-c">{elecType || ''}</div>
+              <div className="flex text-c">{trade || ''}</div>
             </div>
           </div>
-          <div className="row3 flex-layout status_9">
-            <div className="flex">{elecType || ''}</div>
-            <div className="flex">{trade || ''}</div>
-          </div>
 
-          <div className="fixedTable mt-20 status_9">
-            <div className="row1 flex-layout">
-              <h6 className="h6 flex">综合倍率</h6>
-              <h6 className="h6 flex">接线方式</h6>
+          <div className="info-box">
+            <div className="row1 flex-layout ">
+              <h6 className="h6 flex text-c">综合倍率</h6>
+              <h6 className="h6 flex text-c">接线方式</h6>
+            </div>
+            <div className="fixedTable row3 flex-layout status_9">
+              <div className="flex text-c">{rate || ''}</div>
+              <div className="flex text-c">{measure || ''}</div>
             </div>
           </div>
-          <div className="row3 flex-layout status_9">
-            <div className="flex">{rate || ''}</div>
-            <div className="flex">{measure || ''}</div>
-          </div>
 
-          <div className="event">
+          <div className="event mt-20 ">
             <div className="small-title label mb-20">
               <span className="arrow">&gt;&gt;</span>
               <div className="title">影响二次回路事件</div>
               <span className="arrow last">&gt;&gt;</span>
               <div className="blue-line" />
             </div>
-            {Array.isArray(eventList) &&
-              eventList.map((item, index) => {
-                return (
-                  <div
-                    className={
-                      (index + 1) % 2 === 0
-                        ? ['row2 flex-layout status_9']
-                        : ['row3 flex-layout status_9']
-                    }
-                    key={index}
-                  >
-                    <div className="flex">{item.eventName}</div>
-                    <div className="flex">{item.date}</div>
-                  </div>
-                )
-              })}
+            <div className="even-details">
+              <div className="scroll-body">
+                {Array.isArray(eventList) &&
+                  eventList.map((item, index) => {
+                    return (
+                      <div
+                        className={
+                          (index + 1) % 2 === 0
+                            ? ['row2 flex-layout status_9']
+                            : ['row3 flex-layout status_9']
+                        }
+                        key={index}
+                      >
+                        <div className="flex">{item.eventName}</div>
+                        <div className="flex">{item.date}</div>
+                      </div>
+                    )
+                  })}
+              </div>
+            </div>
           </div>
         </div>
         {this.renderPageTwoCenter()}

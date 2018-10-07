@@ -12,39 +12,16 @@
   .page-right {
     width: 25%;
     background: rgba(8, 26, 63, 0.2);
-    // .title-content {
-    //   h3 {
-    //     margin-left: 0;
-    //     margin-right: 0;
-    //   }
-    // }
     .tabel,
     .fixedTable {
+      // padding-left: 30px;
+      // padding-right: 30px;
       .row1,
       .row2,
       .row3 {
         height: 9.1%;
         padding: 8px;
-      }
-      .row1 {
-        background: rgba(8, 38, 82, 0.4);
-        .h6 {
-          display: inline-block;
-          color: @blue;
-          font-size: 17px;
-        }
-      }
-      .row2 {
-        background: rgba(12, 35, 69, 0.4);
-      }
-      .row3 {
-        background: rgba(17, 27, 61, 0.4);
-      }
-      .flex {
-        flex: 1;
-        text-align: left;
-        padding-left: 10px;
-        align-self: center;
+        min-height: 42px;
       }
     }
     .tabel {
@@ -52,6 +29,12 @@
       overflow: auto;
       &::-webkit-scrollbar {
         width: 0;
+      }
+      .scroll-body {
+        animation: scrollTable 10s linear infinite;
+        &:hover {
+          animation-play-state: paused;
+        }
       }
     }
   }
@@ -63,9 +46,7 @@
   }
   .label {
     font-size: 20px;
-  }
-  .labe2 {
-    font-size: 18px;
+    padding: 0 15px;
   }
 }
 
@@ -82,8 +63,6 @@
 
 .flex {
   flex: 1;
-  text-align: left;
-  padding-left: 10px;
 }
 
 .page-center {
@@ -95,9 +74,9 @@
 }
 
 .searchTime {
-  padding: 20px 0;
+  padding: 30px 0;
   text-align: left;
-  padding-left: 20px;
+  padding-left: 30px;
 }
 
 .iconfont {
@@ -150,24 +129,52 @@
   .page-left {
     background: rgba(8, 26, 63, 0.2);
     .status_9 {
-      height: 40px;
-      line-height: 40px;
-      .row1 {
-        background: rgba(8, 38, 82, 0.4);
-        height: 100%;
-        .h6 {
-          display: inline-block;
-          color: @blue;
-          font-size: 17px;
-          line-height: 40px;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+    }
+    .info-box {
+      padding: 0 30px;
+      &:first-of-type {
+        margin-top: 30px;
+      }
+      margin-top: 20px;
+    }
+    .event {
+      height: 32%;
+      .even-details {
+        padding: 0 30px;
+        height: calc(~'100% - 40px');
+        overflow: auto;
+        &::-webkit-scrollbar {
+          width: 0;
+        }
+        .scroll-body {
+          animation: scrollTable 10s linear infinite;
+          &:hover {
+            animation-play-state: paused;
+          }
         }
       }
     }
-    .row2 {
-      background: rgba(36, 80, 125, 0.4);
-    }
-    .row3 {
-      background: rgba(12, 35, 69, 0.4);
-    }
   }
+}
+
+.row1 {
+  background: rgba(8, 38, 82, 0.4);
+  height: 100%;
+  .h6 {
+    display: inline-block;
+    color: @blue;
+    font-size: 17px;
+    line-height: 40px;
+  }
+}
+
+.row2 {
+  background: rgba(36, 80, 125, 0.4);
+}
+
+.row3 {
+  background: rgba(12, 35, 69, 0.4);
 }
