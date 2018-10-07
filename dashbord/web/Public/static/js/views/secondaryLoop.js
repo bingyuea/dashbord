@@ -936,6 +936,7 @@ class SecondaryLoop extends BaseView {
       doubletype: ['type', ['#965059', '#039fba']],
       doubleLine: true,
       forceFit: true,
+      hidePoint: true,
       padding: 'auto',
       style: {
         overflow: 'hidden'

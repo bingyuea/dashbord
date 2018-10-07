@@ -84,9 +84,7 @@ class MergeAnaly extends BaseView {
           exceptionDataObj
         })
       },
-      err => {
-        
-      }
+      err => {}
     )
   }
 
@@ -202,9 +200,9 @@ class MergeAnaly extends BaseView {
 
   /**************   pageOne    *******************/
   renderPageCenter() {
-    const exceptionDataObj  = this.state.exceptionDataObj || {};
-    const exceptionData = exceptionDataObj.exceptionData || [];
-    const mapData = this.formatMapData(exceptionData);
+    const exceptionDataObj = this.state.exceptionDataObj || {}
+    const exceptionData = exceptionDataObj.exceptionData || []
+    const mapData = this.formatMapData(exceptionData)
     let _this = this
     return (
       <div className="page-center">
@@ -223,9 +221,7 @@ class MergeAnaly extends BaseView {
       return (
         <div
           className={
-            (idx + 1) % 2 === 0
-              ? ['row3 flex-layout ']
-              : ['row2 flex-layout ']
+            (idx + 1) % 2 === 0 ? ['row3 flex-layout '] : ['row2 flex-layout ']
           }
           key={idx}
         >
@@ -241,9 +237,8 @@ class MergeAnaly extends BaseView {
     const domHeight = $('.page-main').height()
     let _this = this
     if (!domHeight) {
-      
     }
-    let { exceptionDataObj } = this.state;
+    let { exceptionDataObj } = this.state
     const exceptionData =
       (exceptionDataObj && exceptionDataObj.rankData[0]) || {}
     // 这里是不需要做去重处理
@@ -272,10 +267,9 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className='scroll-body'>
+                <div className="scroll-body">
                   {this.renderRank(exceptionData.stealingPowerRanking)}
                 </div>
-                
               </div>
             </div>
           </div>
@@ -293,10 +287,9 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className='scroll-body'>
+                <div className="scroll-body">
                   {this.renderRank(exceptionData.troubleRanking)}
                 </div>
-                
               </div>
             </div>
           </div>
@@ -314,7 +307,7 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className='scroll-body'>
+                <div className="scroll-body">
                   {this.renderRank(exceptionData.wiringFaultRanking)}
                 </div>
               </div>
@@ -334,10 +327,9 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className='scroll-body'>
+                <div className="scroll-body">
                   {this.renderRank(exceptionData.expansionRanking)}
                 </div>
-                
               </div>
             </div>
           </div>
@@ -357,10 +349,9 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className='scroll-body'>
+                <div className="scroll-body">
                   {this.renderRank(exceptionData.maintainRanking)}
                 </div>
-                
               </div>
             </div>
           </div>
@@ -377,10 +368,9 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className='scroll-body'>
+                <div className="scroll-body">
                   {this.renderRank(exceptionData.failureRanking)}
                 </div>
-                
               </div>
             </div>
           </div>
@@ -398,10 +388,9 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className='scroll-body'>
+                <div className="scroll-body">
                   {this.renderRank(exceptionData.loopExceRanking)}
                 </div>
-                
               </div>
             </div>
           </div>
@@ -418,10 +407,9 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className='scroll-body'>
+                <div className="scroll-body">
                   {this.renderRank(exceptionData.elecExecRanking)}
                 </div>
-                
               </div>
             </div>
           </div>
@@ -556,10 +544,11 @@ class MergeAnaly extends BaseView {
       xAxis: 'period',
       yAxis: 'periodCount',
       forceFit: true,
+      hidePoint: true,
       padding: 'auto',
-      cols:{
-        periodCount:{
-          alias:'数量'
+      cols: {
+        periodCount: {
+          alias: '数量'
         }
       },
       style: {
@@ -567,16 +556,16 @@ class MergeAnaly extends BaseView {
       },
       xLabel: {
         offset: 15,
-        textStyle:{
-          fontSize:10,
-          fill:'#fff'
+        textStyle: {
+          fontSize: 10,
+          fill: '#fff'
         }
       },
       yLabel: {
         offset: 5,
-        textStyle:{
-          fontSize:10,
-          fill:'#fff'
+        textStyle: {
+          fontSize: 10,
+          fill: '#fff'
         }
       }
     }
@@ -593,18 +582,18 @@ class MergeAnaly extends BaseView {
       height: themeHeight,
       xLabel: {
         offset: 15,
-        textStyle:{
-          fill:'#fff',
-          fontSize:10
+        textStyle: {
+          fill: '#fff',
+          fontSize: 10
         }
       },
       yLabel: {
         offset: 5,
-        textStyle:{
-          fill:'#fff',
-          fontSize:10
+        textStyle: {
+          fill: '#fff',
+          fontSize: 10
         }
-      },
+      }
     }
 
     // '{"token":"234sdf234","province":"山西","subject":1,"startTime":"2011-01-01","endTime":"2019-01-1"}' "' "https://api.c2py.com/ele/shangcen/xmdplatform/getSubjectType"
@@ -630,7 +619,10 @@ class MergeAnaly extends BaseView {
                     fontSize: `${loop_bottom / 10}px`
                   }}
                 >
-                  {String(totalCount || 0).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}
+                  {String(totalCount || 0).replace(
+                    /(\d)(?=(?:\d{3})+$)/g,
+                    '$1,'
+                  )}
                   <span className="text-white">&nbsp;件</span>
                 </div>
               </div>
