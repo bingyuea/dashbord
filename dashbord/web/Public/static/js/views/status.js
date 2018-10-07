@@ -173,7 +173,7 @@ class Status extends BaseView {
     const monthChartsHeight = $('.chartsBox').height() / 2
 
     const monthFormat = 'YYYY-MM'
-
+    const self = this;
     return (
       <div className="status-main" style={{ height: appview }}>
         <div className="page-left ">
