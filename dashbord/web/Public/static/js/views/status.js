@@ -6,11 +6,6 @@ import Mock from '../mock/mock'
 //图表模型
 import Slider from 'react-slick'
 
-//缓存
-import {
-  PageNineStore
-} from '../store/business.store';
-
 //图表模型
 import { ChinaMapEcharts, Basicline, Labelline } from '../ui/ui.charts'
 import { DatePicker } from 'antd'
