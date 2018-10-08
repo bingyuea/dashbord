@@ -243,25 +243,28 @@ class Status extends BaseView {
 
   renderRightCommon() {
     let { averageList } = this.state || {}
-    averageList = {
-      result: 1,
-      average: 88.65,
-      monthChain: 0.01,
-      dataList: [
-        {
-          date: '2018-01',
-          average: 85.66
-        },
-        {
-          date: '2018-02',
-          average: 85.66
-        }
-      ]
-    }
+    averageList = averageList && averageList.dataList
+    // averageList = {
+    //   result: 1,
+    //   average: 88.65,
+    //   monthChain: 0.01,
+    //   dataList: [
+    //     {
+    //       date: '2018-01',
+    //       average: 85.66
+    //     },
+    //     {
+    //       date: '2018-02',
+    //       average: 85.66
+    //     }
+    //   ]
+    // }
     // 平均分
     let averageDataList = (averageList && averageList.dataList) || []
     let average = (averageList && averageList.average) || 0
+    let averageTrend = (averageList && averageList.averageTrend) || 0
     let monthChain = (averageList && averageList.monthChain) || 0
+    let monthChainTrend = (averageList && averageList.monthChainTrend) || 0
 
     const bottomHeight = $('#status2RightBottom').height()
     const monthChartsHeight = $('.chartsBox').height() / 2
@@ -386,22 +389,36 @@ class Status extends BaseView {
               <div className="chartsTop">
                 <div className="itemLeft">平均得分</div>
                 <div className="itemCenter">
-                  <Labelline {...charts6} />
+                  {/* <Labelline {...charts6} /> */}
+                  {average}
                 </div>
                 <div className="itemRight">
-                  <div className="iconfont icon-icon-dsj" />
-                  <span className="monthRange">0.24</span>
+                  <div
+                    className={
+                      averageTrend && averageTrend > 0
+                        ? ['iconfont icon-icon-dsj']
+                        : ['iconfont icon-sanx-up']
+                    }
+                  />
+                  <span className="monthRange">{averageTrend}</span>
                 </div>
               </div>
               <div className="chartsBotttom">
                 <div className="itemLeft">月环比</div>
                 <div className="itemCenter">
                   {/* <Labelline {...monthCharts} /> */}
-                  <Labelline {...charts6} />
+                  {/* <Labelline {...charts6} /> */}
+                  {monthChain}
                 </div>
                 <div className="itemRight">
-                  <div className="iconfont icon-icon-dsj" />
-                  <span className="monthRange">0.24</span>
+                  <div
+                    className={
+                      monthChainTrend && monthChainTrend > 0
+                        ? ['iconfont icon-icon-dsj']
+                        : ['iconfont icon-sanx-up']
+                    }
+                  />
+                  <span className="monthRange">{monthChainTrend}</span>
                 </div>
               </div>
             </div>
