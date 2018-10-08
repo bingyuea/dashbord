@@ -29,6 +29,10 @@ import Mock from '../mock/mock'
 
 import { uniqueArr } from '../util/util'
 
+import { Menu, Dropdown, Icon } from 'antd'
+
+import MeunTitle from '../ui/ui.menuTitle'
+
 //定义数据模型
 const provinceCountModel = ProvinceCountModel.getInstance(),
   yearCountModel = YearCountModel.getInstance(),
@@ -459,15 +463,29 @@ class Dashboard extends BaseView {
       )
     })
   }
+
+  renderMeunTitle() {
+    return <MeunTitle />
+  }
+
   renderPageCenter() {
     const { provinceCountData } = this.state || {}
 
     const mapData = this.formatMapData(provinceCountData)
     // const mapData = this.formatMapData(Mock.charts1);
-
+    let _this = this
     return (
       <div className="page-center">
-        <h1>巡检仪大数据分析平台</h1>
+        <h1 id="dropTitle">
+          {
+            <Dropdown overlay={this.renderMeunTitle()} className="dropContent">
+              <a className="ant-dropdown-link">
+                巡检仪大数据分析平台
+                <Icon type="ordered-list" theme="outlined" />
+              </a>
+            </Dropdown>
+          }
+        </h1>
         <div className="section-content has-child">
           <div className="section-left child">
             <h4>巡检仪安装总量</h4>

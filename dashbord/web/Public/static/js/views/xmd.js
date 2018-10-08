@@ -23,7 +23,9 @@ import DataServince from '../services/searchbar.services'
 import Slider from 'react-slick'
 
 import { translateCountToPercent } from '../util/util'
+import { Menu, Dropdown, Icon } from 'antd'
 
+import MeunTitle from '../ui/ui.menuTitle'
 import {
   XmdInstallModel,
   CustomerInfoModel,
@@ -1003,6 +1005,10 @@ class XMD extends BaseView {
     )
   }
 
+  renderMeunTitle() {
+    return <MeunTitle />
+  }
+
   renderMain() {
     var settings = {
       dots: false,
@@ -1021,7 +1027,16 @@ class XMD extends BaseView {
 
     return (
       <div className="page-xmd page-slick page">
-        <h1 className="page-title">{this.state.pageTitle}</h1>
+        <h1 className="page-title" id="dropTitle">
+          {
+            <Dropdown overlay={this.renderMeunTitle()} className="dropContent">
+              <a className="ant-dropdown-link">
+                {this.state.pageTitle}
+                <Icon type="ordered-list" theme="outlined" />
+              </a>
+            </Dropdown>
+          }
+        </h1>
         <div className="slick-btn">
           <div
             className={pageIdx == 0 ? 'btn active' : 'btn'}

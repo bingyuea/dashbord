@@ -18,7 +18,9 @@ import SearchBar from '../ui/ui.searchbar.js'
 import moment from 'moment'
 
 import DataServince from '../services/searchbar.services'
+import { Menu, Dropdown, Icon } from 'antd'
 
+import MeunTitle from '../ui/ui.menuTitle'
 import {
   //异常数据统计a
   QueryElecCurrentData,
@@ -670,7 +672,9 @@ class MergeAnaly extends BaseView {
     )
   }
   /*****************   pageTwo   ****************/
-
+  renderMeunTitle() {
+    return <MeunTitle />
+  }
   renderMain() {
     var settings = {
       dots: false,
@@ -689,7 +693,19 @@ class MergeAnaly extends BaseView {
     return (
       <div className="page-slick page page-merge-analy">
         <div className="top-content">
-          <h1 className="page-title">二次回路异常主题分析</h1>
+          <h1 id="dropTitle" className="page-title">
+            {
+              <Dropdown
+                overlay={this.renderMeunTitle()}
+                className="dropContent"
+              >
+                <a className="ant-dropdown-link">
+                  二次回路异常主题分析
+                  <Icon type="ordered-list" theme="outlined" />
+                </a>
+              </Dropdown>
+            }
+          </h1>
           <div className="slick-btn">
             <div
               className={this.state.pageIdx == 0 ? 'btn active' : 'btn'}

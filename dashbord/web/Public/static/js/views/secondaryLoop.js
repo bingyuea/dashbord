@@ -32,7 +32,9 @@ import Mock from '../mock/mock'
 import SearchBar from '../ui/ui.searchbar.js'
 
 import { translateCountToPercent } from '../util/util'
+import { Menu, Dropdown, Icon } from 'antd'
 
+import MeunTitle from '../ui/ui.menuTitle'
 import Slider from 'react-slick'
 import DataServince from '../services/searchbar.services'
 import moment from 'moment'
@@ -1240,6 +1242,10 @@ class SecondaryLoop extends BaseView {
       </div>
     )
   }
+
+  renderMeunTitle() {
+    return <MeunTitle />
+  }
   renderMain() {
     var settings = {
       dots: false,
@@ -1255,7 +1261,17 @@ class SecondaryLoop extends BaseView {
     }
     return (
       <div className="page-slick page-SecondaryLoopLeft page">
-        <h1 className="page-title">{this.state.pageTitle}</h1>
+        <h1 className="page-title" id="dropTitle">
+          {
+            <Dropdown overlay={this.renderMeunTitle()} className="dropContent">
+              <a className="ant-dropdown-link">
+                {this.state.pageTitle}
+                <Icon type="ordered-list" theme="outlined" />
+              </a>
+            </Dropdown>
+          }
+        </h1>
+
         <div className="slick-btn">
           <div
             className={this.state.pageIdx == 0 ? 'btn active' : 'btn'}

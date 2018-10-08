@@ -525,6 +525,7 @@ canvas {
     left: 0;
     right: 0;
     margin: auto;
+    z-index: 1;
   }
   .page-title {
     background-size: 480px 70px;
@@ -584,5 +585,36 @@ canvas {
     &:hover {
       animation-play-state: paused;
     }
+  }
+}
+
+// 所有页面的标题下拉效果
+#dropTitle {
+  color: @blue; // a 标签
+  .ant-dropdown-link {
+    color: @blue;
+    text-decoration: none;
+  } // icon
+  .anticon-ordered-list {
+    margin-left: 10px;
+    font-size: 20px;
+  }
+}
+
+// 菜单
+.ant-menu {
+  background: rgba(14, 50, 100, 0.8);
+  color: #fff;
+  border: 1px solid @blue; // 选中的某一行
+  .ant-menu-item {
+    margin: 0 !important;
+    &>a {
+      color: #fff;
+      text-align: center;
+    }
+  }
+  .ant-menu-item-active {
+    color: #fff;
+    background: rgba(49, 132, 172, 1);
   }
 }

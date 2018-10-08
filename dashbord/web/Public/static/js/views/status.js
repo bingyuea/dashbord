@@ -17,6 +17,9 @@ import moment from 'moment'
 import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
 const { MonthPicker } = DatePicker
+import { Menu, Dropdown, Icon } from 'antd'
+
+import MeunTitle from '../ui/ui.menuTitle'
 //异常数据统计
 import {
   QuerySecondLoopExceptionDetailData,
@@ -540,7 +543,9 @@ class Status extends BaseView {
       </div>
     )
   }
-
+  renderMeunTitle() {
+    return <MeunTitle />
+  }
   renderMain() {
     var settings = {
       autoplay: false,
@@ -557,7 +562,19 @@ class Status extends BaseView {
     return (
       <div className="page-status page-slick page page-content-box">
         <div className="top-content">
-          <h1 className="page-title">二次回路状态在线监测</h1>
+          <h1 id="dropTitle" className="page-title">
+            {
+              <Dropdown
+                overlay={this.renderMeunTitle()}
+                className="dropContent"
+              >
+                <a className="ant-dropdown-link">
+                  二次回路状态在线监测
+                  <Icon type="ordered-list" theme="outlined" />
+                </a>
+              </Dropdown>
+            }
+          </h1>
           <div className="slick-btn">
             <div
               className={pageIdx == 0 ? 'btn active' : 'btn'}
