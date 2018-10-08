@@ -331,7 +331,34 @@ class Status extends BaseView {
       padding: 'auto',
       field: 'count',
       // dimension: 'eventName',
-      dimension: 'name',
+      dimension: 'name'
+      // cols: {
+      //   percent: {
+      //     formatter: val => {
+      //       val = (val * 100).toFixed(0) + '%'
+      //       return val
+      //     }
+      //   }
+      // }
+    }
+    debugger
+    console.log(monthChartsHeight)
+    const charts6 = {
+      // data:validityEventCountData,
+      data: Mock.charts6,
+      height: 100,
+      innerRadius: 0.7,
+      legend: {
+        position: 'right-center',
+        textStyle: {
+          fontSize: 10
+        }
+      },
+      radius: 0.9,
+      forceFit: true,
+      padding: 'auto',
+      field: 'count',
+      dimension: 'eventName',
       cols: {
         percent: {
           formatter: val => {
@@ -359,9 +386,7 @@ class Status extends BaseView {
               <div className="chartsTop">
                 <div className="itemLeft">平均得分</div>
                 <div className="itemCenter">
-                  <div>
-                    <Labelline {...averageCharts} />
-                  </div>
+                  <Labelline {...charts6} />
                 </div>
                 <div className="itemRight">
                   <div className="iconfont icon-icon-dsj" />
@@ -371,9 +396,8 @@ class Status extends BaseView {
               <div className="chartsBotttom">
                 <div className="itemLeft">月环比</div>
                 <div className="itemCenter">
-                  <div>
-                    <Labelline {...monthCharts} />
-                  </div>
+                  {/* <Labelline {...monthCharts} /> */}
+                  <Labelline {...charts6} />
                 </div>
                 <div className="itemRight">
                   <div className="iconfont icon-icon-dsj" />
