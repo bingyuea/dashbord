@@ -525,7 +525,11 @@ class Status extends BaseView {
               <div className="blue-line" />
             </div>
             <div className="even-details">
-              <div className="scroll-body">
+              <div
+                className={
+                  eventList && eventList.length > 4 ? ['scroll-body'] : ['']
+                }
+              >
                 {Array.isArray(eventList) &&
                   eventList.map((item, index) => {
                     return (
