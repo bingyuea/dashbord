@@ -133,12 +133,31 @@ function uniqueArr(array) {
     return n;
 }
 
+
+function formatEleList(list){
+	let time = [],hour='',min='';
+	const minArr = ['00','15','30','45'];
+	for(var i =0;i < 24;i++){
+		hour = i < 10 ? '0'+ i:i;
+		for(var j =0;j++;j<4){
+			time.push({
+				time:hour+':'+minArr[j]
+			})
+		}
+	}
+	return list.map((item,idx)=>{
+		item.tiem = time[idx]
+		return item
+	})
+}
+
 export {
 	formatObj,
 	formatSelectOptions,
 	formatCity,
 	translateCountToPercent,
-	uniqueArr
+	uniqueArr,
+	formatEleList
 }
 
 
