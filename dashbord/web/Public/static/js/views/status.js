@@ -111,7 +111,7 @@ class Status extends BaseView {
       token: '234sdf234',
       serialNum: '1430009000003609335198',
       elecSerialNum: '1410101012212120538038',
-      date: '2018-05'
+      date: '2011-05'
     }
     querySecondLoopExceptionDetailData.setParam(value)
     querySecondLoopExceptionDetailData.excute(

@@ -129,7 +129,7 @@ function fetchUnusalList(cb){
 
 	function success(res){
 		const resData = res || {};
-		const list = resData.cityList || [];
+		const list = resData.exceptionList || [];
 		searchData.unusalOpts = list;
 		const param = {
 			defaultDesc:'请选择行业类型',
@@ -163,7 +163,7 @@ function fetchThemeList(cb){
 		const resData = res || {};
 		const list = resData.exceptionList || [];
 		const param = {
-			defaultDesc:'请选择行业类型',
+			defaultDesc:'请选择主题类型',
 			list:list,	//原数据
 			descKey:'name',
 			valueKey:'subject'
