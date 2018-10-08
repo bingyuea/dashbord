@@ -51,7 +51,7 @@ class App extends BaseApp {
         },
         // 二次回路单异常主题分析 (6,7)
         {
-          path: __mei_wei__.env.basepath + 'mergeAnaly',
+          path: __mei_wei__.env.basepath + 'analy_loop',
           getComponents(nextState, cb) {
             require.ensure(
               [],
@@ -65,7 +65,7 @@ class App extends BaseApp {
         },
         //二次回路状态在线监测（8，9）
         {
-          path: __mei_wei__.env.basepath + 'status',
+          path: __mei_wei__.env.basepath + 'status_loop',
           getComponents(nextState, cb) {
             require.ensure(
               [],

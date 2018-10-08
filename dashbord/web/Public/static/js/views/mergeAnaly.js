@@ -575,6 +575,7 @@ class MergeAnaly extends BaseView {
       keyName: '时间',
       value: '事件数量',
       fieldsName: 'name',
+      legend:true,
       style: {
         overflow: 'hidden'
       },
@@ -615,8 +616,7 @@ class MergeAnaly extends BaseView {
                   className="loop_content loop_number"
                   style={{
                     height: loop_bottom - 80,
-                    lineHeight: `${loop_bottom - 80}px`,
-                    fontSize: `${loop_bottom / 10}px`
+                    lineHeight: `${loop_bottom - 80}px`
                   }}
                 >
                   {String(totalCount || 0).replace(
