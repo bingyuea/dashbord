@@ -1227,7 +1227,7 @@ class SecondaryLoop extends BaseView {
                 onClick: () => {
                   console.log(record)
                   console.log(idx)
-                  let pageTwo = self.state.pageTwo || {}
+                  let pageTwo = {};
                   pageTwo.record = record
 
                   self.setState({
