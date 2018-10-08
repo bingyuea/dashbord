@@ -663,11 +663,13 @@ class SecondaryLoop extends BaseView {
                       height: loop_content
                     }}
                   >
-                    {String(totalCount || 0).replace(
-                      /(\d)(?=(?:\d{3})+$)/g,
-                      '$1,'
-                    )}
-                    <span className="text-white">&nbsp;件</span>
+                    <p>
+                      {String(totalCount || 0).replace(
+                        /(\d)(?=(?:\d{3})+$)/g,
+                        '$1,'
+                      )}
+                      <span className="text-white">&nbsp;件</span>
+                    </p>
                   </div>
                 </div>
                 <div className="loop_top_right">
@@ -1227,7 +1229,7 @@ class SecondaryLoop extends BaseView {
                 onClick: () => {
                   console.log(record)
                   console.log(idx)
-                  let pageTwo = {};
+                  let pageTwo = {}
                   pageTwo.record = record
 
                   self.setState({

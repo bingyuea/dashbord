@@ -269,7 +269,14 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className="scroll-body">
+                <div
+                  className={
+                    exceptionData.stealingPowerRanking &&
+                    exceptionData.stealingPowerRanking.length > 2
+                      ? ['scroll-body']
+                      : ['']
+                  }
+                >
                   {this.renderRank(exceptionData.stealingPowerRanking)}
                 </div>
               </div>
@@ -289,7 +296,14 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className="scroll-body">
+                <div
+                  className={
+                    exceptionData.troubleRanking &&
+                    exceptionData.troubleRanking.length > 2
+                      ? ['scroll-body']
+                      : ['']
+                  }
+                >
                   {this.renderRank(exceptionData.troubleRanking)}
                 </div>
               </div>
@@ -309,7 +323,14 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className="scroll-body">
+                <div
+                  className={
+                    exceptionData.wiringFaultRanking &&
+                    exceptionData.wiringFaultRanking.length > 2
+                      ? ['scroll-body']
+                      : ['']
+                  }
+                >
                   {this.renderRank(exceptionData.wiringFaultRanking)}
                 </div>
               </div>
@@ -329,7 +350,14 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className="scroll-body">
+                <div
+                  className={
+                    exceptionData.expansionRanking &&
+                    exceptionData.expansionRanking.length > 2
+                      ? ['scroll-body']
+                      : ['']
+                  }
+                >
                   {this.renderRank(exceptionData.expansionRanking)}
                 </div>
               </div>
@@ -351,7 +379,14 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className="scroll-body">
+                <div
+                  className={
+                    exceptionData.maintainRanking &&
+                    exceptionData.maintainRanking.length > 2
+                      ? ['scroll-body']
+                      : ['']
+                  }
+                >
                   {this.renderRank(exceptionData.maintainRanking)}
                 </div>
               </div>
@@ -370,7 +405,14 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className="scroll-body">
+                <div
+                  className={
+                    exceptionData.failureRanking &&
+                    exceptionData.failureRanking.length > 2
+                      ? ['scroll-body']
+                      : ['']
+                  }
+                >
                   {this.renderRank(exceptionData.failureRanking)}
                 </div>
               </div>
@@ -390,7 +432,14 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className="scroll-body">
+                <div
+                  className={
+                    exceptionData.loopExceRanking &&
+                    exceptionData.loopExceRanking.length > 2
+                      ? ['scroll-body']
+                      : ['']
+                  }
+                >
                   {this.renderRank(exceptionData.loopExceRanking)}
                 </div>
               </div>
@@ -409,7 +458,14 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">评估值</h6>
               </div>
               <div className="scrollList">
-                <div className="scroll-body">
+                <div
+                  className={
+                    exceptionData.elecExecRanking &&
+                    exceptionData.elecExecRanking.length > 2
+                      ? ['scroll-body']
+                      : ['']
+                  }
+                >
                   {this.renderRank(exceptionData.elecExecRanking)}
                 </div>
               </div>
@@ -577,7 +633,7 @@ class MergeAnaly extends BaseView {
       keyName: '时间',
       value: '事件数量',
       fieldsName: 'name',
-      legend:true,
+      legend: true,
       style: {
         overflow: 'hidden'
       },

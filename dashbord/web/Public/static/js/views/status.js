@@ -168,6 +168,7 @@ class Status extends BaseView {
     console.log(value)
     // this.fetchGetTopTenOfSecondLoopExceptionTop(value)
   }
+  searchHandle() {}
   renderPageOne() {
     let appview = $('.page-main').height()
     let { rangeList } = this.state || {}
@@ -198,6 +199,9 @@ class Status extends BaseView {
               format={monthFormat}
               locale={locale}
             />
+            <span className="search-btn" onClick={this.searchHandle.bind(this)}>
+              查询
+            </span>
           </div>
           <div className="fixedTable pd-30">
             <div className="row1 flex-layout">
@@ -206,7 +210,11 @@ class Status extends BaseView {
             </div>
           </div>
           <div className="tabel pd-30">
-            <div className="scroll-body">
+            <div
+              className={
+                rangeList && rangeList.length > 10 ? ['scroll-body'] : ['']
+              }
+            >
               {Array.isArray(rangeList) &&
                 rangeList.map((item, index) => {
                   return (
@@ -219,8 +227,8 @@ class Status extends BaseView {
                       key={index}
                       onClick={self.goPageTwo.bind(self, item)}
                     >
-                      <div className="flex">{item.user}</div>
-                      <div className="flex">{item.assessedValue}</div>
+                      <div className="flex text-l">{item.user}</div>
+                      <div className="flex ">{item.assessedValue}</div>
                     </div>
                   )
                 })}

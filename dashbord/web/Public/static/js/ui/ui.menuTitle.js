@@ -26,12 +26,12 @@ class MeunTitle extends Component {
       },
       {
         name: '二次回路异常主题分析',
-        href: '/mergeAnaly',
+        href: '/analy_loop',
         target: ''
       },
       {
         name: '二次回路状态在线监测',
-        href: '/status',
+        href: '/status_loop',
         target: ''
       }
     ]
