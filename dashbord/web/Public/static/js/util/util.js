@@ -135,18 +135,18 @@ function uniqueArr(array) {
 
 
 function formatEleList(list){
-	let time = [],hour='',min='';
+	let timeArr = [],hour='';
 	const minArr = ['00','15','30','45'];
 	for(var i =0;i < 24;i++){
 		hour = i < 10 ? '0'+ i:i;
 		for(var j =0;j++;j<4){
-			time.push({
+			timeArr.push({
 				time:hour+':'+minArr[j]
 			})
 		}
 	}
 	return list.map((item,idx)=>{
-		item.tiem = time[idx]
+		item.time = timeArr[idx]
 		return item
 	})
 }
