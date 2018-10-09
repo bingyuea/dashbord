@@ -188,7 +188,7 @@ class Dashboard extends BaseView {
     provinceEventCountModel.excute(
       res => {
         const resData = res || {}
-        const listData = resData.eventList || []
+        const listData = resData.eventList || [];
         self.setState({
           provinceEventCountData: self.formatProvinceEventCount(
             listData,
@@ -210,12 +210,50 @@ class Dashboard extends BaseView {
       target = {}
     list.forEach(item => {
       target = {}
-      target.name = item[filedsName]
-      ;(item.detail || []).forEach(detailItem => {
+      target.name = item[filedsName];
+      (item.detail || []).forEach(detailItem => {
         target[detailItem[key]] = detailItem[value]
       })
       newList.push(target)
     })
+
+    return newList
+  }
+
+  formatProvinceEventCountRadar(list){
+    if (!list) {
+      return []
+    }
+    let tempList = [],countKey,target = {};
+
+    list.forEach(item=>{
+      target = {};
+      target.item = item.trade;
+      (item.detail || []).forEach(detailItem=>{
+        countKey ='trade' + detailItem.eventType;
+        target[countKey] = detailItem.count;
+      })
+      tempList.push(target);
+    })
+
+    var fields  = this.getFields(tempList);
+    var newList = [];
+    var detail = {};
+    fields.forEach(item=>{
+      detail[item] = 0;
+    })
+    tempList.forEach(item=>{
+      var detail = {
+        trade1:0,
+        trade2:0,
+        trade3:0,
+        trade4:0,
+      }
+      target = $.extend(detail, item);
+      
+      newList.push(target);
+    })
+    console.log(newList)
 
     return newList
   }
@@ -242,14 +280,8 @@ class Dashboard extends BaseView {
       res => {
         const resData = res || {}
         const listData = resData.eventList || []
-
         self.setState({
-          tradeEventCountMData: self.formatProvinceEventCount(
-            listData,
-            'trade',
-            'eventName',
-            'count'
-          )
+          tradeEventCountMData: self.formatProvinceEventCountRadar(listData)
         })
       },
       err => {}
@@ -527,7 +559,7 @@ class Dashboard extends BaseView {
       height: labelHeight,
       innerRadius: 0.7,
       legend: {
-        position: 'right-center',
+        position: 'bottom-center',
         textStyle: {
           fontSize: 10
         }
@@ -555,7 +587,7 @@ class Dashboard extends BaseView {
       forceFit: true,
       padding: 'auto',
       legend: {
-        position: 'right-center',
+        position: 'bottom-center',
         textStyle: {
           fontSize: 10
         }
@@ -579,6 +611,7 @@ class Dashboard extends BaseView {
       value: '上报数量',
       fieldsName: 'name',
       forceFit: true,
+      hideTooltip:true,
       legend: {
         position: 'top-center',
         marker: 'circle',
@@ -606,7 +639,6 @@ class Dashboard extends BaseView {
       padding: 'auto',
       height: chartHeight
     }
-
     const charts9 = {
       data: tradeEventCountMData,
       height: chartHeight,
@@ -634,16 +666,13 @@ class Dashboard extends BaseView {
         overflow: 'hidden'
       }
     }
-
     const charts10 = {
-      data: tradeEventCountMData && tradeEventCountMData.slice(0, 3),
+      data: tradeEventCountMData,
       height: chartHeight,
       padding: 'auto',
       xAxis: 'name',
       yAxis: 'count',
-      fields:
-        tradeEventCountMData &&
-        this.getFields(tradeEventCountMData.slice(0, 3)),
+      fields:this.getFields(tradeEventCountMData),
       forceFit: false,
       style: {
         overflow: 'hidden'
@@ -677,7 +706,7 @@ class Dashboard extends BaseView {
             <div className="child">
               <h6 className="spec">有效性</h6>
               <div className="text">
-                <span>{'123.22'}</span> %
+                <span>{'98'}</span> %
               </div>
             </div>
           </div>
@@ -687,8 +716,8 @@ class Dashboard extends BaseView {
           </div>
           <div className="section-content flex-column">
             <h6 style={{ textAlign: 'center' }}>行业类型</h6>
-            <Groupedcolumn {...charts9} />
-            {/*<Basicradar {...charts10} />*/}
+            {/*<Groupedcolumn {...charts9} />*/}
+            <Basicradar {...charts10} />
           </div>
         </div>
       </div>

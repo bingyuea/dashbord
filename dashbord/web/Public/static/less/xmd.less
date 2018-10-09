@@ -30,10 +30,41 @@
 	}
 	.section-content{
 		text-align: left;
+	
+		.top-title{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			.operaiton{
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: nowrap;
+				span{
+					cursor: pointer;
+					display: inline-block;
+					border:1px solid rgba(255,255,255,.5);
+					font-size:12px;
+					width: 25px;
+					height: 25px;
+					border-radius: 3px;
+					display: flex;
+					color:rgba(255,255,255,.5);
+					justify-content: center;
+					align-items: center;
+					&:first-child{
+						margin-right: 5px;
+					}
+					&.active{
+						color:@blue;
+						border-color:@blue;
+					}
+				}
+			}
+		}
 	}
 	.section-content span:not(.arrow){
 		font-size:14px;
-		color:@blue;
+		color:#5fa3ac;
 		line-height: 30px;
 	}
 	.total-num{
@@ -45,7 +76,7 @@
 		line-height: 70px;
 		.blue-txt{
 			padding-right: 5px;
-			color:@blue;
+			color:#5fa3ac;
 			font-size:30px;
 		}
 		&.has-bg{
@@ -99,7 +130,7 @@
 		}
 	}
 	.ant-table-tbody{
-		animation: scrollTable  20s linear infinite;
+		animation: scrollTable  30s linear infinite;
 		&:hover{
 			animation-play-state:paused;
 		}

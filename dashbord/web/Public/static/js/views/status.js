@@ -142,7 +142,13 @@ class Status extends BaseView {
   }
 
   renderPageOneCenter() {
-    const mapData = []
+    const mapData = [
+      {
+        city: '山西',
+        name: '山西',
+        userValue: 48.708
+      }
+    ]
     return (
       <div className="page-center">
         <div className="section-content map ">
@@ -468,7 +474,13 @@ class Status extends BaseView {
   }
 
   renderPageTwoCenter() {
-    const mapData = []
+    const mapData = [
+      {
+        city: '山西',
+        name: '山西',
+        userValue: 48.708
+      }
+    ]
 
     return (
       <div className="page-center">

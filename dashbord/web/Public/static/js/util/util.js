@@ -134,21 +134,16 @@ function uniqueArr(array) {
 }
 
 
-function formatEleList(list){
+function formatEleList(){
 	let timeArr = [],hour='';
 	const minArr = ['00','15','30','45'];
-	for(var i =0;i < 24;i++){
-		hour = i < 10 ? '0'+ i:i;
-		for(var j =0;j++;j<4){
-			timeArr.push({
-				time:hour+':'+minArr[j]
-			})
-		}
-	}
-	return list.map((item,idx)=>{
-		item.time = timeArr[idx]
-		return item
+	const hourArr = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24'];
+	hourArr.forEach(_hour=>{
+		minArr.forEach(_min=>{
+			timeArr.push(_hour + ':' + _min)
+		})
 	})
+	return timeArr
 }
 
 export {
