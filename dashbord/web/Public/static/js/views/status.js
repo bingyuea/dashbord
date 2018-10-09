@@ -409,9 +409,9 @@ class Status extends BaseView {
                 <div className="itemRight">
                   <div
                     className={
-                      averageTrend && averageTrend > 0
-                        ? ['iconfont icon-icon-dsj']
-                        : ['iconfont icon-sanx-up']
+                      Number(averageTrend) >= 0
+                        ? ['iconfont icon-icon-dsj red']
+                        : ['iconfont icon-sanx-up green']
                     }
                   />
                   <span className="monthRange">{averageTrend}</span>
@@ -431,9 +431,9 @@ class Status extends BaseView {
                 <div className="itemRight">
                   <div
                     className={
-                      monthChainTrend && monthChainTrend > 0
-                        ? ['iconfont icon-icon-dsj']
-                        : ['iconfont icon-sanx-up']
+                      Number(monthChainTrend) >= 0
+                        ? ['iconfont icon-icon-dsj red']
+                        : ['iconfont icon-sanx-up green']
                     }
                   />
                   <span className="monthRange">{monthChainTrend}</span>
