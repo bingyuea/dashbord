@@ -55,7 +55,9 @@ class MergeAnaly extends BaseView {
 
   componentDidMount() {
     //pageOne
-    this.fetchQueryElecCurrentData()
+    this.fetchQueryElecCurrentData({
+      range: '全国'
+    })
     const self = this
     DataServince.fetch(function(searchOptions) {
       self.setState(
@@ -69,13 +71,8 @@ class MergeAnaly extends BaseView {
     })
   }
 
-  fetchQueryElecCurrentData(token) {
+  fetchQueryElecCurrentData(params) {
     const self = this
-    let params = {
-      token: '234sdf234',
-      range: '全国'
-      // range: '山西'
-    }
     queryElecCurrentData.setParam({
       ...params
     })
@@ -207,12 +204,30 @@ class MergeAnaly extends BaseView {
     const mapData = this.formatMapData(exceptionData)
     let _this = this
     return (
-      <div className="page-center">
+      <div className="page-center" onClick={this.handleClick.bind(this)}>
         <div className="section-content map ">
-          <ChinaMapEcharts mapData={mapData} />
+          {/* <ChinaMapEcharts mapData={mapData} /> */}
+          <ChinaMapEcharts
+            mapData={mapData}
+            goDownCallBack={this.mapcb.bind(this)}
+          />
         </div>
       </div>
     )
+  }
+
+  mapcb(name, option, instance) {
+    console.log(name)
+    // console.log(option)
+    // console.log(instance)
+    this.fetchQueryElecCurrentData({
+      token: '234sdf234',
+      range: name
+    })
+  }
+
+  handleClick(e) {
+    console.log(e)
   }
 
   renderRank(list) {
