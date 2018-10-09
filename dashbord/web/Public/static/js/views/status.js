@@ -38,25 +38,23 @@ class Status extends BaseView {
 
     this.state = {
       pageStatus: 'init',
-      pageIdx: 0
+      pageIdx: 0,
+      province: '全国',
+      date: moment().format('YYYY-MM')
     }
   }
 
   componentDidMount() {
-    //pageone
-    let params = {
-      token: '234sdf234',
-      province: '山西',
-      date: '2019-01'
-    }
-
-    let averageParams = {
-      province: '山西'
-    }
     // 排行榜
-    this.fetchGetTopTenOfSecondLoopExceptionTop(params)
+    let { province, date } = this.state || {}
+    this.fetchGetTopTenOfSecondLoopExceptionTop({
+      province,
+      date
+    })
     // 平均分
-    this.fetchGetTopTenOfSecondLoopException(averageParams)
+    this.fetchGetTopTenOfSecondLoopException({
+      province
+    })
     //pagetwo
     this.fetchQuerySecondLoopExceptionDetailData()
   }
@@ -139,8 +137,31 @@ class Status extends BaseView {
     this.slider.slickGoTo(idx)
   }
 
+  provinceClick(params) {
+    let province = params.name
+    if (province === '中国') {
+      province = '全国'
+    }
+    let { date } = this.state.date
+    this.setState({
+      province,
+      mapData: params
+    })
+    this.fetchGetTopTenOfSecondLoopExceptionTop({
+      province,
+      date
+    })
+  }
+
   renderPageOneCenter() {
-    const mapData = [
+    // const mapData = [
+    //   {
+    //     city: '山西',
+    //     name: '山西',
+    //     userValue: 48.708
+    //   }
+    // ]
+    const mapData = this.state.mapData || [
       {
         city: '山西',
         name: '山西',
@@ -150,7 +171,13 @@ class Status extends BaseView {
     return (
       <div className="page-center">
         <div className="section-content map ">
-          <ChinaMapEcharts mapData={mapData} domId={'pageOneMap'} />
+          {/* <ChinaMapEcharts mapData={mapData} domId={'pageOneMap'} /> */}
+          <ChinaMapEcharts
+            mapData={mapData}
+            goDown={false}
+            domId={'pageOneMap'}
+            provinceClick={this.provinceClick.bind(this)}
+          />
         </div>
       </div>
     )
@@ -174,8 +201,11 @@ class Status extends BaseView {
     })
   }
   searchHandle() {
-    let changeTime = this.state.changeTime
-    this.fetchGetTopTenOfSecondLoopExceptionTop(changeTime)
+    let { date, province } = this.state.date
+    this.fetchGetTopTenOfSecondLoopExceptionTop({
+      province,
+      date
+    })
   }
 
   renderPageOne() {

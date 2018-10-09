@@ -210,6 +210,7 @@ class MergeAnaly extends BaseView {
         range: name
       })
     });
+
   }
 
   /**************   pageOne    *******************/
@@ -233,8 +234,10 @@ class MergeAnaly extends BaseView {
   mapcb(name, option, instance) {
     // console.log(option)
     // console.log(instance)
+    if (name === '中国') {
+      name = '全国'
+    }
     this.fetchQueryElecCurrentData({
-      token: '234sdf234',
       range: name
     })
   }
