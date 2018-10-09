@@ -72,15 +72,19 @@ class MergeAnaly extends BaseView {
   }
 
   fetchQueryElecCurrentData(params) {
-    const self = this
+    const self = this;
+    const mapProvinceName = this.state.mapProvinceName;
+    const mapData = this.state.mapData;
     queryElecCurrentData.setParam({
       ...params
     })
     queryElecCurrentData.excute(
       res => {
-        const exceptionDataObj = res || {}
+        const exceptionDataObj = res || {};
+        const exceptionData = exceptionDataObj.exceptionData || [];
         self.setState({
-          exceptionDataObj
+          exceptionDataObj,
+          mapData:mapProvinceName?mapData:self.formatMapData(exceptionData)
         })
       },
       err => {}
@@ -199,21 +203,23 @@ class MergeAnaly extends BaseView {
 
   provinceClick(params){
     const name = params.name;
-    this.fetchQueryElecCurrentData({
-      range: name
-    })
+    this.setState({
+      mapProvinceName:name
+    },()=>{
+      this.fetchQueryElecCurrentData({
+        range: name
+      })
+    });
   }
 
   /**************   pageOne    *******************/
   renderPageCenter() {
-    const exceptionDataObj = this.state.exceptionDataObj || {}
-    const exceptionData = exceptionDataObj.exceptionData || []
-    const mapData = this.formatMapData(exceptionData)
+    const mapData = this.state.mapData || [];
+
     let _this = this
     return (
       <div className="page-center">
         <div className="section-content map ">
-          {/* <ChinaMapEcharts mapData={mapData} /> */}
           <ChinaMapEcharts
             mapData={mapData}
             goDown={false}
@@ -225,7 +231,6 @@ class MergeAnaly extends BaseView {
   }
 
   mapcb(name, option, instance) {
-    console.log(name)
     // console.log(option)
     // console.log(instance)
     this.fetchQueryElecCurrentData({
