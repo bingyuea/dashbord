@@ -1011,56 +1011,72 @@ class SecondaryLoop extends BaseView {
                     <div className="blue-line" />
                   </div>
                   <div className="event-table">
-                    <div className="scroll-content">
+                    <div className="xmdEvent">
+                      <div className="event-table-title">
+                        <div className="title text-l">巡检仪上报事件</div>
+                        <div className="blue_underline" />
+                      </div>
                       <ul>
-                        {Array.isArray(xmdEventData) &&
-                          xmdEventData.map((item, index) => {
-                            return (
-                              <li key={index} className="item-section">
-                                <div className="title">巡检仪上报事件</div>
-                                <div className="blue_underline" />
-                                <ul className="event_report event_blue">
-                                  <li>异常类型 : {item.exception}</li>
-                                  <li>事件状态 : {item.event}</li>
-                                  <li>事件发生时间 : {item.eventTime}</li>
-                                  <li>
-                                    A相异常 : {item.phaseA ? '发生' : '未发生'}
-                                  </li>
-                                  <li>
-                                    B相异常 : {item.phaseB ? '发生' : '未发生'}
-                                  </li>
-                                  <li>
-                                    C相异常 : {item.phaseC ? '发生' : '未发生'}
-                                  </li>
-                                </ul>
-                              </li>
-                            )
-                          })}
+                        <div className="scroll-content">
+                          {Array.isArray(xmdEventData) &&
+                            xmdEventData.map((item, index) => {
+                              return (
+                                <li key={index} className="item-section">
+                                  <ul className="event_report event_blue">
+                                    <li>异常类型 : {item.exception}</li>
+                                    <li>事件状态 : {item.event}</li>
+                                    <li>事件发生时间 : {item.eventTime}</li>
+                                    <li>
+                                      A相异常 :{' '}
+                                      {item.phaseA ? '发生' : '未发生'}
+                                    </li>
+                                    <li>
+                                      B相异常 :{' '}
+                                      {item.phaseB ? '发生' : '未发生'}
+                                    </li>
+                                    <li>
+                                      C相异常 :{' '}
+                                      {item.phaseC ? '发生' : '未发生'}
+                                    </li>
+                                  </ul>
+                                </li>
+                              )
+                            })}
+                        </div>
                       </ul>
+                    </div>
+                    <div className="xmdEvent">
+                      <div className="event-table-title">
+                        <div className="title text-l">电能表上报事件</div>
+                        <div className="blue_underline" />
+                      </div>
                       <ul>
-                        {Array.isArray(eleEventData) &&
-                          eleEventData.map((item, index) => {
-                            return (
-                              <li key={index}>
-                                <div className="title">电能表上报事件</div>
-                                <div className="blue_underline" />
-                                <ul className="event_report event_red">
-                                  <li>异常类型 : {item.exception}</li>
-                                  <li>事件状态 : {item.event}</li>
-                                  <li>事件发生时间 : {item.eventTime}</li>
-                                  <li>
-                                    A相异常 : {item.phaseA ? '发生' : '未发生'}
-                                  </li>
-                                  <li>
-                                    B相异常 : {item.phaseB ? '发生' : '未发生'}
-                                  </li>
-                                  <li>
-                                    C相异常 : {item.phaseC ? '发生' : '未发生'}
-                                  </li>
-                                </ul>
-                              </li>
-                            )
-                          })}
+                        <div className="scroll-content">
+                          {Array.isArray(eleEventData) &&
+                            eleEventData.map((item, index) => {
+                              return (
+                                <li key={index}>
+                                  <ul className="event_report event_red">
+                                    <li>异常类型 : {item.exception}</li>
+                                    <li>事件状态 : {item.event}</li>
+                                    <li>事件发生时间 : {item.eventTime}</li>
+                                    <li>
+                                      A相异常 :{' '}
+                                      {item.phaseA ? '发生' : '未发生'}
+                                    </li>
+                                    <li>
+                                      B相异常 :{' '}
+                                      {item.phaseB ? '发生' : '未发生'}
+                                    </li>
+                                    <li>
+                                      C相异常 :{' '}
+                                      {item.phaseC ? '发生' : '未发生'}
+                                    </li>
+                                  </ul>
+                                </li>
+                              )
+                            })}
+                        </div>
                       </ul>
                     </div>
                   </div>
