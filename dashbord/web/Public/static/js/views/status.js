@@ -347,26 +347,20 @@ class Status extends BaseView {
     console.log(monthChartsHeight)
     const charts6 = {
       // data:validityEventCountData,
-      data: [{
-        item:'平均分',
-        count:100
-      },{
-        item:'平均分2',
-        count:0
-      }],
+      data: Mock.charts6,
       height: 100,
       innerRadius: 0.7,
-      // legend: {
-      //   position: 'right-center',
-      //   textStyle: {
-      //     fontSize: 10
-      //   }
-      // },
+      legend: {
+        position: 'right-center',
+        textStyle: {
+          fontSize: 10
+        }
+      },
       radius: 0.9,
       forceFit: true,
       padding: 'auto',
       field: 'count',
-      dimension: 'item',
+      dimension: 'eventName',
       cols: {
         percent: {
           formatter: val => {
@@ -394,7 +388,8 @@ class Status extends BaseView {
               <div className="chartsTop">
                 <div className="itemLeft">平均得分</div>
                 <div className="itemCenter">
-                  <Labelline {...charts6} />
+                  {/* <Labelline {...charts6} /> */}
+                  {average}
                 </div>
                 <div className="itemRight">
                   <div
