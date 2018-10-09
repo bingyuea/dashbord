@@ -232,21 +232,31 @@ class MergeAnaly extends BaseView {
 
   renderRank(list) {
     if (!list || list.length == 0) {
-      return false
-    }
-    return list.map((item, idx) => {
       return (
-        <div
-          className={
-            (idx + 1) % 2 === 0 ? ['row3 flex-layout '] : ['row2 flex-layout ']
-          }
-          key={idx}
-        >
-          <div className="flex">{item.user}</div>
-          <div className="flex">{item.index}</div>
+        <div className="scrollList">
+          <div className="empty-data">暂无数据</div>
         </div>
       )
-    })
+    }
+    return (
+      <div className="scrollList">
+        <div className={list.length > 2 ? ['scroll-body'] : ['']}>
+          {list.map((item, idx) => (
+            <div
+              className={
+                (idx + 1) % 2 === 0
+                  ? ['row3 flex-layout ']
+                  : ['row2 flex-layout ']
+              }
+              key={idx}
+            >
+              <div className="flex">{item.user}</div>
+              <div className="flex">{item.index}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
   }
 
   renderPageOne() {
@@ -283,18 +293,7 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="scrollList">
-                <div
-                  className={
-                    exceptionData.stealingPowerRanking &&
-                    exceptionData.stealingPowerRanking.length > 2
-                      ? ['scroll-body']
-                      : ['']
-                  }
-                >
-                  {this.renderRank(exceptionData.stealingPowerRanking)}
-                </div>
-              </div>
+              {this.renderRank(exceptionData.stealingPowerRanking)}
             </div>
           </div>
 
@@ -310,18 +309,7 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="scrollList">
-                <div
-                  className={
-                    exceptionData.troubleRanking &&
-                    exceptionData.troubleRanking.length > 2
-                      ? ['scroll-body']
-                      : ['']
-                  }
-                >
-                  {this.renderRank(exceptionData.troubleRanking)}
-                </div>
-              </div>
+              {this.renderRank(exceptionData.troubleRanking)}
             </div>
           </div>
 
@@ -337,18 +325,7 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="scrollList">
-                <div
-                  className={
-                    exceptionData.wiringFaultRanking &&
-                    exceptionData.wiringFaultRanking.length > 2
-                      ? ['scroll-body']
-                      : ['']
-                  }
-                >
-                  {this.renderRank(exceptionData.wiringFaultRanking)}
-                </div>
-              </div>
+              {this.renderRank(exceptionData.wiringFaultRanking)}
             </div>
           </div>
 
@@ -364,18 +341,7 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="scrollList">
-                <div
-                  className={
-                    exceptionData.expansionRanking &&
-                    exceptionData.expansionRanking.length > 2
-                      ? ['scroll-body']
-                      : ['']
-                  }
-                >
-                  {this.renderRank(exceptionData.expansionRanking)}
-                </div>
-              </div>
+              {this.renderRank(exceptionData.expansionRanking)}
             </div>
           </div>
         </div>
@@ -393,18 +359,7 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="scrollList">
-                <div
-                  className={
-                    exceptionData.maintainRanking &&
-                    exceptionData.maintainRanking.length > 2
-                      ? ['scroll-body']
-                      : ['']
-                  }
-                >
-                  {this.renderRank(exceptionData.maintainRanking)}
-                </div>
-              </div>
+              {this.renderRank(exceptionData.maintainRanking)}
             </div>
           </div>
           <div className="item">
@@ -419,18 +374,7 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="scrollList">
-                <div
-                  className={
-                    exceptionData.failureRanking &&
-                    exceptionData.failureRanking.length > 2
-                      ? ['scroll-body']
-                      : ['']
-                  }
-                >
-                  {this.renderRank(exceptionData.failureRanking)}
-                </div>
-              </div>
+              {this.renderRank(exceptionData.failureRanking)}
             </div>
           </div>
 
@@ -446,18 +390,7 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="scrollList">
-                <div
-                  className={
-                    exceptionData.loopExceRanking &&
-                    exceptionData.loopExceRanking.length > 2
-                      ? ['scroll-body']
-                      : ['']
-                  }
-                >
-                  {this.renderRank(exceptionData.loopExceRanking)}
-                </div>
-              </div>
+              {this.renderRank(exceptionData.loopExceRanking)}
             </div>
           </div>
           <div className="item">
