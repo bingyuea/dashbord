@@ -3,11 +3,14 @@
   .page-right {
     width: 25%;
     flex-shrink: 0;
-    padding: 50px 30px 30px 30px;
+    padding: 50px 30px 10px 30px;
     box-sizing: border-box;
     .item {
       height: 25%;
       padding-bottom: 15px;
+      &:last-of-type {
+        padding-bottom: 0;
+      }
       .label {
         margin-bottom: 10px;
         line-height: 20px;
@@ -17,7 +20,7 @@
       }
       .tabel {
         width: 100%;
-        height: calc(~'100% - 45px');
+        height: calc(~'100% - 25px');
         .scrollList {
           height: calc(~'100% - 33%');
           overflow: auto;

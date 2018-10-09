@@ -602,7 +602,7 @@ class Status extends BaseView {
             <div className="even-details">
               <div
                 className={
-                  eventList && eventList.length > 4 ? ['scroll-body'] : ['']
+                  eventList && eventList.length > 2 ? ['scroll-body'] : ['']
                 }
               >
                 {Array.isArray(eventList) &&

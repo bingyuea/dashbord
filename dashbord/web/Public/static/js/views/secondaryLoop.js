@@ -294,7 +294,7 @@ class SecondaryLoop extends BaseView {
     // endTime	结束时间	string	是		2017-03-05 10:10:10
     // pageNo	页码	int	否		1
     let self = this
-    value.pageNo = 1
+    // value.pageNo = 1
     queryExceptionList.setParam({
       ...value
     })
@@ -464,7 +464,7 @@ class SecondaryLoop extends BaseView {
       },
       unusualData: {
         title: '异常类型',
-        key: 'unusual',
+        key: 'exception',
         options: unusalOpts
       },
       dateData: {
