@@ -338,6 +338,8 @@ class Status extends BaseView {
       data: averageChartsData,
       // data: Mock.charts3,
       height: monthChartsHeight,
+      hideLabel:true,
+      innerText:average + '分',
       innerRadius: 0.7,
       radius: 0.9,
       forceFit: true,
@@ -361,7 +363,9 @@ class Status extends BaseView {
       // data: monthChain,
       data: monthChartsData,
       height: monthChartsHeight,
+      innerText:monthChain.toString(),
       innerRadius: 0.7,
+      hideLabel:true,
       radius: 0.9,
       forceFit: true,
       padding: 'auto',
@@ -377,6 +381,7 @@ class Status extends BaseView {
         }
       }
     }
+
     const charts6 = {
       // data:validityEventCountData,
       data: Mock.charts6,
@@ -419,7 +424,7 @@ class Status extends BaseView {
             <div className="chartsBox">
               <div className="chartsTop">
                 {/* <div className="itemLeft">平均得分</div> */}
-                <div className="itemLeft">评分</div>
+                <div className="itemLeft">{this.state.pageIdx == 0?'平均评分':'评分'}</div>
                 <div className="itemCenter">
                   <div className="charts">
                     <Labelline {...averageCharts} />
@@ -440,7 +445,7 @@ class Status extends BaseView {
               </div>
               <div className="chartsBotttom">
                 {/* <div className="itemLeft">月环比</div> */}
-                <div className="itemLeft">排名</div>
+                <div className="itemLeft">{this.state.pageIdx == 0 ?'月环比':'排名'}</div>
                 <div className="itemCenter">
                   <div className="charts">
                     <Labelline {...monthCharts} />
