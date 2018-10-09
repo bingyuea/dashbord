@@ -197,8 +197,8 @@ class MergeAnaly extends BaseView {
     return mapData
   }
 
-  provinceClick(params){
-    const name = params.name;
+  provinceClick(params) {
+    const name = params.name
     this.fetchQueryElecCurrentData({
       range: name
     })
@@ -232,7 +232,6 @@ class MergeAnaly extends BaseView {
       name = '全国'
     }
     this.fetchQueryElecCurrentData({
-      token: '234sdf234',
       range: name
     })
   }
