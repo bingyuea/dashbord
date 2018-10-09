@@ -323,13 +323,13 @@ class SecondaryLoop extends BaseView {
   fetchQueryElecCurrentData(params) {
     const self = this
     // 参数只能使用特定的参数，作为测试
-    params = {}
-    params = {
-      token: '234sdf234',
-      serialNum: '1430009000003609329616',
-      elecSerialNum: '1430001130021003140648',
-      occTime: '2018-06-20'
-    }
+    // params = {}
+    // params = {
+    //   token: '234sdf234',
+    //   serialNum: '1430009000003609329616',
+    //   elecSerialNum: '1430001130021003140648',
+    //   occTime: '2018-06-20'
+    // }
     queryElecCurrentData.setParam({
       ...params
     })
@@ -350,13 +350,13 @@ class SecondaryLoop extends BaseView {
     let data = JSON.parse(JSON.stringify(params))
     data.occTime = ''
     // 模拟查询条件
-    data = {}
-    data = {
-      token: '234sdf234',
-      serialNum: '1430009000003708559235',
-      elecSerialNum: '1440701012212030319317',
-      occTime: '2018-07-30'
-    }
+    // data = {}
+    // data = {
+    //   token: '234sdf234',
+    //   serialNum: '1430009000003708559235',
+    //   elecSerialNum: '1440701012212030319317',
+    //   occTime: '2018-07-30'
+    // }
     queryXMDEvent.setParam({
       ...data
     })
@@ -368,9 +368,7 @@ class SecondaryLoop extends BaseView {
           pageTwo
         })
       },
-      err => {
-        
-      }
+      err => {}
     )
   }
   // 电能表上报事件查询
@@ -380,13 +378,13 @@ class SecondaryLoop extends BaseView {
     data.occTime = ''
 
     // 模拟查询条件
-    data = {}
-    data = {
-      token: '234sdf234',
-      serialNum: '1440701012212030328050',
-      elecSerialNum: '1440701012212030328050',
-      occTime: '2018-07-30'
-    }
+    // data = {}
+    // data = {
+    //   token: '234sdf234',
+    //   serialNum: '1440701012212030328050',
+    //   elecSerialNum: '1440701012212030328050',
+    //   occTime: '2018-07-30'
+    // }
 
     queryElecEvent.setParam({
       ...data
@@ -399,9 +397,7 @@ class SecondaryLoop extends BaseView {
           pageTwo
         })
       },
-      err => {
-        
-      }
+      err => {}
     )
   }
   // 电量数据查询
@@ -415,13 +411,13 @@ class SecondaryLoop extends BaseView {
     // occTime	异常发生时间	string	是
     // pageOne.exceptionList = resData 列表第一条数据
     // 模拟查询条件
-    params = {}
-    params = {
-      token: '234sdf234',
-      serialNum: '1430009000003609335198',
-      elecSerialNum: '1410101012212120538038',
-      occTime: '2018-05-30'
-    }
+    // params = {}
+    // params = {
+    //   token: '234sdf234',
+    //   serialNum: '1430009000003609335198',
+    //   elecSerialNum: '1410101012212120538038',
+    //   occTime: '2018-05-30'
+    // }
     queryElecData.setParam({
       ...params
     })
@@ -433,9 +429,7 @@ class SecondaryLoop extends BaseView {
           pageTwo
         })
       },
-      err => {
-        
-      }
+      err => {}
     )
   }
 
@@ -735,7 +729,7 @@ class SecondaryLoop extends BaseView {
     )
   }
   elecCurrentDataToChart(elecCurrentData, phase) {
-    const timeArr = formatEleList();
+    const timeArr = formatEleList()
     let tempArr = elecCurrentData.xmdData
       .filter(item => {
         item.type = '巡航器'
@@ -753,8 +747,8 @@ class SecondaryLoop extends BaseView {
       item.pointList.map(function(ele, index) {
         let tempObj = {}
         tempObj.type = item.type
-        
-        tempObj.time = timeArr[index];
+
+        tempObj.time = timeArr[index]
         tempObj.point = ele
         data.push(tempObj)
       })
@@ -838,7 +832,7 @@ class SecondaryLoop extends BaseView {
           alias: '时间',
           tickCount: 5
         },
-        point:{
+        point: {
           tickCount: 5
         }
       },
@@ -876,7 +870,7 @@ class SecondaryLoop extends BaseView {
           alias: '时间',
           tickCount: 5
         },
-        point:{
+        point: {
           tickCount: 5
         }
       },
@@ -914,7 +908,7 @@ class SecondaryLoop extends BaseView {
           alias: '时间',
           tickCount: 5
         },
-        point:{
+        point: {
           tickCount: 5
         }
       },
