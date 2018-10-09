@@ -26,7 +26,8 @@ echarts.extendsMap = function(id, opt) {
       activeArea: [], // 区域高亮,同echarts配置项
       data: [],
       // 下钻回调(点击的地图名、实例对象option、实例对象)
-      callback: function(name, option, instance) {}
+      callback: function(name, option, instance) {},
+      clickCB:function(params){}
   };
   if (opt) opt = this.util.extend(defaultOpt, opt);
 
@@ -453,6 +454,8 @@ echarts.extendsMap = function(id, opt) {
               echarts.registerMap(params.name, cityMap[params.name]);
               handleEvents.resetOption(_self, option, params.name);
           }
+      }else{
+        opt.clickCB(params);
       }
   });
 

@@ -12,19 +12,26 @@ class ChinaMapEcharts extends React.Component {
 
   showMap(){
     const self = this;
-    echarts.registerMap('中国', cityMap['中国']);
     const mapData = this.props.mapData;
+    console.log(mapData)
+    echarts.registerMap('中国', cityMap['中国']);
+    
     if(!mapData){return false}
     var myChart = echarts.extendsMap(this.props.domId || 'mapContent', {
         bgColor: 'rgba(0,0,0,0)', // 画布背景色
         mapName: '中国', // 地图名
         text:'',
-        goDown: true, // 是否下钻
+        goDown: self.props.goDown || true, // 是否下钻
         // 下钻回调
         callback: function(name, option, instance) {
             //console.log(name, option, instance);
             self.props.goDownCallBack && self.props.goDownCallBack(name, option, instance);
         },
+        clickCB:function(params){
+            self.props.provinceClick && self.props.provinceClick(params);
+        },
+        //
+
         // 数据展示      
         /*
             {
