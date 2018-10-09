@@ -220,43 +220,63 @@ class Dashboard extends BaseView {
     return newList
   }
 
-  formatProvinceEventCountRadar(list){
+  // formatProvinceEventCountRadar(list){
+  //   if (!list) {
+  //     return []
+  //   }
+  //   let tempList = [],countKey,target = {};
+
+  //   list.forEach(item=>{
+  //     target = {};
+  //     target.name = item.trade;
+  //     (item.detail || []).forEach(detailItem=>{
+  //       countKey ='trade' + detailItem.eventType;
+  //       target[countKey] = detailItem.count;
+  //     })
+  //     tempList.push(target);
+  //   })
+
+  //   var fields  = this.getFields(tempList);
+  //   var newList = [];
+  //   var detail = {};
+
+  //   fields.forEach(item=>{
+  //     detail[item] = 0;
+  //   })
+
+  //   tempList.forEach(item=>{
+
+  //     var detail = {
+  //       trade1:0,
+  //       trade2:0,
+  //       trade3:0,
+  //       trade4:0,
+  //     }
+  //     target = $.extend(detail, item);
+      
+  //     newList.push(target);
+  //   })
+  //   console.log(newList)
+
+  //   return newList
+  // }
+   formatProvinceEventCountRadar(list){
     if (!list) {
       return []
     }
-    let tempList = [],countKey,target = {};
+    let tempList = [],target = {};
 
     list.forEach(item=>{
       target = {};
-      target.item = item.trade;
+      target.name = item.trade;
       (item.detail || []).forEach(detailItem=>{
-        countKey ='trade' + detailItem.eventType;
-        target[countKey] = detailItem.count;
+        target[detailItem.eventName] = detailItem.count;
       })
       tempList.push(target);
     })
-
-    var fields  = this.getFields(tempList);
-    var newList = [];
-    var detail = {};
-    fields.forEach(item=>{
-      detail[item] = 0;
-    })
-    tempList.forEach(item=>{
-      var detail = {
-        trade1:0,
-        trade2:0,
-        trade3:0,
-        trade4:0,
-      }
-      target = $.extend(detail, item);
-      
-      newList.push(target);
-    })
-    console.log(newList)
-
-    return newList
+    return tempList
   }
+
 
   getFields(list) {
     if (!list) {
@@ -645,39 +665,13 @@ class Dashboard extends BaseView {
       padding: 'auto',
       height: chartHeight
     }
-    const charts9 = {
-      data: tradeEventCountMData,
-      height: chartHeight,
-      padding: 'auto',
-      fields: this.getFields(tradeEventCountMData),
-      keyName: '行业',
-      value: '上报数量',
-      xLabel: {
-        offset: 15,
-        textStyle: {
-          fill: '#fff',
-          fontSize: 10
-        }
-      },
-      yLabel: {
-        offset: 5,
-        textStyle: {
-          fill: '#fff',
-          fontSize: 10
-        }
-      },
-      fieldsName: 'name',
-      forceFit: true,
-      style: {
-        overflow: 'hidden'
-      }
-    }
+    console.log(tradeEventCountMData)
+    console.log(this.getFields(tradeEventCountMData))
     const charts10 = {
       data: tradeEventCountMData,
       height: chartHeight,
       padding: 'auto',
       xAxis: 'name',
-      yAxis: 'count',
       fields:this.getFields(tradeEventCountMData),
       forceFit: false,
       style: {
@@ -722,7 +716,6 @@ class Dashboard extends BaseView {
           </div>
           <div className="section-content flex-column">
             <h6 style={{ textAlign: 'center' }}>行业类型</h6>
-            {/*<Groupedcolumn {...charts9} />*/}
             <Basicradar {...charts10} />
           </div>
         </div>
