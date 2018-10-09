@@ -16,14 +16,9 @@ import {
 } from "bizcharts";
 import DataSet from "@antv/data-set";
 
-import {
-  COLOR_PLATE_16,DEFAULT_COLOR
-} from '../data/color'
-
-//雷达图
-class Basicradar extends React.Component {
+class Basic extends React.Component {
   render() {
-    
+    const { DataView } = DataSet;
     if(!this.props.height){return false}
     if(!this.props.data){
       return (
@@ -45,33 +40,90 @@ class Basicradar extends React.Component {
         </div>
       )
     }
-    const { DataView } = DataSet;
-    const dv = new DataView().source(this.props.data);
+    const data = [
+      {
+        item: "居民生活用电",
+        trade1: 0,
+        trade2: 0,
+        trade3:2,
+        trade4:0
+      },
+      {
+        item: "大工业用电",
+        trade1: 142,
+        trade2: 22,
+        trade3:139,
+        trade4:1
+      },
+      {
+        item: "非工业用电",
+        trade1: 2,
+        trade2: 85,
+        trade3:108,
+        trade4:0
+      },
+      {
+        item: "农业生产用电",
+        trade1: 0,
+        trade2: 0,
+        trade3:5,
+        trade4:0
+      },
+      {
+        item: "商业用电",
+        trade1: 0,
+        trade2: 0,
+        trade3:22,
+        trade4:0
+      },
+      {
+        item: "普通工业用电",
+        trade1: 0,
+        trade2: 0,
+        trade3:228,
+        trade4:1
+      }
+    ];
+    console.log(this.props.data)
+    const dv = new DataView().source(data);
+
     dv.transform({
       type: "fold",
-      fields: this.props.fields,
+      fields: ['trade1','trade2','trade3','trade4'],
       // 展开字段集
-      key: "trade",
+      key: "user",
       // key字段
-      value: 'count'// value字段
+      value: "score" // value字段
     });
     const cols = {
-      count: {
-        min: 0
+      score: {
+        min: 0,
+        max:230
+      },
+      trade1:{
+        alias:'yiasd'
       }
     };
-    console.log(dv)
     return (
       <div>
         <Chart
+          height={this.props.height}
           data={dv}
-          {...this.props}
+          padding={'auto'}
+          scale={cols}
+          forceFit
         >
-          <Coord type="polar" radius={0.8}/>
+          <Coord type="polar" radius={0.8} />
           <Axis
-            name={this.props.xAxis}
+            name="item"
             line={null}
             tickLine={null}
+            label={{
+              textStyle: {
+                fill: '#fff',
+                fontSize: 10
+              }
+            }}
             grid={{
               lineStyle: {
                 lineDash: null
@@ -81,7 +133,7 @@ class Basicradar extends React.Component {
           />
           <Tooltip />
           <Axis
-            name={this.props.yAxis}
+            name="score"
             line={null}
             tickLine={null}
             grid={{
@@ -89,15 +141,16 @@ class Basicradar extends React.Component {
               lineStyle: {
                 lineDash: null
               },
-              alternateColor: "rgba(0, 0, 0,1)"
+              alternateColor: "rgba(0, 0, 0, 0.04)"
             }}
           />
-          <Geom type="area" position={`${this.props.xAxis}*${this.props.yAxis}`} color={this.props.yAxis} />
-          <Geom type="line" position={`${this.props.xAxis}*${this.props.yAxis}`} color={this.props.yAxis} size={2} />
+          <Legend name="user" marker="circle" offset={30} />
+          <Geom type="area" position="item*score" color="user" />
+          <Geom type="line" position="item*score" color="user" size={2} />
           <Geom
             type="point"
-            position={`${this.props.xAxis}*${this.props.yAxis}`}
-            color={this.props.xAxis}
+            position="item*score"
+            color="user"
             shape="circle"
             size={4}
             style={{
@@ -112,4 +165,4 @@ class Basicradar extends React.Component {
   }
 }
 
-export default Basicradar;
+export default Basic;
