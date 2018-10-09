@@ -38,6 +38,8 @@ import MeunTitle from '../ui/ui.menuTitle'
 import Slider from 'react-slick'
 import DataServince from '../services/searchbar.services'
 import moment from 'moment'
+import { formatEleList } from '../util/util'
+
 //定义数据模型
 const queryExceptionCount = QueryExceptionCount.getInstance()
 const queryExceptionByArea = QueryExceptionByArea.getInstance()
@@ -765,6 +767,8 @@ class SecondaryLoop extends BaseView {
         data.push(tempObj)
       })
     })
+    debugger
+    data = formatEleList(data)
     return data
   }
 
@@ -839,6 +843,12 @@ class SecondaryLoop extends BaseView {
       style: {
         overflow: 'hidden'
       },
+      // cols: {
+      //   count: {
+      //     alias: '数量',
+      //     tickCount: 5
+      //   }
+      // },
       xLabel: {
         offset: 15,
         textStyle: {
