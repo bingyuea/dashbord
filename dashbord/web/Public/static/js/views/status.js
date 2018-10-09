@@ -219,14 +219,16 @@ class Status extends BaseView {
             </div>
           </div>
           <div className="tabel pd-30">
-            <div
-              className={
-                rangeList && rangeList.length > 10 ? ['scroll-body'] : ['']
-              }
-            >
-              {Array.isArray(rangeList) &&
-                rangeList.map((item, index) => {
-                  return (
+            {Array.isArray(rangeList) && rangeList.length > 0 ? (
+              rangeList.map((item, index) => {
+                return (
+                  <div
+                    className={
+                      rangeList && rangeList.length > 10
+                        ? ['scroll-body']
+                        : ['']
+                    }
+                  >
                     <div
                       className={
                         (index + 1) % 2 === 0
@@ -239,9 +241,12 @@ class Status extends BaseView {
                       <div className="flex text-l">{item.user}</div>
                       <div className="flex ">{item.assessedValue}</div>
                     </div>
-                  )
-                })}
-            </div>
+                  </div>
+                )
+              })
+            ) : (
+              <div className="empty-data">暂无数据</div>
+            )}
           </div>
         </div>
         {this.renderPageOneCenter()}
@@ -566,7 +571,20 @@ class Status extends BaseView {
             </div>
             <div className="fixedTable row3 flex-layout status_9">
               <div className="flex text-c">{username || ''}</div>
-              <div className="flex text-c">{serialNum || ''}</div>
+              <div className="flex text-c changeLineParent">
+                <p className="changeLine">
+                  {serialNum &&
+                    serialNum.substring(0, Math.floor(serialNum.length / 2))}
+                </p>
+                <p className="changeLine">
+                  {(serialNum &&
+                    serialNum.substring(
+                      Math.floor(serialNum.length / 2),
+                      serialNum.length
+                    )) ||
+                    ''}
+                </p>
+              </div>
             </div>
           </div>
 
@@ -600,14 +618,16 @@ class Status extends BaseView {
               <div className="blue-line" />
             </div>
             <div className="even-details">
-              <div
-                className={
-                  eventList && eventList.length > 2 ? ['scroll-body'] : ['']
-                }
-              >
-                {Array.isArray(eventList) &&
-                  eventList.map((item, index) => {
-                    return (
+              {Array.isArray(eventList) && eventList.length > 0 ? (
+                eventList.map((item, index) => {
+                  return (
+                    <div
+                      className={
+                        eventList && eventList.length > 2
+                          ? ['scroll-body']
+                          : ['']
+                      }
+                    >
                       <div
                         className={
                           (index + 1) % 2 === 0
@@ -619,9 +639,12 @@ class Status extends BaseView {
                         <div className="flex">{item.eventName}</div>
                         <div className="flex">{item.date}</div>
                       </div>
-                    )
-                  })}
-              </div>
+                    </div>
+                  )
+                })
+              ) : (
+                <div className="empty-data">暂无数据</div>
+              )}
             </div>
           </div>
         </div>

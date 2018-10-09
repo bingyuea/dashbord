@@ -1021,10 +1021,11 @@ class SecondaryLoop extends BaseView {
                         <div className="blue_underline" />
                       </div>
                       <ul>
-                        <div className="scroll-content">
-                          {Array.isArray(xmdEventData) &&
-                            xmdEventData.map((item, index) => {
-                              return (
+                        {Array.isArray(xmdEventData) &&
+                        xmdEventData.length > 0 ? (
+                          xmdEventData.map((item, index) => {
+                            return (
+                              <div className="scroll-content">
                                 <li key={index} className="item-section">
                                   <ul className="event_report event_blue">
                                     <li>异常类型 : {item.exception}</li>
@@ -1044,9 +1045,12 @@ class SecondaryLoop extends BaseView {
                                     </li>
                                   </ul>
                                 </li>
-                              )
-                            })}
-                        </div>
+                              </div>
+                            )
+                          })
+                        ) : (
+                          <div className="empty-data">暂无数据</div>
+                        )}
                       </ul>
                     </div>
                     <div className="xmdEvent">
@@ -1055,10 +1059,11 @@ class SecondaryLoop extends BaseView {
                         <div className="blue_underline" />
                       </div>
                       <ul>
-                        <div className="scroll-content">
-                          {Array.isArray(eleEventData) &&
-                            eleEventData.map((item, index) => {
-                              return (
+                        {Array.isArray(eleEventData) &&
+                        eleEventData.length > 0 ? (
+                          eleEventData.map((item, index) => {
+                            return (
+                              <div className="scroll-content">
                                 <li key={index}>
                                   <ul className="event_report event_red">
                                     <li>异常类型 : {item.exception}</li>
@@ -1078,9 +1083,12 @@ class SecondaryLoop extends BaseView {
                                     </li>
                                   </ul>
                                 </li>
-                              )
-                            })}
-                        </div>
+                              </div>
+                            )
+                          })
+                        ) : (
+                          <div className="empty-data">暂无数据</div>
+                        )}
                       </ul>
                     </div>
                   </div>
@@ -1119,6 +1127,7 @@ class SecondaryLoop extends BaseView {
                     <p className="">
                       3.“安装地点”中“省份”和“城市”是下拉栏，若只提供省份，则提供整个省份的信息；若提供城市，则提供该市的信息
                     </p>*/}
+                    <div className="empty-data">暂无数据</div>
                   </div>
                 </div>
               </div>

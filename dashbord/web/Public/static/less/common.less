@@ -619,7 +619,7 @@ canvas {
   border: 1px solid @blue; // 选中的某一行
   .ant-menu-item {
     margin: 0 !important;
-    &>a {
+    & > a {
       color: #fff;
       text-align: center;
     }
@@ -642,4 +642,14 @@ canvas {
   border-radius: 5px;
   text-align: center;
   margin-left: 10px;
+}
+
+// 数据为空显示的提示文案
+.empty-data {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
 }
