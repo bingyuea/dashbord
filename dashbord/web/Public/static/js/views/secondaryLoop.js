@@ -1211,8 +1211,13 @@ class SecondaryLoop extends BaseView {
     let tableData = dataList
     Array.isArray(tableData) &&
       tableData.map((item, index) => {
-        return (item.key = index)
+        item.key = index
+        if (!item.recoverTime) {
+          item.recoverTime = '未恢复'
+        }
+        return item
       })
+
     let tableHeight = $('#tableHeight').height() - 60 // table表格的高度
     let self = this
 
