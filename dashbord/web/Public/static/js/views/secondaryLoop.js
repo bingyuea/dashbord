@@ -369,7 +369,7 @@ class SecondaryLoop extends BaseView {
         })
       },
       err => {
-        console.log(err)
+        
       }
     )
   }
@@ -400,7 +400,7 @@ class SecondaryLoop extends BaseView {
         })
       },
       err => {
-        console.log(err)
+        
       }
     )
   }
@@ -434,7 +434,7 @@ class SecondaryLoop extends BaseView {
         })
       },
       err => {
-        console.log(err)
+        
       }
     )
   }
@@ -735,6 +735,7 @@ class SecondaryLoop extends BaseView {
     )
   }
   elecCurrentDataToChart(elecCurrentData, phase) {
+    const timeArr = formatEleList();
     let tempArr = elecCurrentData.xmdData
       .filter(item => {
         item.type = '巡航器'
@@ -752,23 +753,12 @@ class SecondaryLoop extends BaseView {
       item.pointList.map(function(ele, index) {
         let tempObj = {}
         tempObj.type = item.type
-        // if (index % 4 === 0) {
-        //   let num = index / 4
-        //   num = num < 10 ? '0' + num : num
-        //   tempObj.x = num
-        // } else {
-        //   let num = index % 4
-        //   num = num < 10 ? '0' + num : num
-        //   tempObj.x = num+":"
-        // }
-        // 这里后台处理x轴的对应关系
-        tempObj.x = index
-        tempObj.y = ele
+        
+        tempObj.time = timeArr[index];
+        tempObj.point = ele
         data.push(tempObj)
       })
     })
-    debugger
-    data = formatEleList(data)
     return data
   }
 
@@ -833,8 +823,8 @@ class SecondaryLoop extends BaseView {
     chartsEleA = {
       data: dataA,
       height: chartsEleHeight,
-      xAxis: 'x',
-      yAxis: 'y',
+      xAxis: 'time',
+      yAxis: 'point',
       doubletype: ['type', ['#965059', '#039fba']],
       doubleLine: true,
       forceFit: true,
@@ -843,12 +833,15 @@ class SecondaryLoop extends BaseView {
       style: {
         overflow: 'hidden'
       },
-      // cols: {
-      //   count: {
-      //     alias: '数量',
-      //     tickCount: 5
-      //   }
-      // },
+      cols: {
+        time: {
+          alias: '时间',
+          tickCount: 5
+        },
+        point:{
+          tickCount: 5
+        }
+      },
       xLabel: {
         offset: 15,
         textStyle: {
@@ -868,8 +861,8 @@ class SecondaryLoop extends BaseView {
     chartsEleB = {
       data: dataB,
       height: chartsEleHeight,
-      xAxis: 'x',
-      yAxis: 'y',
+      xAxis: 'time',
+      yAxis: 'point',
       doubletype: ['type', ['#965059', '#039fba']],
       doubleLine: true,
       forceFit: true,
@@ -877,6 +870,15 @@ class SecondaryLoop extends BaseView {
       padding: 'auto',
       style: {
         overflow: 'hidden'
+      },
+      cols: {
+        time: {
+          alias: '时间',
+          tickCount: 5
+        },
+        point:{
+          tickCount: 5
+        }
       },
       xLabel: {
         offset: 15,
@@ -897,8 +899,8 @@ class SecondaryLoop extends BaseView {
     chartsEleC = {
       data: dataC,
       height: chartsEleHeight,
-      xAxis: 'x',
-      yAxis: 'y',
+      xAxis: 'time',
+      yAxis: 'point',
       doubletype: ['type', ['#965059', '#039fba']],
       doubleLine: true,
       forceFit: true,
@@ -906,6 +908,15 @@ class SecondaryLoop extends BaseView {
       padding: 'auto',
       style: {
         overflow: 'hidden'
+      },
+      cols: {
+        time: {
+          alias: '时间',
+          tickCount: 5
+        },
+        point:{
+          tickCount: 5
+        }
       },
       xLabel: {
         offset: 15,
@@ -941,7 +952,6 @@ class SecondaryLoop extends BaseView {
         }
       }
     })
-    console.log(elecDayDataCharts)
     chartsEleChange = {
       data: elecDayDataCharts,
       height: chartsEleChangeHeight,
@@ -1253,8 +1263,6 @@ class SecondaryLoop extends BaseView {
             onRow={(record, idx) => {
               return {
                 onClick: () => {
-                  console.log(record)
-                  console.log(idx)
                   let pageTwo = {}
                   pageTwo.record = record
 
