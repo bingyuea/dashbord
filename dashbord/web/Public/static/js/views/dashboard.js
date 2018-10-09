@@ -500,6 +500,12 @@ class Dashboard extends BaseView {
     return <MeunTitle />
   }
 
+  mapcb(name, option, instance){
+    console.log(name)
+    console.log(option)
+    console.log(instance)
+  }
+
   renderPageCenter() {
     const { provinceCountData } = this.state || {}
 
@@ -529,7 +535,7 @@ class Dashboard extends BaseView {
           </div>
         </div>
         <div className="section-content map">
-          <ChinaMapEcharts mapData={mapData} />
+          <ChinaMapEcharts mapData={mapData}  goDownCallBack= {this.mapcb.bind(this)}/>
           <div className="bottom-txt">中国电力科学研究院</div>
         </div>
       </div>

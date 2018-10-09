@@ -11,7 +11,7 @@ class ChinaMapEcharts extends React.Component {
 
 
   showMap(){
-    console.log(this.props.domId)
+    const self = this;
     echarts.registerMap('中国', cityMap['中国']);
     const mapData = this.props.mapData;
     if(!mapData){return false}
@@ -23,6 +23,7 @@ class ChinaMapEcharts extends React.Component {
         // 下钻回调
         callback: function(name, option, instance) {
             //console.log(name, option, instance);
+            self.props.goDownCallBack && self.props.goDownCallBack(name, option, instance);
         },
         // 数据展示      
         /*

@@ -97,7 +97,7 @@ class Labelline extends React.Component {
               stroke: "#fff"
             }}
           >
-            <Label 
+            {this.props.hideLabel?'':<Label 
               content='percent' 
               offset={-4} 
               textStyle={{
@@ -106,7 +106,7 @@ class Labelline extends React.Component {
                 shadowBlur: 2,
                 shadowColor: 'rgba(0, 0, 0, .45)'
               }} 
-            />
+            />}
           </Geom>
         </Chart>
       </div>
