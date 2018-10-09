@@ -210,14 +210,26 @@ class Dashboard extends BaseView {
       target = {}
     list.forEach(item => {
       target = {}
-      target.name = item[filedsName]
-      ;(item.detail || []).forEach(detailItem => {
+      target.name = item[filedsName];
+      (item.detail || []).forEach(detailItem => {
         target[detailItem[key]] = detailItem[value]
       })
       newList.push(target)
     })
 
     return newList
+  }
+
+  formatProvinceEventCountRadar(list){
+    if (!list) {
+      return []
+    }
+    let newList = [],
+      target = {};
+
+    list.forEach(item=>{
+
+    })
   }
 
   getFields(list) {
@@ -606,7 +618,7 @@ class Dashboard extends BaseView {
       padding: 'auto',
       height: chartHeight
     }
-
+    console.log(tradeEventCountMData)
     const charts9 = {
       data: tradeEventCountMData,
       height: chartHeight,
@@ -677,7 +689,7 @@ class Dashboard extends BaseView {
             <div className="child">
               <h6 className="spec">有效性</h6>
               <div className="text">
-                <span>{'123.22'}</span> %
+                <span>{'98'}</span> %
               </div>
             </div>
           </div>
@@ -687,7 +699,7 @@ class Dashboard extends BaseView {
           </div>
           <div className="section-content flex-column">
             <h6 style={{ textAlign: 'center' }}>行业类型</h6>
-            <Groupedcolumn {...charts9} />
+            <Groupedcolumn {...charts9} />}
             {/*<Basicradar {...charts10} />*/}
           </div>
         </div>

@@ -67,6 +67,7 @@ class XMD extends BaseView {
 
     this.indata = {
       defaultTime: ['2001-01-01 00:00', today],
+      size:5,
       pageTwoTableCloumn: [
         {
           title: '所属地市',
@@ -78,7 +79,7 @@ class XMD extends BaseView {
         {
           title: '巡检仪资产编号',
           dataIndex: 'serialNum',
-          width: '28%',
+          width: '24%',
           align: 'center',
           className: 'blue',
           key: 'serialNum'
@@ -100,16 +101,18 @@ class XMD extends BaseView {
         {
           title: '异常日期',
           dataIndex: 'occTime',
-          width: '14.8%',
+          width: '16.8%',
           align: 'center',
-          key: 'occTime'
+          key: 'occTime',
+          render:this.formatDate.bind(this)
         },
         {
           title: '恢复日期',
           dataIndex: 'recoverTime',
-          width: '14.8%',
+          width: '16.8%',
           align: 'center',
-          key: 'recoverTime'
+          key: 'recoverTime',
+          render:this.formatRecoverDate.bind(this)
         }
       ],
       pageOneTableCloumn: [
@@ -177,16 +180,44 @@ class XMD extends BaseView {
   }
 
   componentDidUpdate() {
-    //获取需要滚动的高度
-    const scrollHeight = $('.ant-table-body').scrollHeight
-    //算出需要滚动的时间
-    console.log(scrollHeight)
-    if (!scrollHeight) {
-      return false
+    // //获取需要滚动的高度
+    // const scrollHeight = $('.ant-table-body').scrollHeight
+    // //算出需要滚动的时间
+    // console.log(scrollHeight)
+    // if (!scrollHeight) {
+    //   return false
+    // }
+    // const time = scrollHeight / 20
+    // //复制
+    // $('.ant-table-body').attr('style', 'animationDuration:' + time)
+  }
+
+  formatDate(text, record, index){
+    const tempStr = text.split(' ');
+    return (
+      <div style={{fontSize:'10px'}}>
+        {tempStr[0].slice(2)}
+        <br/>
+        {tempStr[1]}
+      </div>
+    )
+  }
+
+  formatRecoverDate(text, record, index){
+    
+    if(text == '未恢复'){
+      return '未恢复'
+    }else{
+      const tempStr = text.split(' ');
+      return (
+        <div style={{fontSize:'10px'}}>
+          {tempStr[0].slice(2)}
+          <br/>
+          {tempStr[1]}
+        </div>
+      )
     }
-    const time = scrollHeight / 20
-    //复制
-    $('.ant-table-body').attr('style', 'animationDuration:' + time)
+    
   }
 
   search(value) {
@@ -223,14 +254,18 @@ class XMD extends BaseView {
       res => {
         const resData = res || {}
         let pageOne = self.state.pageOne || {}
-        pageOne.xmdInstall = resData
+        pageOne.xmdInstall = resData;
+        const num = Math.ceil((resData.areaList || []).length / self.indata.size);
         self.setState({
-          pageOne: pageOne
+          pageOne: pageOne,
+          locationInfoNum:num
         })
       },
       err => {}
     )
   }
+
+
 
   //客户分布情况
   fetchCustomerInfo(value) {
@@ -464,7 +499,10 @@ class XMD extends BaseView {
     const tableData = table || []
 
     let list = tableData.map((item, index) => {
-      item.key = index
+      item.key = index;
+      if(!item.recoverTime){
+        item.recoverTime = '未恢复'
+      }
       return item
     })
 
@@ -513,6 +551,76 @@ class XMD extends BaseView {
             }}
           />
         </div>
+      </div>
+    )
+  }
+
+  changeLocationPage(canGo,page){
+    if(!canGo){return false};
+    this.setState({
+      locationPageNum:page
+    });
+  }
+
+
+  renderLocationInfoCharts(data,height){
+    if(!data){return false}
+    const size = this.indata.size;
+    //算出需要几页
+    const num =  this.state.locationInfoNum || 1;
+    const current = this.state.locationPageNum || 1;
+
+    const tempData = JSON.parse(JSON.stringify(data))
+
+
+    const chartsData = tempData.splice((current - 1)* size,size);
+    
+    const nextPage = current + 1,lastPage = current - 1;
+    const nextCanGo = nextPage <= num || false;
+    const lastCanGo = lastPage >= 1 || false;
+
+    //地区分布信息
+    const charts5 = {
+      data:chartsData,
+      height: height,
+      xAxis: 'area',
+      yAxis: 'areaCount',
+      forceFit: true,
+      padding: 'auto',
+      style: {
+        overflow: 'hidden'
+      },
+      cols: {
+        areaCount: {
+          alias: '数量'
+        }
+      },
+      xLabel: {
+        offset: 15,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 10
+        }
+      },
+      yLabel: {
+        offset: 5,
+        textStyle: {
+          fill: '#fff',
+          fontSize: 10
+        }
+      }
+    }
+
+    return (
+      <div className="section-content location-info">
+        <div className='top-title'>
+          <span>地区分布信息</span>
+          <div className='operaiton'>
+            <span className={lastCanGo?'active':''} onClick={this.changeLocationPage.bind(this,lastCanGo,lastPage)}>&lt;</span>
+            <span className={nextCanGo?'active':''} onClick={this.changeLocationPage.bind(this,nextCanGo,nextPage)}>&gt;</span>
+          </div>
+        </div>
+        <Basicbar {...charts5} />
       </div>
     )
   }
@@ -575,37 +683,7 @@ class XMD extends BaseView {
         }
       }
     }
-    //地区分布信息
-    const charts5 = {
-      data: xmdInstall.areaList,
-      height: leftChartHeight,
-      xAxis: 'area',
-      yAxis: 'areaCount',
-      forceFit: true,
-      padding: 'auto',
-      style: {
-        overflow: 'hidden'
-      },
-      cols: {
-        areaCount: {
-          alias: '数量'
-        }
-      },
-      xLabel: {
-        offset: 15,
-        textStyle: {
-          fill: '#fff',
-          fontSize: 10
-        }
-      },
-      yLabel: {
-        offset: 5,
-        textStyle: {
-          fill: '#fff',
-          fontSize: 10
-        }
-      }
-    }
+    
     const tradeList = translateCountToPercent(customer.tradeList, 'tradeCount')
     //客户分布情况
     const charts8 = {
@@ -711,10 +789,7 @@ class XMD extends BaseView {
               <span>巡检仪上线数</span>
               <Basicline {...charts2} />
             </div>
-            <div className="section-content">
-              <span>地区分布信息</span>
-              <Basicbar {...charts5} />
-            </div>
+            {this.renderLocationInfoCharts(xmdInstall.areaList,leftChartHeight)}
           </div>
         </div>
         <div className="center-content">
@@ -998,7 +1073,7 @@ class XMD extends BaseView {
             </div>
           </div>
         </div>
-        <div className="side-content content_box spec">
+        <div className="side-content content_box spec" style={{width:'45%'}}>
           {this.renderTable(1, xmdEventTable.rateList)}
         </div>
       </div>

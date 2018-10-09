@@ -344,7 +344,6 @@ class Status extends BaseView {
       //   }
       // }
     }
-    debugger
     console.log(monthChartsHeight)
     const charts6 = {
       // data:validityEventCountData,
