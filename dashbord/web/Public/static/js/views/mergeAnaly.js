@@ -149,14 +149,14 @@ class MergeAnaly extends BaseView {
   fetchQuerySecondLoopExceptionCount(value) {
     let self = this
     //  '{"token":"234sdf234","province":"山西","subject":1,"startTime":"2011-01-01","endTime":"2019-01-1"}' "' "https://api.c2py.com/ele/shangcen/xmdplatform/querySecondLoopExceptionCount"
-    value = {}
-    value = {
-      token: '234sdf234',
-      province: '山西',
-      subject: '1',
-      startTime: '2011-01-01',
-      endTime: '2019-01-1'
-    }
+    // value = {}
+    // value = {
+    //   token: '234sdf234',
+    //   province: '山西',
+    //   subject: '1',
+    //   startTime: '2011-01-01',
+    //   endTime: '2019-01-1'
+    // }
     querySecondLoopExceptionCount.setParam({
       ...value
     })
