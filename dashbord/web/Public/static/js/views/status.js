@@ -43,20 +43,15 @@ class Status extends BaseView {
   }
 
   componentDidMount() {
-    //pageone
-    let params = {
-      token: '234sdf234',
-      province: '山西',
-      date: '2019-01'
-    }
-
-    let averageParams = {
-      province: '山西'
-    }
     // 排行榜
-    this.fetchGetTopTenOfSecondLoopExceptionTop(params)
+    this.fetchGetTopTenOfSecondLoopExceptionTop({
+      province: '全国',
+      date: moment().format('YYYY-MM')
+    })
     // 平均分
-    this.fetchGetTopTenOfSecondLoopException(averageParams)
+    this.fetchGetTopTenOfSecondLoopException({
+      province: '全国'
+    })
     //pagetwo
     this.fetchQuerySecondLoopExceptionDetailData()
   }

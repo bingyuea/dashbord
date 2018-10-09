@@ -220,6 +220,9 @@ class MergeAnaly extends BaseView {
     console.log(name)
     // console.log(option)
     // console.log(instance)
+    if (name === '中国') {
+      name = '全国'
+    }
     this.fetchQueryElecCurrentData({
       token: '234sdf234',
       range: name
