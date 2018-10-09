@@ -166,9 +166,10 @@ class Status extends BaseView {
   onChange(value) {
     value = moment(value).format('YYYY-MM')
     console.log(value)
-    // this.fetchGetTopTenOfSecondLoopExceptionTop(value)
+    this.fetchGetTopTenOfSecondLoopExceptionTop(value)
   }
   searchHandle() {}
+
   renderPageOne() {
     let appview = $('.page-main').height()
     let { rangeList } = this.state || {}
@@ -266,6 +267,26 @@ class Status extends BaseView {
     let monthChain = (averageList && averageList.monthChain) || 0
     let monthChainTrend = (averageList && averageList.monthChainTrend) || 0
 
+    let averageChartsData = [
+      {
+        name: '以往',
+        count: 100 - average
+      },
+      {
+        name: '当月',
+        count: average
+      }
+    ]
+    let monthChartsData = [
+      {
+        name: '上月',
+        count: 100 - monthChain
+      },
+      {
+        name: '当月',
+        count: monthChain
+      }
+    ]
     const bottomHeight = $('#status2RightBottom').height()
     const monthChartsHeight = $('.chartsBox').height() / 2
 
@@ -304,7 +325,8 @@ class Status extends BaseView {
     // 平均得分
     const averageCharts = {
       // data: average,
-      data: Mock.charts3,
+      data: averageChartsData,
+      // data: Mock.charts3,
       height: monthChartsHeight,
       innerRadius: 0.7,
       radius: 0.9,
@@ -325,8 +347,9 @@ class Status extends BaseView {
 
     // 月环比
     const monthCharts = {
-      data: Mock.charts3,
+      // data: Mock.charts3,
       // data: monthChain,
+      data: monthChartsData,
       height: monthChartsHeight,
       innerRadius: 0.7,
       radius: 0.9,
@@ -334,18 +357,16 @@ class Status extends BaseView {
       padding: 'auto',
       field: 'count',
       // dimension: 'eventName',
-      dimension: 'name'
-      // cols: {
-      //   percent: {
-      //     formatter: val => {
-      //       val = (val * 100).toFixed(0) + '%'
-      //       return val
-      //     }
-      //   }
-      // }
+      dimension: 'name',
+      cols: {
+        percent: {
+          formatter: val => {
+            val = (val * 100).toFixed(0) + '%'
+            return val
+          }
+        }
+      }
     }
-    debugger
-    console.log(monthChartsHeight)
     const charts6 = {
       // data:validityEventCountData,
       data: Mock.charts6,
@@ -387,10 +408,14 @@ class Status extends BaseView {
 
             <div className="chartsBox">
               <div className="chartsTop">
-                <div className="itemLeft">平均得分</div>
+                {/* <div className="itemLeft">平均得分</div> */}
+                <div className="itemLeft">评分</div>
                 <div className="itemCenter">
-                  {/* <Labelline {...charts6} /> */}
-                  {average}
+                  <div className="charts">
+                    <Labelline {...averageCharts} />
+                    {/* <Labelline {...charts6} /> */}
+                  </div>
+                  {/* {average} */}
                 </div>
                 <div className="itemRight">
                   <div
@@ -404,11 +429,14 @@ class Status extends BaseView {
                 </div>
               </div>
               <div className="chartsBotttom">
-                <div className="itemLeft">月环比</div>
+                {/* <div className="itemLeft">月环比</div> */}
+                <div className="itemLeft">排名</div>
                 <div className="itemCenter">
-                  {/* <Labelline {...monthCharts} /> */}
-                  {/* <Labelline {...charts6} /> */}
-                  {monthChain}
+                  <div className="charts">
+                    <Labelline {...monthCharts} />
+                    {/* <Labelline {...charts6} /> */}
+                    {/* {monthChain} */}
+                  </div>
                 </div>
                 <div className="itemRight">
                   <div
