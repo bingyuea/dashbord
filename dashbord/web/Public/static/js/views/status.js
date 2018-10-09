@@ -566,7 +566,20 @@ class Status extends BaseView {
             </div>
             <div className="fixedTable row3 flex-layout status_9">
               <div className="flex text-c">{username || ''}</div>
-              <div className="flex text-c">{serialNum || ''}</div>
+              <div className="flex text-c changeLineParent">
+                <p className="changeLine">
+                  {serialNum &&
+                    serialNum.substring(0, Math.floor(serialNum.length / 2))}
+                </p>
+                <p className="changeLine">
+                  {(serialNum &&
+                    serialNum.substring(
+                      Math.floor(serialNum.length / 2),
+                      serialNum.length
+                    )) ||
+                    ''}
+                </p>
+              </div>
             </div>
           </div>
 
