@@ -665,7 +665,7 @@ class XMD extends BaseView {
           alias: '数量'
         },
         period: {
-          // tickCount:5
+          tickCount:6
         }
       },
       xLabel: {
