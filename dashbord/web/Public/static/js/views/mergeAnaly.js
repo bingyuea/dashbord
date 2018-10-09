@@ -197,6 +197,13 @@ class MergeAnaly extends BaseView {
     return mapData
   }
 
+  provinceClick(params){
+    const name = params.name;
+    this.fetchQueryElecCurrentData({
+      range: name
+    })
+  }
+
   /**************   pageOne    *******************/
   renderPageCenter() {
     const exceptionDataObj = this.state.exceptionDataObj || {}
@@ -204,12 +211,13 @@ class MergeAnaly extends BaseView {
     const mapData = this.formatMapData(exceptionData)
     let _this = this
     return (
-      <div className="page-center" onClick={this.handleClick.bind(this)}>
+      <div className="page-center">
         <div className="section-content map ">
           {/* <ChinaMapEcharts mapData={mapData} /> */}
           <ChinaMapEcharts
             mapData={mapData}
-            goDownCallBack={this.mapcb.bind(this)}
+            goDown={false}
+            provinceClick={this.provinceClick.bind(this)}
           />
         </div>
       </div>
@@ -227,10 +235,6 @@ class MergeAnaly extends BaseView {
       token: '234sdf234',
       range: name
     })
-  }
-
-  handleClick(e) {
-    console.log(e)
   }
 
   renderRank(list) {
