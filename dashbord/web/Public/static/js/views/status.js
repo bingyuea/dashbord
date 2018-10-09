@@ -39,18 +39,14 @@ class Status extends BaseView {
     this.state = {
       pageStatus: 'init',
       pageIdx: 0,
-      province: '全国',
       date: moment().format('YYYY-MM')
     }
+ 
   }
-
   componentDidMount() {
     // 排行榜
-    let { province, date } = this.state || {}
-    this.fetchGetTopTenOfSecondLoopExceptionTop({
-      province,
-      date
-    })
+    let { province, date } = this.state || {};
+    this.fetchGetTopTenOfSecondLoopExceptionTop();
     // 平均分
     this.fetchGetTopTenOfSecondLoopException({
       province
@@ -127,9 +123,7 @@ class Status extends BaseView {
     this.setState({
       pageIdx: idx
     })
-    //认为是到第二个页面，拿数据请求接口
-    if (idx == 1) {
-    }
+    
   }
 
   //切换轮播
@@ -154,20 +148,19 @@ class Status extends BaseView {
   }
 
   renderPageOneCenter() {
-    // const mapData = [
-    //   {
-    //     city: '山西',
-    //     name: '山西',
-    //     userValue: 48.708
-    //   }
-    // ]
-    const mapData = this.state.mapData || [
-      {
-        city: '山西',
-        name: '山西',
-        userValue: 48.708
-      }
-    ]
+
+    const rangeList = this.state.rangeList || {};
+
+    const dataList = rangeList.rangeList;
+    // if(!dataList){return};
+    var newList = [],target;
+    
+    
+    //需要格式地图数据
+    const mapData = [];
+
+
+
     return (
       <div className="page-center">
         <div className="section-content map ">
@@ -194,14 +187,13 @@ class Status extends BaseView {
     )
   }
 
-  onChange(value) {
-    value = moment(value).format('YYYY-MM')
+  onChange(date, dateString) {
     this.setState({
-      changeTime: value
+      date: dateString
     })
   }
   searchHandle() {
-    let { date, province } = this.state.date
+    let { date, province } = this.state || {};
     this.fetchGetTopTenOfSecondLoopExceptionTop({
       province,
       date
@@ -216,7 +208,7 @@ class Status extends BaseView {
     const bottomHeight = $('#status2RightBottom').height()
     const monthChartsHeight = $('.chartsBox').height() / 2
 
-    const monthFormat = 'YYYY-MM'
+    const monthFormat = 'YYYY-MM';
     const self = this
     return (
       <div className="status-main" style={{ height: appview }}>
@@ -258,6 +250,8 @@ class Status extends BaseView {
                         ? ['scroll-body']
                         : ['']
                     }
+
+                    key={index}
                   >
                     <div
                       className={
@@ -377,6 +371,7 @@ class Status extends BaseView {
       radius: 0.9,
       forceFit: true,
       padding: 'auto',
+      hideTooltip:true,
       field: 'count',
       // dimension: 'eventName',
       dimension: 'name',
@@ -399,6 +394,7 @@ class Status extends BaseView {
       innerText: monthChain.toString(),
       innerRadius: 0.7,
       hideLabel: true,
+      hideTooltip:true,
       radius: 0.9,
       forceFit: true,
       padding: 'auto',
@@ -657,6 +653,7 @@ class Status extends BaseView {
                           ? ['scroll-body']
                           : ['']
                       }
+                      key={index}
                     >
                       <div
                         className={

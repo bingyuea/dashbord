@@ -66,10 +66,10 @@ class Labelline extends React.Component {
           {this.props.legend?<Legend {...this.props.legend}/>:''}
           <Coord type="theta" radius={this.props.radius || 1} innerRadius={this.props.innerRadius || 0}/>
           <Axis name="percent" />
-          <Tooltip
+          {this.props.hideTooltip?'':<Tooltip
             showTitle={false}
             itemTpl="<li><span style=&quot;background-color:{color};&quot; class=&quot;g2-tooltip-marker&quot;></span>{name}: {value}</li>"
-          />
+          />}
           {this.props.innerText?<Guide>
             <Html
               position={["50%", "50%"]}
