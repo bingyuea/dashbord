@@ -171,10 +171,14 @@ class Status extends BaseView {
 
   onChange(value) {
     value = moment(value).format('YYYY-MM')
-    console.log(value)
-    this.fetchGetTopTenOfSecondLoopExceptionTop(value)
+    this.setState({
+      changeTime: value
+    })
   }
-  searchHandle() {}
+  searchHandle() {
+    let changeTime = this.state.changeTime
+    this.fetchGetTopTenOfSecondLoopExceptionTop(changeTime)
+  }
 
   renderPageOne() {
     let appview = $('.page-main').height()
