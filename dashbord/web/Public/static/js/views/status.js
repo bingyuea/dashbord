@@ -47,12 +47,10 @@ class Status extends BaseView {
     let params = {
       token: '234sdf234',
       province: '山西',
-      startTime: '2011-01',
-      endTime: '2019-01'
+      date: '2019-01'
     }
 
     let averageParams = {
-      token: '234sdf234',
       province: '山西'
     }
     // 排行榜
@@ -338,8 +336,8 @@ class Status extends BaseView {
       data: averageChartsData,
       // data: Mock.charts3,
       height: monthChartsHeight,
-      hideLabel:true,
-      innerText:average + '分',
+      hideLabel: true,
+      innerText: average + '分',
       innerRadius: 0.7,
       radius: 0.9,
       forceFit: true,
@@ -363,9 +361,9 @@ class Status extends BaseView {
       // data: monthChain,
       data: monthChartsData,
       height: monthChartsHeight,
-      innerText:monthChain.toString(),
+      innerText: monthChain.toString(),
       innerRadius: 0.7,
-      hideLabel:true,
+      hideLabel: true,
       radius: 0.9,
       forceFit: true,
       padding: 'auto',
@@ -382,31 +380,6 @@ class Status extends BaseView {
       }
     }
 
-    const charts6 = {
-      // data:validityEventCountData,
-      data: Mock.charts6,
-      height: 100,
-      innerRadius: 0.7,
-      legend: {
-        position: 'right-center',
-        textStyle: {
-          fontSize: 10
-        }
-      },
-      radius: 0.9,
-      forceFit: true,
-      padding: 'auto',
-      field: 'count',
-      dimension: 'eventName',
-      cols: {
-        percent: {
-          formatter: val => {
-            val = (val * 100).toFixed(0) + '%'
-            return val
-          }
-        }
-      }
-    }
     return (
       <div className="page-right">
         <div className="title-content">
@@ -424,20 +397,21 @@ class Status extends BaseView {
             <div className="chartsBox">
               <div className="chartsTop">
                 {/* <div className="itemLeft">平均得分</div> */}
-                <div className="itemLeft">{this.state.pageIdx == 0?'平均评分':'评分'}</div>
+                <div className="itemLeft">
+                  {this.state.pageIdx == 0 ? '平均评分' : '评分'}
+                </div>
                 <div className="itemCenter">
                   <div className="charts">
                     <Labelline {...averageCharts} />
-                    {/* <Labelline {...charts6} /> */}
                   </div>
                   {/* {average} */}
                 </div>
                 <div className="itemRight">
                   <div
                     className={
-                      averageTrend && averageTrend > 0
-                        ? ['iconfont icon-icon-dsj']
-                        : ['iconfont icon-sanx-up']
+                      Number(averageTrend) >= 0
+                        ? ['iconfont icon-icon-dsj red']
+                        : ['iconfont icon-sanx-up green']
                     }
                   />
                   <span className="monthRange">{averageTrend}</span>
@@ -445,20 +419,21 @@ class Status extends BaseView {
               </div>
               <div className="chartsBotttom">
                 {/* <div className="itemLeft">月环比</div> */}
-                <div className="itemLeft">{this.state.pageIdx == 0 ?'月环比':'排名'}</div>
+                <div className="itemLeft">
+                  {this.state.pageIdx == 0 ? '月环比' : '排名'}
+                </div>
                 <div className="itemCenter">
                   <div className="charts">
                     <Labelline {...monthCharts} />
-                    {/* <Labelline {...charts6} /> */}
                     {/* {monthChain} */}
                   </div>
                 </div>
                 <div className="itemRight">
                   <div
                     className={
-                      monthChainTrend && monthChainTrend > 0
-                        ? ['iconfont icon-icon-dsj']
-                        : ['iconfont icon-sanx-up']
+                      Number(monthChainTrend) >= 0
+                        ? ['iconfont icon-icon-dsj red']
+                        : ['iconfont icon-sanx-up green']
                     }
                   />
                   <span className="monthRange">{monthChainTrend}</span>
@@ -481,7 +456,12 @@ class Status extends BaseView {
       </div>
     )
   }
-
+  mapcb(name, option, instance) {
+    console.log(name)
+    // console.log(option)
+    // console.log(instance)
+    this.fetchGetTopTenOfSecondLoopException({ province: name })
+  }
   renderPageTwoCenter() {
     const mapData = [
       {
@@ -494,7 +474,12 @@ class Status extends BaseView {
     return (
       <div className="page-center">
         <div className="section-content map ">
-          <ChinaMapEcharts mapData={mapData} domId={'pageTwoMap'} />
+          {/* <ChinaMapEcharts mapData={mapData} domId={'pageTwoMap'} /> */}
+          <ChinaMapEcharts
+            mapData={mapData}
+            domId={'pageTwoMap'}
+            goDownCallBack={this.mapcb.bind(this)}
+          />
         </div>
       </div>
     )
@@ -617,7 +602,7 @@ class Status extends BaseView {
             <div className="even-details">
               <div
                 className={
-                  eventList && eventList.length > 4 ? ['scroll-body'] : ['']
+                  eventList && eventList.length > 2 ? ['scroll-body'] : ['']
                 }
               >
                 {Array.isArray(eventList) &&
