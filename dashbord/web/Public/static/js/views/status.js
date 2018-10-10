@@ -50,8 +50,6 @@ class Status extends BaseView {
     this.fetchGetTopTenOfSecondLoopException({
       province
     })
-    //pagetwo
-    this.fetchQuerySecondLoopExceptionDetailData()
   }
 
   // #page9
@@ -96,14 +94,14 @@ class Status extends BaseView {
     )
   }
 
-  fetchQuerySecondLoopExceptionDetailData() {
+  fetchQuerySecondLoopExceptionDetailData(value) {
     const self = this
-    const value = {
-      token: '234sdf234',
-      serialNum: '1430009000003609335198',
-      elecSerialNum: '1410101012212120538038',
-      date: '2011-05'
-    }
+    // const value = {
+    //   token: '234sdf234',
+    //   serialNum: '1430009000003609335198',
+    //   elecSerialNum: '1410101012212120538038',
+    //   date: '2011-05'
+    // }
     querySecondLoopExceptionDetailData.setParam(value)
     querySecondLoopExceptionDetailData.excute(
       res => {
@@ -122,6 +120,29 @@ class Status extends BaseView {
     this.setState({
       pageIdx: idx
     })
+    // 这里给一个默认的值 如果是点击也会走这里需要区别（如果state里面有pageTwoParam）
+    //pagetwo
+    console.log(idx)
+    if (idx === 1) {
+      let serialNum, elecSerialNum
+      if (this.state.pageTwoParam) {
+        serialNum = this.state.pageTwoParam.serialNum
+        elecSerialNum = this.state.pageTwoParam.elecSerialNum
+      } else {
+        serialNum =
+          this.state.rangeList.dataList &&
+          this.state.rangeList.dataList[0].serialNum
+        elecSerialNum =
+          this.state.rangeList.dataList &&
+          this.state.rangeList.dataList[0].elecSerialNum
+      }
+      let date = this.state.date || moment().format('YYYY-MM')
+      this.fetchQuerySecondLoopExceptionDetailData({
+        serialNum,
+        elecSerialNum,
+        date
+      })
+    }
   }
 
   //切换轮播
@@ -276,7 +297,8 @@ class Status extends BaseView {
   }
 
   renderRightCommon() {
-    let { averageList } = this.state || {}
+    let { averageList, averageClick } = this.state || {}
+
     averageList = averageList && averageList.dataList
     // averageList = {
     //   result: 1,
@@ -295,11 +317,13 @@ class Status extends BaseView {
     // }
     // 平均分
     let averageDataList = (averageList && averageList.dataList) || []
-    let average = (averageList && averageList.average) || 0
+    // 如果state 里面有点击的值取 点击的值
+    console.log('averageClick' + averageClick)
+    let average = averageClick || (averageList && averageList.average) || 0
+    console.log('average' + average)
     let averageTrend = (averageList && averageList.averageTrend) || 0
     let monthChain = (averageList && averageList.monthChain) || 0
     let monthChainTrend = (averageList && averageList.monthChainTrend) || 0
-
     let averageChartsData = [
       {
         name: '以往',

@@ -1269,6 +1269,9 @@ class SecondaryLoop extends BaseView {
             dataSource={tableData}
             pagination={false}
             scroll={{ y: tableHeight }}
+            locale={{
+              emptyText: '暂无数据'
+            }}
             onRow={(record, idx) => {
               return {
                 onClick: () => {
