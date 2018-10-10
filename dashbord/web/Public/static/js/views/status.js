@@ -39,18 +39,13 @@ class Status extends BaseView {
     this.state = {
       pageStatus: 'init',
       pageIdx: 0,
-      province: '全国',
       date: moment().format('YYYY-MM')
     }
   }
-
   componentDidMount() {
-    let { province, date } = this.state || {}
     // 排行榜
-    this.fetchGetTopTenOfSecondLoopExceptionTop({
-      province,
-      date
-    })
+    let { province, date } = this.state || {}
+    this.fetchGetTopTenOfSecondLoopExceptionTop()
     // 平均分
     this.fetchGetTopTenOfSecondLoopException({
       province
@@ -127,9 +122,6 @@ class Status extends BaseView {
     this.setState({
       pageIdx: idx
     })
-    //认为是到第二个页面，拿数据请求接口
-    if (idx == 1) {
-    }
   }
 
   //切换轮播
@@ -156,13 +148,15 @@ class Status extends BaseView {
   }
 
   renderPageOneCenter() {
-    let mapData = JSON.parse(localStorage.getItem('province')) || [
-      {
-        city: '山西',
-        name: '山西',
-        userValue: 48.708
-      }
-    ]
+    const rangeList = this.state.rangeList || {}
+
+    const dataList = rangeList.rangeList
+    // if(!dataList){return};
+    var newList = [],
+      target
+
+    //需要格式地图数据
+    const mapData = []
 
     return (
       <div className="page-center">
@@ -190,14 +184,13 @@ class Status extends BaseView {
     )
   }
 
-  onChange(value) {
-    value = moment(value).format('YYYY-MM')
+  onChange(date, dateString) {
     this.setState({
-      date: value
+      date: dateString
     })
   }
   searchHandle() {
-    let { date, province } = this.state.date
+    let { date, province } = this.state || {}
     this.fetchGetTopTenOfSecondLoopExceptionTop({
       province,
       date
@@ -254,6 +247,7 @@ class Status extends BaseView {
                         ? ['scroll-body']
                         : ['']
                     }
+                    key={index}
                   >
                     <div
                       className={
@@ -373,6 +367,7 @@ class Status extends BaseView {
       radius: 0.9,
       forceFit: true,
       padding: 'auto',
+      hideTooltip: true,
       field: 'count',
       // dimension: 'eventName',
       dimension: 'name',
@@ -395,6 +390,7 @@ class Status extends BaseView {
       innerText: monthChain.toString(),
       innerRadius: 0.7,
       hideLabel: true,
+      hideTooltip: true,
       radius: 0.9,
       forceFit: true,
       padding: 'auto',
@@ -653,6 +649,7 @@ class Status extends BaseView {
                           ? ['scroll-body']
                           : ['']
                       }
+                      key={index}
                     >
                       <div
                         className={

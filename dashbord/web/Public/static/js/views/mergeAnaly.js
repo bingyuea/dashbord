@@ -73,14 +73,18 @@ class MergeAnaly extends BaseView {
 
   fetchQueryElecCurrentData(params) {
     const self = this
+    const mapProvinceName = this.state.mapProvinceName
+    const mapData = this.state.mapData
     queryElecCurrentData.setParam({
       ...params
     })
     queryElecCurrentData.excute(
       res => {
         const exceptionDataObj = res || {}
+        const exceptionData = exceptionDataObj.exceptionData || []
         self.setState({
-          exceptionDataObj
+          exceptionDataObj,
+          mapData: mapProvinceName ? mapData : self.formatMapData(exceptionData)
         })
       },
       err => {}
@@ -199,9 +203,8 @@ class MergeAnaly extends BaseView {
 
   /**************   pageOne    *******************/
   renderPageCenter() {
-    const exceptionDataObj = this.state.exceptionDataObj || {}
-    const exceptionData = exceptionDataObj.exceptionData || []
-    const mapData = this.formatMapData(exceptionData)
+    const mapData = this.state.mapData || []
+
     let _this = this
     return (
       <div className="page-center">
@@ -364,6 +367,7 @@ class MergeAnaly extends BaseView {
             </div>
           </div>
           <div className="item">
+            ·
             <div className="small-title label">
               <span className="arrow">&gt;&gt;</span>
               <div className="title">电池失效排行榜</div>

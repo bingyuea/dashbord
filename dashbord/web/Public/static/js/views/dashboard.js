@@ -555,7 +555,7 @@ class Dashboard extends BaseView {
           </div>
         </div>
         <div className="section-content map">
-          <ChinaMapEcharts mapData={mapData}  goDownCallBack= {this.mapcb.bind(this)}/>
+          <ChinaMapEcharts mapData={mapData}  goDownCallBack= {this.mapcb.bind(this)} goDown={true}/>
           <div className="bottom-txt">中国电力科学研究院</div>
         </div>
       </div>
