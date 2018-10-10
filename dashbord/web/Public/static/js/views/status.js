@@ -167,7 +167,23 @@ class Status extends BaseView {
       date
     })
   }
-
+  mapcbPageOne(name, option, instance) {
+    // console.log(name)
+    // console.log(option)
+    // console.log(instance)
+    // this.fetchGetTopTenOfSecondLoopException({ province: name })
+    if (name === '中国') {
+      name = '全国'
+    }
+    let { date } = this.state.date
+    this.setState({
+      province: name
+    })
+    this.fetchGetTopTenOfSecondLoopExceptionTop({
+      province: name,
+      date
+    })
+  }
   renderPageOneCenter() {
     const rangeList = this.state.rangeList || {}
 
@@ -187,7 +203,8 @@ class Status extends BaseView {
             mapData={mapData}
             goDown={true}
             domId={'pageOneMap'}
-            provinceClick={this.provinceClick.bind(this)}
+            goDownCallBack={this.mapcbPageOne.bind(this)}
+            // provinceClick={this.provinceClick.bind(this)}
           />
         </div>
       </div>
