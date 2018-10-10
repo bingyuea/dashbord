@@ -97,7 +97,7 @@ class MergeAnaly extends BaseView {
     if (!_value.province) {
       _value.province = this.state.searchOptions.provinceOpts[0].value
     }
-    
+
     if (!_value.subject) {
       _value.subject = this.state.searchOptions.themeOpts[0].value
     }
@@ -489,6 +489,7 @@ class MergeAnaly extends BaseView {
   }
 
   getThemeData(sourceData, nameList) {
+    console.log(sourceData)
     if (nameList.length > 0) {
       let arr = []
       nameList.forEach((ele, index) => {
@@ -526,9 +527,11 @@ class MergeAnaly extends BaseView {
     let fieldsList = []
     if (periodListLine && periodListLine.length > 0) {
       fieldsList = periodListLine.map(item => {
+        // return item.period.replace(/\'/g, '')
         return item.period
       })
     }
+
     // stealingPower  疑似窃电  double
     // trouble  设备故障  double
     // wiringFault  错接线 double
@@ -547,10 +550,30 @@ class MergeAnaly extends BaseView {
       'loopExce',
       'elecExec'
     ]
+    let dataTemplate = {
+      stealingPower: '疑似窃电',
+      trouble: '设备故障',
+      wiringFault: '错接线',
+      expansion: '配变需扩容',
+      maintain: '现场需维护',
+      failure: '电池失效',
+      loopExce: '回路异常',
+      elecExec: '用电异常'
+    }
     let data = []
     if (periodListLine && periodListLine.length > 0) {
       data = _this.getThemeData(periodListLine, nameList)
     }
+
+    // 转化name
+    if (Array.isArray) {
+      data.map(item => {
+        return (item.name = dataTemplate[item.name])
+      })
+    }
+
+    console.log(data)
+
     periodListCharts = {
       data: periodList,
       height: loop_bottom,
@@ -582,6 +605,7 @@ class MergeAnaly extends BaseView {
         }
       }
     }
+
     theme = {
       data: data,
       fields: fieldsList,
@@ -589,6 +613,8 @@ class MergeAnaly extends BaseView {
       value: '事件数量',
       fieldsName: 'name',
       legend: true,
+      forceFit: true,
+      hideTooltip: true,
       style: {
         overflow: 'hidden'
       },
