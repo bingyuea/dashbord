@@ -216,6 +216,7 @@ class MergeAnaly extends BaseView {
           /> */}
           <ChinaMapEcharts
             mapData={mapData}
+            goDown={true}
             goDownCallBack={this.mapcb.bind(this)}
           />
         </div>
