@@ -63,7 +63,7 @@ class Status extends BaseView {
   // 排行榜
   fetchGetTopTenOfSecondLoopExceptionTop(value) {
     let self = this
-    getTopTenOfSecondLoopExceptionTop.setParam({ ...value }, true)
+    getTopTenOfSecondLoopExceptionTop.setParam({ ...value })
     getTopTenOfSecondLoopExceptionTop.excute(
       res => {
         let rangeList = res || {}
@@ -80,7 +80,7 @@ class Status extends BaseView {
   // 平均分
   fetchGetTopTenOfSecondLoopException(value) {
     let self = this
-    getTopTenOfSecondLoopException.setParam({ ...value }, true)
+    getTopTenOfSecondLoopException.setParam({ ...value })
     getTopTenOfSecondLoopException.excute(
       res => {
         let averageList = res || {}
@@ -102,7 +102,7 @@ class Status extends BaseView {
     //   elecSerialNum: '1410101012212120538038',
     //   date: '2011-05'
     // }
-    querySecondLoopExceptionDetailData.setParam(value, true)
+    querySecondLoopExceptionDetailData.setParam(value)
     querySecondLoopExceptionDetailData.excute(
       res => {
         const resData = res || {}
@@ -388,7 +388,6 @@ class Status extends BaseView {
       xAxis: 'date',
       yAxis: 'average',
       forceFit: true,
-      hideTooltip: true,
       padding: 'auto',
       cols: {
         sales: {
@@ -571,6 +570,11 @@ class Status extends BaseView {
     )
   }
 
+  plotClickCb(data){
+    console.log(data)
+    //TODO
+  }
+
   renderPageTwo() {
     let detailData = this.state.detailData || {}
     if (!detailData) {
@@ -609,6 +613,7 @@ class Status extends BaseView {
           alias: 'date'
         }
       },
+      plotClickCb:this.plotClickCb.bind(this),
       style: {
         overflow: 'hidden'
       },
