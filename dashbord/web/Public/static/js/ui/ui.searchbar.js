@@ -6,7 +6,11 @@ import moment from 'moment'
 
 import DataServince from '../services/searchbar.services'
 
-const Option = Select.Option
+import {
+  formatCity
+} from '../util/util'
+
+const Option = Select.Option;
 
 const { RangePicker, MonthPicker } = DatePicker
 
@@ -29,7 +33,10 @@ class SearchBar extends Component {
 
     let searchValue = this.state.searchValue
 
-    searchValue[key] = value
+    if(key == 'province' && this.state.searchValue.province !== value){
+      delete searchValue.city 
+    }
+    searchValue[key] = value;
 
     this.setState({
       searchValue: searchValue
@@ -93,12 +100,19 @@ class SearchBar extends Component {
   }
   //省市选择器
   renderLocationSelect(locationData) {
+    const province = this.state.searchValue.province || locationData.province.options[0].value;
+    const list = formatCity(locationData.city.options,province);
+    const city = {
+      key:'city',
+      options:list
+    }
+
     return (
       <div className="search-item" style={locationData.style}>
         <div className="title">{locationData.title}</div>
         <div className="select-box double">
           <div className="left">{this.renderSelect(locationData.province)}</div>
-          <div className="right">{this.renderSelect(locationData.city)}</div>
+          <div className="right">{this.renderSelect(city)}</div>
         </div>
       </div>
     )

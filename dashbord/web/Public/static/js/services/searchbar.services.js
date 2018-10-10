@@ -19,8 +19,6 @@ const cityListModel = CityListModel.getInstance(),
 
 var searchData = {};
 
-
-
 //城市信息
 function fetchAddressList(cb){
 	function success(res){
@@ -37,7 +35,7 @@ function fetchAddressList(cb){
 			descKey:'province',
 			valueKey:'province'
 		}
-		searchData.cityOpts = formatCity(list,list[0].province);
+		searchData.cityOpts = list;
 		DataService.successCb(cb);
 	}
 
