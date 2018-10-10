@@ -50,8 +50,6 @@ class Status extends BaseView {
     this.fetchGetTopTenOfSecondLoopException({
       province
     })
-    //pagetwo
-    this.fetchQuerySecondLoopExceptionDetailData()
   }
 
   // #page9
@@ -122,6 +120,23 @@ class Status extends BaseView {
     this.setState({
       pageIdx: idx
     })
+    // 这里给一个默认的值 如果是点击也会走这里需要区别（如果state里面有pageTwoParam）
+    //pagetwo
+    console.log(idx)
+    if (idx === 1) {
+      if (this.state.pageTwoParam) {
+        let { serialNum, elecSerialNum } = this.state.pageTwoParam
+      } else {
+        let { serialNum, elecSerialNum } =
+          this.state.rangeList.dataList && this.state.rangeList.dataList[0]
+      }
+      let date = this.state.date || moment().format('YYYY-MM')
+      this.fetchQuerySecondLoopExceptionDetailData({
+        serialNum,
+        elecSerialNum,
+        date
+      })
+    }
   }
 
   //切换轮播
