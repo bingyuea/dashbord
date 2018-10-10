@@ -224,7 +224,7 @@ class XMD extends BaseView {
       pageTwo: null
     })
     //拿到搜索需要参数
-    let _value = value || {}
+    let _value = value || {};
     if (!_value.province) {
       _value.province = this.state.searchOptions.provinceOpts[0].value
     }
