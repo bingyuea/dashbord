@@ -960,8 +960,17 @@ class SecondaryLoop extends BaseView {
       style: {
         overflow: 'hidden'
       },
+      cols: {
+        x: {
+          tickCount: 3
+        },
+        y:{
+          alias:'电量'
+        }
+      },
       xLabel: {
         offset: 15,
+
         textStyle: {
           fill: '#fff',
           fontSize: 10

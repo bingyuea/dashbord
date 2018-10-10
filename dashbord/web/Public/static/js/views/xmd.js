@@ -437,7 +437,6 @@ class XMD extends BaseView {
       return false
     }
 
-    console.log(this.state.searchOptions)
 
     const barOptions = {
       locationData: {
@@ -740,15 +739,20 @@ class XMD extends BaseView {
       //   }
       // }
     }
-
+    const list = (rate.rateList || []).map(item=>{
+      item.rate  += '';
+      return item
+    })
     //综合倍率
     const charts3 = {
-      data: rate.rateList,
+      data: list,
       height: centerChartHeight,
       forceFit: true,
       padding: 'auto',
       field: 'rateCount',
-      // legend: true,
+      legend: {
+        marker:'circle'
+      },
       hideLabel: true,
       dimension: 'rate',
       innerRadius: 0.7,
@@ -767,7 +771,7 @@ class XMD extends BaseView {
       height: centerChartHeight,
       forceFit: true,
       innerRadius: 0.7,
-      // legend: true,
+      legend: true,
       hideLabel: true,
       padding: 'auto',
       field: 'measureCount',
@@ -993,15 +997,20 @@ class XMD extends BaseView {
         }
       }
     }
-
+    const list = (rateEvent.rateList || []).map(item=>{
+      item.rate  += '';
+      return item
+    })
     //综合倍率
     const charts3 = {
-      data: rateEvent.rateList,
+      data: list,
       height: centerChartHeight,
       forceFit: true,
       padding: 'auto',
       field: 'rateCount',
-      // legend: true,
+      legend: {
+        marker:'circle'
+      },
       innerRadius: 0.7,
       dimension: 'rate',
       hideLabel: true,
@@ -1019,7 +1028,7 @@ class XMD extends BaseView {
       data: measureEvent.rateList,
       height: centerChartHeight,
       forceFit: true,
-      // legend: true,
+      legend: true,
       innerRadius: 0.7,
       padding: 'auto',
       field: 'measureCount',
