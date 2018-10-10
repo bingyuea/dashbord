@@ -94,14 +94,14 @@ class Status extends BaseView {
     )
   }
 
-  fetchQuerySecondLoopExceptionDetailData() {
+  fetchQuerySecondLoopExceptionDetailData(value) {
     const self = this
-    const value = {
-      token: '234sdf234',
-      serialNum: '1430009000003609335198',
-      elecSerialNum: '1410101012212120538038',
-      date: '2011-05'
-    }
+    // const value = {
+    //   token: '234sdf234',
+    //   serialNum: '1430009000003609335198',
+    //   elecSerialNum: '1410101012212120538038',
+    //   date: '2011-05'
+    // }
     querySecondLoopExceptionDetailData.setParam(value)
     querySecondLoopExceptionDetailData.excute(
       res => {
@@ -124,11 +124,17 @@ class Status extends BaseView {
     //pagetwo
     console.log(idx)
     if (idx === 1) {
+      let serialNum, elecSerialNum
       if (this.state.pageTwoParam) {
-        let { serialNum, elecSerialNum } = this.state.pageTwoParam
+        serialNum = this.state.pageTwoParam.serialNum
+        elecSerialNum = this.state.pageTwoParam.elecSerialNum
       } else {
-        let { serialNum, elecSerialNum } =
-          this.state.rangeList.dataList && this.state.rangeList.dataList[0]
+        serialNum =
+          this.state.rangeList.dataList &&
+          this.state.rangeList.dataList[0].serialNum
+        elecSerialNum =
+          this.state.rangeList.dataList &&
+          this.state.rangeList.dataList[0].elecSerialNum
       }
       let date = this.state.date || moment().format('YYYY-MM')
       this.fetchQuerySecondLoopExceptionDetailData({

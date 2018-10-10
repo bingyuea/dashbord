@@ -29,6 +29,9 @@ class BasicLine extends React.Component {
           <Chart
             placeholder={<div className="no-data">暂无数据</div>}
             height={this.props.height}
+            onPlotClick={ev => {
+              console.log(ev)
+            }}
           />
         </div>
       )
