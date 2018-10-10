@@ -165,7 +165,7 @@ class SecondaryLoop extends BaseView {
     // startTime	开始时间	string	是		2017-03-03 10:10:10
     // endTime	结束时间	string	是		2017-03-05 10:10:10
     let self = this
-    queryExceptionCount.setParam({ ...value })
+    queryExceptionCount.setParam({ ...value }, true)
     queryExceptionCount.excute(
       res => {
         let pageOne = self.state.pageOne || {}
@@ -188,9 +188,12 @@ class SecondaryLoop extends BaseView {
     // startTime	开始时间	string	是		2017-03-03 10:10:10
     // endTime	结束时间	string	是		2017-03-05 10:10:10
     let self = this
-    queryExceptionByArea.setParam({
-      ...value
-    })
+    queryExceptionByArea.setParam(
+      {
+        ...value
+      },
+      true
+    )
     queryExceptionByArea.excute(
       res => {
         let pageOne = self.state.pageOne || {}
@@ -214,9 +217,12 @@ class SecondaryLoop extends BaseView {
     // startTime	开始时间	string	是		2017-03-03 10:10:10
     // endTime	结束时间	string	是		2017-03-05 10:10:10
     let self = this
-    queryExceptionByTime.setParam({
-      ...value
-    })
+    queryExceptionByTime.setParam(
+      {
+        ...value
+      },
+      true
+    )
     queryExceptionByTime.excute(
       res => {
         let pageOne = self.state.pageOne || {}
@@ -240,9 +246,12 @@ class SecondaryLoop extends BaseView {
     // startTime	开始时间	string	是		2017-03-03 10:10:10
     // endTime	结束时间	string	是		2017-03-05 10:10:10
     let self = this
-    queryExceptionByTrade.setParam({
-      ...value
-    })
+    queryExceptionByTrade.setParam(
+      {
+        ...value
+      },
+      true
+    )
     queryExceptionByTrade.excute(
       res => {
         let pageOne = self.state.pageOne || {}
@@ -267,9 +276,12 @@ class SecondaryLoop extends BaseView {
     // startTime	开始时间	string	是		2017-03-03 10:10:10
     // endTime	结束时间	string	是		2017-03-05 10:10:10
     let self = this
-    queryExceptionDetail.setParam({
-      ...value
-    })
+    queryExceptionDetail.setParam(
+      {
+        ...value
+      },
+      true
+    )
     queryExceptionDetail.excute(
       res => {
         let pageOne = self.state.pageOne || {}
@@ -295,9 +307,12 @@ class SecondaryLoop extends BaseView {
     // pageNo	页码	int	否		1
     let self = this
     value.pageNo = 1
-    queryExceptionList.setParam({
-      ...value
-    })
+    queryExceptionList.setParam(
+      {
+        ...value
+      },
+      true
+    )
     queryExceptionList.excute(
       res => {
         let pageOne = self.state.pageOne || {}
@@ -330,9 +345,12 @@ class SecondaryLoop extends BaseView {
     //   elecSerialNum: '1430001130021003140648',
     //   occTime: '2018-06-20'
     // }
-    queryElecCurrentData.setParam({
-      ...params
-    })
+    queryElecCurrentData.setParam(
+      {
+        ...params
+      },
+      true
+    )
     queryElecCurrentData.excute(
       res => {
         let pageTwo = this.state.pageTwo || {}
@@ -357,9 +375,12 @@ class SecondaryLoop extends BaseView {
     //   elecSerialNum: '1440701012212030319317',
     //   occTime: '2018-07-30'
     // }
-    queryXMDEvent.setParam({
-      ...data
-    })
+    queryXMDEvent.setParam(
+      {
+        ...data
+      },
+      true
+    )
     queryXMDEvent.excute(
       res => {
         let pageTwo = this.state.pageTwo || {}
@@ -386,9 +407,12 @@ class SecondaryLoop extends BaseView {
     //   occTime: '2018-07-30'
     // }
 
-    queryElecEvent.setParam({
-      ...data
-    })
+    queryElecEvent.setParam(
+      {
+        ...data
+      },
+      true
+    )
     queryElecEvent.excute(
       res => {
         let pageTwo = this.state.pageTwo || {}
@@ -418,9 +442,12 @@ class SecondaryLoop extends BaseView {
     //   elecSerialNum: '1410101012212120538038',
     //   occTime: '2018-05-30'
     // }
-    queryElecData.setParam({
-      ...params
-    })
+    queryElecData.setParam(
+      {
+        ...params
+      },
+      true
+    )
     queryElecData.excute(
       res => {
         let pageTwo = this.state.pageTwo || {}
@@ -964,8 +991,8 @@ class SecondaryLoop extends BaseView {
         x: {
           tickCount: 3
         },
-        y:{
-          alias:'电量'
+        y: {
+          alias: '电量'
         }
       },
       xLabel: {
