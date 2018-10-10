@@ -314,33 +314,50 @@ class Status extends BaseView {
   }
 
   renderRightCommon() {
-    let { averageList, averageClick } = this.state || {}
+    let { averageList, averageClick, pageIdx, detailData } = this.state || {}
+    let averageDataList, average, averageTrend, monthChain, monthChainTrend
+    // page-9
+    if (pageIdx === 1) {
+      detailData = detailData && detailData.dataList
+      let { grade, gradeTrend, ranking, rankingTrend } = detailData || {}
 
-    averageList = averageList && averageList.dataList
-    // averageList = {
-    //   result: 1,
-    //   average: 88.65,
-    //   monthChain: 0.01,
-    //   dataList: [
-    //     {
-    //       date: '2018-01',
-    //       average: 85.66
-    //     },
-    //     {
-    //       date: '2018-02',
-    //       average: 85.66
-    //     }
-    //   ]
-    // }
-    // 平均分
-    let averageDataList = (averageList && averageList.dataList) || []
-    // 如果state 里面有点击的值取 点击的值
-    console.log('averageClick' + averageClick)
-    let average = averageClick || (averageList && averageList.average) || 0
-    console.log('average' + average)
-    let averageTrend = (averageList && averageList.averageTrend) || 0
-    let monthChain = (averageList && averageList.monthChain) || 0
-    let monthChainTrend = (averageList && averageList.monthChainTrend) || 0
+      // 平均分
+      // 如果state 里面有点击的值取 点击的值
+      console.log('averageClick' + averageClick)
+      average = averageClick || grade || 0
+      console.log('average' + average)
+      averageTrend = gradeTrend || 0
+      monthChain = ranking || 0
+      monthChainTrend = rankingTrend || 0
+    } else {
+      // averageList = {
+      //   result: 1,
+      //   average: 88.65,
+      //   monthChain: 0.01,
+      //   dataList: [
+      //     {
+      //       date: '2018-01',
+      //       average: 85.66
+      //     },
+      //     {
+      //       date: '2018-02',
+      //       average: 85.66
+      //     }
+      //   ]
+      // }
+      averageList = averageList && averageList.dataList
+
+      // 平均分
+      averageDataList = (averageList && averageList.dataList) || []
+      // 如果state 里面有点击的值取 点击的值
+      console.log('averageClick' + averageClick)
+      average = averageClick || (averageList && averageList.average) || 0
+      console.log('average' + average)
+      averageTrend = (averageList && averageList.averageTrend) || 0
+      monthChain = (averageList && averageList.monthChain) || 0
+      monthChainTrend = (averageList && averageList.monthChainTrend) || 0
+    }
+
     let averageChartsData = [
       {
         name: '以往',
