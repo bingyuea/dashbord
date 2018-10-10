@@ -55,15 +55,7 @@ class BasicLine extends React.Component {
             // console.log(ev)
             // console.log(ev.data)
             if (ev.data && ev.data._origin) {
-              let data = ev.data._origin
-              let average = data.average
-              console.log(this)
-              console.log(_this)
-
-              _this.setState({
-                averageClick: average
-              })
-              console.log(average)
+                _this.props.plotClickCb && _this.props.plotClickCb(ev.data);              
             }
           }}
         >
