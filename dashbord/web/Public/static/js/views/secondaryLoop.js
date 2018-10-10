@@ -623,6 +623,7 @@ class SecondaryLoop extends BaseView {
       data: areaList,
       height: loop_content,
       forceFit: true,
+      hideLabel: true,
       padding: 'auto',
       radius: 1,
       innerRadius: 0.7,

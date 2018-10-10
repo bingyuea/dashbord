@@ -67,7 +67,7 @@ class XMD extends BaseView {
 
     this.indata = {
       defaultTime: ['2001-01-01 00:00', today],
-      size:5,
+      size: 5,
       pageTwoTableCloumn: [
         {
           title: '所属地市',
@@ -104,7 +104,7 @@ class XMD extends BaseView {
           width: '16.8%',
           align: 'center',
           key: 'occTime',
-          render:this.formatDate.bind(this)
+          render: this.formatDate.bind(this)
         },
         {
           title: '恢复日期',
@@ -112,7 +112,7 @@ class XMD extends BaseView {
           width: '16.8%',
           align: 'center',
           key: 'recoverTime',
-          render:this.formatRecoverDate.bind(this)
+          render: this.formatRecoverDate.bind(this)
         }
       ],
       pageOneTableCloumn: [
@@ -192,32 +192,30 @@ class XMD extends BaseView {
     // $('.ant-table-body').attr('style', 'animationDuration:' + time)
   }
 
-  formatDate(text, record, index){
-    const tempStr = text.split(' ');
+  formatDate(text, record, index) {
+    const tempStr = text.split(' ')
     return (
-      <div style={{fontSize:'10px'}}>
+      <div style={{ fontSize: '10px' }}>
         {tempStr[0].slice(2)}
-        <br/>
+        <br />
         {tempStr[1]}
       </div>
     )
   }
 
-  formatRecoverDate(text, record, index){
-    
-    if(text == '未恢复'){
+  formatRecoverDate(text, record, index) {
+    if (text == '未恢复') {
       return '未恢复'
-    }else{
-      const tempStr = text.split(' ');
+    } else {
+      const tempStr = text.split(' ')
       return (
-        <div style={{fontSize:'10px'}}>
+        <div style={{ fontSize: '10px' }}>
           {tempStr[0].slice(2)}
-          <br/>
+          <br />
           {tempStr[1]}
         </div>
       )
     }
-    
   }
 
   search(value) {
@@ -254,18 +252,18 @@ class XMD extends BaseView {
       res => {
         const resData = res || {}
         let pageOne = self.state.pageOne || {}
-        pageOne.xmdInstall = resData;
-        const num = Math.ceil((resData.areaList || []).length / self.indata.size);
+        pageOne.xmdInstall = resData
+        const num = Math.ceil(
+          (resData.areaList || []).length / self.indata.size
+        )
         self.setState({
           pageOne: pageOne,
-          locationInfoNum:num
+          locationInfoNum: num
         })
       },
       err => {}
     )
   }
-
-
 
   //客户分布情况
   fetchCustomerInfo(value) {
@@ -499,8 +497,8 @@ class XMD extends BaseView {
     const tableData = table || []
 
     let list = tableData.map((item, index) => {
-      item.key = index;
-      if(!item.recoverTime){
+      item.key = index
+      if (!item.recoverTime) {
         item.recoverTime = '未恢复'
       }
       return item
@@ -555,33 +553,36 @@ class XMD extends BaseView {
     )
   }
 
-  changeLocationPage(canGo,page){
-    if(!canGo){return false};
+  changeLocationPage(canGo, page) {
+    if (!canGo) {
+      return false
+    }
     this.setState({
-      locationPageNum:page
-    });
+      locationPageNum: page
+    })
   }
 
-
-  renderLocationInfoCharts(data,height){
-    if(!data){return false}
-    const size = this.indata.size;
+  renderLocationInfoCharts(data, height) {
+    if (!data) {
+      return false
+    }
+    const size = this.indata.size
     //算出需要几页
-    const num =  this.state.locationInfoNum || 1;
-    const current = this.state.locationPageNum || 1;
+    const num = this.state.locationInfoNum || 1
+    const current = this.state.locationPageNum || 1
 
     const tempData = JSON.parse(JSON.stringify(data))
 
+    const chartsData = tempData.splice((current - 1) * size, size)
 
-    const chartsData = tempData.splice((current - 1)* size,size);
-    
-    const nextPage = current + 1,lastPage = current - 1;
-    const nextCanGo = nextPage <= num || false;
-    const lastCanGo = lastPage >= 1 || false;
+    const nextPage = current + 1,
+      lastPage = current - 1
+    const nextCanGo = nextPage <= num || false
+    const lastCanGo = lastPage >= 1 || false
 
     //地区分布信息
     const charts5 = {
-      data:chartsData,
+      data: chartsData,
       height: height,
       xAxis: 'area',
       yAxis: 'areaCount',
@@ -613,11 +614,21 @@ class XMD extends BaseView {
 
     return (
       <div className="section-content location-info">
-        <div className='top-title'>
+        <div className="top-title">
           <span>地区分布信息</span>
-          <div className='operaiton'>
-            <span className={lastCanGo?'active':''} onClick={this.changeLocationPage.bind(this,lastCanGo,lastPage)}>&lt;</span>
-            <span className={nextCanGo?'active':''} onClick={this.changeLocationPage.bind(this,nextCanGo,nextPage)}>&gt;</span>
+          <div className="operaiton">
+            <span
+              className={lastCanGo ? 'active' : ''}
+              onClick={this.changeLocationPage.bind(this, lastCanGo, lastPage)}
+            >
+              &lt;
+            </span>
+            <span
+              className={nextCanGo ? 'active' : ''}
+              onClick={this.changeLocationPage.bind(this, nextCanGo, nextPage)}
+            >
+              &gt;
+            </span>
           </div>
         </div>
         <Basicbar {...charts5} />
@@ -665,7 +676,7 @@ class XMD extends BaseView {
           alias: '数量'
         },
         period: {
-          tickCount:6
+          tickCount: 6
         }
       },
       xLabel: {
@@ -683,7 +694,7 @@ class XMD extends BaseView {
         }
       }
     }
-    
+
     const tradeList = translateCountToPercent(customer.tradeList, 'tradeCount')
     //客户分布情况
     const charts8 = {
@@ -736,6 +747,7 @@ class XMD extends BaseView {
       padding: 'auto',
       field: 'rateCount',
       legend: true,
+      hideLabel: true,
       dimension: 'rate',
       innerRadius: 0.7,
       cols: {
@@ -754,6 +766,7 @@ class XMD extends BaseView {
       forceFit: true,
       innerRadius: 0.7,
       legend: true,
+      hideLabel: true,
       padding: 'auto',
       field: 'measureCount',
       dimension: 'measureName',
@@ -789,7 +802,10 @@ class XMD extends BaseView {
               <span>巡检仪上线数</span>
               <Basicline {...charts2} />
             </div>
-            {this.renderLocationInfoCharts(xmdInstall.areaList,leftChartHeight)}
+            {this.renderLocationInfoCharts(
+              xmdInstall.areaList,
+              leftChartHeight
+            )}
           </div>
         </div>
         <div className="center-content">
@@ -978,6 +994,7 @@ class XMD extends BaseView {
       legend: true,
       innerRadius: 0.7,
       dimension: 'rate',
+      hideLabel: true,
       cols: {
         percent: {
           formatter: val => {
@@ -997,6 +1014,7 @@ class XMD extends BaseView {
       padding: 'auto',
       field: 'measureCount',
       dimension: 'measureName',
+      hideLabel: true,
       cols: {
         percent: {
           formatter: val => {
@@ -1073,7 +1091,7 @@ class XMD extends BaseView {
             </div>
           </div>
         </div>
-        <div className="side-content content_box spec" style={{width:'45%'}}>
+        <div className="side-content content_box spec" style={{ width: '45%' }}>
           {this.renderTable(1, xmdEventTable.rateList)}
         </div>
       </div>

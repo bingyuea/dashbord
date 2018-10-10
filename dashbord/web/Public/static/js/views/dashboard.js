@@ -188,7 +188,7 @@ class Dashboard extends BaseView {
     provinceEventCountModel.excute(
       res => {
         const resData = res || {}
-        const listData = resData.eventList || [];
+        const listData = resData.eventList || []
         self.setState({
           provinceEventCountData: self.formatProvinceEventCount(
             listData,
@@ -210,8 +210,8 @@ class Dashboard extends BaseView {
       target = {}
     list.forEach(item => {
       target = {}
-      target.name = item[filedsName];
-      (item.detail || []).forEach(detailItem => {
+      target.name = item[filedsName]
+      ;(item.detail || []).forEach(detailItem => {
         target[detailItem[key]] = detailItem[value]
       })
       newList.push(target)
@@ -253,30 +253,30 @@ class Dashboard extends BaseView {
   //       trade4:0,
   //     }
   //     target = $.extend(detail, item);
-      
+
   //     newList.push(target);
   //   })
   //   console.log(newList)
 
   //   return newList
   // }
-   formatProvinceEventCountRadar(list){
+  formatProvinceEventCountRadar(list) {
     if (!list) {
       return []
     }
-    let tempList = [],target = {};
+    let tempList = [],
+      target = {}
 
-    list.forEach(item=>{
-      target = {};
-      target.name = item.trade;
-      (item.detail || []).forEach(detailItem=>{
-        target[detailItem.eventName] = detailItem.count;
+    list.forEach(item => {
+      target = {}
+      target.name = item.trade
+      ;(item.detail || []).forEach(detailItem => {
+        target[detailItem.eventName] = detailItem.count
       })
-      tempList.push(target);
+      tempList.push(target)
     })
     return tempList
   }
-
 
   getFields(list) {
     if (!list) {
@@ -410,7 +410,7 @@ class Dashboard extends BaseView {
       forceFit: true,
       padding: 'auto',
       radius: 1,
-
+      hideLabel: true,
       field: 'count',
       dimension: 'name',
       cols: {
@@ -430,6 +430,7 @@ class Dashboard extends BaseView {
       forceFit: true,
       padding: 'auto',
       radius: 1,
+      hideLabel: true,
       field: 'count',
       dimension: 'rate',
       cols: {
@@ -520,7 +521,7 @@ class Dashboard extends BaseView {
     return <MeunTitle />
   }
 
-  mapcb(name, option, instance){
+  mapcb(name, option, instance) {
     console.log(name)
     console.log(option)
     console.log(instance)
@@ -555,7 +556,11 @@ class Dashboard extends BaseView {
           </div>
         </div>
         <div className="section-content map">
-          <ChinaMapEcharts mapData={mapData}  goDownCallBack= {this.mapcb.bind(this)} goDown={true}/>
+          <ChinaMapEcharts
+            mapData={mapData}
+            goDownCallBack={this.mapcb.bind(this)}
+            goDown={true}
+          />
           <div className="bottom-txt">中国电力科学研究院</div>
         </div>
       </div>
@@ -592,6 +597,7 @@ class Dashboard extends BaseView {
       },
       radius: 0.9,
       forceFit: true,
+      hideLabel: true,
       padding: 'auto',
       field: 'count',
       dimension: 'eventName',
@@ -612,6 +618,7 @@ class Dashboard extends BaseView {
       radius: 0.9,
       forceFit: true,
       padding: 'auto',
+      hideLabel: true,
       legend: {
         position: 'bottom-center',
         textStyle: {
@@ -637,7 +644,7 @@ class Dashboard extends BaseView {
       value: '上报数量',
       fieldsName: 'name',
       forceFit: true,
-      hideTooltip:true,
+      hideTooltip: true,
       legend: {
         position: 'top-center',
         marker: 'circle',
@@ -672,7 +679,7 @@ class Dashboard extends BaseView {
       height: chartHeight,
       padding: 'auto',
       xAxis: 'name',
-      fields:this.getFields(tradeEventCountMData),
+      fields: this.getFields(tradeEventCountMData),
       forceFit: false,
       style: {
         overflow: 'hidden'
