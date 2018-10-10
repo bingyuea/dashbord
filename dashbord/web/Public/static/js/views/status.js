@@ -20,6 +20,11 @@ const { MonthPicker } = DatePicker
 import { Menu, Dropdown, Icon } from 'antd'
 
 import MeunTitle from '../ui/ui.menuTitle'
+
+import {
+  uniqueArr
+} from '../util/util'
+
 //异常数据统计
 import {
   QuerySecondLoopExceptionDetailData,
@@ -176,13 +181,19 @@ class Status extends BaseView {
     // console.log(instance)
     // this.fetchGetTopTenOfSecondLoopException({ province: name })
     if (name === '中国') {
-      name = '全国'
+      name = ''
     }
     let { date } = this.state.date
     this.setState({
-      province: name
+      province: name,
+      averageList:null,
+      rangeList:null
     })
     this.fetchGetTopTenOfSecondLoopExceptionTop({
+      province: name,
+      date
+    })
+    this.fetchGetTopTenOfSecondLoopException({
       province: name,
       date
     })
@@ -193,12 +204,17 @@ class Status extends BaseView {
     const flag = province == name || false;
     this.setState({
       province:name,
-      exceptionDataObj:null
+      rangeList:null,
+      averageList:null
     },()=>{
       if(!flag){
         let { date } = this.state.date;
         this.fetchGetTopTenOfSecondLoopExceptionTop({
-          province: name === '中国'?'全国':name,
+          province: name === '中国'?'':name,
+          date
+        })
+        this.fetchGetTopTenOfSecondLoopException({
+          province: name,
           date
         })  
       }
@@ -207,14 +223,26 @@ class Status extends BaseView {
 
   renderPageOneCenter() {
     const rangeList = this.state.rangeList || {}
-    console.log(rangeList)
-    const dataList = rangeList.rangeList
-    // if(!dataList){return};
-    var newList = [],
-      target
+    const dataList = rangeList.dataList || [];
+    if(!dataList){return};
+
+
+    var newList = [];
+    let provinceList  = dataList.map(item=>{
+      return item.province
+    })
+
+    provinceList = uniqueArr(provinceList);
+
+    let mapData = provinceList.map(item=>{
+      return {
+        city:item,
+        name:item,
+        userValue:''
+      }
+    })
 
     //需要格式地图数据
-    const mapData = []
 
     return (
       <div className="page-center">
@@ -419,6 +447,7 @@ class Status extends BaseView {
       yAxis: 'average',
       forceFit: true,
       padding: 'auto',
+      hideTooltip:true,
       plotClickCb: this.plotClickCb.bind(this),
       cols: {
         sales: {
@@ -579,22 +608,22 @@ class Status extends BaseView {
     // this.fetchGetTopTenOfSecondLoopException({ province: name })
   }
   renderPageTwoCenter() {
-    const mapData = [
-      {
-        city: '山西',
-        name: '山西',
-        userValue: 48.708
-      }
-    ]
-
+    const detailData = this.state.detailData || {};
+    const info = detailData.dataList || {};
+    const mapData = [{
+      city:info.province,
+      name:info.province,
+      userValue:''
+    }];
     return (
       <div className="page-center">
         <div className="section-content map ">
-          {/* <ChinaMapEcharts mapData={mapData} domId={'pageTwoMap'} /> */}
           <ChinaMapEcharts
             mapData={mapData}
             domId={'pageTwoMap'}
-            goDownCallBack={this.mapcb.bind(this)}
+            provinceName={this.state.province || '中国'}
+            hideMapName={true}
+            goDown={false}
           />
         </div>
       </div>
