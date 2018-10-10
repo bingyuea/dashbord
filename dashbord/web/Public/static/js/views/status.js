@@ -313,6 +313,19 @@ class Status extends BaseView {
     )
   }
 
+  plotClickCb(data) {
+    console.log(data)
+    let { pageIdx } = this.state || {}
+    let averageClick
+    if (pageIdx === 1) {
+      averageClick = data._origin.grade
+    } else {
+      averageClick = data._origin.average
+    }
+    this.setState({
+      averageClick
+    })
+  }
   renderRightCommon() {
     let { averageList, averageClick, pageIdx, detailData } = this.state || {}
     let averageDataList, average, averageTrend, monthChain, monthChainTrend
@@ -320,12 +333,10 @@ class Status extends BaseView {
     if (pageIdx === 1) {
       detailData = detailData && detailData.dataList
       let { grade, gradeTrend, ranking, rankingTrend } = detailData || {}
-
+      averageDataList = detailData.gradeList || []
       // 平均分
       // 如果state 里面有点击的值取 点击的值
-      console.log('averageClick' + averageClick)
       average = averageClick || grade || 0
-      console.log('average' + average)
       averageTrend = gradeTrend || 0
       monthChain = ranking || 0
       monthChainTrend = rankingTrend || 0
@@ -390,6 +401,7 @@ class Status extends BaseView {
       forceFit: true,
       hideTooltip: true,
       padding: 'auto',
+      plotClickCb: this.plotClickCb.bind(this),
       cols: {
         sales: {
           alias: 'date'
