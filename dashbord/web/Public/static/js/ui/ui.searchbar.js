@@ -63,8 +63,20 @@ class SearchBar extends Component {
         </Option>
       )
     })
-    let defaultValue = item.key == 'city' ? '城市' : '请选择'
-    defaultValue = item.key == 'province' ? item.options[0].value : '请选择'
+    let defaultValue = '请选择';
+    switch (item.key){
+      case 'city' : 
+        defaultValue = '城市';
+        break;
+      case 'province' : 
+        defaultValue = item.options[0].value;
+        break;
+      case 'subject' :
+        defaultValue = item.options[0].value;
+        break;
+      default :
+        defaultValue = '请选择';
+    }
     // const dropdownClassName = item.key == 'city' ? 'city-select':'';
     const dropdownClassName = item.key !== 'province' ? 'city-select' : ''
 
