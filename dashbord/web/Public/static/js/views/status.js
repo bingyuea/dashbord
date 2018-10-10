@@ -118,7 +118,9 @@ class Status extends BaseView {
   //切换轮播的回调,idx:当前轮播的页面idx
   afterSlickChange(idx) {
     this.setState({
-      pageIdx: idx
+      pageIdx: idx,
+      // 是每次切换更新值
+      averageClick: undefined
     })
     // 这里给一个默认的值 如果是点击也会走这里需要区别（如果state里面有pageTwoParam）
     //pagetwo
@@ -313,19 +315,31 @@ class Status extends BaseView {
     )
   }
 
+  plotClickCb(data) {
+    console.log(data)
+    let { pageIdx } = this.state || {}
+    let averageClick
+    if (pageIdx === 1) {
+      averageClick = data._origin.grade
+    } else {
+      averageClick = data._origin.average
+    }
+    this.setState({
+      averageClick
+    })
+  }
   renderRightCommon() {
     let { averageList, averageClick, pageIdx, detailData } = this.state || {}
     let averageDataList, average, averageTrend, monthChain, monthChainTrend
     // page-9
     if (pageIdx === 1) {
       detailData = detailData && detailData.dataList
+      console.log(detailData)
       let { grade, gradeTrend, ranking, rankingTrend } = detailData || {}
-
+      averageDataList = (detailData && detailData.gradeList) || []
       // 平均分
       // 如果state 里面有点击的值取 点击的值
-      console.log('averageClick' + averageClick)
       average = averageClick || grade || 0
-      console.log('average' + average)
       averageTrend = gradeTrend || 0
       monthChain = ranking || 0
       monthChainTrend = rankingTrend || 0
@@ -389,6 +403,7 @@ class Status extends BaseView {
       yAxis: 'average',
       forceFit: true,
       padding: 'auto',
+      plotClickCb: this.plotClickCb.bind(this),
       cols: {
         sales: {
           alias: 'date'
