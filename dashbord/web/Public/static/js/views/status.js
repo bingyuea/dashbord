@@ -297,7 +297,8 @@ class Status extends BaseView {
   }
 
   renderRightCommon() {
-    let { averageList } = this.state || {}
+    let { averageList, averageClick } = this.state || {}
+
     averageList = averageList && averageList.dataList
     // averageList = {
     //   result: 1,
@@ -316,11 +317,13 @@ class Status extends BaseView {
     // }
     // 平均分
     let averageDataList = (averageList && averageList.dataList) || []
-    let average = (averageList && averageList.average) || 0
+    // 如果state 里面有点击的值取 点击的值
+    console.log('averageClick' + averageClick)
+    let average = averageClick || (averageList && averageList.average) || 0
+    console.log('average' + average)
     let averageTrend = (averageList && averageList.averageTrend) || 0
     let monthChain = (averageList && averageList.monthChain) || 0
     let monthChainTrend = (averageList && averageList.monthChainTrend) || 0
-
     let averageChartsData = [
       {
         name: '以往',

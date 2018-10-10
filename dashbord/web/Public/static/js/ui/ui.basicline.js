@@ -29,9 +29,6 @@ class BasicLine extends React.Component {
           <Chart
             placeholder={<div className="no-data">暂无数据</div>}
             height={this.props.height}
-            onPlotClick={ev => {
-              console.log(ev)
-            }}
           />
         </div>
       )
@@ -49,7 +46,7 @@ class BasicLine extends React.Component {
         stroke: 'rgba(255,255,255,.1)'
       }
     }
-
+    let _this = this
     return (
       <div>
         <Chart
@@ -60,6 +57,21 @@ class BasicLine extends React.Component {
           }
           {...this.props}
           scale={this.props.cols}
+          onPlotClick={ev => {
+            // console.log(ev)
+            // console.log(ev.data)
+            if (ev.data && ev.data._origin) {
+              let data = ev.data._origin
+              let average = data.average
+              console.log(this)
+              console.log(_this)
+
+              _this.setState({
+                averageClick: average
+              })
+              console.log(average)
+            }
+          }}
         >
           <Axis
             name={this.props.xAxis}
