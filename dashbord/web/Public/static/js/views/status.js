@@ -72,7 +72,7 @@ class Status extends BaseView {
         })
       },
       err => {
-        console.log(err)
+        
       }
     )
   }
@@ -89,7 +89,7 @@ class Status extends BaseView {
         })
       },
       err => {
-        console.log(err)
+        
       }
     )
   }
@@ -111,7 +111,7 @@ class Status extends BaseView {
         })
       },
       err => {
-        console.log(err)
+        
       }
     )
   }
@@ -124,7 +124,7 @@ class Status extends BaseView {
     })
     // 这里给一个默认的值 如果是点击也会走这里需要区别（如果state里面有pageTwoParam）
     //pagetwo
-    console.log(idx)
+    
     if (idx === 1) {
       let serialNum, elecSerialNum
       if (this.state.pageTwoParam) {
@@ -153,7 +153,7 @@ class Status extends BaseView {
   }
 
   provinceClick(params) {
-    console.log(params)
+    
     let province = params.name
     if (province === '中国') {
       province = '全国'
@@ -169,6 +169,7 @@ class Status extends BaseView {
       date
     })
   }
+
   mapcbPageOne(name, option, instance) {
     // console.log(name)
     // console.log(option)
@@ -186,9 +187,27 @@ class Status extends BaseView {
       date
     })
   }
+
+  mapNameClickPageOne(name){
+    const province = this.state.province;
+    const flag = province == name || false;
+    this.setState({
+      province:name,
+      exceptionDataObj:null
+    },()=>{
+      if(!flag){
+        let { date } = this.state.date;
+        this.fetchGetTopTenOfSecondLoopExceptionTop({
+          province: name === '中国'?'全国':name,
+          date
+        })  
+      }
+    })
+  }
+
   renderPageOneCenter() {
     const rangeList = this.state.rangeList || {}
-
+    console.log(rangeList)
     const dataList = rangeList.rangeList
     // if(!dataList){return};
     var newList = [],
@@ -203,10 +222,11 @@ class Status extends BaseView {
           {/* <ChinaMapEcharts mapData={mapData} domId={'pageOneMap'} /> */}
           <ChinaMapEcharts
             mapData={mapData}
+            provinceName={this.state.province}
+            hideMapName={true}
+            mapNameClick={this.mapNameClickPageOne.bind(this)}
             goDown={true}
-            domId={'pageOneMap'}
             goDownCallBack={this.mapcbPageOne.bind(this)}
-            // provinceClick={this.provinceClick.bind(this)}
           />
         </div>
       </div>
@@ -316,7 +336,6 @@ class Status extends BaseView {
   }
 
   plotClickCb(data) {
-    console.log(data)
     let { pageIdx } = this.state || {}
     let averageClick
     if (pageIdx === 1) {
@@ -334,7 +353,6 @@ class Status extends BaseView {
     // page-9
     if (pageIdx === 1) {
       detailData = detailData && detailData.dataList
-      console.log(detailData)
       let { grade, gradeTrend, ranking, rankingTrend } = detailData || {}
       averageDataList = (detailData && detailData.gradeList) || []
       // 平均分
@@ -364,9 +382,7 @@ class Status extends BaseView {
       // 平均分
       averageDataList = (averageList && averageList.dataList) || []
       // 如果state 里面有点击的值取 点击的值
-      console.log('averageClick' + averageClick)
       average = averageClick || (averageList && averageList.average) || 0
-      console.log('average' + average)
       averageTrend = (averageList && averageList.averageTrend) || 0
       monthChain = (averageList && averageList.monthChain) || 0
       monthChainTrend = (averageList && averageList.monthChainTrend) || 0

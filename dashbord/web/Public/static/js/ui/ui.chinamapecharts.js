@@ -13,13 +13,15 @@ class ChinaMapEcharts extends React.Component {
   showMap(){
     const self = this;
     const mapData = this.props.mapData;
-    echarts.registerMap('中国', cityMap['中国']);
+    const provinceName = this.props.provinceName || '中国';
+    echarts.registerMap(provinceName, cityMap[provinceName]);
     
     if(!mapData){return false}
     var myChart = echarts.extendsMap(this.props.domId || 'mapContent', {
         bgColor: 'rgba(0,0,0,0)', // 画布背景色
-        mapName: '中国', // 地图名
+        mapName: provinceName, // 地图名
         text:'',
+        hideMapName:self.props.hideMapName,
         goDown: self.props.goDown || false, // 是否下钻
         // 下钻回调
         callback: function(name, option, instance) {
@@ -48,10 +50,20 @@ class ChinaMapEcharts extends React.Component {
     });
   }
 
+  mapNameClick(name){
+    this.props.mapNameClick && this.props.mapNameClick(name);
+  }
+
   render() {
-    
+    const cls = this.props.hideMapName?'map-btn':'hide';
     return (
-      <div id={this.props.domId || 'mapContent'} style={{height:'100%'}}>{this.showMap()}</div>
+        <div className='map-box'>
+            <div className={cls}>
+                <span className='map-name' onClick={this.mapNameClick.bind(this,'中国')}>中国</span>
+                {this.props.provinceName !== '中国'?<span className='map-name' onClick={this.mapNameClick.bind(this,this.props.provinceName)}>{this.props.provinceName}</span>:''}
+            </div>
+            <div id={this.props.domId || 'mapContent'} style={{height:'100%'}}>{this.showMap()}</div>
+        </div>
     )
   }
 }

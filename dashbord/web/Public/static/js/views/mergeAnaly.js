@@ -216,7 +216,17 @@ class MergeAnaly extends BaseView {
 
   /**************   pageOne    *******************/
   renderPageCenter() {
-    const mapData = this.state.mapData || []
+    let mapData = this.state.mapData || [];
+    let count = 0;
+    const provinceName = this.state.provinceName;
+    if(provinceName !== '中国' && provinceName){
+      mapData = [{
+        city:provinceName,
+        name:provinceName,
+        userValue:''
+      }];
+    };
+
 
     let _this = this
     return (
@@ -229,6 +239,9 @@ class MergeAnaly extends BaseView {
           /> */}
           <ChinaMapEcharts
             mapData={mapData}
+            provinceName={this.state.provinceName}
+            hideMapName={true}
+            mapNameClick={this.mapNameClick.bind(this)}
             goDown={true}
             goDownCallBack={this.mapcb.bind(this)}
           />
@@ -236,14 +249,36 @@ class MergeAnaly extends BaseView {
       </div>
     )
   }
-  mapcb(name, option, instance) {
-    if (name === '中国') {
-      name = '全国'
-    }
-    
-    this.fetchQueryElecCurrentData({
-      range: name
+
+  mapNameClick(mapName){
+    const provinceName = this.state.provinceName;
+    const flag = provinceName == mapName || false;
+    this.setState({
+      provinceName:mapName,
+      exceptionDataObj:null
+    },()=>{
+      if(!flag){
+        this.fetchQueryElecCurrentData({
+          range: mapName === '中国'?'全国':mapName
+        })  
+      }
     })
+  }
+
+  mapcb(name, option, instance) {
+    const provinceName = this.state.provinceName;
+    if(provinceName == name ){return}
+    this.setState({
+      provinceName:name,
+      exceptionDataObj:null
+    },()=>{
+      if (name === '中国') {
+        name = '全国'
+      }
+      this.fetchQueryElecCurrentData({
+        range: name
+      })  
+    });
   }
 
   renderRank(list) {
@@ -485,7 +520,6 @@ class MergeAnaly extends BaseView {
   }
 
   getThemeData(sourceData, nameList) {
-    console.log(sourceData)
     if (nameList.length > 0) {
       let arr = []
       nameList.forEach((ele, index) => {
@@ -567,8 +601,6 @@ class MergeAnaly extends BaseView {
         return (item.name = dataTemplate[item.name])
       })
     }
-
-    console.log(data)
 
     periodListCharts = {
       data: periodList,

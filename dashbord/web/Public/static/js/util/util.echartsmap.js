@@ -62,44 +62,46 @@ echarts.extendsMap = function(id, opt) {
        **/
       resetOption: function(i, o, n) {
           var breadcrumb = this.createBreadcrumb(n);
-          var j = name.indexOf(n);
-          var l = o.graphic.length;
-          if (j < 0) {
-              o.graphic.push(breadcrumb);
-              o.graphic[0].children[0].shape.x2 = 145;
-              o.graphic[0].children[1].shape.x2 = 145;
-              if (o.graphic.length > 2) {
-                  var cityData = [];
-                  var cityJson;
-                  for (var x = 0; x < opt.data.length; x++) {
-                      if(n === opt.data[x].city){
-                          $([opt.data[x]]).each(function(index,data){
-                              cityJson = {city:data.city,name:data.name,value:data.value}
-                              cityData.push(cityJson)
-                          }) 
-                      }
-                  }
-                  
-                  if(cityData!=null){
-                      o.series[0].data = handleEvents.initSeriesData(cityData);
-                  }else{
-                      o.series[0].data = [];
-                  }
-              }
-              name.push(n);
-              idx++;
-          } else {
-              o.graphic.splice(j + 2, l);
-              if (o.graphic.length <= 2) {
-                  o.graphic[0].children[0].shape.x2 = 60;
-                  o.graphic[0].children[1].shape.x2 = 60;
-                  o.series[0].data = handleEvents.initSeriesData(opt.data);
-              };
-              name.splice(j + 1, l);
-              idx = j;
-              
-              pos.leftCur -= pos.leftPlus * (l - j - 1);
-          };
+          if(o.graphic){
+            var j = name.indexOf(n);
+            var l = o.graphic.length;
+            if (j < 0) {
+                o.graphic.push(breadcrumb);
+                o.graphic[0].children[0].shape.x2 = 145;
+                o.graphic[0].children[1].shape.x2 = 145;
+                if (o.graphic.length > 2) {
+                    var cityData = [];
+                    var cityJson;
+                    for (var x = 0; x < opt.data.length; x++) {
+                        if(n === opt.data[x].city){
+                            $([opt.data[x]]).each(function(index,data){
+                                cityJson = {city:data.city,name:data.name,value:data.value}
+                                cityData.push(cityJson)
+                            }) 
+                        }
+                    }
+                    
+                    if(cityData!=null){
+                        o.series[0].data = handleEvents.initSeriesData(cityData);
+                    }else{
+                        o.series[0].data = [];
+                    }
+                }
+                name.push(n);
+                idx++;
+            } else {
+                o.graphic.splice(j + 2, l);
+                if (o.graphic.length <= 2) {
+                    o.graphic[0].children[0].shape.x2 = 60;
+                    o.graphic[0].children[1].shape.x2 = 60;
+                    o.series[0].data = handleEvents.initSeriesData(opt.data);
+                };
+                name.splice(j + 1, l);
+                idx = j;
+                
+                pos.leftCur -= pos.leftPlus * (l - j - 1);
+            };
+          }
 
           o.geo.map = n;
           o.geo.zoom = 0.4;
@@ -261,89 +263,10 @@ echarts.extendsMap = function(id, opt) {
         enterable:true,
         position:['60%','70%'],
         formatter:function(params, ticket, callback){
-            return '省份：'+params.data.name+'<br/>'+'数量：'+params.data.userValue
+            var txt = params.data.userValue?' : '+params.data.userValue:'';
+            return params.data.name+txt
         }
       },
-      graphic: [{
-          type: 'group',
-          left: pos.left,
-          top: pos.top - 4,
-          children: [{
-              type: 'line',
-              left: 0,
-              top: -20,
-              shape: {
-                  x1: 0,
-                  y1: 0,
-                  x2: 60,
-                  y2: 0
-              },
-              style: {
-                  stroke: style.lineTopColor,
-              }
-          }, {
-              type: 'line',
-              left: 0,
-              top: 10,
-              shape: {
-                  x1: 0,
-                  y1: 0,
-                  x2: 60,
-                  y2: 0
-              },
-              style: {
-                  stroke: style.lineBottomColor,
-              }
-          }]
-      }, 
-      {
-          id: name[idx],
-          type: 'group',
-          left: pos.left + 2,
-          top: pos.top,
-          children: [{
-              type: 'polyline',
-              left: 90,
-              top: -12,
-              shape: {
-                  points: line
-              },
-              style: {
-                  stroke: 'transparent',
-                  key: name[0]
-              },
-              onclick: function() {
-                  var name = this.style.key;
-                  handleEvents.resetOption(chart, option, name);
-              }
-          }, {
-              type: 'text',
-              left: 0,
-              top: 'middle',
-              style: {
-                  text: '中国',
-                  textAlign: 'center',
-                  fill: style.textColor,
-                  font: style.font
-              },
-              onclick: function() {
-                  handleEvents.resetOption(chart, option, '中国');
-              }
-          }, {
-              type: 'text',
-              left: 0,
-              top: 10,
-              style: {
-                  // text: 'China',
-                  textAlign: 'center',
-                  fill: style.textColor,
-                  font: '12px "Microsoft YaHei", sans-serif',
-              },
-              onclick: function() {
-                  handleEvents.resetOption(chart, option, '中国');
-              }
-          }]
-      }],
       geo: {
           map: opt.mapName,
           roam: true,
@@ -443,6 +366,89 @@ echarts.extendsMap = function(id, opt) {
           data: handleEvents.initSeriesData(opt.data)
       }]
   };
+
+  if(!opt.hideMapName){
+    option.graphic = [{
+          type: 'group',
+          left: pos.left,
+          top: pos.top - 4,
+          children: [{
+              type: 'line',
+              left: 0,
+              top: -20,
+              shape: {
+                  x1: 0,
+                  y1: 0,
+                  x2: 60,
+                  y2: 0
+              },
+              style: {
+                  stroke: style.lineTopColor,
+              }
+          }, {
+              type: 'line',
+              left: 0,
+              top: 10,
+              shape: {
+                  x1: 0,
+                  y1: 0,
+                  x2: 60,
+                  y2: 0
+              },
+              style: {
+                  stroke: style.lineBottomColor,
+              }
+          }]
+      }, 
+      {
+          id: name[idx],
+          type: 'group',
+          left: pos.left + 2,
+          top: pos.top,
+          children: [{
+              type: 'polyline',
+              left: 90,
+              top: -12,
+              shape: {
+                  points: line
+              },
+              style: {
+                  stroke: 'transparent',
+                  key: name[0]
+              },
+              onclick: function() {
+                  var name = this.style.key;
+                  handleEvents.resetOption(chart, option, name);
+              }
+          }, {
+              type: 'text',
+              left: 0,
+              top: 'middle',
+              style: {
+                  text: '中国',
+                  textAlign: 'center',
+                  fill: style.textColor,
+                  font: style.font
+              },
+              onclick: function() {
+                  handleEvents.resetOption(chart, option, '中国');
+              }
+          }, {
+              type: 'text',
+              left: 0,
+              top: 10,
+              style: {
+                  // text: 'China',
+                  textAlign: 'center',
+                  fill: style.textColor,
+                  font: '12px "Microsoft YaHei", sans-serif',
+              },
+              onclick: function() {
+                  handleEvents.resetOption(chart, option, '中国');
+              }
+          }]
+    }];
+  }
 
   chart.setOption(option);
   // 添加事件
