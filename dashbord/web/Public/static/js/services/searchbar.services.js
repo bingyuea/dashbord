@@ -163,7 +163,6 @@ function fetchThemeList(cb){
 		const resData = res || {};
 		const list = resData.exceptionList || [];
 		const param = {
-			defaultDesc:'请选择主题类型',
 			list:list,	//原数据
 			descKey:'name',
 			valueKey:'subject'

@@ -97,6 +97,10 @@ class MergeAnaly extends BaseView {
     if (!_value.province) {
       _value.province = this.state.searchOptions.provinceOpts[0].value
     }
+    
+    if (!_value.subject) {
+      _value.subject = this.state.searchOptions.themeOpts[0].value
+    }
 
     if (!_value.startTime) {
       _value.startTime = this.indata.defaultTime[0]

@@ -224,7 +224,7 @@ class XMD extends BaseView {
       pageTwo: null
     })
     //拿到搜索需要参数
-    let _value = value || {}
+    let _value = value || {};
     if (!_value.province) {
       _value.province = this.state.searchOptions.provinceOpts[0].value
     }
@@ -436,6 +436,8 @@ class XMD extends BaseView {
     if (!this.state.searchOptions) {
       return false
     }
+
+    console.log(this.state.searchOptions)
 
     const barOptions = {
       locationData: {
@@ -746,7 +748,7 @@ class XMD extends BaseView {
       forceFit: true,
       padding: 'auto',
       field: 'rateCount',
-      legend: true,
+      // legend: true,
       hideLabel: true,
       dimension: 'rate',
       innerRadius: 0.7,
@@ -765,7 +767,7 @@ class XMD extends BaseView {
       height: centerChartHeight,
       forceFit: true,
       innerRadius: 0.7,
-      legend: true,
+      // legend: true,
       hideLabel: true,
       padding: 'auto',
       field: 'measureCount',
@@ -999,7 +1001,7 @@ class XMD extends BaseView {
       forceFit: true,
       padding: 'auto',
       field: 'rateCount',
-      legend: true,
+      // legend: true,
       innerRadius: 0.7,
       dimension: 'rate',
       hideLabel: true,
@@ -1017,7 +1019,7 @@ class XMD extends BaseView {
       data: measureEvent.rateList,
       height: centerChartHeight,
       forceFit: true,
-      legend: true,
+      // legend: true,
       innerRadius: 0.7,
       padding: 'auto',
       field: 'measureCount',
