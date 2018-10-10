@@ -424,18 +424,7 @@ class MergeAnaly extends BaseView {
                 <h6 className="h6 flex">用户</h6>
                 <h6 className="h6 flex">评估值</h6>
               </div>
-              <div className="scrollList">
-                <div
-                  className={
-                    exceptionData.elecExecRanking &&
-                    exceptionData.elecExecRanking.length > 2
-                      ? ['scroll-body']
-                      : ['']
-                  }
-                >
-                  {this.renderRank(exceptionData.elecExecRanking)}
-                </div>
-              </div>
+              {this.renderRank(exceptionData.elecExecRanking)}
             </div>
           </div>
         </div>
