@@ -75,9 +75,12 @@ class MergeAnaly extends BaseView {
     const self = this
     const mapProvinceName = this.state.mapProvinceName
     const mapData = this.state.mapData
-    queryElecCurrentData.setParam({
-      ...params
-    })
+    queryElecCurrentData.setParam(
+      {
+        ...params
+      },
+      true
+    )
     queryElecCurrentData.excute(
       res => {
         const exceptionDataObj = res || {}
@@ -119,7 +122,7 @@ class MergeAnaly extends BaseView {
   // 异常事件总数查询
   fetchQueryExceptionCount(value) {
     let self = this
-    queryExceptionCount.setParam({ ...value })
+    queryExceptionCount.setParam({ ...value }, true)
     queryExceptionCount.excute(
       res => {
         let pageTwo = self.state.pageTwo || {}
@@ -135,9 +138,12 @@ class MergeAnaly extends BaseView {
   // 异常事件数量变化趋势
   fetchQueryExceptionByTime(value) {
     let self = this
-    queryExceptionByTime.setParam({
-      ...value
-    })
+    queryExceptionByTime.setParam(
+      {
+        ...value
+      },
+      true
+    )
     queryExceptionByTime.excute(
       res => {
         let pageTwo = self.state.pageTwo || {}
@@ -162,9 +168,12 @@ class MergeAnaly extends BaseView {
     //   startTime: '2011-01-01',
     //   endTime: '2019-01-1'
     // }
-    querySecondLoopExceptionCount.setParam({
-      ...value
-    })
+    querySecondLoopExceptionCount.setParam(
+      {
+        ...value
+      },
+      true
+    )
     querySecondLoopExceptionCount.excute(
       res => {
         let pageTwo = self.state.pageTwo || {}

@@ -63,7 +63,7 @@ class Status extends BaseView {
   // 排行榜
   fetchGetTopTenOfSecondLoopExceptionTop(value) {
     let self = this
-    getTopTenOfSecondLoopExceptionTop.setParam({ ...value })
+    getTopTenOfSecondLoopExceptionTop.setParam({ ...value }, true)
     getTopTenOfSecondLoopExceptionTop.excute(
       res => {
         let rangeList = res || {}
@@ -80,7 +80,7 @@ class Status extends BaseView {
   // 平均分
   fetchGetTopTenOfSecondLoopException(value) {
     let self = this
-    getTopTenOfSecondLoopException.setParam({ ...value })
+    getTopTenOfSecondLoopException.setParam({ ...value }, true)
     getTopTenOfSecondLoopException.excute(
       res => {
         let averageList = res || {}
@@ -102,7 +102,7 @@ class Status extends BaseView {
     //   elecSerialNum: '1410101012212120538038',
     //   date: '2011-05'
     // }
-    querySecondLoopExceptionDetailData.setParam(value)
+    querySecondLoopExceptionDetailData.setParam(value, true)
     querySecondLoopExceptionDetailData.excute(
       res => {
         const resData = res || {}
@@ -388,6 +388,7 @@ class Status extends BaseView {
       xAxis: 'date',
       yAxis: 'average',
       forceFit: true,
+      hideTooltip: true,
       padding: 'auto',
       cols: {
         sales: {
