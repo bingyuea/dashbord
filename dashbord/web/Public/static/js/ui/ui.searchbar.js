@@ -11,15 +11,12 @@ const Option = Select.Option
 const { RangePicker, MonthPicker } = DatePicker
 
 class SearchBar extends Component {
-
-	constructor(props) {
-        super(props);
-        this.state = {
-        	searchValue:{
-                
-            }
-        }
+  constructor(props) {
+    super(props)
+    this.state = {
+      searchValue: {}
     }
+  }
 
   componentDidMount() {
     const self = this
@@ -39,11 +36,11 @@ class SearchBar extends Component {
     })
   }
 
-  rangeOkHandle(date,dateString) {
+  rangeOkHandle(date, dateString) {
     let searchValue = this.state.searchValue
-    
-    searchValue.startTime = dateString[0] + '00:00:00'
-    searchValue.endTime = dateString[1] + '00:00:00'
+
+    searchValue.startTime = dateString[0] + ' 00:00:00'
+    searchValue.endTime = dateString[1] + ' 00:00:00'
     this.setState({
       searchValue: searchValue
     })
@@ -66,11 +63,11 @@ class SearchBar extends Component {
         </Option>
       )
     })
-    let defaultValue = item.key == 'city' ? '城市':'请选择';
-    defaultValue = item.key == 'province' ? item.options[0].value : '请选择';
+    let defaultValue = item.key == 'city' ? '城市' : '请选择'
+    defaultValue = item.key == 'province' ? item.options[0].value : '请选择'
     // const dropdownClassName = item.key == 'city' ? 'city-select':'';
-    const dropdownClassName = item.key !== 'province' ? 'city-select':'';
-    
+    const dropdownClassName = item.key !== 'province' ? 'city-select' : ''
+
     return (
       <Select
         disabled={item.disabled || false}
@@ -88,12 +85,8 @@ class SearchBar extends Component {
       <div className="search-item" style={locationData.style}>
         <div className="title">{locationData.title}</div>
         <div className="select-box double">
-          <div className="left">
-            {this.renderSelect(locationData.province)}
-          </div>
-          <div className="right">
-            {this.renderSelect(locationData.city)}
-          </div>
+          <div className="left">{this.renderSelect(locationData.province)}</div>
+          <div className="right">{this.renderSelect(locationData.city)}</div>
         </div>
       </div>
     )
@@ -111,7 +104,7 @@ class SearchBar extends Component {
 
   //时间范围选择器
   renderDatePicker(item) {
-    const dateFormat = 'YYYY-MM-DD HH:mm'
+    const dateFormat = 'YYYY-MM-DD HH:mm:ss'
     // 这里的item的defaultTime不存在会抛异常
     if (!item.defaultTime) {
       return
@@ -160,7 +153,11 @@ class SearchBar extends Component {
         <div className=" search-btn" onClick={this.searchHandle.bind(this)}>
           查询
         </div>
-        <div className="reset-btn" onClick={this.resetHandle.bind(this)} style={{display:'none'}}>
+        <div
+          className="reset-btn"
+          onClick={this.resetHandle.bind(this)}
+          style={{ display: 'none' }}
+        >
           重置
         </div>
       </div>
