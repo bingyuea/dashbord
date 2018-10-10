@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  G2,
   Chart,
   Geom,
   Axis,
@@ -8,11 +7,7 @@ import {
   Coord,
   Label,
   Legend,
-  View,
   Guide,
-  Shape,
-  Facet,
-  Util
 } from "bizcharts";
 import DataSet from "@antv/data-set";
 

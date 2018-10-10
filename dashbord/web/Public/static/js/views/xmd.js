@@ -247,7 +247,7 @@ class XMD extends BaseView {
   //巡检仪安装情况
   fetchXmdInstall(value) {
     const self = this
-    xmdInstallModel.setParam({ ...value })
+    xmdInstallModel.setParam({ ...value },true)
     xmdInstallModel.excute(
       res => {
         const resData = res || {}
@@ -268,7 +268,7 @@ class XMD extends BaseView {
   //客户分布情况
   fetchCustomerInfo(value) {
     const self = this
-    customerInfoModel.setParam({ ...value })
+    customerInfoModel.setParam({ ...value },true)
     customerInfoModel.excute(
       res => {
         const resData = res || {}
@@ -284,7 +284,7 @@ class XMD extends BaseView {
   //综合倍率
   fetchRate(value) {
     const self = this
-    rateModel.setParam({ ...value })
+    rateModel.setParam({ ...value },true)
     rateModel.excute(
       res => {
         const resData = res || {}
@@ -301,7 +301,7 @@ class XMD extends BaseView {
   //计量类型
   fetchMeasure(value) {
     const self = this
-    measureModel.setParam({ ...value })
+    measureModel.setParam({ ...value },true)
     measureModel.excute(
       res => {
         const resData = res || {}
@@ -318,7 +318,7 @@ class XMD extends BaseView {
   //巡检仪档案table
   fetchXmdTableLis(value) {
     const self = this
-    xmdTableListModel.setParam({ ...value })
+    xmdTableListModel.setParam({ ...value },true)
     xmdTableListModel.excute(
       res => {
         const resData = res || {}
@@ -343,7 +343,7 @@ class XMD extends BaseView {
   //巡检仪上报事件
   fetchXmdEvent(value) {
     const self = this
-    xmdEventModel.setParam({ ...value })
+    xmdEventModel.setParam({ ...value },true)
     xmdEventModel.excute(
       res => {
         const resData = res || {}
@@ -359,7 +359,7 @@ class XMD extends BaseView {
   //事件分布信息
   fetchCustomerXmdEvent(value) {
     const self = this
-    customerXmdEventModel.setParam({ ...value })
+    customerXmdEventModel.setParam({ ...value },true)
     customerXmdEventModel.excute(
       res => {
         const resData = res || {}
@@ -376,7 +376,7 @@ class XMD extends BaseView {
   //two综合倍率
   fetchRateXmdEvent(value) {
     const self = this
-    rateEventModel.setParam({ ...value })
+    rateEventModel.setParam({ ...value },true)
     rateEventModel.excute(
       res => {
         const resData = res || {}
@@ -393,7 +393,7 @@ class XMD extends BaseView {
   //two计量类型
   fetchMeasureXmdEvent(value) {
     const self = this
-    measureEventModel.setParam({ ...value })
+    measureEventModel.setParam({ ...value },true)
     measureEventModel.excute(
       res => {
         const resData = res || {}
@@ -409,7 +409,7 @@ class XMD extends BaseView {
   //two计量类型
   fetcXmdEventTableListEvent(value) {
     const self = this
-    xmdEventTableListModel.setParam({ ...value })
+    xmdEventTableListModel.setParam({ ...value },true)
     xmdEventTableListModel.excute(
       res => {
         const resData = res || {}
@@ -771,7 +771,9 @@ class XMD extends BaseView {
       height: centerChartHeight,
       forceFit: true,
       innerRadius: 0.7,
-      legend: true,
+      legend: {
+        layout:'vertical'
+      },
       hideLabel: true,
       padding: 'auto',
       field: 'measureCount',
