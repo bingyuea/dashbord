@@ -818,7 +818,15 @@ class XMD extends BaseView {
             </div>
             <div className="section-content">
               <span>行业信息</span>
-              <Doubleaxes {...charts8} />
+              <div
+                style={{
+                  display: 'flex',
+                  alignItem: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <Doubleaxes {...charts8} />
+              </div>
             </div>
           </div>
           <div className="bottom">
