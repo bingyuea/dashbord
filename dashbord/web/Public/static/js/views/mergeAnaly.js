@@ -197,13 +197,6 @@ class MergeAnaly extends BaseView {
     return mapData
   }
 
-  provinceClick(params) {
-    const name = params.name
-    this.fetchQueryElecCurrentData({
-      range: name
-    })
-  }
-
   /**************   pageOne    *******************/
   renderPageCenter() {
     const exceptionDataObj = this.state.exceptionDataObj || {}
@@ -214,20 +207,22 @@ class MergeAnaly extends BaseView {
       <div className="page-center">
         <div className="section-content map ">
           {/* <ChinaMapEcharts mapData={mapData} /> */}
+          {/* <ChinaMapEcharts
+            mapData={mapData}
+            provinceClick={this.provinceClick.bind(this)}
+          /> */}
           <ChinaMapEcharts
             mapData={mapData}
-            goDown={false}
-            provinceClick={this.provinceClick.bind(this)}
+            goDownCallBack={this.mapcb.bind(this)}
           />
         </div>
       </div>
     )
   }
-
   mapcb(name, option, instance) {
     console.log(name)
-    // console.log(option)
-    // console.log(instance)
+    console.log(option)
+    console.log(instance)
     if (name === '中国') {
       name = '全国'
     }
@@ -519,9 +514,6 @@ class MergeAnaly extends BaseView {
       }, 0)
     }
 
-    // console.log(totalCount)
-    // console.log(periodList)
-    // console.log(periodListLine)
     let fieldsList = []
     if (periodListLine && periodListLine.length > 0) {
       fieldsList = periodListLine.map(item => {

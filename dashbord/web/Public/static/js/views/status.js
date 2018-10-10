@@ -45,8 +45,8 @@ class Status extends BaseView {
   }
 
   componentDidMount() {
-    // 排行榜
     let { province, date } = this.state || {}
+    // 排行榜
     this.fetchGetTopTenOfSecondLoopExceptionTop({
       province,
       date
@@ -138,14 +138,16 @@ class Status extends BaseView {
   }
 
   provinceClick(params) {
+    console.log(params)
     let province = params.name
     if (province === '中国') {
       province = '全国'
     }
     let { date } = this.state.date
+    localStorage.setItem('province', JSON.stringify(params))
     this.setState({
       province,
-      mapData: params
+      mapData: JSON.parse(localStorage.getItem('province'))
     })
     this.fetchGetTopTenOfSecondLoopExceptionTop({
       province,
@@ -154,27 +156,21 @@ class Status extends BaseView {
   }
 
   renderPageOneCenter() {
-    // const mapData = [
-    //   {
-    //     city: '山西',
-    //     name: '山西',
-    //     userValue: 48.708
-    //   }
-    // ]
-    const mapData = this.state.mapData || [
+    let mapData = JSON.parse(localStorage.getItem('province')) || [
       {
         city: '山西',
         name: '山西',
         userValue: 48.708
       }
     ]
+
     return (
       <div className="page-center">
         <div className="section-content map ">
           {/* <ChinaMapEcharts mapData={mapData} domId={'pageOneMap'} /> */}
           <ChinaMapEcharts
             mapData={mapData}
-            goDown={false}
+            goDown={true}
             domId={'pageOneMap'}
             provinceClick={this.provinceClick.bind(this)}
           />
@@ -197,7 +193,7 @@ class Status extends BaseView {
   onChange(value) {
     value = moment(value).format('YYYY-MM')
     this.setState({
-      changeTime: value
+      date: value
     })
   }
   searchHandle() {
@@ -492,10 +488,10 @@ class Status extends BaseView {
     )
   }
   mapcb(name, option, instance) {
-    console.log(name)
+    // console.log(name)
     // console.log(option)
     // console.log(instance)
-    this.fetchGetTopTenOfSecondLoopException({ province: name })
+    // this.fetchGetTopTenOfSecondLoopException({ province: name })
   }
   renderPageTwoCenter() {
     const mapData = [
