@@ -437,6 +437,8 @@ class XMD extends BaseView {
       return false
     }
 
+    console.log(this.state.searchOptions)
+
     const barOptions = {
       locationData: {
         title: '安装地点',
@@ -746,7 +748,7 @@ class XMD extends BaseView {
       forceFit: true,
       padding: 'auto',
       field: 'rateCount',
-      legend: true,
+      // legend: true,
       hideLabel: true,
       dimension: 'rate',
       innerRadius: 0.7,
@@ -765,7 +767,7 @@ class XMD extends BaseView {
       height: centerChartHeight,
       forceFit: true,
       innerRadius: 0.7,
-      legend: true,
+      // legend: true,
       hideLabel: true,
       padding: 'auto',
       field: 'measureCount',
@@ -991,7 +993,7 @@ class XMD extends BaseView {
       forceFit: true,
       padding: 'auto',
       field: 'rateCount',
-      legend: true,
+      // legend: true,
       innerRadius: 0.7,
       dimension: 'rate',
       hideLabel: true,
@@ -1009,7 +1011,7 @@ class XMD extends BaseView {
       data: measureEvent.rateList,
       height: centerChartHeight,
       forceFit: true,
-      legend: true,
+      // legend: true,
       innerRadius: 0.7,
       padding: 'auto',
       field: 'measureCount',
