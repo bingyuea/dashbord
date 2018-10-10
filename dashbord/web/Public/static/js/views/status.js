@@ -118,7 +118,9 @@ class Status extends BaseView {
   //切换轮播的回调,idx:当前轮播的页面idx
   afterSlickChange(idx) {
     this.setState({
-      pageIdx: idx
+      pageIdx: idx,
+      // 是每次切换更新值
+      averageClick: undefined
     })
     // 这里给一个默认的值 如果是点击也会走这里需要区别（如果state里面有pageTwoParam）
     //pagetwo
