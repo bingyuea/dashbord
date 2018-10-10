@@ -332,8 +332,9 @@ class Status extends BaseView {
     // page-9
     if (pageIdx === 1) {
       detailData = detailData && detailData.dataList
+      console.log(detailData)
       let { grade, gradeTrend, ranking, rankingTrend } = detailData || {}
-      averageDataList = detailData.gradeList || []
+      averageDataList = (detailData && detailData.gradeList) || []
       // 平均分
       // 如果state 里面有点击的值取 点击的值
       average = averageClick || grade || 0
