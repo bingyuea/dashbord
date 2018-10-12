@@ -94,9 +94,9 @@ class Basic extends React.Component {
               alternateColor: "rgba(0, 0, 0,.4)"
             }}
           />
-          <Legend name="user" marker="circle" offset={0} textStyle={{
+          {/*<Legend name="user" marker="circle" offset={0} textStyle={{
             fontSize:8
-          }}/>
+          }}/>*/}
       
           <Geom type="area" position={`${this.props.xAxis}*score`} color="user" />
       

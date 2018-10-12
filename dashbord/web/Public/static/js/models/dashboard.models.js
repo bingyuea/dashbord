@@ -87,6 +87,35 @@ class TradeEventCountModel extends BaseModel {
 		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getEventCountOfTrade';
 	}
 }
+/*
+	安装总数和运行数量
+*/
+class TotalCountModel extends BaseModel {
+	constructor(props) {
+		super(props);
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getTotalCount';
+	}
+}
+
+/*
+	月上报事件数
+*/
+class EventCountofMonthModel extends BaseModel {
+	constructor(props) {
+		super(props);
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getEventCountOfMonth';
+	}
+}
+
+/*
+	有效性
+*/
+class EventValidityModel extends BaseModel {
+	constructor(props) {
+		super(props);
+		this.url = __mei_wei__.env.restfulapi + '/ele/shangcen/xmdplatform/getEventValidity';
+	}
+}
 
 
 
@@ -102,4 +131,7 @@ module.exports = {
 	ValidityEventCountModel: ValidityEventCountModel,
 	ProvinceEventCountModel: ProvinceEventCountModel,
 	TradeEventCountModel: TradeEventCountModel,
+	TotalCountModel: TotalCountModel,
+	EventCountofMonthModel: EventCountofMonthModel,
+	EventValidityModel: EventValidityModel,
 };

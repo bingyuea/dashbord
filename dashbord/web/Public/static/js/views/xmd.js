@@ -180,16 +180,7 @@ class XMD extends BaseView {
   }
 
   componentDidUpdate() {
-    // //获取需要滚动的高度
-    // const scrollHeight = $('.ant-table-body').scrollHeight
-    // //算出需要滚动的时间
-    // console.log(scrollHeight)
-    // if (!scrollHeight) {
-    //   return false
-    // }
-    // const time = scrollHeight / 20
-    // //复制
-    // $('.ant-table-body').attr('style', 'animationDuration:' + time)
+    
   }
 
   formatDate(text, record, index) {
@@ -658,9 +649,9 @@ class XMD extends BaseView {
     if (!domHeight) {
       return false
     }
-    const leftChartHeight = (domHeight - 20 - 21 - 70 - 25 * 2) / 2
-    const centerChartHeight = (domHeight - 15 - 10) / 2 - 20 - 21 - 25
-    // let centerTopHeight = leftChartHeight;
+    const leftChartHeight = (domHeight - 20 - 21 - 70 - 25 * 2) / 2;
+    const centerChartHeight = (domHeight - 15 - 10) / 2 - 30 - 22
+
     //巡检仪上线数
     const charts2 = {
       data: xmdInstall.periodList,
@@ -771,9 +762,7 @@ class XMD extends BaseView {
       height: centerChartHeight,
       forceFit: true,
       innerRadius: 0.7,
-      legend: {
-        layout:'vertical'
-      },
+      legend: true,
       hideLabel: true,
       padding: 'auto',
       field: 'measureCount',
@@ -801,7 +790,7 @@ class XMD extends BaseView {
           </div>
           <div className="total-num has-bg">
             <span className="blue-txt">
-              {totalCount.toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}
+              {totalCount.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}
             </span>
             台
           </div>
@@ -1060,7 +1049,7 @@ class XMD extends BaseView {
           <div className="bottom-section">
             <div className="total-num">
               <span className="blue-txt">
-                {totalCount.toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}
+                {totalCount.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}
               </span>
               件
             </div>

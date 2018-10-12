@@ -22,7 +22,10 @@ import {
   RateCountModel,
   ValidityEventCountModel,
   ProvinceEventCountModel,
-  TradeEventCountModel
+  TradeEventCountModel,
+  TotalCountModel,
+  EventCountofMonthModel,
+  EventValidityModel,
 } from '../models/dashboard.models'
 
 import Mock from '../mock/mock'
@@ -42,7 +45,10 @@ const provinceCountModel = ProvinceCountModel.getInstance(),
   eventCountModel = EventCountModel.getInstance(),
   validityEventCountModel = ValidityEventCountModel.getInstance(),
   provinceEventCountModel = ProvinceEventCountModel.getInstance(),
-  tradeEventCountModel = TradeEventCountModel.getInstance()
+  tradeEventCountModel = TradeEventCountModel.getInstance(),
+  eventValidityModel = EventValidityModel.getInstance(),
+  eventCountofMonthModel = EventCountofMonthModel.getInstance(),
+  totalCountModel = TotalCountModel.getInstance();
 
 class Dashboard extends BaseView {
   constructor(props) {
@@ -68,6 +74,49 @@ class Dashboard extends BaseView {
     this.fetchValidityEventCount()
     this.fetchProvinceEventCount()
     this.fetchTradeEventCount()
+    this.fetchTotalCount()
+    this.fetchEventCountofMonth()
+    this.fetchEventValidity()
+  }
+
+  //有效性
+  fetchEventValidity() {
+    const self = this
+    eventValidityModel.excute(
+      res => {
+        const resData = res || {}
+        self.setState({
+          validity: resData.validity
+        })
+      },
+      err => {}
+    )
+  }
+  //月上报事件数
+  fetchEventCountofMonth() {
+    const self = this
+    eventCountofMonthModel.excute(
+      res => {
+        const resData = res || {}
+        self.setState({
+          mouthCount: resData.count
+        })
+      },
+      err => {}
+    )
+  }
+  //安装总数和运行数量
+  fetchTotalCount() {
+    const self = this
+    totalCountModel.excute(
+      res => {
+        const resData = res || {}
+        self.setState({
+          totalCount: resData.countList
+        })
+      },
+      err => {}
+    )
   }
 
   //不同省份安装情况
@@ -167,9 +216,7 @@ class Dashboard extends BaseView {
   //有效性事件统计  未完
   fetchValidityEventCount() {
     const self = this
-    validityEventCountModel.setParam({
-      eventStatus: 1
-    })
+    
     validityEventCountModel.excute(
       res => {
         const resData = res || {}
@@ -220,46 +267,6 @@ class Dashboard extends BaseView {
     return newList
   }
 
-  // formatProvinceEventCountRadar(list){
-  //   if (!list) {
-  //     return []
-  //   }
-  //   let tempList = [],countKey,target = {};
-
-  //   list.forEach(item=>{
-  //     target = {};
-  //     target.name = item.trade;
-  //     (item.detail || []).forEach(detailItem=>{
-  //       countKey ='trade' + detailItem.eventType;
-  //       target[countKey] = detailItem.count;
-  //     })
-  //     tempList.push(target);
-  //   })
-
-  //   var fields  = this.getFields(tempList);
-  //   var newList = [];
-  //   var detail = {};
-
-  //   fields.forEach(item=>{
-  //     detail[item] = 0;
-  //   })
-
-  //   tempList.forEach(item=>{
-
-  //     var detail = {
-  //       trade1:0,
-  //       trade2:0,
-  //       trade3:0,
-  //       trade4:0,
-  //     }
-  //     target = $.extend(detail, item);
-
-  //     newList.push(target);
-  //   })
-  //   console.log(newList)
-
-  //   return newList
-  // }
   formatProvinceEventCountRadar(list) {
     if (!list) {
       return []
@@ -269,9 +276,10 @@ class Dashboard extends BaseView {
 
     list.forEach(item => {
       target = {}
-      target.name = item.trade
-      ;(item.detail || []).forEach(detailItem => {
-        target[detailItem.eventName] = detailItem.count
+      target.name = item.trade;
+      target.count = 0;
+      (item.detail || []).forEach(detailItem => {
+        target.count += detailItem.count
       })
       tempList.push(target)
     })
@@ -505,7 +513,9 @@ class Dashboard extends BaseView {
   }
 
   renderNum(num) {
-    const temp = num.split('')
+    if(!num[0]){return false};
+    num = num[0].toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+    const temp = num.split('');
     let cls = ''
     return temp.map((item, idx) => {
       cls = item == ',' ? 'num spec' : 'num'
@@ -521,18 +531,15 @@ class Dashboard extends BaseView {
     return <MeunTitle />
   }
 
-  mapcb(name, option, instance) {
-    console.log(name)
-    console.log(option)
-    console.log(instance)
-  }
-
   renderPageCenter() {
-    const { provinceCountData } = this.state || {}
+    const { provinceCountData,totalCount } = this.state || {};
 
-    const mapData = this.formatMapData(provinceCountData)
-    // const mapData = this.formatMapData(Mock.charts1);
-    let _this = this
+    const mapData = this.formatMapData(provinceCountData);
+    const installCount = (totalCount || {}).installCount || [0];
+    const onlineCount = (totalCount || {}).onlineCount || [0];
+
+
+    let _this = this;
     return (
       <div className="page-center">
         <h1 id="dropTitle">
@@ -548,17 +555,16 @@ class Dashboard extends BaseView {
         <div className="section-content has-child">
           <div className="section-left child">
             <h4>巡检仪安装总量</h4>
-            <div className="num-box">{this.renderNum('213,12')}</div>
+            <div className="num-box">{this.renderNum(installCount)}</div>
           </div>
           <div className="section-right child">
             <h4>巡检仪线上运行数量</h4>
-            <div className="num-box">{this.renderNum('342,89')}</div>
+            <div className="num-box">{this.renderNum(onlineCount)}</div>
           </div>
         </div>
         <div className="section-content map">
           <ChinaMapEcharts
             mapData={mapData}
-            goDownCallBack={this.mapcb.bind(this)}
             goDown={true}
           />
           <div className="bottom-txt">中国电力科学研究院</div>
@@ -571,7 +577,9 @@ class Dashboard extends BaseView {
       eventCountData,
       validityEventCountData,
       provinceEventCountData,
-      tradeEventCountMData
+      tradeEventCountMData,
+      validity,
+      mouthCount
     } = this.state
 
     const height = $('.page-right .charts-content').height()
@@ -585,8 +593,8 @@ class Dashboard extends BaseView {
     }
     //事件有效性
     const charts6 = {
-      // data:validityEventCountData,
-      data: eventCountData ? Mock.charts6 : '',
+      data:validityEventCountData,
+      // data: eventCountData ? Mock.charts6 : '',
       height: labelHeight,
       innerRadius: 0.7,
       legend: {
@@ -672,14 +680,12 @@ class Dashboard extends BaseView {
       padding: 'auto',
       height: chartHeight
     }
-    console.log(tradeEventCountMData)
-    console.log(this.getFields(tradeEventCountMData))
     const charts10 = {
       data: tradeEventCountMData,
       height: chartHeight,
       padding: 'auto',
       xAxis: 'name',
-      fields: this.getFields(tradeEventCountMData),
+      fields: ['count'],
       forceFit: false,
       style: {
         overflow: 'hidden'
@@ -707,13 +713,13 @@ class Dashboard extends BaseView {
             <div className="child">
               <h6 className="spec">月上报事件数</h6>
               <div className="text">
-                <span>{'123,123'}</span> 件
+                <span>{(mouthCount || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}</span> 件
               </div>
             </div>
             <div className="child">
               <h6 className="spec">有效性</h6>
               <div className="text">
-                <span>{'98'}</span> %
+                <span>{((validity || 1) * 100).toFixed(2)}</span> %
               </div>
             </div>
           </div>
@@ -722,7 +728,7 @@ class Dashboard extends BaseView {
             <Groupedcolumn {...charts8} />
           </div>
           <div className="section-content flex-column">
-            <h6 style={{ textAlign: 'center' }}>行业类型</h6>
+            <h6>行业类型</h6>
             <Basicradar {...charts10} />
           </div>
         </div>
