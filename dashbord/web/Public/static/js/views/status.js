@@ -21,9 +21,7 @@ import { Menu, Dropdown, Icon } from 'antd'
 
 import MeunTitle from '../ui/ui.menuTitle'
 
-import {
-  uniqueArr
-} from '../util/util'
+import { uniqueArr } from '../util/util'
 
 //异常数据统计
 import {
@@ -76,9 +74,7 @@ class Status extends BaseView {
           rangeList
         })
       },
-      err => {
-        
-      }
+      err => {}
     )
   }
 
@@ -93,9 +89,7 @@ class Status extends BaseView {
           averageList
         })
       },
-      err => {
-        
-      }
+      err => {}
     )
   }
 
@@ -115,9 +109,7 @@ class Status extends BaseView {
           detailData: resData
         })
       },
-      err => {
-        
-      }
+      err => {}
     )
   }
   //切换轮播的回调,idx:当前轮播的页面idx
@@ -129,7 +121,7 @@ class Status extends BaseView {
     })
     // 这里给一个默认的值 如果是点击也会走这里需要区别（如果state里面有pageTwoParam）
     //pagetwo
-    
+
     if (idx === 1) {
       let serialNum, elecSerialNum
       if (this.state.pageTwoParam) {
@@ -158,7 +150,6 @@ class Status extends BaseView {
   }
 
   provinceClick(params) {
-    
     let province = params.name
     if (province === '中国') {
       province = '全国'
@@ -186,8 +177,8 @@ class Status extends BaseView {
     let { date } = this.state.date
     this.setState({
       province: name,
-      averageList:null,
-      rangeList:null
+      averageList: null,
+      rangeList: null
     })
     this.fetchGetTopTenOfSecondLoopExceptionTop({
       province: name,
@@ -199,46 +190,50 @@ class Status extends BaseView {
     })
   }
 
-  mapNameClickPageOne(name){
-    const province = this.state.province;
-    const flag = province == name || false;
-    this.setState({
-      province:name,
-      rangeList:null,
-      averageList:null
-    },()=>{
-      if(!flag){
-        let { date } = this.state.date;
-        this.fetchGetTopTenOfSecondLoopExceptionTop({
-          province: name === '中国'?'':name,
-          date
-        })
-        this.fetchGetTopTenOfSecondLoopException({
-          province: name,
-          date
-        })  
+  mapNameClickPageOne(name) {
+    const province = this.state.province
+    const flag = province == name || false
+    this.setState(
+      {
+        province: name,
+        rangeList: null,
+        averageList: null
+      },
+      () => {
+        if (!flag) {
+          let { date } = this.state.date
+          this.fetchGetTopTenOfSecondLoopExceptionTop({
+            province: name === '中国' ? '' : name,
+            date
+          })
+          this.fetchGetTopTenOfSecondLoopException({
+            province: name,
+            date
+          })
+        }
       }
-    })
+    )
   }
 
   renderPageOneCenter() {
     const rangeList = this.state.rangeList || {}
-    const dataList = rangeList.dataList || [];
-    if(!dataList){return};
+    const dataList = rangeList.dataList || []
+    if (!dataList) {
+      return
+    }
 
-
-    var newList = [];
-    let provinceList  = dataList.map(item=>{
+    var newList = []
+    let provinceList = dataList.map(item => {
       return item.province
     })
 
-    provinceList = uniqueArr(provinceList);
+    provinceList = uniqueArr(provinceList)
 
-    let mapData = provinceList.map(item=>{
+    let mapData = provinceList.map(item => {
       return {
-        city:item,
-        name:item,
-        userValue:''
+        city: item,
+        name: item,
+        userValue: ''
       }
     })
 
@@ -447,7 +442,7 @@ class Status extends BaseView {
       yAxis: 'average',
       forceFit: true,
       padding: 'auto',
-      hideTooltip:true,
+      hideTooltip: true,
       plotClickCb: this.plotClickCb.bind(this),
       cols: {
         sales: {
@@ -559,7 +554,9 @@ class Status extends BaseView {
                         : ['iconfont icon-sanx-up green']
                     }
                   />
-                  <span className="monthRange">{averageTrend}</span>
+                  <span className="monthRange">
+                    {(Number(averageTrend) * 100).toFixed(1) + '%'}
+                  </span>
                 </div>
               </div>
               <div className="chartsBotttom">
@@ -581,7 +578,9 @@ class Status extends BaseView {
                         : ['iconfont icon-sanx-up green']
                     }
                   />
-                  <span className="monthRange">{monthChainTrend}</span>
+                  <span className="monthRange">
+                    {(Number(monthChainTrend) * 100).toFixed(1) + '%'}
+                  </span>
                 </div>
               </div>
             </div>
@@ -608,13 +607,15 @@ class Status extends BaseView {
     // this.fetchGetTopTenOfSecondLoopException({ province: name })
   }
   renderPageTwoCenter() {
-    const detailData = this.state.detailData || {};
-    const info = detailData.dataList || {};
-    const mapData = [{
-      city:info.province,
-      name:info.province,
-      userValue:''
-    }];
+    const detailData = this.state.detailData || {}
+    const info = detailData.dataList || {}
+    const mapData = [
+      {
+        city: info.province,
+        name: info.province,
+        userValue: ''
+      }
+    ]
     return (
       <div className="page-center">
         <div className="section-content map ">
@@ -630,7 +631,7 @@ class Status extends BaseView {
     )
   }
 
-  plotClickCb(data){
+  plotClickCb(data) {
     console.log(data)
     //TODO
   }
@@ -673,7 +674,7 @@ class Status extends BaseView {
           alias: 'date'
         }
       },
-      plotClickCb:this.plotClickCb.bind(this),
+      plotClickCb: this.plotClickCb.bind(this),
       style: {
         overflow: 'hidden'
       },
