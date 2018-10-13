@@ -2,680 +2,685 @@
 @blue: #5fa3ac;
 #appview,
 #g_body {
-  height: 100%;
+    height: 100%;
 }
 
 li {
-  list-style: none;
+    list-style: none;
 }
 
 .page {
-  background: url(../img/bg.png) no-repeat;
-  background-size: cover;
+    background: url(../img/bg.png) no-repeat;
+    background-size: cover;
 }
 
 .page-dashboard {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  .page-center {
-    align-items: center;
-  }
-  h1 {
-    width: 538px;
-    background-size: 538px 70px;
-    margin-bottom: 20px;
-  }
-  .section-content {
-    padding: 0 20px;
-  }
-  .page-left,
-  .page-right {
-    padding-top: 20px;
-    width: 30%;
-    background: rgba(7, 51, 100, 0.2);
+    width: 100%;
+    height: 100%;
     box-sizing: border-box;
+    color: #fff;
     display: flex;
-    overflow: hidden;
-    flex-direction: column;
-    .charts-content {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
+    justify-content: space-between;
+    .page-center {
+        align-items: center;
+    }
+    h1 {
+        width: 538px;
+        background-size: 538px 70px;
+        margin-bottom: 20px;
     }
     .section-content {
-      flex: 1;
+        padding: 0 20px;
     }
-  }
-  .page-right {
-    .child {
-      display: flex;
-      flex-direction: column;
-      .text {
-        line-height: 20px;
-        text-align: center;
-        font-size: 18px;
-        color: rgba(0, 0, 0, 0.5);
-        color: #fff;
-        font-weight: bold;
-        span {
-          color: #fff;
+    .page-left,
+    .page-right {
+        padding-top: 20px;
+        width: 30%;
+        background: rgba(7, 51, 100, 0.2);
+        box-sizing: border-box;
+        display: flex;
+        overflow: hidden;
+        flex-direction: column;
+        .charts-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
-      }
+        .section-content {
+            flex: 1;
+        }
     }
-  }
-  .section-content.has-child {
-    flex: none;
-    display: flex;
-    margin-bottom: 10px;
-    flex-direction: row;
-    justify-content: space-between;
-    .child {
-      flex: 1;
+    .page-right {
+        .child {
+            display: flex;
+            flex-direction: column;
+            .text {
+                line-height: 20px;
+                text-align: center;
+                font-size: 18px;
+                color: rgba(0, 0, 0, 0.5);
+                color: #fff;
+                font-weight: bold;
+                span {
+                    color: #fff;
+                }
+            }
+        }
     }
-    h6 {
-      text-align: center;
-      &.spec {
-        font-weight: bold;
-        color: #5fa3ac;
-        font-size: 15px;
-      }
+    .section-content.has-child {
+        flex: none;
+        display: flex;
+        margin-bottom: 10px;
+        flex-direction: row;
+        justify-content: space-between;
+        .child {
+            flex: 1;
+        }
+        h6 {
+            text-align: center;
+            &.spec {
+                font-weight: bold;
+                color: #5fa3ac;
+                font-size: 15px;
+            }
+        }
     }
-  }
 }
 
 .ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  -webkit-box-orient: vertical;
-  word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
 }
 
 .flex-layout {
-  display: flex;
+    display: flex;
 }
 
 .have-flex {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .no_shrink {
-  flex-shrink: 0;
+    flex-shrink: 0;
 }
 
 .page-slick {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  color: #fff;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  .page-main {
-    flex: 1;
-  }
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    .page-main {
+        flex: 1;
+    }
 }
 
 .page-center {
-  flex: 1;
+    flex: 1;
 }
 
 .text-blue {
-  color: @blue;
+    color: @blue;
 }
 
 .text-white {
-  color: #fff !important;
-  font-size: 15px;
+    color: #fff !important;
+    font-size: 15px;
 }
 
 .ant-calendar-picker-input {
-  padding: 0 5px;
-  background: rgba(7, 59, 107, 0.62);
-  border: 0;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.searchbar-content {
-  width: 100%;
-  margin-bottom: 15px;
-  padding-right: 110px;
-  padding-left: 20px;
-  background: rgba(7, 51, 100, 0.4);
-  position: relative;
-  display: flex;
-  padding-bottom: 20px;
-  padding-top: 20px;
-  flex-direction: row;
-  justify-content: start;
-  .search-item {
-    margin-right: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    font-size: 15px;
-    .title {
-      flex: none;
-      width: 70px;
-      &.spec {
-        width: 120px;
-      }
-      color: @blue;
-      margin-right: 10px;
-    }
-    .select-box {
-      &.double {
-        width: 100%;
-      }
-      display: flex;
-      flex-direction: row;
-      .title {
-        color: #fff;
-        margin-bottom: 10px;
-      }
-      .left {
-        margin-right: 10px;
-      }
-    }
-  }
-  .btn-box {
-    height: 32px;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    .search-btn {
-      cursor: pointer;
-      background: #007bf7;
-      color: #fff;
-      width: 70px;
-      font-size: 15px;
-      line-height: 32px;
-      border-radius: 5px;
-      text-align: center;
-    }
-    .reset-btn {
-      margin-left: 10px;
-      cursor: pointer;
-      background: #084a99;
-      color: #fff;
-      width: 70px;
-      font-size: 15px;
-      line-height: 32px;
-      border-radius: 5px;
-      text-align: center;
-    }
-  } //reset ant.css
-  .ant-calendar-picker-input {
     padding: 0 5px;
     background: rgba(7, 59, 107, 0.62);
     border: 0;
     color: rgba(255, 255, 255, 0.5);
-  }
-  .ant-calendar-range-picker-separator {
-    color: rgba(255, 255, 255, 0.5);
-  }
-  .ant-select-selection--single {
-    border: 0;
-    height: 30px;
-    color: rgba(255, 255, 255, 0.5);
-    background: rgba(7, 59, 107, 0.62);
-  }
-  .ant-select-arrow .ant-select-arrow-icon svg {
-    color: #fff;
-  }
-  .ant-calendar-range-picker-separator {
-    vertical-align: unset;
-  }
-  .ant-input {
-    border: 0;
-    color: rgba(255, 255, 255, 0.5);
-    background: rgba(7, 59, 107, 0.62);
-  }
+}
+
+.searchbar-content {
+    width: 100%;
+    margin-bottom: 15px;
+    padding-right: 110px;
+    padding-left: 20px;
+    background: rgba(7, 51, 100, 0.4);
+    position: relative;
+    display: flex;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    flex-direction: row;
+    justify-content: start;
+    .search-item {
+        margin-right: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 15px;
+        .title {
+            flex: none;
+            width: 70px;
+            &.spec {
+                width: 120px;
+            }
+            color: @blue;
+            margin-right: 10px;
+        }
+        .select-box {
+            &.double {
+                width: 100%;
+            }
+            display: flex;
+            flex-direction: row;
+            .title {
+                color: #fff;
+                margin-bottom: 10px;
+            }
+            .left {
+                margin-right: 10px;
+            }
+        }
+    }
+    .btn-box {
+        height: 32px;
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .search-btn {
+            cursor: pointer;
+            background: #007bf7;
+            color: #fff;
+            width: 70px;
+            font-size: 15px;
+            line-height: 32px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .reset-btn {
+            margin-left: 10px;
+            cursor: pointer;
+            background: #084a99;
+            color: #fff;
+            width: 70px;
+            font-size: 15px;
+            line-height: 32px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    } //reset ant.css
+    .ant-calendar-picker-input {
+        padding: 0 5px;
+        background: rgba(7, 59, 107, 0.62);
+        border: 0;
+        color: rgba(255, 255, 255, 0.5);
+    }
+    .ant-calendar-range-picker-separator {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    .ant-select-selection--single {
+        border: 0;
+        height: 30px;
+        color: rgba(255, 255, 255, 0.5);
+        background: rgba(7, 59, 107, 0.62);
+    }
+    .ant-select-arrow .ant-select-arrow-icon svg {
+        color: #fff;
+    }
+    .ant-calendar-range-picker-separator {
+        vertical-align: unset;
+    }
+    .ant-input {
+        border: 0;
+        color: rgba(255, 255, 255, 0.5);
+        background: rgba(7, 59, 107, 0.62);
+    }
 }
 
 h1 {
-  font-size: 30px;
-  color: @blue;
-  margin-bottom: 0;
-  text-align: center;
-  line-height: 70px;
-  height: 70px;
-  background-image: url(../img/top-bg.png);
-  background-repeat: no-repeat;
-  background-size: auto;
-  background-position: center;
+    font-size: 30px;
+    color: @blue;
+    margin-bottom: 0;
+    text-align: center;
+    line-height: 70px;
+    height: 70px;
+    background-image: url(../img/top-bg.png);
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center;
 }
 
 h3 {
-  font-size: 23px;
-  color: #fff;
-  padding: 0 10px;
-  margin: 0 10px;
-  margin-bottom: 20px;
-  text-align: center;
-  line-height: 50px;
-  border-bottom: 5px solid @blue;
-  border-image: linear-gradient(to right, @blue, #112b50) 30 30;
+    font-size: 23px;
+    color: #fff;
+    padding: 0 10px;
+    margin: 0 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    line-height: 50px;
+    border-bottom: 5px solid @blue;
+    border-image: linear-gradient(to right, @blue, #112b50) 30 30;
 }
 
 h4 {
-  font-size: 20px;
-  color: #fff;
-  margin-bottom: 0;
-  text-align: center;
-  line-height: 40px;
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 0;
+    text-align: center;
+    line-height: 40px;
 }
 
 h6 {
-  font-size: 14px;
-  color: #5fa3ac;
-  text-align: left;
-  line-height: 20px;
-  margin-bottom: 5px;
+    font-size: 14px;
+    color: #5fa3ac;
+    text-align: left;
+    line-height: 20px;
+    margin-bottom: 5px;
 }
 
 canvas {
-  margin-bottom: -5px;
+    margin-bottom: -5px;
 }
 
 .slick-btn {
-  margin: 10px auto;
-  .btn {
-    width: 150px;
-    height: 10px;
-    display: inline-block;
-    background: #777;
-    margin-right: 20px;
-    background: #7a7a7a; // background: rgba(7, 51, 100, 0.2);
-    // border: 1px solid @blue;
-    cursor: pointer;
-    &:last-child {
-      margin-right: 0;
+    margin: 10px auto;
+    .btn {
+        width: 150px;
+        height: 10px;
+        display: inline-block;
+        background: #777;
+        margin-right: 20px;
+        background: #7a7a7a; // background: rgba(7, 51, 100, 0.2);
+        // border: 1px solid @blue;
+        cursor: pointer;
+        &:last-child {
+            margin-right: 0;
+        }
+        &.active {
+            background: @blue;
+        }
     }
-    &.active {
-      background: @blue;
-    }
-  }
 }
 
 //轮播样式
 .slider_content {
-  position: relative;
-  overflow: hidden;
-  .slider_btn {
-    position: absolute;
-    width: 100%;
-  }
-  .slider_sec {
-    height: 100%;
-    float: left;
-  }
+    position: relative;
+    overflow: hidden;
+    .slider_btn {
+        position: absolute;
+        width: 100%;
+    }
+    .slider_sec {
+        height: 100%;
+        float: left;
+    }
 }
 
 .page-center {
-  display: flex;
-  flex-direction: column;
-  .has-child {
-    height: 80px;
-    padding: 0 5px;
-    .child {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-  .num-box {
-    height: 40px;
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 80%;
-  }
-  .child {
-    text-align: center;
-    height: 80px;
-  }
-  .num {
-    background: url(../img/num-border.png) no-repeat;
-    background-size: 100% 100%;
-    margin-right: 10px;
-    font-size: 15px;
-    width: 60px;
-    color: @blue;
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-  .map {
-    padding: 20px 20px 0;
-    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-  }
-  .bottom-txt {
-    text-align: center;
-    line-height: 30px;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 16px;
-  }
-  .map {
-    width: 100%;
-  }
+    .has-child {
+        height: 80px;
+        padding: 0 5px;
+        .child {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    .num-box {
+        height: 40px;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 80%;
+    }
+    .child {
+        text-align: center;
+        height: 80px;
+    }
+    .num {
+        background: url(../img/num-border.png) no-repeat;
+        background-size: 100% 100%;
+        margin-right: 10px;
+        font-size: 15px;
+        width: 60px;
+        color: @blue;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+    .map {
+        padding: 20px 20px 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+    .bottom-txt {
+        text-align: center;
+        line-height: 30px;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 16px;
+    }
+    .map {
+        width: 100%;
+    }
 }
 
 // 图表的下划线
 .blue_underline {
-  height: 2px;
-  width: 100%;
-  background: @blue;
+    height: 2px;
+    width: 100%;
+    background: @blue;
 }
 
 // 二次回路单页 content
 .content {
-  padding: 10px 15px;
-  box-sizing: border-box;
+    padding: 10px 15px;
+    box-sizing: border-box;
 }
 
 // 二次回路单页 box
 .content_box {
-  // border:2px dashed @blue;
-  // border-radius: 30px ;
-  background: rgba(7, 51, 100, 0.4);
+    // border:2px dashed @blue;
+    // border-radius: 30px ;
+    background: rgba(7, 51, 100, 0.4);
 }
 
 // 二次回路单页 title
 .content_title {
-  border-left: 6px solid @blue;
-  padding-left: 10px;
-  font-size: 15px;
-  margin-bottom: 5px;
-  line-height: 15px;
-  height: 20px;
-  text-align: left;
-  color: @blue; // title 没有border-left
-  &.no_border_left {
-    border-left: 0px;
-  }
+    border-left: 6px solid @blue;
+    padding-left: 10px;
+    font-size: 15px;
+    margin-bottom: 5px;
+    line-height: 15px;
+    height: 20px;
+    text-align: left;
+    color: @blue; // title 没有border-left
+    &.no_border_left {
+        border-left: 0px;
+    }
 }
 
 //小标题样式
 .small-title {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 22px;
-  line-height: 22px;
-  .title {
-    font-size: 14px;
-    color: #fff;
-    line-height: 20px;
-    display: inline-block;
-    padding: 0 10px;
-  }
-  .arrow {
-    color: #106392;
-    &.last {
-      position: relative;
-      left: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 22px;
+    line-height: 22px;
+    .title {
+        font-size: 14px;
+        color: #fff;
+        line-height: 20px;
+        display: inline-block;
+        padding: 0 10px;
     }
-  }
-  .blue-line {
-    flex: 1;
-    height: 1px;
-    margin: 10px 0;
-    background: #106392;
-  }
+    .arrow {
+        color: #106392;
+        &.last {
+            position: relative;
+            left: 2px;
+        }
+    }
+    .blue-line {
+        flex: 1;
+        height: 1px;
+        margin: 10px 0;
+        background: #106392;
+    }
 }
 
 .loading {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  span {
-    /*固定loading*/
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    /*垂直水平居中*/
-    margin: -20px 0 0 -20px;
-    display: block;
-    width: 40px;
-    height: 40px;
-    border: 2px solid;
-    border-color: #333 #333 transparent;
-    border-radius: 50%;
-    box-sizing: border-box;
-    /*动画时间1s，线性变化，无限循环*/
-    animation: loading 1s linear infinite;
-  }
+    width: 100%;
+    height: 100%;
+    position: relative;
+    span {
+        /*固定loading*/
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        /*垂直水平居中*/
+        margin: -20px 0 0 -20px;
+        display: block;
+        width: 40px;
+        height: 40px;
+        border: 2px solid;
+        border-color: #333 #333 transparent;
+        border-radius: 50%;
+        box-sizing: border-box;
+        /*动画时间1s，线性变化，无限循环*/
+        animation: loading 1s linear infinite;
+    }
 }
 
 .no-data {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @keyframes loading {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .ant-table-fixed-header .ant-table-scroll .ant-table-header {
-  padding-bottom: 0;
+    padding-bottom: 0;
 }
 
 // .ant-select-dropdown ant-select-dropdown--single ant-select-dropdown-placement-bottomLeft  ant-select-dropdown-hidden
 .city-select {
-  width: 170px !important;
+    width: 170px !important;
 }
 
 .ant-table {
-  th,
-  td {
-    font-size: 12px;
-  }
-  th {
-    color: #fff !important;
-  }
-  td {
-    color: rgba(255, 255, 255, 0.5);
-  }
-  .blue {
-    color: @blue;
-  }
-  .yellow {
-    color: #c3911c;
-  }
+    th,
+    td {
+        font-size: 12px;
+    }
+    th {
+        color: #fff !important;
+    }
+    td {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    .blue {
+        color: @blue;
+    }
+    .yellow {
+        color: #c3911c;
+    }
 }
 
 .g-guide {
-  width: 100%;
-  text-align: center;
+    width: 100%;
+    text-align: center;
 }
 
 // page-content
 .page-content-box {
-  position: relative;
-  .top-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    z-index: 1;
-  }
-  .page-title {
-    background-size: 480px 70px;
-    background-position: center center;
-  }
-  .page-center {
-    padding-top: 110px;
-  }
+    position: relative;
+    .top-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        z-index: 1;
+    }
+    .page-title {
+        background-size: 480px 70px;
+        background-position: center center;
+    }
+    .page-center {
+        padding-top: 110px;
+    }
 }
 
 @keyframes scrollTable {
-  0% {
-    transform: translateY(0%);
-  }
-  20% {
-    transform: translateY(-20%);
-  }
-  40% {
-    transform: translateY(-40%);
-  }
-  60% {
-    transform: translateY(-60%);
-  }
-  80% {
-    transform: translateY(-80%);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
+    0% {
+        transform: translateY(0%);
+    }
+    20% {
+        transform: translateY(-20%);
+    }
+    40% {
+        transform: translateY(-40%);
+    }
+    60% {
+        transform: translateY(-60%);
+    }
+    80% {
+        transform: translateY(-80%);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
 }
 
 .mt-30 {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 .mt-20 {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .mb-20 {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .text-c {
-  text-align: center !important;
+    text-align: center !important;
 }
 
 .text-l {
-  text-align: left !important;
+    text-align: left !important;
 }
 
 .pd-30 {
-  padding-left: 30px;
-  padding-right: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .red {
-  color: red !important;
+    color: red !important;
 }
 
 .green {
-  color: green !important;
+    color: green !important;
+}
+
+.font-12 {
+    font-size: 12px;
 }
 
 // 所有的scrollTable 添加滚动效果
 .scrollTable {
-  .ant-table-tbody {
-    animation: scrollTable 100s linear infinite;
-    &:hover {
-      animation-play-state: paused;
+    .ant-table-tbody {
+        animation: scrollTable 100s linear infinite;
+        &:hover {
+            animation-play-state: paused;
+        }
     }
-  }
 }
 
 // 所有页面的标题下拉效果
 #dropTitle {
-  color: @blue; // a 标签
-  .ant-dropdown-link {
-    color: @blue;
-    text-decoration: none;
-  } // icon
-  .anticon-ordered-list {
-    margin-left: 10px;
-    font-size: 20px;
-  }
+    color: @blue; // a 标签
+    .ant-dropdown-link {
+        color: @blue;
+        text-decoration: none;
+    } // icon
+    .anticon-ordered-list {
+        margin-left: 10px;
+        font-size: 20px;
+    }
 }
 
 // 菜单
 .ant-menu {
-  background: rgba(14, 50, 100, 0.8);
-  color: #fff;
-  border: 1px solid @blue; // 选中的某一行
-  .ant-menu-item {
-    margin: 0 !important;
-    & > a {
-      color: #fff;
-      text-align: center;
-    }
-  }
-  .ant-menu-item-active {
+    background: rgba(14, 50, 100, 0.8);
     color: #fff;
-    background: rgba(49, 132, 172, 1);
-  }
+    border: 1px solid @blue; // 选中的某一行
+    .ant-menu-item {
+        margin: 0 !important;
+        &>a {
+            color: #fff;
+            text-align: center;
+        }
+    }
+    .ant-menu-item-active {
+        color: #fff;
+        background: rgba(49, 132, 172, 1);
+    }
 }
 
 // 查询按钮
 .search-btn {
-  display: inline-block;
-  cursor: pointer;
-  background: #007bf7;
-  color: #fff;
-  width: 70px;
-  font-size: 15px;
-  line-height: 32px;
-  border-radius: 5px;
-  text-align: center;
-  margin-left: 10px;
+    display: inline-block;
+    cursor: pointer;
+    background: #007bf7;
+    color: #fff;
+    width: 70px;
+    font-size: 15px;
+    line-height: 32px;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 10px;
 }
 
 // 数据为空显示的提示文案
 .empty-data {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 12px;
 }
 
-.map-box{
-  width: 100%;
-  height: 100%;
-  position: relative;
-  .hide{
-    display: none;
-  }
-  .map-btn{
-    z-index: 9999;
-    left:0;
-    top:0;
-    font-size:15px;
-    height: 30px;
-    line-height:30px;
-    border-bottom:1px solid #21eeff;
-    position: absolute;
-    display: flex;
-    flex-wrap:nowrap;
-    justify-content: flex-start;
-    .map-name{
-      cursor: pointer;
-      padding-right:20px;
+.map-box {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .hide {
+        display: none;
     }
-  }
+    .map-btn {
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        font-size: 15px;
+        height: 30px;
+        line-height: 30px;
+        border-bottom: 1px solid #21eeff;
+        position: absolute;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        .map-name {
+            cursor: pointer;
+            padding-right: 20px;
+        }
+    }
 }

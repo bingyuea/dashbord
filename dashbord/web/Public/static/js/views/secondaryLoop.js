@@ -3,7 +3,7 @@ import BaseView from '../core/view.base'
 import $ from 'jquery'
 import { Table } from 'antd'
 //图表模型
-import { Labelline, Basicline, Doubleaxes, Basicbar,Doubleline } from '../ui/ui.charts'
+import { Labelline, Basicline, Doubleaxes, Basicbar, Doubleline } from '../ui/ui.charts'
 
 import {
   QueryExceptionCount,
@@ -88,7 +88,7 @@ class SecondaryLoop extends BaseView {
       pageStatus: 'init'
     })
     const self = this
-    DataServince.fetch(function(searchOptions) {
+    DataServince.fetch(function (searchOptions) {
       self.setState(
         {
           searchOptions: searchOptions
@@ -174,7 +174,7 @@ class SecondaryLoop extends BaseView {
           pageOne: pageOne
         })
       },
-      err => {}
+      err => { }
     )
   }
   // 异常区域占比查询
@@ -202,7 +202,7 @@ class SecondaryLoop extends BaseView {
           pageOne: pageOne
         })
       },
-      err => {}
+      err => { }
     )
   }
 
@@ -231,7 +231,7 @@ class SecondaryLoop extends BaseView {
           pageOne: pageOne
         })
       },
-      err => {}
+      err => { }
     )
   }
 
@@ -261,7 +261,7 @@ class SecondaryLoop extends BaseView {
           pageOne: pageOne
         })
       },
-      err => {}
+      err => { }
     )
   }
 
@@ -290,7 +290,7 @@ class SecondaryLoop extends BaseView {
           pageOne: pageOne
         })
       },
-      err => {}
+      err => { }
     )
   }
 
@@ -326,7 +326,7 @@ class SecondaryLoop extends BaseView {
           }
         )
       },
-      err => {}
+      err => { }
     )
   }
 
@@ -359,14 +359,13 @@ class SecondaryLoop extends BaseView {
           pageTwo
         })
       },
-      err => {}
+      err => { }
     )
   }
   // 巡检仪上报事件查询
   fetchQueryXMDEvent(params) {
     const self = this
     let data = JSON.parse(JSON.stringify(params))
-    data.occTime = ''
     // 模拟查询条件
     // data = {}
     // data = {
@@ -389,24 +388,21 @@ class SecondaryLoop extends BaseView {
           pageTwo
         })
       },
-      err => {}
+      err => { }
     )
   }
   // 电能表上报事件查询
   fetchQueryElecEvent(params) {
     const self = this
     let data = JSON.parse(JSON.stringify(params))
-    data.occTime = ''
-
     // 模拟查询条件
-    // data = {}
+    data = {}
     // data = {
     //   token: '234sdf234',
     //   serialNum: '1440701012212030328050',
     //   elecSerialNum: '1440701012212030328050',
     //   occTime: '2018-07-30'
     // }
-
     queryElecEvent.setParam(
       {
         ...data
@@ -421,7 +417,7 @@ class SecondaryLoop extends BaseView {
           pageTwo
         })
       },
-      err => {}
+      err => { }
     )
   }
   // 电量数据查询
@@ -456,7 +452,7 @@ class SecondaryLoop extends BaseView {
           pageTwo
         })
       },
-      err => {}
+      err => { }
     )
   }
 
@@ -524,7 +520,7 @@ class SecondaryLoop extends BaseView {
 
     let _this = this
     if (!tradeListChartsHeight) {
-      let time = setTimeout(function() {
+      let time = setTimeout(function () {
         _this.forceUpdate()
       }, 0)
     }
@@ -771,8 +767,8 @@ class SecondaryLoop extends BaseView {
         })
       )
     // 展开数组 ，转化为图表数据
-    let data = [],tempObj = {};
-    tempArr[0].pointList.map((item,idx) => {
+    let data = [], tempObj = {};
+    tempArr[0].pointList.map((item, idx) => {
       tempObj = {};
       tempObj.time = timeArr[idx];
       tempObj['巡检仪'] = item;
@@ -818,7 +814,7 @@ class SecondaryLoop extends BaseView {
 
     let _this = this
     if (!chartsEleChangeHeight) {
-      let time = setTimeout(function() {
+      let time = setTimeout(function () {
         _this.forceUpdate()
       }, 0)
     }
@@ -839,10 +835,10 @@ class SecondaryLoop extends BaseView {
       height: chartsEleHeight,
       xAxis: 'time',
       yAxis: 'count',
-      fields:['巡检仪','电流表'],
+      fields: ['巡检仪', '电流表'],
       forceFit: true,
       padding: 'auto',
-      keyName:'ele',
+      keyName: 'ele',
       style: {
         overflow: 'hidden'
       },
@@ -876,10 +872,10 @@ class SecondaryLoop extends BaseView {
       height: chartsEleHeight,
       xAxis: 'time',
       yAxis: 'count',
-      fields:['巡检仪','电流表'],
+      fields: ['巡检仪', '电流表'],
       forceFit: true,
       padding: 'auto',
-      keyName:'ele',
+      keyName: 'ele',
       style: {
         overflow: 'hidden'
       },
@@ -913,10 +909,10 @@ class SecondaryLoop extends BaseView {
       height: chartsEleHeight,
       xAxis: 'time',
       yAxis: 'count',
-      fields:['巡检仪','电流表'],
+      fields: ['巡检仪', '电流表'],
       forceFit: true,
       padding: 'auto',
-      keyName:'ele',
+      keyName: 'ele',
       style: {
         overflow: 'hidden'
       },
@@ -972,10 +968,10 @@ class SecondaryLoop extends BaseView {
       height: chartsEleChangeHeight,
       xAxis: 'time',
       yAxis: 'power',
-      fields:['正向有功总','正向无功总'],
+      fields: ['正向有功总', '正向无功总'],
       forceFit: true,
       padding: 'auto',
-      keyName:'ele',
+      keyName: 'ele',
       style: {
         overflow: 'hidden'
       },
@@ -1046,78 +1042,82 @@ class SecondaryLoop extends BaseView {
                   <div className="event-table">
                     <div className="xmdEvent">
                       <div className="event-table-title">
-                        <div className="title text-l">巡检仪上报事件</div>
+                        <div className="title text-l font-12">巡检仪上报事件</div>
                         <div className="blue_underline" />
                       </div>
                       <ul>
-                        {Array.isArray(xmdEventData) &&
-                        xmdEventData.length > 0 ? (
-                          xmdEventData.map((item, index) => {
-                            return (
-                              <div className="scroll-content">
-                                <li key={index} className="item-section">
-                                  <ul className="event_report event_blue">
-                                    <li>异常类型 : {item.exception}</li>
-                                    <li>事件状态 : {item.event}</li>
-                                    <li>事件发生时间 : {item.eventTime}</li>
-                                    <li>
-                                      A相异常 :{' '}
-                                      {item.phaseA ? '发生' : '未发生'}
+                        <div className="scroll-content">
+                          {Array.isArray(xmdEventData) &&
+                            xmdEventData.length > 0 ? (
+                              xmdEventData.map((item, index) => {
+                                return (
+                                  <div className="item">
+                                    <li key={index} className="item-section">
+                                      <ul className="event_report event_blue">
+                                        <li>异常类型 : {item.exception}</li>
+                                        <li>事件状态 : {item.event}</li>
+                                        <li>事件发生时间 : {item.eventTime}</li>
+                                        <li>
+                                          A相异常 :{' '}
+                                          {item.phaseA ? '发生' : '未发生'}
+                                        </li>
+                                        <li>
+                                          B相异常 :{' '}
+                                          {item.phaseB ? '发生' : '未发生'}
+                                        </li>
+                                        <li>
+                                          C相异常 :{' '}
+                                          {item.phaseC ? '发生' : '未发生'}
+                                        </li>
+                                      </ul>
                                     </li>
-                                    <li>
-                                      B相异常 :{' '}
-                                      {item.phaseB ? '发生' : '未发生'}
-                                    </li>
-                                    <li>
-                                      C相异常 :{' '}
-                                      {item.phaseC ? '发生' : '未发生'}
-                                    </li>
-                                  </ul>
-                                </li>
-                              </div>
-                            )
-                          })
-                        ) : (
-                          <div className="empty-data">暂无数据</div>
-                        )}
+                                  </div>
+                                )
+                              })
+                            ) : (
+                              <div className="empty-data">暂无数据</div>
+                            )}
+                        </div>
                       </ul>
                     </div>
                     <div className="xmdEvent">
                       <div className="event-table-title">
-                        <div className="title text-l">电能表上报事件</div>
+                        <div className="title text-l font-12">电能表上报事件</div>
                         <div className="blue_underline" />
                       </div>
                       <ul>
-                        {Array.isArray(eleEventData) &&
-                        eleEventData.length > 0 ? (
-                          eleEventData.map((item, index) => {
-                            return (
-                              <div className="scroll-content">
-                                <li key={index}>
-                                  <ul className="event_report event_red">
-                                    <li>异常类型 : {item.exception}</li>
-                                    <li>事件状态 : {item.event}</li>
-                                    <li>事件发生时间 : {item.eventTime}</li>
-                                    <li>
-                                      A相异常 :{' '}
-                                      {item.phaseA ? '发生' : '未发生'}
+                        <div className="scroll-content">
+                          {Array.isArray(eleEventData) &&
+                            eleEventData.length > 0 ? (
+                              eleEventData.map((item, index) => {
+                                return (
+                                  <div className="item">
+                                    <li key={index}>
+                                      <ul className="event_report event_red">
+                                        <li>异常类型 : {item.exception}</li>
+                                        <li>事件状态 : {item.event}</li>
+                                        <li>事件发生时间 : {item.eventTime}</li>
+                                        <li>
+                                          A相异常 :{' '}
+                                          {item.phaseA ? '发生' : '未发生'}
+                                        </li>
+                                        <li>
+                                          B相异常 :{' '}
+                                          {item.phaseB ? '发生' : '未发生'}
+                                        </li>
+                                        <li>
+                                          C相异常 :{' '}
+                                          {item.phaseC ? '发生' : '未发生'}
+                                        </li>
+                                      </ul>
                                     </li>
-                                    <li>
-                                      B相异常 :{' '}
-                                      {item.phaseB ? '发生' : '未发生'}
-                                    </li>
-                                    <li>
-                                      C相异常 :{' '}
-                                      {item.phaseC ? '发生' : '未发生'}
-                                    </li>
-                                  </ul>
-                                </li>
-                              </div>
-                            )
-                          })
-                        ) : (
-                          <div className="empty-data">暂无数据</div>
-                        )}
+                                  </div>
+                                )
+                              })
+                            ) : (
+                              <div className="empty-data">暂无数据</div>
+                            )}
+                        </div>
                       </ul>
                     </div>
                   </div>
@@ -1259,7 +1259,7 @@ class SecondaryLoop extends BaseView {
     let tableHeight = $('#tableHeight').height() - 60 // table表格的高度
     let self = this
 
-    $('.scrollTable .ant-table-body').on('scroll', function() {
+    $('.scrollTable .ant-table-body').on('scroll', function () {
       let viewH = $(this).height(),
         contentH = $(this)
           .children()
