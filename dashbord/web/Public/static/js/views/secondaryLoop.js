@@ -3,7 +3,7 @@ import BaseView from '../core/view.base'
 import $ from 'jquery'
 import { Table } from 'antd'
 //图表模型
-import { Labelline, Basicline, Doubleaxes, Basicbar } from '../ui/ui.charts'
+import { Labelline, Basicline, Doubleaxes, Basicbar,Doubleline } from '../ui/ui.charts'
 
 import {
   QueryExceptionCount,
@@ -756,11 +756,12 @@ class SecondaryLoop extends BaseView {
       </div>
     )
   }
+
   elecCurrentDataToChart(elecCurrentData, phase) {
-    const timeArr = formatEleList()
+    const timeArr = formatEleList();
     let tempArr = elecCurrentData.xmdData
       .filter(item => {
-        item.type = '巡航器'
+        item.type = '巡检仪'
         return item.phase === phase
       })
       .concat(
@@ -770,16 +771,13 @@ class SecondaryLoop extends BaseView {
         })
       )
     // 展开数组 ，转化为图表数据
-    let data = []
-    tempArr.map(item => {
-      item.pointList.map(function(ele, index) {
-        let tempObj = {}
-        tempObj.type = item.type
-
-        tempObj.time = timeArr[index]
-        tempObj.point = ele
-        data.push(tempObj)
-      })
+    let data = [],tempObj = {};
+    tempArr[0].pointList.map((item,idx) => {
+      tempObj = {};
+      tempObj.time = timeArr[idx];
+      tempObj['巡检仪'] = item;
+      tempObj['电流表'] = tempArr[1].pointList[idx];
+      data.push(tempObj);
     })
     return data
   }
@@ -824,12 +822,6 @@ class SecondaryLoop extends BaseView {
         _this.forceUpdate()
       }, 0)
     }
-    let {
-      // elecCurrentData // 电流分析对比查询
-      // xmdEventData, // 巡检仪上报事件查询
-      // eleEventData, // 电能表上报事件查询
-      // elecDayData // 电量数据查询
-    } = Mock
 
     let dataA, dataB, dataC
     if (
@@ -846,12 +838,11 @@ class SecondaryLoop extends BaseView {
       data: dataA,
       height: chartsEleHeight,
       xAxis: 'time',
-      yAxis: 'point',
-      doubletype: ['type', ['#965059', '#039fba']],
-      doubleLine: true,
+      yAxis: 'count',
+      fields:['巡检仪','电流表'],
       forceFit: true,
-      hidePoint: true,
       padding: 'auto',
+      keyName:'ele',
       style: {
         overflow: 'hidden'
       },
@@ -860,22 +851,22 @@ class SecondaryLoop extends BaseView {
           alias: '时间',
           tickCount: 5
         },
-        point: {
-          tickCount: 5
+        count: {
+          tickCount: 2
         }
       },
       xLabel: {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 10
+          fontSize: 8
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 10
+          fontSize: 8
         }
       }
     }
@@ -884,12 +875,11 @@ class SecondaryLoop extends BaseView {
       data: dataB,
       height: chartsEleHeight,
       xAxis: 'time',
-      yAxis: 'point',
-      doubletype: ['type', ['#965059', '#039fba']],
-      doubleLine: true,
+      yAxis: 'count',
+      fields:['巡检仪','电流表'],
       forceFit: true,
-      hidePoint: true,
       padding: 'auto',
+      keyName:'ele',
       style: {
         overflow: 'hidden'
       },
@@ -898,36 +888,35 @@ class SecondaryLoop extends BaseView {
           alias: '时间',
           tickCount: 5
         },
-        point: {
-          tickCount: 5
+        count: {
+          tickCount: 2
         }
       },
       xLabel: {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 10
+          fontSize: 8
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 10
+          fontSize: 8
         }
       }
     }
-    // 电流分析对比查询 图表C
+    // // 电流分析对比查询 图表C
     chartsEleC = {
       data: dataC,
       height: chartsEleHeight,
       xAxis: 'time',
-      yAxis: 'point',
-      doubletype: ['type', ['#965059', '#039fba']],
-      doubleLine: true,
+      yAxis: 'count',
+      fields:['巡检仪','电流表'],
       forceFit: true,
-      hidePoint: true,
       padding: 'auto',
+      keyName:'ele',
       style: {
         overflow: 'hidden'
       },
@@ -936,81 +925,84 @@ class SecondaryLoop extends BaseView {
           alias: '时间',
           tickCount: 5
         },
-        point: {
-          tickCount: 5
+        count: {
+          tickCount: 2
         }
       },
       xLabel: {
         offset: 15,
         textStyle: {
           fill: '#fff',
-          fontSize: 10
+          fontSize: 8
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 10
+          fontSize: 8
         }
       }
     }
     // 这个也是双折线图
-    let elecDayDataCharts = []
-    elecDayData.map((item, index) => {
-      for (let k in item) {
-        let obj = {}
-        if (k === 'activePower') {
-          obj.type = '正向有功总'
-          obj.x = item.time
-          obj.y = item.activePower
-        } else if (k === 'reactivePower') {
-          obj.type = '正向无功总'
-          obj.x = item.time
-          obj.y = item.reactivePower
-        }
-        if (obj && obj.type) {
-          elecDayDataCharts.push(obj)
-        }
-      }
+    let elecDayDataCharts = [];
+    elecDayData.forEach((item, index) => {
+      item['正向有功总'] = item.activePower;
+      item['正向无功总'] = item.reactivePower;
+      elecDayDataCharts.push(item)
+
+      // for (let k in item) {
+      //   let obj = {}
+      //   if (k === 'activePower') {
+      //     obj.type = '正向有功总'
+      //     obj.x = item.time
+      //     obj.y = item.activePower
+      //   } else if (k === 'reactivePower') {
+      //     obj.type = '正向无功总'
+      //     obj.x = item.time
+      //     obj.y = item.reactivePower
+      //   }
+      //   if (obj && obj.type) {
+      //     elecDayDataCharts.push(obj)
+      //   }
+      // }
     })
     chartsEleChange = {
       data: elecDayDataCharts,
       height: chartsEleChangeHeight,
-      xAxis: 'x',
-      yAxis: 'y',
-      doubletype: ['type', ['#965059', '#039fba']],
-      doubleLine: true,
+      xAxis: 'time',
+      yAxis: 'power',
+      fields:['正向有功总','正向无功总'],
       forceFit: true,
-      hidePoint: true,
       padding: 'auto',
+      keyName:'ele',
       style: {
         overflow: 'hidden'
       },
       cols: {
-        x: {
+        time: {
+          alias: '时间',
           tickCount: 3
         },
-        y: {
-          alias: '电量'
+        power: {
+          tickCount: 2
         }
       },
       xLabel: {
         offset: 15,
-
         textStyle: {
           fill: '#fff',
-          fontSize: 10
+          fontSize: 8
         }
       },
       yLabel: {
         offset: 5,
         textStyle: {
           fill: '#fff',
-          fontSize: 10
+          fontSize: 8
         }
       }
-    } // 电量变化图表
+    }
     return (
       <div className="SecondaryLoopRight content" style={{ height: domHeight }}>
         <div className="SecondaryLoopRight_left">
@@ -1024,15 +1016,15 @@ class SecondaryLoop extends BaseView {
             </div>
             <div className="ele_charts">
               <p className="ele_charts_title">A相</p>
-              <Basicline {...chartsEleA} />
+              <Doubleline {...chartsEleA} />
             </div>
             <div className="ele_charts">
               <p className="ele_charts_title">B相</p>
-              <Basicline {...chartsEleB} />
+              <Doubleline {...chartsEleB} />
             </div>
             <div className="ele_charts">
               <p className="ele_charts_title">C相</p>
-              <Basicline {...chartsEleC} />
+              <Doubleline {...chartsEleC} />
             </div>
           </div>
         </div>
@@ -1141,7 +1133,7 @@ class SecondaryLoop extends BaseView {
                     <div className="blue-line" />
                   </div>
                   <div className="event-table">
-                    <Basicline {...chartsEleChange} />
+                    <Doubleline {...chartsEleChange} />
                   </div>
                 </div>
               </div>
