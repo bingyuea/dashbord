@@ -227,7 +227,7 @@ class Status extends BaseView {
       return item.province
     })
 
-    provinceList = uniqueArr(provinceList)
+    provinceList = uniqueArr(provinceList);
 
     let mapData = provinceList.map(item => {
       return {

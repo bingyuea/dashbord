@@ -263,7 +263,6 @@ class Dashboard extends BaseView {
       })
       newList.push(target)
     })
-
     return newList
   }
 
@@ -644,6 +643,7 @@ class Dashboard extends BaseView {
         }
       }
     }
+    console.log(provinceEventCountData)
     //不同省份上报事件情况
     const charts8 = {
       data: provinceEventCountData,

@@ -220,11 +220,7 @@ class MergeAnaly extends BaseView {
     let count = 0;
     const provinceName = this.state.provinceName;
     if(provinceName !== '中国' && provinceName){
-      mapData = [{
-        city:provinceName,
-        name:provinceName,
-        userValue:''
-      }];
+      mapData = [{}];
     };
 
 
@@ -633,14 +629,15 @@ class MergeAnaly extends BaseView {
         }
       }
     }
-
     theme = {
       data: data,
       fields: fieldsList,
       keyName: '时间',
       value: '事件数量',
       fieldsName: 'name',
-      legend: true,
+      legend: {
+        marker:'circle'
+      },
       forceFit: true,
       hideTooltip: true,
       style: {
