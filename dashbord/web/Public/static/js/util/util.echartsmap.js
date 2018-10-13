@@ -452,8 +452,9 @@ echarts.extendsMap = function(id, opt) {
 
   chart.setOption(option);
   // 添加事件
+  chart.off('click');
   chart.on('click', function(params) {
-      var _self = this;
+    var _self = this;
       if (opt.goDown && params.name !== name[idx]) {
           if (cityMap[params.name]) {
               curGeoJson = cityMap[params.name];

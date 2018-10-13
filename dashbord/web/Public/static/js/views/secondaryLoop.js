@@ -472,7 +472,11 @@ class SecondaryLoop extends BaseView {
         periodCount: {
           tickCount: 5,
           alias: '数量'
+        },
+        period:{
+          tickCount:2
         }
+
       },
       forceFit: true,
       padding: 'auto',
@@ -768,7 +772,6 @@ class SecondaryLoop extends BaseView {
           tickCount: 5
         },
         count: {
-          tickCount: 2
         }
       },
       xLabel: {
@@ -805,7 +808,7 @@ class SecondaryLoop extends BaseView {
           tickCount: 5
         },
         count: {
-          tickCount: 2
+          
         }
       },
       xLabel: {
@@ -842,7 +845,6 @@ class SecondaryLoop extends BaseView {
           tickCount: 5
         },
         count: {
-          tickCount: 2
         }
       },
       xLabel: {
@@ -872,7 +874,7 @@ class SecondaryLoop extends BaseView {
       height: chartsEleChangeHeight,
       xAxis: 'time',
       yAxis: 'power',
-      fields: ['正向有功总', '正向无功总'],
+      fields: ['正向有功总'],
       forceFit: true,
       padding: 'auto',
       keyName: 'ele',
@@ -884,9 +886,6 @@ class SecondaryLoop extends BaseView {
           alias: '时间',
           tickCount: 3
         },
-        power: {
-          tickCount: 2
-        }
       },
       xLabel: {
         offset: 15,
@@ -955,8 +954,8 @@ class SecondaryLoop extends BaseView {
                             xmdEventData.length > 0 ? (
                               xmdEventData.map((item, index) => {
                                 return (
-                                  <div className="item">
-                                    <li key={index} className="item-section">
+                                  <div className="item" key={index}>
+                                    <li className="item-section">
                                       <ul className="event_report event_blue">
                                         <li>异常类型 : {item.exception}</li>
                                         <li>事件状态 : {item.event}</li>

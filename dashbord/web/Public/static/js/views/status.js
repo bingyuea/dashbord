@@ -55,14 +55,6 @@ class Status extends BaseView {
     })
   }
 
-  // #page9
-  // curl -X POST -d '{"token":"234sdf234","serialNum":"1430009000003609335198","elecSerialNum":"1410101012212120538038","date":"2018-05-30"}' "' "https://api.c2py.com/ele/shangcen/xmdplatform/queryDetailOfSecondLoopException""
-  // #page8
-  // #1
-  // curl -X POST -d '{"token":"234sdf234","province":"西安"}' "' "https://api.c2py.com/ele/shangcen/xmdplatform/getTopTenOfSecondLoopExceptionTop"
-  // #2"
-  // #2 getTopTenOfSecondLoopException未做
-
   // 排行榜
   fetchGetTopTenOfSecondLoopExceptionTop(value) {
     let self = this
@@ -95,12 +87,7 @@ class Status extends BaseView {
 
   fetchQuerySecondLoopExceptionDetailData(value) {
     const self = this
-    // const value = {
-    //   token: '234sdf234',
-    //   serialNum: '1430009000003609335198',
-    //   elecSerialNum: '1410101012212120538038',
-    //   date: '2011-05'
-    // }
+   
     querySecondLoopExceptionDetailData.setParam(value)
     querySecondLoopExceptionDetailData.excute(
       res => {
@@ -119,7 +106,6 @@ class Status extends BaseView {
       // 是每次切换更新值
       averageClick: undefined
     })
-    // 这里给一个默认的值 如果是点击也会走这里需要区别（如果state里面有pageTwoParam）
     //pagetwo
 
     if (idx === 1) {
@@ -149,28 +135,7 @@ class Status extends BaseView {
     this.slider.slickGoTo(idx)
   }
 
-  provinceClick(params) {
-    let province = params.name
-    if (province === '中国') {
-      province = '全国'
-    }
-    let { date } = this.state.date
-    localStorage.setItem('province', JSON.stringify(params))
-    this.setState({
-      province,
-      mapData: JSON.parse(localStorage.getItem('province'))
-    })
-    this.fetchGetTopTenOfSecondLoopExceptionTop({
-      province,
-      date
-    })
-  }
-
   mapcbPageOne(name, option, instance) {
-    // console.log(name)
-    // console.log(option)
-    // console.log(instance)
-    // this.fetchGetTopTenOfSecondLoopException({ province: name })
     if (name === '中国') {
       name = ''
     }
@@ -180,6 +145,7 @@ class Status extends BaseView {
       averageList: null,
       rangeList: null
     })
+
     this.fetchGetTopTenOfSecondLoopExceptionTop({
       province: name,
       date
@@ -242,7 +208,6 @@ class Status extends BaseView {
     return (
       <div className="page-center">
         <div className="section-content map ">
-          {/* <ChinaMapEcharts mapData={mapData} domId={'pageOneMap'} /> */}
           <ChinaMapEcharts
             mapData={mapData}
             provinceName={this.state.province}
@@ -433,13 +398,13 @@ class Status extends BaseView {
     ]
     const bottomHeight = $('#status2RightBottom').height()
     const monthChartsHeight = $('.chartsBox').height() / 2
-
+    console.log(averageDataList)
     //状态变化
     const chartsData = {
       data: averageDataList,
       height: monthChartsHeight,
       xAxis: 'date',
-      yAxis: 'average',
+      yAxis: pageIdx == 0?'average':'grade',
       forceFit: true,
       padding: 'auto',
       hideTooltip: true,
@@ -686,6 +651,24 @@ class Status extends BaseView {
       }
     }
 
+    setTimeout(function(){
+      const height = $('.even-details').height();
+      const scrollHeight = $('.even-details .scroll-body').height();
+      let animationStyle = {};
+      //认为有滚动条
+      if(scrollHeight > height){
+        const time = scrollHeight / 20 + 's';
+        animationStyle = {
+          animationDuration:time
+        }
+      }else{
+        animationStyle = {
+          animationDuration:'unset'
+        }
+      }
+      $('.even-details .scroll-body').css(animationStyle);
+    },100);
+
     let domHeight = $('.page-main').height()
     return (
       <div className="status-main status-2" style={{ height: domHeight }}>
@@ -765,34 +748,37 @@ class Status extends BaseView {
               <div className="blue-line" />
             </div>
             <div className="even-details">
-              {Array.isArray(eventList) && eventList.length > 0 ? (
-                eventList.map((item, index) => {
-                  return (
-                    <div
-                      className={
-                        eventList && eventList.length > 2
-                          ? ['scroll-body']
-                          : ['']
-                      }
-                      key={index}
-                    >
+              <div className='scroll-body'>
+                {Array.isArray(eventList) && eventList.length > 0 ? (
+                  eventList.map((item, index) => {
+                    return (
                       <div
                         className={
-                          (index + 1) % 2 === 0
-                            ? ['row2 flex-layout status_9']
-                            : ['row3 flex-layout status_9']
+                          eventList && eventList.length > 2
+                            ? ['scroll-body']
+                            : ['']
                         }
                         key={index}
                       >
-                        <div className="flex">{item.eventName}</div>
-                        <div className="flex">{item.date}</div>
+                        <div
+                          className={
+                            (index + 1) % 2 === 0
+                              ? ['row2 flex-layout status_9']
+                              : ['row3 flex-layout status_9']
+                          }
+                          key={index}
+                        >
+                          <div className="flex">{item.eventName}</div>
+                          <div className="flex">{item.date}</div>
+                        </div>
                       </div>
-                    </div>
-                  )
-                })
-              ) : (
-                <div className="empty-data">暂无数据</div>
-              )}
+                    )
+                  })
+                ) : (
+                  <div className="empty-data">暂无数据</div>
+                )}
+              </div>
+              
             </div>
           </div>
         </div>
