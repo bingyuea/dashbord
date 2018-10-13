@@ -504,20 +504,37 @@ class XMD extends BaseView {
 
     const tableHeight = domHeight - 10 - 20 - 21 - 20
 
-    let self = this
-
-    $('.scrollTable .ant-table-body').on('scroll', function() {
-      let viewH = $(this).height(),
-        contentH = $(this)
-          .children()
-          .height(),
-        scrollTop = $(this).scrollTop(),
-        distance = 100
-
-      if (contentH - viewH - scrollTop <= distance) {
-        // self.fetchPageTwo(value)
+    let self = this;
+    setTimeout(function(){
+      const height = $('.ant-table-body').height();
+      const scrollHeight = $('.ant-table-tbody').height();
+      let animationStyle = {};
+      //认为有滚动条
+      if(scrollHeight > height){
+        const time = scrollHeight / 20 + 's';
+        animationStyle = {
+          animationDuration:time
+        }
+      }else{
+        animationStyle = {
+          animationDuration:'unset'
+        }
       }
-    })
+      $('.scrollTable .ant-table-tbody').css(animationStyle);
+    },100);
+
+    // $('.scrollTable .ant-table-body').on('scroll', function() {
+    //   let viewH = $(this).height(),
+    //     contentH = $(this)
+    //       .children()
+    //       .height(),
+    //     scrollTop = $(this).scrollTop(),
+    //     distance = 100
+
+    //   if (contentH - viewH - scrollTop <= distance) {
+    //     // self.fetchPageTwo(value)
+    //   }
+    // })
 
     const title = pageIdx == 0 ? '巡检仪档案信息' : '巡检仪上报事件'
 

@@ -156,14 +156,7 @@ class SecondaryLoop extends BaseView {
 
   // 异常事件总数查询
   fetchQueryExceptionCount(value) {
-    // token	校验字符串	String	是	用于校验	123sdf234
-    // province	省份	string	是		江苏
-    // city	城市	string	否		南京
-    // serialNum	巡检仪资产编号	string	否
-    // trade	行业类型	int	否		1
-    // exception	异常类型	int	否		1
-    // startTime	开始时间	string	是		2017-03-03 10:10:10
-    // endTime	结束时间	string	是		2017-03-05 10:10:10
+    
     let self = this
     queryExceptionCount.setParam({ ...value }, true)
     queryExceptionCount.excute(
@@ -179,14 +172,7 @@ class SecondaryLoop extends BaseView {
   }
   // 异常区域占比查询
   fetchQueryExceptionByArea(value) {
-    // token	校验字符串	String	是	用于校验	123sdf234
-    // province	省份	string	是		江苏
-    // city	城市	string	否		南京
-    // serialNum	巡检仪资产编号	string	否
-    // trade	行业类型	int	否		1
-    // exception	异常类型	int	否		1
-    // startTime	开始时间	string	是		2017-03-03 10:10:10
-    // endTime	结束时间	string	是		2017-03-05 10:10:10
+   
     let self = this
     queryExceptionByArea.setParam(
       {
@@ -208,14 +194,7 @@ class SecondaryLoop extends BaseView {
 
   // 异常事件数量变化趋势
   fetchQueryExceptionByTime(value) {
-    // token	校验字符串	String	是	用于校验	123sdf234
-    // province	省份	string	是		江苏
-    // city	城市	string	否		南京
-    // serialNum	巡检仪资产编号	string	否
-    // trade	行业类型	int	否		1
-    // exception	异常类型	int	否		1
-    // startTime	开始时间	string	是		2017-03-03 10:10:10
-    // endTime	结束时间	string	是		2017-03-05 10:10:10
+    
     let self = this
     queryExceptionByTime.setParam(
       {
@@ -237,14 +216,7 @@ class SecondaryLoop extends BaseView {
 
   // 行业分布信息查询
   fetchQueryExceptionByTrade(value) {
-    // token	校验字符串	String	是	用于校验	123sdf234
-    // province	省份	string	是		江苏
-    // city	城市	string	否		南京
-    // serialNum	巡检仪资产编号	string	否
-    // trade	行业类型	int	否		1
-    // exception	异常类型	int	否		1
-    // startTime	开始时间	string	是		2017-03-03 10:10:10
-    // endTime	结束时间	string	是		2017-03-05 10:10:10
+    
     let self = this
     queryExceptionByTrade.setParam(
       {
@@ -267,14 +239,7 @@ class SecondaryLoop extends BaseView {
 
   // 异常类型分布情况查询
   fetchQueryExceptionDetail(value) {
-    // token	校验字符串	String	是	用于校验	123sdf234
-    // province	省份	string	是		江苏
-    // city	城市	string	否		南京
-    // serialNum	巡检仪资产编号	string	否
-    // trade	行业类型	int	否		1
-    // exception	异常类型	int	否		1
-    // startTime	开始时间	string	是		2017-03-03 10:10:10
-    // endTime	结束时间	string	是		2017-03-05 10:10:10
+    
     let self = this
     queryExceptionDetail.setParam(
       {
@@ -296,15 +261,7 @@ class SecondaryLoop extends BaseView {
 
   // 异常信息表查询
   fetchQueryExceptionList(value) {
-    // token	校验字符串	String	是	用于校验	123sdf234
-    // province	省份	string	是		江苏
-    // city	城市	string	否		南京
-    // serialNum	巡检仪资产编号	string	否
-    // trade	行业类型	int	否		1
-    // exception	异常类型	int	否		1
-    // startTime	开始时间	string	是		2017-03-03 10:10:10
-    // endTime	结束时间	string	是		2017-03-05 10:10:10
-    // pageNo	页码	int	否		1
+    
     let self = this
     value.pageNo = 1
     queryExceptionList.setParam(
@@ -337,14 +294,7 @@ class SecondaryLoop extends BaseView {
   // 电流分析对比查询
   fetchQueryElecCurrentData(params) {
     const self = this
-    // 参数只能使用特定的参数，作为测试
-    // params = {}
-    // params = {
-    //   token: '234sdf234',
-    //   serialNum: '1430009000003609329616',
-    //   elecSerialNum: '1430001130021003140648',
-    //   occTime: '2018-06-20'
-    // }
+   
     queryElecCurrentData.setParam(
       {
         ...params
@@ -366,14 +316,7 @@ class SecondaryLoop extends BaseView {
   fetchQueryXMDEvent(params) {
     const self = this
     let data = JSON.parse(JSON.stringify(params))
-    // 模拟查询条件
-    // data = {}
-    // data = {
-    //   token: '234sdf234',
-    //   serialNum: '1430009000003708559235',
-    //   elecSerialNum: '1440701012212030319317',
-    //   occTime: '2018-07-30'
-    // }
+    
     queryXMDEvent.setParam(
       {
         ...data
@@ -395,14 +338,7 @@ class SecondaryLoop extends BaseView {
   fetchQueryElecEvent(params) {
     const self = this
     let data = JSON.parse(JSON.stringify(params))
-    // 模拟查询条件
-    data = {}
-    // data = {
-    //   token: '234sdf234',
-    //   serialNum: '1440701012212030328050',
-    //   elecSerialNum: '1440701012212030328050',
-    //   occTime: '2018-07-30'
-    // }
+    
     queryElecEvent.setParam(
       {
         ...data
@@ -423,21 +359,7 @@ class SecondaryLoop extends BaseView {
   // 电量数据查询
   fetchQueryElecData(params) {
     const self = this
-    // 这里是点击当前行的的数据
-    // 参数	参数名称	类型	必填	描述	范例
-    // token	校验字符串	String	是	用于校验	123sdf234
-    // serialNum	巡检仪资产编号	string	是
-    // elecSerialNum	电能表资产编号	string	是		1
-    // occTime	异常发生时间	string	是
-    // pageOne.exceptionList = resData 列表第一条数据
-    // 模拟查询条件
-    // params = {}
-    // params = {
-    //   token: '234sdf234',
-    //   serialNum: '1430009000003609335198',
-    //   elecSerialNum: '1410101012212120538038',
-    //   occTime: '2018-05-30'
-    // }
+    
     queryElecData.setParam(
       {
         ...params
@@ -726,7 +648,6 @@ class SecondaryLoop extends BaseView {
                     <span className="arrow last">&gt;&gt;</span>
                     <div className="blue-line" />
                   </div>
-                  {/* <div className="content_title">异常事件行业分布信息</div> */}
                   <div className="event-table">
                     <Doubleaxes {...tradeListCharts} />
                   </div>
@@ -740,7 +661,6 @@ class SecondaryLoop extends BaseView {
                     <span className="arrow last">&gt;&gt;</span>
                     <div className="blue-line" />
                   </div>
-                  {/* <div className="content_title">异常事件类型信息</div> */}
                   <div className="event-table">
                     <Basicbar {...exceptionListCharts} />
                   </div>
@@ -768,7 +688,7 @@ class SecondaryLoop extends BaseView {
       )
     // 展开数组 ，转化为图表数据
     let data = [], tempObj = {};
-    tempArr[0].pointList.map((item, idx) => {
+    ((tempArr[0] || {}).pointList || []).map((item, idx) => {
       tempObj = {};
       tempObj.time = timeArr[idx];
       tempObj['巡检仪'] = item;
@@ -946,22 +866,6 @@ class SecondaryLoop extends BaseView {
       item['正向有功总'] = item.activePower;
       item['正向无功总'] = item.reactivePower;
       elecDayDataCharts.push(item)
-
-      // for (let k in item) {
-      //   let obj = {}
-      //   if (k === 'activePower') {
-      //     obj.type = '正向有功总'
-      //     obj.x = item.time
-      //     obj.y = item.activePower
-      //   } else if (k === 'reactivePower') {
-      //     obj.type = '正向无功总'
-      //     obj.x = item.time
-      //     obj.y = item.reactivePower
-      //   }
-      //   if (obj && obj.type) {
-      //     elecDayDataCharts.push(obj)
-      //   }
-      // }
     })
     chartsEleChange = {
       data: elecDayDataCharts,
@@ -1046,7 +950,7 @@ class SecondaryLoop extends BaseView {
                         <div className="blue_underline" />
                       </div>
                       <ul>
-                        <div className="scroll-content">
+                        <div className={xmdEventData.length > 0?"scroll-content":'scroll-content unscroll'}>
                           {Array.isArray(xmdEventData) &&
                             xmdEventData.length > 0 ? (
                               xmdEventData.map((item, index) => {
@@ -1086,7 +990,7 @@ class SecondaryLoop extends BaseView {
                         <div className="blue_underline" />
                       </div>
                       <ul>
-                        <div className="scroll-content">
+                        <div className={eleEventData.length > 0?"scroll-content":'scroll-content unscroll'}>
                           {Array.isArray(eleEventData) &&
                             eleEventData.length > 0 ? (
                               eleEventData.map((item, index) => {
@@ -1257,28 +1161,46 @@ class SecondaryLoop extends BaseView {
       })
 
     let tableHeight = $('#tableHeight').height() - 60 // table表格的高度
-    let self = this
+    let self = this;
 
-    $('.scrollTable .ant-table-body').on('scroll', function () {
-      let viewH = $(this).height(),
-        contentH = $(this)
-          .children()
-          .height(),
-        scrollTop = $(this).scrollTop(),
-        distance = 100
+    setTimeout(function(){
+      const height = $('.ant-table-body').height();
+      const scrollHeight = $('.ant-table-tbody').height();
+      let animationStyle = {};
+      //认为有滚动条
+      if(scrollHeight > height){
+        const time = scrollHeight / 20 + 's';
+        animationStyle = {
+          animationDuration:time
+        }
+      }else{
+        animationStyle = {
+          animationDuration:'unset'
+        }
+      }
+      $('.scrollTable .ant-table-tbody').css(animationStyle);
+    },100);
 
-      // console.log('viewH' + viewH)
-      // console.log('contentH' + contentH)
-      // console.log('scrollTop' + scrollTop)
+    // $('.scrollTable .ant-table-body').on('scroll', function () {
+    //   let viewH = $(this).height(),
+    //     contentH = $(this)
+    //       .children()
+    //       .height(),
+    //     scrollTop = $(this).scrollTop(),
+    //     distance = 100
 
-      // if (contentH - viewH - scrollTop <= distance) {
-      //   //到达底部100px时,加载新内容
-      //   // 这里加载数据..
-      //   console.log('加载数据')
-      //   console.log(dataList)
-      //   self.fetchPageTwo(value)
-      // }
-    })
+    //   // console.log('viewH' + viewH)
+    //   // console.log('contentH' + contentH)
+    //   // console.log('scrollTop' + scrollTop)
+
+    //   // if (contentH - viewH - scrollTop <= distance) {
+    //   //   //到达底部100px时,加载新内容
+    //   //   // 这里加载数据..
+    //   //   console.log('加载数据')
+    //   //   console.log(dataList)
+    //   //   self.fetchPageTwo(value)
+    //   // }
+    // })
 
     //
 
