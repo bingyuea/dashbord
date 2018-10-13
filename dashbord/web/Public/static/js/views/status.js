@@ -42,7 +42,6 @@ class Status extends BaseView {
     this.state = {
       pageStatus: 'init',
       pageIdx: 0,
-      date: moment().format('YYYY-MM')
     }
   }
   componentDidMount() {
@@ -58,7 +57,7 @@ class Status extends BaseView {
   // 排行榜
   fetchGetTopTenOfSecondLoopExceptionTop(value) {
     let self = this
-    getTopTenOfSecondLoopExceptionTop.setParam({ ...value })
+    getTopTenOfSecondLoopExceptionTop.setParam({ ...value },true)
     getTopTenOfSecondLoopExceptionTop.excute(
       res => {
         let rangeList = res || {}
@@ -73,7 +72,7 @@ class Status extends BaseView {
   // 平均分
   fetchGetTopTenOfSecondLoopException(value) {
     let self = this
-    getTopTenOfSecondLoopException.setParam({ ...value })
+    getTopTenOfSecondLoopException.setParam({ ...value },true)
     getTopTenOfSecondLoopException.excute(
       res => {
         let averageList = res || {}
@@ -88,7 +87,7 @@ class Status extends BaseView {
   fetchQuerySecondLoopExceptionDetailData(value) {
     const self = this
    
-    querySecondLoopExceptionDetailData.setParam(value)
+    querySecondLoopExceptionDetailData.setParam(value,true)
     querySecondLoopExceptionDetailData.excute(
       res => {
         const resData = res || {}
@@ -139,7 +138,7 @@ class Status extends BaseView {
     if (name === '中国') {
       name = ''
     }
-    let { date } = this.state.date
+    let date  = this.state.date;
     this.setState({
       province: name,
       averageList: null,
@@ -167,7 +166,7 @@ class Status extends BaseView {
       },
       () => {
         if (!flag) {
-          let { date } = this.state.date
+          let { date } = this.state;
           this.fetchGetTopTenOfSecondLoopExceptionTop({
             province: name === '中国' ? '' : name,
             date
@@ -202,6 +201,11 @@ class Status extends BaseView {
         userValue: ''
       }
     })
+    console.log(this.state.province)
+
+    if(this.state.province && this.state.province !=='中国'){
+      mapData = [];
+    }
 
     //需要格式地图数据
 
@@ -238,11 +242,16 @@ class Status extends BaseView {
     })
   }
   searchHandle() {
-    let { date, province } = this.state || {}
-    this.fetchGetTopTenOfSecondLoopExceptionTop({
-      province,
-      date
+    let { date } = this.state || {};
+    this.setState({
+      province:null
+    },()=>{
+      this.fetchGetTopTenOfSecondLoopExceptionTop({
+        date
+      }) 
     })
+
+    
   }
 
   renderPageOne() {

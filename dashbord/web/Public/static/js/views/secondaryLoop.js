@@ -906,7 +906,6 @@ class SecondaryLoop extends BaseView {
       <div className="SecondaryLoopRight content" style={{ height: domHeight }}>
         <div className="SecondaryLoopRight_left">
           <div className="content_box">
-            {/* <div className="content_title">电流对比分析</div> */}
             <div className="small-title">
               <span className="arrow">&gt;&gt;</span>
               <div className="title">电流对比分析</div>
@@ -935,7 +934,6 @@ class SecondaryLoop extends BaseView {
             <div className="event_bottom">
               <div className="event_bottom_left">
                 <div className="content_box" style={{ paddingRight: '10px' }}>
-                  {/* <div className="content_title">事件信息</div> */}
                   <div className="small-title">
                     <span className="arrow">&gt;&gt;</span>
                     <div className="title">事件信息</div>
@@ -1028,7 +1026,6 @@ class SecondaryLoop extends BaseView {
               </div>
               <div className="event_bottom_center ">
                 <div className="content_box chartsEleChangeHeight">
-                  {/* <div className="content_title">电量变化</div> */}
                   <div className="small-title">
                     <span className="arrow">&gt;&gt;</span>
                     <div className="title">电量变化</div>
@@ -1042,7 +1039,6 @@ class SecondaryLoop extends BaseView {
               </div>
               <div className="event_bottom_right">
                 <div className="content_box">
-                  {/* <div className="content_title">判定条件</div> */}
                   <div className="small-title">
                     <span className="arrow">&gt;&gt;</span>
                     <div className="title">判定条件</div>
@@ -1050,15 +1046,6 @@ class SecondaryLoop extends BaseView {
                     <div className="blue-line" />
                   </div>
                   <div className="event-table event-table-info">
-                    {/*<p className="info">
-                      1.点击二次回路异常事件，则显示该事件相关电流、电量、事件信息
-                    </p>
-                    <p className="">
-                      2.“查询日期”为下拉栏，其中起始时间和结束时间下拉栏提供时间表
-                    </p>
-                    <p className="">
-                      3.“安装地点”中“省份”和“城市”是下拉栏，若只提供省份，则提供整个省份的信息；若提供城市，则提供该市的信息
-                    </p>*/}
                     <div className="empty-data">暂无数据</div>
                   </div>
                 </div>
@@ -1229,8 +1216,10 @@ class SecondaryLoop extends BaseView {
 
                   self.setState({
                     pageTwo
+                  },()=>{
+                    self.fetchrowCLick(record)  
                   })
-                  self.fetchrowCLick(record)
+                  
                 }
               }
             }}
