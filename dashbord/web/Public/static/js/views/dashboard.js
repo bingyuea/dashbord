@@ -388,7 +388,11 @@ class Dashboard extends BaseView {
       cols: {
         count: {
           alias: '数量',
-          tickCount: 5
+          tickCount: 3
+        },
+        year:{
+          tickCount:3,
+          alias:'年份'
         }
       },
       style: {
@@ -416,7 +420,7 @@ class Dashboard extends BaseView {
       height: chartHeight,
       forceFit: true,
       padding: 'auto',
-      radius: 1,
+      radius: .8,
       hideLabel: true,
       field: 'count',
       dimension: 'name',
@@ -436,7 +440,7 @@ class Dashboard extends BaseView {
       height: chartHeight,
       forceFit: true,
       padding: 'auto',
-      radius: 1,
+      radius: .8,
       hideLabel: true,
       field: 'count',
       dimension: 'rate',
@@ -596,12 +600,13 @@ class Dashboard extends BaseView {
       // data: eventCountData ? Mock.charts6 : '',
       height: labelHeight,
       innerRadius: 0.7,
-      legend: {
-        position: 'bottom-center',
-        textStyle: {
-          fontSize: 10
-        }
-      },
+      // legend: {
+      //   position: 'bottom-center',
+      //   textStyle: {
+      //     fontSize: 10
+      //   }
+      // },
+      legend:false,
       radius: 0.9,
       forceFit: true,
       hideLabel: true,
@@ -626,12 +631,13 @@ class Dashboard extends BaseView {
       forceFit: true,
       padding: 'auto',
       hideLabel: true,
-      legend: {
-        position: 'bottom-center',
-        textStyle: {
-          fontSize: 10
-        }
-      },
+      // legend: {
+      //   position: 'bottom-center',
+      //   textStyle: {
+      //     fontSize: 10
+      //   }
+      // },
+      legend:false,
       field: 'count',
       dimension: 'eventName',
       cols: {

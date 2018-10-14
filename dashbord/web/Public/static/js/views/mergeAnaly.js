@@ -531,8 +531,6 @@ class MergeAnaly extends BaseView {
   }
 
   renderPageTwoContent() {
-    // 正式数据
-    // debugger
     let {
       totalCount, // 二次回路异常事件统计
       periodList, //异常事件数量变化趋势
@@ -544,11 +542,6 @@ class MergeAnaly extends BaseView {
     let themeHeight = $('.themeHeight').height() - 20 // 异常主题评估 高度
 
     let _this = this
-    if (!themeHeight) {
-      let time = setTimeout(function() {
-        // _this.forceUpdate()
-      }, 0)
-    }
 
     let fieldsList = []
     if (periodListLine && periodListLine.length > 0) {
@@ -668,28 +661,21 @@ class MergeAnaly extends BaseView {
         <div className="SecondaryanalyRight_left">
           <div className="content_box">
             <div className="loop_top">
-              <div className="loop_top_box">
                 <div className="small-title">
                   <span className="arrow">&gt;&gt;</span>
                   <div className="title">二次回路异常事件统计</div>
                   <span className="arrow last">&gt;&gt;</span>
                   <div className="blue-line" />
                 </div>
-                <span className="blue_underline" />
-                <div
-                  className="loop_content loop_number"
-                  style={{
-                    height: loop_bottom - 80,
-                    lineHeight: `${loop_bottom - 80}px`
-                  }}
-                >
-                  {String(totalCount || 0).replace(
-                    /(\d)(?=(?:\d{3})+$)/g,
-                    '$1,'
-                  )}
-                  <span className="text-white">&nbsp;件</span>
+                <div className="loop_content loop_number">
+                  <div className='text'>
+                    {String(totalCount || 0).replace(
+                      /(\d)(?=(?:\d{3})+$)/g,
+                      '$1,'
+                    )}
+                    <span className="text-white">&nbsp;件</span>
+                  </div>
                 </div>
-              </div>
             </div>
             <div className="loop_bottom">
               <div className="small-title">

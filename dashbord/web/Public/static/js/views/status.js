@@ -62,7 +62,20 @@ class Status extends BaseView {
       res => {
         let rangeList = res || {}
         self.setState({
-          rangeList
+          rangeList,
+          detailData:null
+        },()=>{
+          //默认取第一行数据
+          const dataList = self.state.rangeList.dataList || [];
+          const firstRowData  = dataList[0] || {};
+          const serialNum =firstRowData.serialNum;
+          const elecSerialNum =firstRowData.elecSerialNum;
+          let date = self.state.date || moment().format('YYYY-MM');
+          self.fetchQuerySecondLoopExceptionDetailData({
+            serialNum,
+            elecSerialNum,
+            date
+          });
         })
       },
       err => {}
@@ -86,47 +99,48 @@ class Status extends BaseView {
 
   fetchQuerySecondLoopExceptionDetailData(value) {
     const self = this
-   
-    querySecondLoopExceptionDetailData.setParam(value,true)
-    querySecondLoopExceptionDetailData.excute(
-      res => {
-        const resData = res || {}
-        self.setState({
-          detailData: resData
-        })
-      },
-      err => {}
-    )
+    if(value.serialNum && value.elecSerialNum){
+      querySecondLoopExceptionDetailData.setParam(value,true)
+      querySecondLoopExceptionDetailData.excute(
+        res => {
+          const resData = res || {}
+          self.setState({
+            detailData: resData
+          })
+        },
+        err => {}
+      )  
+    }
   }
   //切换轮播的回调,idx:当前轮播的页面idx
   afterSlickChange(idx) {
     this.setState({
       pageIdx: idx,
       // 是每次切换更新值
-      averageClick: undefined
+      averageClick: null
     })
     //pagetwo
 
-    if (idx === 1) {
-      let serialNum, elecSerialNum
-      if (this.state.pageTwoParam) {
-        serialNum = this.state.pageTwoParam.serialNum
-        elecSerialNum = this.state.pageTwoParam.elecSerialNum
-      } else {
-        serialNum =
-          this.state.rangeList.dataList &&
-          this.state.rangeList.dataList[0].serialNum
-        elecSerialNum =
-          this.state.rangeList.dataList &&
-          this.state.rangeList.dataList[0].elecSerialNum
-      }
-      let date = this.state.date || moment().format('YYYY-MM')
-      this.fetchQuerySecondLoopExceptionDetailData({
-        serialNum,
-        elecSerialNum,
-        date
-      })
-    }
+    // if (idx === 1) {
+    //   let serialNum, elecSerialNum
+    //   if (this.state.pageTwoParam) {
+    //     serialNum = this.state.pageTwoParam.serialNum
+    //     elecSerialNum = this.state.pageTwoParam.elecSerialNum
+    //   } else {
+    //     serialNum =
+    //       this.state.rangeList.dataList &&
+    //       this.state.rangeList.dataList[0].serialNum
+    //     elecSerialNum =
+    //       this.state.rangeList.dataList &&
+    //       this.state.rangeList.dataList[0].elecSerialNum
+    //   }
+    //   let date = this.state.date || moment().format('YYYY-MM')
+    //   this.fetchQuerySecondLoopExceptionDetailData({
+    //     serialNum,
+    //     elecSerialNum,
+    //     date
+    //   })
+    // }
   }
 
   //切换轮播
@@ -144,7 +158,6 @@ class Status extends BaseView {
       averageList: null,
       rangeList: null
     })
-
     this.fetchGetTopTenOfSecondLoopExceptionTop({
       province: name,
       date
@@ -201,7 +214,6 @@ class Status extends BaseView {
         userValue: ''
       }
     })
-    console.log(this.state.province)
 
     if(this.state.province && this.state.province !=='中国'){
       mapData = [];
@@ -243,12 +255,20 @@ class Status extends BaseView {
   }
   searchHandle() {
     let { date } = this.state || {};
+
     this.setState({
-      province:null
+      province:null,
+      averageClick:null,
+      averageList:null
+
     },()=>{
+      
       this.fetchGetTopTenOfSecondLoopExceptionTop({
         date
       }) 
+      this.fetchGetTopTenOfSecondLoopException({
+        date
+      })
     })
 
     
@@ -261,6 +281,25 @@ class Status extends BaseView {
     rangeList = (rangeList && rangeList.dataList) || []
     const bottomHeight = $('#status2RightBottom').height()
     const monthChartsHeight = $('.chartsBox').height() / 2
+
+    setTimeout(function(){
+      const height = $('.page-one-left-bottom').height();
+      const scrollHeight = $('.page-one-left-bottom .scroll-body').height();
+      let animationStyle = {};
+      //认为有滚动条
+      if(scrollHeight > height){
+        const time = scrollHeight / 20 + 's';
+        animationStyle = {
+          animationDuration:time
+        }
+      }else{
+        animationStyle = {
+          animationDuration:'unset'
+        }
+      }
+      $('.page-one-left-bottom .scroll-body').css(animationStyle);
+    },100);
+
 
     const monthFormat = 'YYYY-MM'
     const self = this
@@ -294,36 +333,28 @@ class Status extends BaseView {
               <h6 className="h6 flex text-c">评估值</h6>
             </div>
           </div>
-          <div className="tabel pd-30">
-            {Array.isArray(rangeList) && rangeList.length > 0 ? (
-              rangeList.map((item, index) => {
-                return (
-                  <div
-                    className={
-                      rangeList && rangeList.length > 10
-                        ? ['scroll-body']
-                        : ['']
-                    }
-                    key={index}
-                  >
-                    <div
-                      className={
-                        (index + 1) % 2 === 0
-                          ? ['row2 flex-layout ']
-                          : ['row3 flex-layout ']
-                      }
-                      key={index}
-                      onClick={self.goPageTwo.bind(self, item)}
-                    >
-                      <div className="flex text-l">{item.user}</div>
-                      <div className="flex ">{item.assessedValue}</div>
-                    </div>
-                  </div>
-                )
-              })
-            ) : (
-              <div className="empty-data">暂无数据</div>
-            )}
+          <div className="tabel pd-30 page-one-left-bottom">
+            {rangeList.length > 0?<div className='scroll-body'>
+              {
+                rangeList.map((item, index) => {
+                  return (
+                      <div
+                        className={
+                          (index + 1) % 2 === 0
+                            ? ['row2 flex-layout ']
+                            : ['row3 flex-layout ']
+                        }
+                        key={index}
+                        onClick={self.goPageTwo.bind(self, item)}
+                      >
+                        <div className="flex text-l">{item.user}</div>
+                        <div className="flex ">{item.assessedValue}</div>
+                      </div>
+                  )
+                })
+              } 
+            </div> : <div className='empty-data'>暂无数据</div>
+           }
           </div>
         </div>
         {this.renderPageOneCenter()}
@@ -345,6 +376,7 @@ class Status extends BaseView {
     })
   }
   renderRightCommon() {
+
     let { averageList, averageClick, pageIdx, detailData } = this.state || {}
     let averageDataList, average, averageTrend, monthChain, monthChainTrend
     // page-9
@@ -359,21 +391,6 @@ class Status extends BaseView {
       monthChain = ranking || 0
       monthChainTrend = rankingTrend || 0
     } else {
-      // averageList = {
-      //   result: 1,
-      //   average: 88.65,
-      //   monthChain: 0.01,
-      //   dataList: [
-      //     {
-      //       date: '2018-01',
-      //       average: 85.66
-      //     },
-      //     {
-      //       date: '2018-02',
-      //       average: 85.66
-      //     }
-      //   ]
-      // }
       averageList = averageList && averageList.dataList
 
       // 平均分
@@ -388,26 +405,25 @@ class Status extends BaseView {
     let averageChartsData = [
       {
         name: '以往',
-        count: 100 - average
+        count: Math.round(100 - average)
       },
       {
         name: '当月',
-        count: average
+        count: Math.round(average)
       }
     ]
     let monthChartsData = [
       {
         name: '上月',
-        count: 100 - monthChain
+        count: Math.round(100 - monthChain)
       },
       {
         name: '当月',
-        count: monthChain
+        count: Math.round(monthChain)
       }
     ]
     const bottomHeight = $('#status2RightBottom').height()
     const monthChartsHeight = $('.chartsBox').height() / 2
-    console.log(averageDataList)
     //状态变化
     const chartsData = {
       data: averageDataList,
@@ -419,8 +435,9 @@ class Status extends BaseView {
       hideTooltip: true,
       plotClickCb: this.plotClickCb.bind(this),
       cols: {
-        sales: {
-          alias: 'date'
+        date: {
+          alias: '日期',
+          tickCount:'3'
         }
       },
       style: {
@@ -444,24 +461,21 @@ class Status extends BaseView {
 
     // 平均得分
     const averageCharts = {
-      // data: average,
       data: averageChartsData,
-      // data: Mock.charts3,
       height: monthChartsHeight,
       hideLabel: true,
-      innerText: average + '分',
+      innerText: Number(average).toFixed(0) + '分',
       innerRadius: 0.7,
       radius: 0.9,
       forceFit: true,
       padding: 'auto',
       hideTooltip: true,
       field: 'count',
-      // dimension: 'eventName',
       dimension: 'name',
       cols: {
         percent: {
           formatter: val => {
-            val = (val * 100).toFixed(0) + '%'
+            val = val.toFixed(0) + '%'
             return val
           }
         }
@@ -470,11 +484,9 @@ class Status extends BaseView {
 
     // 月环比
     const monthCharts = {
-      // data: Mock.charts3,
-      // data: monthChain,
       data: monthChartsData,
       height: monthChartsHeight,
-      innerText: monthChain.toString(),
+      innerText: monthChain.toFixed(2).toString(),
       innerRadius: 0.7,
       hideLabel: true,
       hideTooltip: true,
@@ -482,12 +494,11 @@ class Status extends BaseView {
       forceFit: true,
       padding: 'auto',
       field: 'count',
-      // dimension: 'eventName',
       dimension: 'name',
       cols: {
         percent: {
           formatter: val => {
-            val = (val * 100).toFixed(0) + '%'
+            val = val.toFixed(0) + '%'
             return val
           }
         }
@@ -510,7 +521,6 @@ class Status extends BaseView {
 
             <div className="chartsBox">
               <div className="chartsTop">
-                {/* <div className="itemLeft">平均得分</div> */}
                 <div className="itemLeft">
                   {this.state.pageIdx == 0 ? '平均评分' : '评分'}
                 </div>
@@ -518,7 +528,6 @@ class Status extends BaseView {
                   <div className="charts">
                     <Labelline {...averageCharts} />
                   </div>
-                  {/* {average} */}
                 </div>
                 <div className="itemRight">
                   <div
@@ -529,19 +538,17 @@ class Status extends BaseView {
                     }
                   />
                   <span className="monthRange">
-                    {(Number(averageTrend) * 100).toFixed(1) + '%'}
+                    {(Number(averageTrend)).toFixed(2) + '%'}
                   </span>
                 </div>
               </div>
               <div className="chartsBotttom">
-                {/* <div className="itemLeft">月环比</div> */}
                 <div className="itemLeft">
                   {this.state.pageIdx == 0 ? '月环比' : '排名'}
                 </div>
                 <div className="itemCenter">
                   <div className="charts">
                     <Labelline {...monthCharts} />
-                    {/* {monthChain} */}
                   </div>
                 </div>
                 <div className="itemRight">
@@ -553,7 +560,7 @@ class Status extends BaseView {
                     }
                   />
                   <span className="monthRange">
-                    {(Number(monthChainTrend) * 100).toFixed(1) + '%'}
+                    {(Number(monthChainTrend)).toFixed(2) + '%'}
                   </span>
                 </div>
               </div>
@@ -574,12 +581,7 @@ class Status extends BaseView {
       </div>
     )
   }
-  mapcb(name, option, instance) {
-    // console.log(name)
-    // console.log(option)
-    // console.log(instance)
-    // this.fetchGetTopTenOfSecondLoopException({ province: name })
-  }
+  
   renderPageTwoCenter() {
     const detailData = this.state.detailData || {}
     const info = detailData.dataList || {}
@@ -596,7 +598,7 @@ class Status extends BaseView {
           <ChinaMapEcharts
             mapData={mapData}
             domId={'pageTwoMap'}
-            provinceName={this.state.province || '中国'}
+            provinceName={'中国'}
             hideMapName={true}
             goDown={false}
           />
@@ -605,18 +607,34 @@ class Status extends BaseView {
     )
   }
 
-  plotClickCb(data) {
-    console.log(data)
-    //TODO
-  }
-
   renderPageTwo() {
-    let detailData = this.state.detailData || {}
-    if (!detailData) {
-      return <div />
+    
+    let domHeight = $('.page-main').height();
+    
+    if(!this.state.detailData){
+      return (
+        <div className="status-main status-2" style={{ height: domHeight }}>
+          <div className="page-left ">
+            <div className="title-content">
+              <h3>二次回路信息</h3>
+            </div>
+            <div className='empty-data'>暂无数据</div>
+          </div>
+          {this.renderPageTwoCenter()}
+          <div className="page-right ">
+            <div className="title-content">
+              <h3>区域回路二次状态评估</h3>
+            </div>
+            <div className='empty-data'>暂无数据</div>
+          </div>
+        </div>
+      )
     }
-    detailData = detailData && detailData.dataList
-    const {
+
+    let detailData = this.state.detailData || {};
+    
+    detailData = detailData.dataList
+    let {
       eventList,
       username,
       province,
@@ -632,6 +650,8 @@ class Status extends BaseView {
       rankingTrend,
       gradeList
     } = detailData || {}
+
+    eventList = eventList || [];
 
     const bottomHeight = $('#status2RightBottom').height()
 
@@ -678,16 +698,17 @@ class Status extends BaseView {
       $('.even-details .scroll-body').css(animationStyle);
     },100);
 
-    let domHeight = $('.page-main').height()
+    
     return (
       <div className="status-main status-2" style={{ height: domHeight }}>
         <div className="page-left ">
+
           <div className="title-content">
             <h3>二次回路信息</h3>
           </div>
           <div className="small-title label">
             <span className="arrow">&gt;&gt;</span>
-            <div className="title">查询日期</div>
+            <div className="title">用户信息</div>
             <span className="arrow last">&gt;&gt;</span>
             <div className="blue-line" />
           </div>
@@ -757,18 +778,12 @@ class Status extends BaseView {
               <div className="blue-line" />
             </div>
             <div className="even-details">
-              <div className='scroll-body'>
-                {Array.isArray(eventList) && eventList.length > 0 ? (
-                  eventList.map((item, index) => {
-                    return (
-                      <div
-                        className={
-                          eventList && eventList.length > 2
-                            ? ['scroll-body']
-                            : ['']
-                        }
-                        key={index}
-                      >
+              {
+                eventList.length > 0?
+                <div className='scroll-body'>
+                  {
+                    eventList.map((item, index) => {
+                      return (
                         <div
                           className={
                             (index + 1) % 2 === 0
@@ -780,13 +795,13 @@ class Status extends BaseView {
                           <div className="flex">{item.eventName}</div>
                           <div className="flex">{item.date}</div>
                         </div>
-                      </div>
-                    )
-                  })
-                ) : (
-                  <div className="empty-data">暂无数据</div>
-                )}
-              </div>
+                      )
+                    })
+                  }
+                </div>:
+                <div className='empty-data'>暂无数据</div>
+              }
+              
               
             </div>
           </div>

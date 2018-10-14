@@ -93,10 +93,10 @@ class XMD extends BaseView {
         },
         {
           title: '异常类型',
-          dataIndex: 'exception',
+          dataIndex: 'exceptionName',
           width: '14.8%',
           align: 'center',
-          key: 'exception'
+          key: 'exceptionName'
         },
         {
           title: '异常日期',
@@ -480,7 +480,7 @@ class XMD extends BaseView {
   }
 
   renderTable(pageIdx, table) {
-    const { pageOneTableCloumn, pageTwoTableCloumn } = this.indata
+    const { pageOneTableCloumn, pageTwoTableCloumn } = this.indata;
 
     const columns = pageIdx == 0 ? pageOneTableCloumn : pageTwoTableCloumn
 
@@ -914,6 +914,9 @@ class XMD extends BaseView {
       cols: {
         periodCount: {
           alias: '发生数量'
+        },
+        period:{
+          tickCount:3
         }
       },
       xLabel: {
