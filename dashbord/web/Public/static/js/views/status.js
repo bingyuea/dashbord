@@ -238,14 +238,18 @@ class Status extends BaseView {
   }
 
   goPageTwo(value) {
-    this.setState(
-      {
-        pageTwoParam: value
-      },
-      () => {
-        this.slickBtn(1)
-      }
-    )
+    this.setState({
+      detailData:null
+    },()=>{
+      const date = this.state.date || moment().format('YYYY-MM');
+      this.fetchQuerySecondLoopExceptionDetailData({
+        serialNum:value.serialNum,
+        elecSerialNum:value.elecSerialNum,
+        date:date
+      });
+      this.slickBtn(1);
+    })
+    
   }
 
   onChange(date, dateString) {
@@ -483,10 +487,11 @@ class Status extends BaseView {
     }
 
     // 月环比
+    const innerText = pageIdx == 0 ?monthChain.toFixed(2).toString():monthChain.toFixed(0).toString();
     const monthCharts = {
       data: monthChartsData,
       height: monthChartsHeight,
-      innerText: monthChain.toFixed(2).toString(),
+      innerText: innerText,
       innerRadius: 0.7,
       hideLabel: true,
       hideTooltip: true,
